@@ -9,8 +9,8 @@ number:
 date:
 consensus: true
 v: 3
-area: AREA
-workgroup: "TVR"
+area: "Routing"
+workgroup: "Time-Variant Routing"
 keyword:
  - schedule
  - YANG module
