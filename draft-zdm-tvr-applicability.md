@@ -91,7 +91,7 @@ network traffic. The following clauses will describe how to use TVR YANG model{{
 ## Network Model
 
 According to the description of {{Section 3.1 of ?I-D.ietf-tvr-requirements}}, the scheduling generation locality
-and execution locality may be centralized or distributed. 
+and execution locality may be centralized or distributed.
 
 When the schedule is generated and executed in a centralized manner, the changes are sent to routing applications
 in wall-clock time via a management interface, which does not need to be delivered by YANG model. This can be
