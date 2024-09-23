@@ -83,14 +83,14 @@ throughput all the time, a lot of power will be wasted. The energy-saving method
 of some or all components of network nodes. These activities have the potential to alter network topology and
 impact data routing/forwarding in a variety of ways. Interfaces on network nodes can be selectively disabled
 or enabled based on traffic patterns, thereby reducing the energy consumption of nodes during periods of low
-network traffic. The following clauses will describe how to use TVR YANG model{{?I-D.ietf-tvr- schedule-yang}} in Tidal Network.
+network traffic. The following clauses will describe how to use TVR YANG model{{?I-D.ietf-tvr-schedule-yang}} in Tidal Network.
 
 
 # Applicability of TVR Yang Model in Tidal Network
 
 ## Network Model
 
-According to the description of {{Section3.1 of ?I-D.ietf-tvr-requirements}}, the scheduling generation locality
+According to the description of {{Section 3.1 of ?I-D.ietf-tvr-requirements}}, the scheduling generation locality
 and execution locality may be centralized or distributed. 
 
 When the schedule is generated and executed in a centralized manner, the changes are sent to routing applications
@@ -154,7 +154,7 @@ module {{Section 5.2 of ?I-D.ietf-tvr-schedule-yang}}, and the network devices n
 data to the management device.
 
 The managing device needs to deliver schedules of the network topology to the network controller by the TVR Network
-Topology YANG module{{Section 5.3 of ?I-D.ietf-tvr- schedule-yang}}, so that the routing application in the controller
+Topology YANG module{{Section 5.3 of ?I-D.ietf-tvr-schedule-yang}}, so that the routing application in the controller
 can consider the impact of topology changes on routes when calculating routes.
 
 The network controller needs to delivers the route calculation result to the network devices(The format of the routing
