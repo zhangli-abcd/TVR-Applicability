@@ -1,0 +1,357 @@
+
+
+
+
+Time-Variant Routing                                            L. Zhang
+Internet-Draft                                                   J. Dong
+Intended status: Informational                                    Huawei
+Expires: 27 March 2025                                      M. Boucadair
+                                                                  Orange
+                                                       23 September 2024
+
+
+    Applicability of TVR YANG Data Models for Scheduling of Network
+                               Resources
+                   draft-zdm-tvr-applicability-latest
+
+Abstract
+
+   TODO Abstract
+
+Discussion Venues
+
+   This note is to be removed before publishing as an RFC.
+
+   Discussion of this document takes place on the Time-Variant Routing
+   Working Group mailing list (tvr@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/tvr/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/zhangli-abcd/TVR-Applicability-2.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 27 March 2025.
+
+Copyright Notice
+
+   Copyright (c) 2024 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Conventions and Definitions
+   3.  Overview of Tidal Network Use Case
+   4.  Applicability of TVR Yang Model in Tidal Network
+     4.1.  Network Model
+       4.1.1.  Centralized Model
+       4.1.2.  Distributed Model
+     4.2.  Interaction Between Devices
+       4.2.1.  Centralized Model
+       4.2.2.  Distributed Model
+     4.3.  Yang Model for Tidal Network
+     4.4.  Encoding of Yang Model
+     4.5.  NetConf Example
+     4.6.  RESTConf Example
+   5.  Time Synchronization
+     5.1.  NTP Example
+     5.2.  SNTP Example
+   6.  Schedule Database
+     6.1.  Data Structure
+     6.2.  Operations
+   7.  Operational Considerations
+   8.  Security Considerations
+   9.  IANA Considerations
+   10. References
+     10.1.  Normative References
+     10.2.  Informative References
+   Acknowledgments
+   Contributors
+   Authors' Addresses
+
+1.  Introduction
+
+   TODO Introduction
+
+2.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+3.  Overview of Tidal Network Use Case
+
+   Tidal network is a typical scenario of Energy Efficient case
+   (Section 3 of [I-D.ietf-tvr-use-cases]).  The tidal network means
+   that the volume of traffic in the network changes periodically like
+   the ocean tide.  These changes are mainly affected by human
+   activities.  Therefore, this tidal effect is obvious in human-
+   populated areas, such as campuses and airports.
+
+   In the context of a tidal network, if the network maintains all the
+   devices up to guarantee a maximum throughput all the time, a lot of
+   power will be wasted.  The energy-saving methods may include the
+   deactivation of some or all components of network nodes.  These
+   activities have the potential to alter network topology and impact
+   data routing/forwarding in a variety of ways.  Interfaces on network
+   nodes can be selectively disabled or enabled based on traffic
+   patterns, thereby reducing the energy consumption of nodes during
+   periods of low network traffic.  The following clauses will describe
+   how to use TVR YANG model[I-D.ietf-tvr-schedule-yang] in Tidal
+   Network.
+
+4.  Applicability of TVR Yang Model in Tidal Network
+
+4.1.  Network Model
+
+   According to the description of Section 3.1 of
+   [I-D.ietf-tvr-requirements], the scheduling generation locality and
+   execution locality may be centralized or distributed.
+
+   When the schedule is generated and executed in a centralized manner,
+   the changes are sent to routing applications in wall-clock time via a
+   management interface, which does not need to be delivered by YANG
+   model.  This can be implemented by the existing management plane
+   technology.  Therefore, this scenario is outside of the scope of this
+   document.
+
+   When the schedule is generated and executed in a distributed manner,
+   there is also no need for delivering the schedule by YANG model.
+   Therefore, this scenario is also outside of the scope of this
+   document.
+
+   When a schedule is generated in a centralized manner and executed in
+   a distributed manner, the YANG module needs to be used to deliver the
+   schedule to the managed device.  Depending on the location of the
+   routing application, the network model can be devided into two types:
+   distributed and centralized.
+
+4.1.1.  Centralized Model
+
+   In the centralized model, the network managing device generates and
+   maintains schedules, the routing application is deployed in the
+   network controller, and the network devices execute the schedules and
+   routing results.  The following figure shows the components of
+   centralized model.
+
+    +-----------------------------------------------------------------+
+    |                        Managing Device                          |
+    +-----------------------------------------------------------------+
+               |                                           |
+           Data Model                                  Data Model
+               |                                           |
+    +---------\|/----------+                     +--------\|/--------+
+    |  Network Controller  |---Routing Results-->|  Network Devices  |
+    +----------------------+                     +-------------------+
+
+                 Figure 1: Components of Centralized Model
+
+4.1.2.  Distributed Model
+
+   In the distributed model, the managing device generates and maintains
+   schedules, the routing application is deployed in the network devices
+   who also executes schedules and route calculation.
+
+    +-------------------------------------------------+
+    |                  Managing Device                |
+    +-------------------------------------------------+
+                             |
+                         Data Model
+                             |
+    +-----------------------\|/-----------------------+
+    |         Managed Device (Network Devices)        |
+    +-------------------------------------------------+
+
+                 Figure 2: Components of Distributed Model
+
+4.2.  Interaction Between Devices
+
+4.2.1.  Centralized Model
+
+   Centralized model involves the interaction between the managing
+   device and network controller, the managing device and network
+   devices, and the controller and network devices.
+
+   The managing device needs to deliver node-specific schedules to
+   network devices by TVR Schedule Node YANG module Section 5.2 of
+   [I-D.ietf-tvr-schedule-yang], and the network devices need to report
+   their own status data to the management device.
+
+   The managing device needs to deliver schedules of the network
+   topology to the network controller by the TVR Network Topology YANG
+   moduleSection 5.3 of [I-D.ietf-tvr-schedule-yang], so that the
+   routing application in the controller can consider the impact of
+   topology changes on routes when calculating routes.
+
+   The network controller needs to delivers the route calculation result
+   to the network devices(The format of the routing results depending on
+   the protocols deployed).  The routing result for a period of time in
+   the future could be sent to the network devices in wall-clock time or
+   be packed and send at some special points.
+
+4.2.2.  Distributed Model
+
+   The distributed model only involves the interaction between managing
+   device and network devices.
+
+   The managing device needs to deliver node-specific schedules to
+   network devices by TVR Schedule Node YANG Module, and deliver network
+   topology schedules to the all the network devices by TVR Network
+   Topology Yang module for route calculation.  The network devices need
+   to report their own status data to the managing device.
+
+4.3.  Yang Model for Tidal Network
+
+   What portions of the YANG model do we use for the Tidal example?
+
+4.4.  Encoding of Yang Model
+
+   How/what do we encode from YANG to the messenger protocol, which
+   protocol, and why?
+
+4.5.  NetConf Example
+
+   TODO
+
+4.6.  RESTConf Example
+
+   TODO
+
+5.  Time Synchronization
+
+   Which time synchronization protocol are recommended, why?
+
+5.1.  NTP Example
+
+   TODO
+
+5.2.  SNTP Example
+
+   TODO
+
+6.  Schedule Database
+
+6.1.  Data Structure
+
+   The fileds of schedule data entry.
+
+6.2.  Operations
+
+   The add, delete and sanity check operations.
+
+7.  Operational Considerations
+
+   TODO
+
+8.  Security Considerations
+
+   What steps should we take to address security considerations (from
+   the TVR Requirements I-D)?
+
+9.  IANA Considerations
+
+   This document has no IANA actions.
+
+10.  References
+
+10.1.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+10.2.  Informative References
+
+   [I-D.ietf-tvr-requirements]
+              King, D., Contreras, L. M., Sipos, B., and L. Zhang, "TVR
+              (Time-Variant Routing) Requirements", Work in Progress,
+              Internet-Draft, draft-ietf-tvr-requirements-04, 13
+              September 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-tvr-requirements-04>.
+
+   [I-D.ietf-tvr-schedule-yang]
+              Qu, Y., Lindem, A., Kinzie, E., Fedyk, D., and M.
+              Blanchet, "YANG Data Model for Scheduled Attributes", Work
+              in Progress, Internet-Draft, draft-ietf-tvr-schedule-yang-
+              02, 22 July 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-tvr-schedule-yang-02>.
+
+   [I-D.ietf-tvr-use-cases]
+              Birrane, E. J., Kuhn, N., Qu, Y., Taylor, R., and L.
+              Zhang, "TVR (Time-Variant Routing) Use Cases", Work in
+              Progress, Internet-Draft, draft-ietf-tvr-use-cases-09, 29
+              February 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-tvr-use-cases-09>.
+
+Acknowledgments
+
+   TODO acknowledge.
+
+Contributors
+
+   Daniel King
+   Lancaster University
+   United Kingdom
+   Email: d.king@lancaster.ac.uk
+
+
+   Charalampos (Haris) Rotsos
+   Lancaster University
+   Email: c.rotsos@lancaster.ac.uk
+
+
+   Peng Liu
+   China Mobile
+   Email: liupengyjy@chinamobile.com
+
+
+   Tony Li
+   Juniper Networks
+   Email: tony.li@tony.li
+
+
+Authors' Addresses
+
+   Li Zhang
+   Huawei
+   Email: zhangli344@huawei.com
+
+
+   Jie Dong
+   Huawei
+   Email: jie.dong@huawei.com
+
+
+   Mohamed Boucadair
+   Orange
+   Email: mohamed.boucadair@orange.com
