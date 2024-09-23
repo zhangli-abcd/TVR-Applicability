@@ -132,9 +132,9 @@ is deployed in the network devices who also executes schedules and route calcula
  +-------------------------------------------------+
  |                  Managing Device                |
  +-------------------------------------------------+
-                          | 
-                      Data Model 
-                          | 
+                          |
+                      Data Model
+                          |
  +-----------------------\|/-----------------------+
  |         Managed Device (Network Devices)        |
  +-------------------------------------------------+
