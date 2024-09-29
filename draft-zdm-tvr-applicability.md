@@ -54,12 +54,7 @@ contributor:
 normative:
 
 informative:
-  TypedArray:
-    -: IEEE1588
-    target: [https://www.khronos.org/registry/typedarray/specs/1.0/](https://ieeexplore.ieee.org/document/9120376)
-    title: IEEE Standard for a Precision Clock Synchronization Protocol for Networked Measurement and Control Systems
 
-    
 --- abstract
 
 TODO Abstract
@@ -199,15 +194,14 @@ period of traffic and topology changes is usually day or week. Therefore, a seco
 
 Existing clock synchronization protocols can be classified into hardware-based protocols and software-based protocols.
 Hardware-based protocols often rely on dedicated hardware to ensure clock synchronization, such as Global Positioning
-System (GPS) and Precision Time Protocol (PTP) {{?IEEE-1588}}. Software-based protocols, on the other hand, synchronize
+System (GPS) and Precision Time Protocol (PTP). Software-based protocols, on the other hand, synchronize
 clocks through software packages running on systems, such as Network Time Protocol(NTP){{?RFC5905}} and Simple Network
 Time Protocol (SNTP) {{?RFC4330}}.
 
 Hardware-based protocols typically have higher precision and stability, but also have higher cost due to the dedicated
 hardware. The software-based protocol is simple and applicable to common hardware devices, but has lower precision (For
 example, the NTP can realize the synchronization at tens of milliseconds level). Considering the tidal network time
-synchronize requirements, the software-based protocols is enough. 
-
+synchronize requirements, the software-based protocols is enough.
 
 ## NTP
 
@@ -238,7 +232,7 @@ Stratum 2 |  Network Controller  |       |  Network Devices  |
 ~~~
 {: #ref-to-fig3  title="Deployment Case of NTP in Tidal Network"}
 
-## SNTP 
+## SNTP
 
 SNTP is a subset of the NTP used to synchronize computer clocks in the Internet. It simplifies the complex NTP
 synchronization function and is suitable for networks with limited resources and loose precision requirements.
@@ -257,7 +251,7 @@ content of the same schedule entry in the schedule databases of different device
 consistent. There are two ways to make the content of the same schedule entry in different schedule databases consistent:
 
  - All the schedule entries are generated at a specific device;
-  
+
  - Schedule entries are generated at different devices, but there is a synchronization mechanism to synchronize the schedule databases among devices.
 
 Option 1 is simplest and easy to implement. In a time-variant domain, the managing device may receive scheduling
