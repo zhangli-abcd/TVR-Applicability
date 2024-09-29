@@ -1032,7 +1032,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Zhang, et al.</td>
-<td class="center">Expires 27 March 2025</td>
+<td class="center">Expires 2 April 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1045,12 +1045,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-zdm-tvr-applicability-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-09-23" class="published">23 September 2024</time>
+<time datetime="2024-09-29" class="published">29 September 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-03-27">27 March 2025</time></dd>
+<dd class="expires"><time datetime="2025-04-02">2 April 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1103,7 +1103,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 27 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 2 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1184,10 +1184,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-time-synchronization" class="internal xref">Time Synchronization</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
-                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-ntp-example" class="internal xref">NTP Example</a></p>
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-ntp" class="internal xref">NTP</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
-                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-sntp-example" class="internal xref">SNTP Example</a></p>
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-sntp" class="internal xref">SNTP</a></p>
 </li>
             </ul>
 </li>
@@ -1425,21 +1425,67 @@ calculation. The network devices need to report their own status data to the man
       <h2 id="name-time-synchronization">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-time-synchronization" class="section-name selfRef">Time Synchronization</a>
       </h2>
-<p id="section-5-1">Which time synchronization protocol are recommended, why?<a href="#section-5-1" class="pilcrow">¶</a></p>
-<div id="ntp-example">
+<p id="section-5-1">According to <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-04#section-3.1.3" class="relref">Section 3.1.3</a> of [<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span>, no matter whether the schedules are executed in centralized
+or distributed mode, the time synchronization mechanism is required to keep the synchronization between different devices.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">Different time-variant scenarios will require different granularities of time synchronization. In tidal networks, the
+period of traffic and topology changes is usually day or week. Therefore, a second level time synchronization is enough.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-3">Existing clock synchronization protocols can be classified into hardware-based protocols and software-based protocols.
+Hardware-based protocols often rely on dedicated hardware to ensure clock synchronization, such as Global Positioning
+System (GPS) and Precision Time Protocol (PTP). Software-based protocols, on the other hand, synchronize
+clocks through software packages running on systems, such as Network Time Protocol(NTP)<span>[<a href="#RFC5905" class="cite xref">RFC5905</a>]</span> and Simple Network
+Time Protocol (SNTP) <span>[<a href="#RFC4330" class="cite xref">RFC4330</a>]</span>.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-4">Hardware-based protocols typically have higher precision and stability, but also have higher cost due to the dedicated
+hardware. The software-based protocol is simple and applicable to common hardware devices, but has lower precision (For
+example, the NTP can realize the synchronization at tens of milliseconds level). Considering the tidal network time
+synchronize requirements, the software-based protocols is enough.<a href="#section-5-4" class="pilcrow">¶</a></p>
+<div id="ntp">
 <section id="section-5.1">
-        <h3 id="name-ntp-example">
-<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-ntp-example" class="section-name selfRef">NTP Example</a>
+        <h3 id="name-ntp">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-ntp" class="section-name selfRef">NTP</a>
         </h3>
-<p id="section-5.1-1">TODO<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-1">NTP uses a hierarchical structure of time sources. Each level of this hierarchy is termed a stratum. Generally, an NTP
+server synchronized to an authoritative clock runs at stratum 1. This NTP server functions as the primary time server
+to provide clock synchronization for other devices on the network. Stratum 2 servers obtain time from stratum 1 servers,
+stratum 3 servers obtain time from stratum 2 servers, and so on.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">In a tidal network, the managing device functions as a level-1 NTP server and synchronized to an authoritative clock
+source. The network controller and network devices function as clients to obtain accurate time from the managing device.
+The following figure shows an NTP deployment case for obtaining clock from the GPS clock source.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<span id="name-deployment-case-of-ntp-in-t"></span><div id="ref-to-fig3">
+<figure id="figure-3">
+          <div class="alignLeft art-text artwork" id="section-5.1-3.1">
+<pre>
+                           +--------------------+
+                           |  GPS Clock Source  |
+                           +--------------------+
+                                     |
+               +--------------------\|/------------------+
+Stratum 1      |             Managing Device             |
+               +-----------------------------------------+
+                     |                             |
+                     |                             |
+                     |                             |
+          +---------\|/----------+       +--------\|/--------+
+Stratum 2 |  Network Controller  |       |  Network Devices  |
+          +----------------------+       +-------------------+
+
+</pre>
+</div>
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<a href="#name-deployment-case-of-ntp-in-t" class="selfRef">Deployment Case of NTP in Tidal Network</a>
+          </figcaption></figure>
+</div>
 </section>
 </div>
-<div id="sntp-example">
+<div id="sntp">
 <section id="section-5.2">
-        <h3 id="name-sntp-example">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-sntp-example" class="section-name selfRef">SNTP Example</a>
+        <h3 id="name-sntp">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-sntp" class="section-name selfRef">SNTP</a>
         </h3>
-<p id="section-5.2-1">TODO<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-1">SNTP is a subset of the NTP used to synchronize computer clocks in the Internet. It simplifies the complex NTP
+synchronization function and is suitable for networks with limited resources and loose precision requirements.
+Compared with NTP, SNTP has lower clock precision, but the synchronization precision still can be guarded under
+seconds. Therefore, SNTP also meets the time synchronization requirements of tidal networks and can be used as
+an alternative clock synchronization protocol.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1449,12 +1495,35 @@ calculation. The network devices need to report their own status data to the man
       <h2 id="name-schedule-database">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-schedule-database" class="section-name selfRef">Schedule Database</a>
       </h2>
+<p id="section-6-1">The schedule database is used to store and maintain schedules, the database may be deployed on a managing device
+and managed devices based on requirements.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">The schedule source of the schedule database may be diversified, for example, configuration from an administrator
+or YANG model from the management interface. The schedule entries of different databases may different, but the
+content of the same schedule entry in the schedule databases of different devices in the same domain must be
+consistent. There are two ways to make the content of the same schedule entry in different schedule databases consistent:<a href="#section-6-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6-3.1">
+          <p id="section-6-3.1.1">All the schedule entries are generated at a specific device;<a href="#section-6-3.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-6-3.2">
+          <p id="section-6-3.2.1">Schedule entries are generated at different devices, but there is a synchronization mechanism to synchronize the schedule databases among devices.<a href="#section-6-3.2.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-6-4">Option 1 is simplest and easy to implement. In a time-variant domain, the managing device may receive scheduling
+requests and generate all schedule entries. Then the schedule entries are delivered to the necessary network devices
+in the domain through the TVR YANG model.<a href="#section-6-4" class="pilcrow">¶</a></p>
+<p id="section-6-5">Option 2 relies on advertisement mechanisms (such as routing techniques) to advertise the scheduling data generated
+by itself to other devices. This could be achieved using extensions to existing routing schemes and techniques.<a href="#section-6-5" class="pilcrow">¶</a></p>
 <div id="data-structure">
 <section id="section-6.1">
         <h3 id="name-data-structure">
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-data-structure" class="section-name selfRef">Data Structure</a>
         </h3>
-<p id="section-6.1-1">The fileds of schedule data entry.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-1"><span>[<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>defines TVR Node YANG Module and TVR Topology YANG Module. The Node YANG Module
+includes node power schedule and interface schedule, the Topology YANG Module includes nodes schedule and links schedule.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">Based on the preceding four types of schedule, the schedule database should contain four types of schedule entries in
+different formats: Node power schedule entry, Interface schedule entry, nodes schedule entry, and links schedule entry.
+The detailed format and fields of different types of schedule entries could reference to the definitions of corresponding YANG modules.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="operations">
@@ -1462,7 +1531,11 @@ calculation. The network devices need to report their own status data to the man
         <h3 id="name-operations">
 <a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-operations" class="section-name selfRef">Operations</a>
         </h3>
-<p id="section-6.2-1">The add, delete and sanity check operations.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.2-1">Schedule database should support the add, update and delete operations.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.2-2">When adding or updating a schedule entry, the execution node needs to check whether resource conflicts exist between the
+current schedule and existing schedules. If a conflict exists, the operation is failed.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
+<p id="section-6.2-3">Schedules are updated and deleted based on schedule IDs. Therefore, schedule IDs must be unique in the time-variant domain.
+This can be achieved by creating a dedicated allocation agent within the time-variant domain.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1528,8 +1601,16 @@ calculation. The network devices need to report their own status data to the man
 <span class="refAuthor">Qu, Y.</span>, <span class="refAuthor">Lindem, A.</span>, <span class="refAuthor">Kinzie, E.</span>, <span class="refAuthor">Fedyk, D.</span>, and <span class="refAuthor">M. Blanchet</span>, <span class="refTitle">"YANG Data Model for Scheduled Attributes"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tvr-schedule-yang-02</span>, <time datetime="2024-07-22" class="refDate">22 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-02">https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-02</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-tvr-use-cases">[I-D.ietf-tvr-use-cases]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Birrane, E. J.</span>, <span class="refAuthor">Kuhn, N.</span>, <span class="refAuthor">Qu, Y.</span>, <span class="refAuthor">Taylor, R.</span>, and <span class="refAuthor">L. Zhang</span>, <span class="refTitle">"TVR (Time-Variant Routing) Use Cases"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tvr-use-cases-09</span>, <time datetime="2024-02-29" class="refDate">29 February 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-use-cases-09">https://datatracker.ietf.org/doc/html/draft-ietf-tvr-use-cases-09</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4330">[RFC4330]</dt>
+        <dd>
+<span class="refAuthor">Mills, D.</span>, <span class="refTitle">"Simple Network Time Protocol (SNTP) Version 4 for IPv4, IPv6 and OSI"</span>, <span class="seriesInfo">RFC 4330</span>, <span class="seriesInfo">DOI 10.17487/RFC4330</span>, <time datetime="2006-01" class="refDate">January 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4330">https://www.rfc-editor.org/rfc/rfc4330</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5905">[RFC5905]</dt>
+      <dd>
+<span class="refAuthor">Mills, D.</span>, <span class="refAuthor">Martin, J., Ed.</span>, <span class="refAuthor">Burbank, J.</span>, and <span class="refAuthor">W. Kasch</span>, <span class="refTitle">"Network Time Protocol Version 4: Protocol and Algorithms Specification"</span>, <span class="seriesInfo">RFC 5905</span>, <span class="seriesInfo">DOI 10.17487/RFC5905</span>, <time datetime="2010-06" class="refDate">June 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5905">https://www.rfc-editor.org/rfc/rfc5905</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
