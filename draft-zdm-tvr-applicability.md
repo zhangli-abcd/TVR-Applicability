@@ -187,7 +187,7 @@ TODO
 
 # Time Synchronization
 
-According to {{Section3.1.3 of ?I-D.ietf-tvr-requirements}}, no matter whether the schedules are executed in centralized
+According to {{Section 3.1.3 of ?I-D.ietf-tvr-requirements}}, no matter whether the schedules are executed in centralized
 or distributed mode, the time synchronization mechanism is required to keep the synchronization between different devices.
 
 Different time-variant scenarios will require different granularities of time synchronization. In tidal networks, the
@@ -195,9 +195,9 @@ period of traffic and topology changes is usually day or week. Therefore, a seco
 
 Existing clock synchronization protocols can be classified into hardware-based protocols and software-based protocols.
 Hardware-based protocols often rely on dedicated hardware to ensure clock synchronization, such as Global Positioning
-System (GPS) and Precision Time Protocol (PTP) {{? IEEE-1588}}. Software-based protocols, on the other hand, synchronize
+System (GPS) and Precision Time Protocol (PTP) {{?IEEE-1588}}. Software-based protocols, on the other hand, synchronize
 clocks through software packages running on systems, such as Network Time Protocol(NTP){{?RFC5905}} and Simple Network
-Time Protocol (SNTP) {{? RFC4330}}.
+Time Protocol (SNTP) {{?RFC4330}}.
 
 Hardware-based protocols typically have higher precision and stability, but also have higher cost due to the dedicated
 hardware. The software-based protocol is simple and applicable to common hardware devices, but has lower precision (For
@@ -265,7 +265,7 @@ by itself to other devices. This could be achieved using extensions to existing 
 
 ## Data Structure
 
-{{ I-D.ietf-tvr- schedule-yang}}defines TVR Node YANG Module and TVR Topology YANG Module. The Node YANG Module
+{{ I-D.ietf-tvr-schedule-yang}}defines TVR Node YANG Module and TVR Topology YANG Module. The Node YANG Module
 includes node power schedule and interface schedule, the Topology YANG Module includes nodes schedule and links schedule.
 
 Based on the preceding four types of schedule, the schedule database should contain four types of schedule entries in
