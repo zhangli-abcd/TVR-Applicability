@@ -54,8 +54,12 @@ contributor:
 normative:
 
 informative:
+  TypedArray:
+    -: IEEE1588
+    target: [https://www.khronos.org/registry/typedarray/specs/1.0/](https://ieeexplore.ieee.org/document/9120376)
+    title: IEEE Standard for a Precision Clock Synchronization Protocol for Networked Measurement and Control Systems
 
-
+    
 --- abstract
 
 TODO Abstract
