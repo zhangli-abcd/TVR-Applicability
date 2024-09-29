@@ -238,7 +238,7 @@ SNTP is a subset of the NTP used to synchronize computer clocks in the Internet.
 synchronization function and is suitable for networks with limited resources and loose precision requirements.
 Compared with NTP, SNTP has lower clock precision, but the synchronization precision still can be guarded under
 seconds. Therefore, SNTP also meets the time synchronization requirements of tidal networks and can be used as
-an alternative clock synchronization protocol. 
+an alternative clock synchronization protocol.
 
 # Schedule Database
 
