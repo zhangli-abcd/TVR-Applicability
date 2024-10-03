@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-01T00:50:36.969672+00:00",
+  "timestamp": "2024-10-03T00:44:14.546117+00:00",
   "repo": "zhangli-abcd/TVR-Applicability",
   "labels": [
     {
@@ -91,7 +91,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-09-30T07:57:23Z",
-      "updatedAt": "2024-09-30T07:57:23Z",
+      "updatedAt": "2024-10-02T12:41:53Z",
       "baseRepository": "zhangli-abcd/TVR-Applicability",
       "baseRefName": "main",
       "baseRefOid": "381e3bd3e087adbfa776239c80f923883675e7bc",
@@ -103,7 +103,130 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOMz9S7M6LpBtx",
+          "commit": {
+            "abbreviatedOid": "68474a1"
+          },
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Very minor edits. Thanks",
+          "createdAt": "2024-10-02T12:33:27Z",
+          "updatedAt": "2024-10-02T12:41:53Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "```suggestion\r\nAccording to {{Section 3.1.3 of ?I-D.ietf-tvr-requirements}}, no matter whether the schedules are executed in a centralized\r\n```",
+              "createdAt": "2024-10-02T12:33:27Z",
+              "updatedAt": "2024-10-02T12:41:53Z"
+            },
+            {
+              "originalPosition": 14,
+              "body": "```suggestion\r\nor distributed mode, a mechanism is required to keep the time synchronization between different devices.\r\n```",
+              "createdAt": "2024-10-02T12:33:59Z",
+              "updatedAt": "2024-10-02T12:41:53Z"
+            },
+            {
+              "originalPosition": 17,
+              "body": "```suggestion\r\nDifferent time-variant scenarios may require different granularities of time synchronization. For example, the\r\n```",
+              "createdAt": "2024-10-02T12:34:36Z",
+              "updatedAt": "2024-10-02T12:41:53Z"
+            },
+            {
+              "originalPosition": 18,
+              "body": "```suggestion\r\nperiod of traffic and topology changes in tidal networks is usually day or week. Therefore, a second-level time synchronization is enough.\r\n```",
+              "createdAt": "2024-10-02T12:35:09Z",
+              "updatedAt": "2024-10-02T12:41:53Z"
+            },
+            {
+              "originalPosition": 24,
+              "body": "```suggestion\r\nclocks through software packages running on systems, such as Network Time Protocol (NTP) {{?RFC5905}} and Simple Network\r\n```",
+              "createdAt": "2024-10-02T12:35:44Z",
+              "updatedAt": "2024-10-02T12:41:53Z"
+            },
+            {
+              "originalPosition": 29,
+              "body": "```suggestion\r\nhardware. Software-based protocols are simple and applicable to common hardware devices, but have lower precision (For\r\n```",
+              "createdAt": "2024-10-02T12:36:14Z",
+              "updatedAt": "2024-10-02T12:41:53Z"
+            },
+            {
+              "originalPosition": 37,
+              "body": "```suggestion\r\nserver synchronized to an authoritative clock runs at stratum 1. Such NTP server functions as the primary time server\r\n```",
+              "createdAt": "2024-10-02T12:36:49Z",
+              "updatedAt": "2024-10-02T12:41:53Z"
+            },
+            {
+              "originalPosition": 42,
+              "body": "```suggestion\r\nsource. The network controller and network devices behave as clients to obtain accurate time from the managing device.\r\n```",
+              "createdAt": "2024-10-02T12:37:18Z",
+              "updatedAt": "2024-10-02T12:41:53Z"
+            },
+            {
+              "originalPosition": 43,
+              "body": "```suggestion\r\n{{ref-to-fig3}} shows an NTP deployment scenario for obtaining clock from a GPS clock source.\r\n```",
+              "createdAt": "2024-10-02T12:37:46Z",
+              "updatedAt": "2024-10-02T12:41:53Z"
+            },
+            {
+              "originalPosition": 61,
+              "body": "```suggestion\r\n{: #ref-to-fig3  title=\"Deployment Case of NTP in Tidal Networks\"}\r\n```",
+              "createdAt": "2024-10-02T12:37:56Z",
+              "updatedAt": "2024-10-02T12:41:53Z"
+            },
+            {
+              "originalPosition": 77,
+              "body": "```suggestion\r\nor YANG model from the management interface. The schedule entries of different databases may be different, but the\r\n```",
+              "createdAt": "2024-10-02T12:38:49Z",
+              "updatedAt": "2024-10-02T12:41:53Z"
+            },
+            {
+              "originalPosition": 79,
+              "body": "```suggestion\r\nconsistent. There are at least two ways to make the content of the same schedule entry in different schedule databases consistent:\r\n```",
+              "createdAt": "2024-10-02T12:39:17Z",
+              "updatedAt": "2024-10-02T12:41:53Z"
+            },
+            {
+              "originalPosition": 95,
+              "body": "```suggestion\r\n{{ I-D.ietf-tvr-schedule-yang}} defines a TVR Node and TVR Topology YANG modules. The Node YANG module\r\n```",
+              "createdAt": "2024-10-02T12:39:57Z",
+              "updatedAt": "2024-10-02T12:41:53Z"
+            },
+            {
+              "originalPosition": 96,
+              "body": "```suggestion\r\nincludes node power schedule and interface schedule. The Topology YANG module includes nodes schedule and links schedule.\r\n```",
+              "createdAt": "2024-10-02T12:40:13Z",
+              "updatedAt": "2024-10-02T12:41:53Z"
+            },
+            {
+              "originalPosition": 98,
+              "body": "```suggestion\r\nBased on the preceding four schedule types, the schedule database should contain four types of schedule entries in\r\n```",
+              "createdAt": "2024-10-02T12:40:36Z",
+              "updatedAt": "2024-10-02T12:41:53Z"
+            },
+            {
+              "originalPosition": 105,
+              "body": "```suggestion\r\nSchedule database should support the add, update, and delete operations.\r\n```",
+              "createdAt": "2024-10-02T12:40:47Z",
+              "updatedAt": "2024-10-02T12:41:53Z"
+            },
+            {
+              "originalPosition": 110,
+              "body": "```suggestion\r\nSchedules are updated and deleted based on schedule IDs. Therefore, schedule IDs must be unique in a time-variant domain.\r\n```",
+              "createdAt": "2024-10-02T12:41:09Z",
+              "updatedAt": "2024-10-02T12:41:53Z"
+            },
+            {
+              "originalPosition": 111,
+              "body": "```suggestion\r\nThis can be handled, e.g., by a dedicated allocation agent within the time-variant domain.\r\n```",
+              "createdAt": "2024-10-02T12:41:34Z",
+              "updatedAt": "2024-10-02T12:41:53Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
