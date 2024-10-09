@@ -5,9 +5,9 @@
 Time-Variant Routing                                            L. Zhang
 Internet-Draft                                                   J. Dong
 Intended status: Informational                                    Huawei
-Expires: 2 April 2025                                       M. Boucadair
+Expires: 12 April 2025                                      M. Boucadair
                                                                   Orange
-                                                       29 September 2024
+                                                          9 October 2024
 
 
     Applicability of TVR YANG Data Models for Scheduling of Network
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 April 2025.
+   This Internet-Draft will expire on 12 April 2025.
 
 Copyright Notice
 
@@ -245,14 +245,14 @@ Table of Contents
 5.  Time Synchronization
 
    According to Section 3.1.3 of [I-D.ietf-tvr-requirements], no matter
-   whether the schedules are executed in centralized or distributed
-   mode, the time synchronization mechanism is required to keep the
-   synchronization between different devices.
+   whether the schedules are executed in a centralized or distributed
+   mode, a mechanism is required to keep the time synchronization
+   between different devices.
 
-   Different time-variant scenarios will require different granularities
-   of time synchronization.  In tidal networks, the period of traffic
-   and topology changes is usually day or week.  Therefore, a second
-   level time synchronization is enough.
+   Different time-variant scenarios may require different granularities
+   of time synchronization.  For example, the period of traffic and
+   topology changes in tidal networks is usually day or week.
+   Therefore, a second-level time synchronization is enough.
 
    Existing clock synchronization protocols can be classified into
    hardware-based protocols and software-based protocols.  Hardware-
@@ -260,22 +260,22 @@ Table of Contents
    synchronization, such as Global Positioning System (GPS) and
    Precision Time Protocol (PTP).  Software-based protocols, on the
    other hand, synchronize clocks through software packages running on
-   systems, such as Network Time Protocol(NTP)[RFC5905] and Simple
+   systems, such as Network Time Protocol (NTP) [RFC5905] and Simple
    Network Time Protocol (SNTP) [RFC4330].
 
    Hardware-based protocols typically have higher precision and
    stability, but also have higher cost due to the dedicated hardware.
-   The software-based protocol is simple and applicable to common
-   hardware devices, but has lower precision (For example, the NTP can
-   realize the synchronization at tens of milliseconds level).
-   Considering the tidal network time synchronize requirements, the
-   software-based protocols is enough.
+   Software-based protocols are simple and applicable to common hardware
+   devices, but have lower precision (For example, the NTP can realize
+   the synchronization at tens of milliseconds level).  Considering the
+   tidal network time synchronize requirements, the software-based
+   protocols is enough.
 
 5.1.  NTP
 
    NTP uses a hierarchical structure of time sources.  Each level of
    this hierarchy is termed a stratum.  Generally, an NTP server
-   synchronized to an authoritative clock runs at stratum 1.  This NTP
+   synchronized to an authoritative clock runs at stratum 1.  Such NTP
    server functions as the primary time server to provide clock
    synchronization for other devices on the network.  Stratum 2 servers
    obtain time from stratum 1 servers, stratum 3 servers obtain time
@@ -283,9 +283,9 @@ Table of Contents
 
    In a tidal network, the managing device functions as a level-1 NTP
    server and synchronized to an authoritative clock source.  The
-   network controller and network devices function as clients to obtain
-   accurate time from the managing device.  The following figure shows
-   an NTP deployment case for obtaining clock from the GPS clock source.
+   network controller and network devices behave as clients to obtain
+   accurate time from the managing device.  Figure 3 shows an NTP
+   deployment scenario for obtaining clock from a GPS clock source.
 
                               +--------------------+
                               |  GPS Clock Source  |
@@ -301,7 +301,7 @@ Table of Contents
    Stratum 2 |  Network Controller  |       |  Network Devices  |
              +----------------------+       +-------------------+
 
-             Figure 3: Deployment Case of NTP in Tidal Network
+             Figure 3: Deployment Case of NTP in Tidal Networks
 
 5.2.  SNTP
 
@@ -323,10 +323,10 @@ Table of Contents
    The schedule source of the schedule database may be diversified, for
    example, configuration from an administrator or YANG model from the
    management interface.  The schedule entries of different databases
-   may different, but the content of the same schedule entry in the
+   may be different, but the content of the same schedule entry in the
    schedule databases of different devices in the same domain must be
-   consistent.  There are two ways to make the content of the same
-   schedule entry in different schedule databases consistent:
+   consistent.  There are at least two ways to make the content of the
+   same schedule entry in different schedule databases consistent:
 
    *  All the schedule entries are generated at a specific device;
 
@@ -347,12 +347,12 @@ Table of Contents
 
 6.1.  Data Structure
 
-   [I-D.ietf-tvr-schedule-yang]defines TVR Node YANG Module and TVR
-   Topology YANG Module.  The Node YANG Module includes node power
-   schedule and interface schedule, the Topology YANG Module includes
-   nodes schedule and links schedule.
+   [I-D.ietf-tvr-schedule-yang] defines a TVR Node and TVR Topology YANG
+   modules.  The Node YANG module includes node power schedule and
+   interface schedule.  The Topology YANG module includes nodes schedule
+   and links schedule.
 
-   Based on the preceding four types of schedule, the schedule database
+   Based on the preceding four schedule types, the schedule database
    should contain four types of schedule entries in different formats:
    Node power schedule entry, Interface schedule entry, nodes schedule
    entry, and links schedule entry.  The detailed format and fields of
@@ -361,7 +361,7 @@ Table of Contents
 
 6.2.  Operations
 
-   Schedule database should support the add, update and delete
+   Schedule database should support the add, update, and delete
    operations.
 
    When adding or updating a schedule entry, the execution node needs to
@@ -370,8 +370,8 @@ Table of Contents
    failed.
 
    Schedules are updated and deleted based on schedule IDs.  Therefore,
-   schedule IDs must be unique in the time-variant domain.  This can be
-   achieved by creating a dedicated allocation agent within the time-
+   schedule IDs must be unique in a time-variant domain.  This can be
+   handled, e.g., by a dedicated allocation agent within the time-
    variant domain.
 
 7.  Operational Considerations
