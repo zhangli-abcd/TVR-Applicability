@@ -186,33 +186,33 @@ TODO
 
 # Time Synchronization
 
-According to {{Section 3.1.3 of ?I-D.ietf-tvr-requirements}}, no matter whether the schedules are executed in centralized
-or distributed mode, the time synchronization mechanism is required to keep the synchronization between different devices.
+According to {{Section 3.1.3 of ?I-D.ietf-tvr-requirements}}, no matter whether the schedules are executed in a centralized
+or distributed mode, a mechanism is required to keep the time synchronization between different devices.
 
-Different time-variant scenarios will require different granularities of time synchronization. In tidal networks, the
-period of traffic and topology changes is usually day or week. Therefore, a second level time synchronization is enough.
+Different time-variant scenarios may require different granularities of time synchronization. For example, the
+period of traffic and topology changes in tidal networks is usually day or week. Therefore, a second-level time synchronization is enough.
 
 Existing clock synchronization protocols can be classified into hardware-based protocols and software-based protocols.
 Hardware-based protocols often rely on dedicated hardware to ensure clock synchronization, such as Global Positioning
 System (GPS) and Precision Time Protocol (PTP). Software-based protocols, on the other hand, synchronize
-clocks through software packages running on systems, such as Network Time Protocol(NTP){{?RFC5905}} and Simple Network
+clocks through software packages running on systems, such as Network Time Protocol (NTP) {{?RFC5905}} and Simple Network
 Time Protocol (SNTP) {{?RFC4330}}.
 
 Hardware-based protocols typically have higher precision and stability, but also have higher cost due to the dedicated
-hardware. The software-based protocol is simple and applicable to common hardware devices, but has lower precision (For
+hardware. Software-based protocols are simple and applicable to common hardware devices, but have lower precision (For
 example, the NTP can realize the synchronization at tens of milliseconds level). Considering the tidal network time
 synchronize requirements, the software-based protocols is enough.
 
 ## NTP
 
 NTP uses a hierarchical structure of time sources. Each level of this hierarchy is termed a stratum. Generally, an NTP
-server synchronized to an authoritative clock runs at stratum 1. This NTP server functions as the primary time server
+server synchronized to an authoritative clock runs at stratum 1. Such NTP server functions as the primary time server
 to provide clock synchronization for other devices on the network. Stratum 2 servers obtain time from stratum 1 servers,
 stratum 3 servers obtain time from stratum 2 servers, and so on.
 
 In a tidal network, the managing device functions as a level-1 NTP server and synchronized to an authoritative clock
-source. The network controller and network devices function as clients to obtain accurate time from the managing device.
-The following figure shows an NTP deployment case for obtaining clock from the GPS clock source.
+source. The network controller and network devices behave as clients to obtain accurate time from the managing device.
+{{ref-to-fig3}} shows an NTP deployment scenario for obtaining clock from a GPS clock source.
 
 ~~~
                            +--------------------+
@@ -230,7 +230,7 @@ Stratum 2 |  Network Controller  |       |  Network Devices  |
           +----------------------+       +-------------------+
 
 ~~~
-{: #ref-to-fig3  title="Deployment Case of NTP in Tidal Network"}
+{: #ref-to-fig3  title="Deployment Case of NTP in Tidal Networks"}
 
 ## SNTP
 
@@ -246,9 +246,9 @@ The schedule database is used to store and maintain schedules, the database may 
 and managed devices based on requirements.
 
 The schedule source of the schedule database may be diversified, for example, configuration from an administrator
-or YANG model from the management interface. The schedule entries of different databases may different, but the
+or YANG model from the management interface. The schedule entries of different databases may be different, but the
 content of the same schedule entry in the schedule databases of different devices in the same domain must be
-consistent. There are two ways to make the content of the same schedule entry in different schedule databases consistent:
+consistent. There are at least two ways to make the content of the same schedule entry in different schedule databases consistent:
 
  - All the schedule entries are generated at a specific device;
 
@@ -263,22 +263,22 @@ by itself to other devices. This could be achieved using extensions to existing 
 
 ## Data Structure
 
-{{ I-D.ietf-tvr-schedule-yang}}defines TVR Node YANG Module and TVR Topology YANG Module. The Node YANG Module
-includes node power schedule and interface schedule, the Topology YANG Module includes nodes schedule and links schedule.
+{{ I-D.ietf-tvr-schedule-yang}} defines a TVR Node and TVR Topology YANG modules. The Node YANG module
+includes node power schedule and interface schedule. The Topology YANG module includes nodes schedule and links schedule.
 
-Based on the preceding four types of schedule, the schedule database should contain four types of schedule entries in
+Based on the preceding four schedule types, the schedule database should contain four types of schedule entries in
 different formats: Node power schedule entry, Interface schedule entry, nodes schedule entry, and links schedule entry.
 The detailed format and fields of different types of schedule entries could reference to the definitions of corresponding YANG modules.
 
 ## Operations
 
-Schedule database should support the add, update and delete operations.
+Schedule database should support the add, update, and delete operations.
 
 When adding or updating a schedule entry, the execution node needs to check whether resource conflicts exist between the
 current schedule and existing schedules. If a conflict exists, the operation is failed.
 
-Schedules are updated and deleted based on schedule IDs. Therefore, schedule IDs must be unique in the time-variant domain.
-This can be achieved by creating a dedicated allocation agent within the time-variant domain.
+Schedules are updated and deleted based on schedule IDs. Therefore, schedule IDs must be unique in a time-variant domain.
+This can be handled, e.g., by a dedicated allocation agent within the time-variant domain.
 
 
 # Operational Considerations
