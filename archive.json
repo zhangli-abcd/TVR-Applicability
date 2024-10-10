@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-08T00:44:08.224435+00:00",
+  "timestamp": "2024-10-10T00:44:10.893372+00:00",
   "repo": "zhangli-abcd/TVR-Applicability",
   "labels": [
     {
@@ -84,24 +84,26 @@
       "id": "PR_kwDOMz9S7M59E3tR",
       "title": "Contribute Time Synchronization and Schedule Database Clause",
       "url": "https://github.com/zhangli-abcd/TVR-Applicability/pull/2",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "zhangli-abcd",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-09-30T07:57:23Z",
-      "updatedAt": "2024-10-02T12:41:53Z",
+      "updatedAt": "2024-10-09T06:40:12Z",
       "baseRepository": "zhangli-abcd/TVR-Applicability",
       "baseRefName": "main",
       "baseRefOid": "381e3bd3e087adbfa776239c80f923883675e7bc",
       "headRepository": "zhangli-abcd/TVR-Applicability",
       "headRefName": "Li-dev",
-      "headRefOid": "68474a14148a4a421b7e58ff35fe633326d1102d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "2929fe30c143575fc497de0bc38cb60fe0fef244",
+      "closedAt": "2024-10-09T06:40:12Z",
+      "mergedAt": "2024-10-09T06:40:12Z",
+      "mergedBy": "zhangli-abcd",
+      "mergeCommit": {
+        "oid": "26ef15bae71c891a4464492e0d8e507f2dce7a10"
+      },
       "comments": [],
       "reviews": [
         {
