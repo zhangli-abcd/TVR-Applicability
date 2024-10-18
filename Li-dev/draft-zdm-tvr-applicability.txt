@@ -5,9 +5,9 @@
 Time-Variant Routing                                            L. Zhang
 Internet-Draft                                                   J. Dong
 Intended status: Informational                                    Huawei
-Expires: 12 April 2025                                      M. Boucadair
+Expires: 21 April 2025                                      M. Boucadair
                                                                   Orange
-                                                          9 October 2024
+                                                         18 October 2024
 
 
     Applicability of TVR YANG Data Models for Scheduling of Network
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 April 2025.
+   This Internet-Draft will expire on 21 April 2025.
 
 Copyright Notice
 
@@ -227,7 +227,15 @@ Table of Contents
 
 4.3.  Yang Model for Tidal Network
 
-   What portions of the YANG model do we use for the Tidal example?
+   [I-D.ietf-tvr-schedule-yang] defines TVR nodes and topology Yang
+   modules.  The node Yang module describes the power state and
+   interface attributes (such as available, bandwidth, and neighbor) of
+   a node at different moments.  The topology Yang module describes the
+   availability of nodes at different time points and the attributes of
+   links at different time points (such as link-available, bandwidth,
+   delay, and destination node) in the topology.  Both TVR YANG modules
+   can be used in Tidal networks to control node and interface
+   attributes and distribution of time-varying topology information.
 
 4.4.  Encoding of Yang Model
 
