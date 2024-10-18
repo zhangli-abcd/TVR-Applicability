@@ -170,7 +170,12 @@ calculation. The network devices need to report their own status data to the man
 
 ## Yang Model for Tidal Network
 
-What portions of the YANG model do we use for the Tidal example?
+{{I-D.ietf-tvr-schedule-yang}} defines TVR nodes and topology Yang modules. The node Yang module describes the
+power state and interface attributes (such as available, bandwidth, and neighbor) of a node at different moments.
+The topology Yang module describes the availability of nodes at different time points and the attributes of links
+at different time points (such as link-available, bandwidth, delay, and destination node) in the topology. Both TVR
+YANG modules can be used in Tidal networks to control node and interface attributes and distribution of time-varying
+topology information.
 
 ## Encoding of Yang Model
 
