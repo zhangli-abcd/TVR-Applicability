@@ -17,7 +17,6 @@ keyword:
  - applicability
 
 
-
 author:
 -
   fullname: Li Zhang
@@ -59,7 +58,6 @@ informative:
 
 TODO Abstract
 
-
 --- middle
 
 # Introduction
@@ -83,7 +81,6 @@ of some or all components of network nodes. These activities have the potential 
 impact data routing/forwarding in a variety of ways. Interfaces on network nodes can be selectively disabled
 or enabled based on traffic patterns, thereby reducing the energy consumption of nodes during periods of low
 network traffic. The following clauses will describe how to use TVR YANG model{{?I-D.ietf-tvr-schedule-yang}} in Tidal Network.
-
 
 # Applicability of TVR Yang Model in Tidal Network
 
@@ -140,7 +137,6 @@ is deployed in the network devices who also executes schedules and route calcula
 ~~~
 {: #ref-to-fig2  title="Components of Distributed Model"}
 
-
 ## Interaction Between Devices
 
 ### Centralized Model
@@ -170,12 +166,13 @@ calculation. The network devices need to report their own status data to the man
 
 ## Yang Model for Tidal Network
 
-{{I-D.ietf-tvr-schedule-yang}} defines TVR nodes and topology Yang modules. The node Yang module describes the
-power state and interface attributes (such as available, bandwidth, and neighbor) of a node at different moments.
-The topology Yang module describes the availability of nodes at different time points and the attributes of links
-at different time points (such as link-available, bandwidth, delay, and destination node) in the topology. Both TVR
-YANG modules can be used in Tidal networks to control node and interface attributes and distribution of time-varying
-topology information.
+The following provides a list of applicable YANG modules that can be used to exchange data between devices:
+
+The "ietf-tvr-topology" YANG module in {{?I-D.ietf-tvr-schedule-yang}} is used to manage the node and deliver network
+topology with time-varying attributes (e.g., node/link availability, link bandwidth, or delay).
+
+The "ietf-tvr-node" YANG module in {{?I-D.ietf-tvr-schedule-yang}} which is a device model, is designed to manage a
+single node with scheduled attributes (e.g., powered on/off).
 
 ## Encoding of Yang Model
 
@@ -195,7 +192,8 @@ According to {{Section 3.1.3 of ?I-D.ietf-tvr-requirements}}, no matter whether 
 or distributed mode, a mechanism is required to keep the time synchronization between different devices.
 
 Different time-variant scenarios may require different granularities of time synchronization. For example, the
-period of traffic and topology changes in tidal networks is usually day or week. Therefore, a second-level time synchronization is enough.
+period of traffic and topology changes in tidal networks is usually day or week. Therefore, a second-level time
+synchronization is enough.
 
 Existing clock synchronization protocols can be classified into hardware-based protocols and software-based protocols.
 Hardware-based protocols often rely on dedicated hardware to ensure clock synchronization, such as Global Positioning
@@ -253,11 +251,13 @@ and managed devices based on requirements.
 The schedule source of the schedule database may be diversified, for example, configuration from an administrator
 or YANG model from the management interface. The schedule entries of different databases may be different, but the
 content of the same schedule entry in the schedule databases of different devices in the same domain must be
-consistent. There are at least two ways to make the content of the same schedule entry in different schedule databases consistent:
+consistent. There are at least two ways to make the content of the same schedule entry in different schedule databases
+consistent:
 
  - All the schedule entries are generated at a specific device;
 
- - Schedule entries are generated at different devices, but there is a synchronization mechanism to synchronize the schedule databases among devices.
+ - Schedule entries are generated at different devices, but there is a synchronization mechanism to synchronize the
+schedule databases among devices.
 
 Option 1 is simplest and easy to implement. In a time-variant domain, the managing device may receive scheduling
 requests and generate all schedule entries. Then the schedule entries are delivered to the necessary network devices
@@ -273,7 +273,8 @@ includes node power schedule and interface schedule. The Topology YANG module in
 
 Based on the preceding four schedule types, the schedule database should contain four types of schedule entries in
 different formats: Node power schedule entry, Interface schedule entry, nodes schedule entry, and links schedule entry.
-The detailed format and fields of different types of schedule entries could reference to the definitions of corresponding YANG modules.
+The detailed format and fields of different types of schedule entries could reference to the definitions of corresponding
+YANG modules.
 
 ## Operations
 
@@ -285,10 +286,31 @@ current schedule and existing schedules. If a conflict exists, the operation is 
 Schedules are updated and deleted based on schedule IDs. Therefore, schedule IDs must be unique in a time-variant domain.
 This can be handled, e.g., by a dedicated allocation agent within the time-variant domain.
 
-
 # Operational Considerations
 
-TODO
+## Schedule Execution Consideration
+
+Schedules execution means that a component (e.g., device) undertakes an action (e.g., allocates and deallocates resources)
+at specified time points. In a tidal network, the schedule execution indicates to power on/off specific network components
+(such as interfaces or entire network devices) directly or by commands.
+
+The schedule executor should understand the consequences of the schedule execution. The power on/off of network components
+usually affects the network topology, the addition and deletion of the topology need to be considered separately.
+
+A link coming up or a node joining a topology should not have any functional change until the change is proven to be fully
+operational. The routing paths may be pre-computed but should not be installed before all of the topology changes are
+confired to be operational. The benefits of this pre-computation appear to be very small. The network may choose to
+not do any pre-installation or pre-computation in reaction to topological additions, at a small cost of some operational
+efficiency.
+
+Topological deletions are an entirely different matter. If a link or node is to be removed from the topology, then the
+network should act before the anticipated change to route traffic around the expected topological change. Specifically,
+at some point before the planned topology change, the routing paths should be pre-computated and installed before the
+topology change takes place. The required time to perform such planned action will vary depending on the exact network
+and configuration. When using an IGP or other distributed routing protocols, the affected links may be set to a high
+metric to direct traffic to alternate paths. This type of change does require some time to propagate through the
+network, so the metric change should be initiated far enough in advance that the network converges before the actual
+topological change.
 
 # Security Considerations
 
@@ -304,3 +326,5 @@ This document has no IANA actions.
 {:numbered="false"}
 
 TODO acknowledge.
+
+
