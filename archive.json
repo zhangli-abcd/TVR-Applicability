@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-17T00:44:30.171856+00:00",
+  "timestamp": "2024-10-20T00:50:15.613265+00:00",
   "repo": "zhangli-abcd/TVR-Applicability",
   "labels": [
     {
@@ -225,6 +225,65 @@
               "body": "```suggestion\r\nThis can be handled, e.g., by a dedicated allocation agent within the time-variant domain.\r\n```",
               "createdAt": "2024-10-02T12:41:34Z",
               "updatedAt": "2024-10-02T12:41:53Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOMz9S7M5_FJZb",
+      "title": "Add Yang Model for Tidal Network and operation consideration sections",
+      "url": "https://github.com/zhangli-abcd/TVR-Applicability/pull/3",
+      "state": "OPEN",
+      "author": "zhangli-abcd",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-18T09:49:24Z",
+      "updatedAt": "2024-10-18T13:23:11Z",
+      "baseRepository": "zhangli-abcd/TVR-Applicability",
+      "baseRefName": "main",
+      "baseRefOid": "26ef15bae71c891a4464492e0d8e507f2dce7a10",
+      "headRepository": "zhangli-abcd/TVR-Applicability",
+      "headRefName": "Li-dev",
+      "headRefOid": "6476ec42c06bfc2baee98c29692d08c7003a0403",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMz9S7M6Nvl0I",
+          "commit": {
+            "abbreviatedOid": "6476ec4"
+          },
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2024-10-18T13:21:20Z",
+          "updatedAt": "2024-10-18T13:23:11Z",
+          "comments": [
+            {
+              "originalPosition": 93,
+              "body": "```suggestion\r\nSchedule execution means that a component (e.g., device) undertakes an action (e.g., allocates or deallocates resources)\r\n```",
+              "createdAt": "2024-10-18T13:21:20Z",
+              "updatedAt": "2024-10-18T13:23:11Z"
+            },
+            {
+              "originalPosition": 101,
+              "body": "```suggestion\r\noperational. The forwarding paths may be pre-computed but should not be installed before all of the topology changes are\r\n```",
+              "createdAt": "2024-10-18T13:22:21Z",
+              "updatedAt": "2024-10-18T13:23:11Z"
+            },
+            {
+              "originalPosition": 102,
+              "body": "```suggestion\r\nconfirmed to be operational. The benefit of this pre-computation appear to be very small. The network may choose to\r\n```",
+              "createdAt": "2024-10-18T13:22:32Z",
+              "updatedAt": "2024-10-18T13:23:11Z"
             }
           ]
         }
