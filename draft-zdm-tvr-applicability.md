@@ -373,7 +373,7 @@ of this Internet Draft.
 includes node power schedule and interface schedule. The Topology YANG module includes nodes schedule and links schedule.
 
 Based on the preceding four schedule types, the schedule database should contain four types of schedule entries in
-different formats: 
+different formats:
 
  - Node power schedule entry;
 
@@ -384,7 +384,7 @@ different formats:
  - Links schedule entry;
 
 The detailed format and fields of different types of schedule entries could reference to the definitions of the corresponding
-YANG modules. 
+YANG modules.
 
 Editors note: Code examples will be provided here in future versions of this document.
 
