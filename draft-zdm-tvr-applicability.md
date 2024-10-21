@@ -369,7 +369,7 @@ of this Internet Draft.
 
 ## Data Structure
 
-{{ I-D.ietf-tvr-schedule-yang}} defines a TVR Node and TVR Topology YANG modules. The Node YANG module
+{{!I-D.ietf-tvr-schedule-yang}} defines a TVR Node and TVR Topology YANG modules. The Node YANG module
 includes node power schedule and interface schedule. The Topology YANG module includes nodes schedule and links schedule.
 
 Based on the preceding four schedule types, the schedule database should contain four types of schedule entries in
