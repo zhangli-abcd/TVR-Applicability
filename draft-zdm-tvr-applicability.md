@@ -62,13 +62,23 @@ TODO Abstract
 
 # Introduction
 
-TODO Introduction
+The Time-Variant Routing (TVR) Working Group addresses a growing need in modern network environments where
+predictable variations in topology - such as the restoration, activation, or loss of network elements, are
+part of normal operations. This approach is essential in dynamic networks with mobile nodes, where links may
+be frequently disrupted and re-established due to mobility, or in networks with highly predictable traffic
+patterns, where links may be powered down to conserve or reduce energy.
+
+This document provides examples of implementing TVR scheduling capabilities in identified use cases. It
+demonstrates the applicability of the TVR data model, methods for disseminating the TVR schedule, and the
+necessary IETF ancillary technologies for network environments, such as time synchronization and policy,
+that support TVR capabilities.
 
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
 
-# Overview of Tidal Network Use Case
+# Applicability and Use Case Examples
+## Tidal Network Use Case
 
 Tidal network is a typical scenario of Energy Efficient case ({{Section 3 of ?I-D.ietf-tvr-use-cases}}).
 The tidal network means that the volume of traffic in the network changes periodically like the ocean tide.
@@ -176,15 +186,78 @@ single node with scheduled attributes (e.g., powered on/off).
 
 ## Encoding of Yang Model
 
-How/what do we encode from YANG to the messenger protocol, which protocol, and why?
+The TVR data model {{?I-D.ietf-tvr-schedule-yang}} can be used to manage network resources and topologies with scheduled
+attributes. There are modules defined in the TVR data model, these are:
 
-## NetConf Example
+- Module ietf-tvr-schedule.yang contains the schedule YANG definitions. This module uses groupings from {{?I-D.ietf-netmod-schedule-yang}} data model;
+- Module ietf-tvr-topology.yang defines a network topology with time-variant availability schedule;
+- Module ietf-tvr-node.yang is to be used to manage scheduled attributes of a single node.
 
-TODO
+To create a schedule the following TVR data model objects and subsequent branches are used:
 
-## RESTConf Example
+- node-schedule
+- interface-schedule
+- attribute-schedule
 
-TODO
+An example TVR scenario is provided below, where a a wireless link is shut down for 12 hours, from 19:00 to 7am the next day.
+The schedule is identified using a schedule-id, and the recurring schedule can be applied for multiple days using Coordinated
+Universal Time (UTC).
+
+~~~
+   module: ietf-tvr-node
+     +--rw node-schedule
+        +--rw node-id? "192.168.1.101"
+        ...
+        +--rw interface-schedule
+           +--rw interfaces*
+              +--rw name "Wlan0"
+              ...
+              +--rw attribute-schedule
+                 +--rw schedules*
+                    +--rw schedule-id "0123456789"
+                    +--rw (schedule-type)?
+                       +--:(period)
+                         ...
+                          +--rw period-start "2024-10-19T19:00:00"
+                          +--rw time-zone-identifier? "Europe/Paris"
+                          +--rw (period-type)?
+                             ...
+                             +--:(duration)
+                                +--rw duration? "43200"
+                                     ...
+                                     +--rw attr-value
+                          +--rw available? "false"
+
+~~~
+
+The methods for disseminating and propagating the generated schedule are discussed in the following subsections.
+
+## Management Protocols for TVR
+
+The TVR data model is designed to be accessed via YANG-based management protocols such as NETCONF {{?RFC6241}} and RESTCONF
+{{?RFC8040}}. This section discusses the applicability of these protocols for configuring time-variant network resources
+using the TVR YANG data models.
+
+NETCONF provides a robust mechanism for managing complex network configurations, particularly when transactional integrity
+and operational consistency are required. Its ability to execute atomic transactions ensures that schedules involving
+multiple resources are applied in full, preventing partial updates that could lead to configuration inconsistencies. This
+feature is important for time-sensitive scheduling in TVR environments. Additionally, NETCONF supports validation of
+configurations prior to commitment, allowing operators to verify the correctness of schedules before they are applied.
+It also includes rollback capabilities, enabling the restoration of a previous configuration in the event of scheduling errors.
+
+In contrast, RESTCONF offers a simpler, stateless method for interacting with network devices, making it suitable for use
+cases requiring lightweight, rapid configuration. RESTCONF utilizes a RESTful interface over HTTP, providing a streamlined
+approach to network configuration and management. Therefore, RESTCONF may be advantageous in scenarios where quick adjustments
+to schedules are needed or where integration with web-based or cloud-native systems is a priority.
+
+Depending on the type of node in the TVR network, NETCONF would be the preferred protocol for large-scale, critical scheduling
+operations requiring validation and rollback mechanisms. For smaller-scale or isolated scheduling tasks, RESTCONF provides an
+efficient and straightforward option without the need for the transactional features offered by NETCONF. The choice of protocol
+to use with the TVR YANG model should be driven by the specific requirements of the network environment and the complexity of
+the scheduling tasks involved.
+
+The security aspects of both NETCONF and RESTCONF including the strengths and weaknesses, are discussed further in Section 8
+{{security-considerations}} of this document.
 
 # Time Synchronization
 
@@ -314,7 +387,17 @@ topological change.
 
 # Security Considerations
 
- What steps should we take to address security considerations (from the TVR Requirements I-D)?
+The integration of time-variant mechanisms in network operations presents distinct security challenges that require thorough
+analysis to safeguard the network’s integrity, availability, and confidentiality. Networks that rely on time-sensitive data
+for routing and forwarding decisions are particularly susceptible to attacks that exploit timing dependencies.
+
+The "Security Considerations" section of {{?I-D.ietf-tvr-requirements}} outlines various threat vectors and categories specific
+to time-variant environments. In this document, a tidal demand use case has been presented, highlighting the need for robust
+security measures in the processes of generating, disseminating, and applying schedules to control tidal interfaces.
+It is essential to assess security risks and implement mitigation strategies to ensure the security of both the network and
+individual nodes throughout the scheduling process.
+
+Future iterations of this document will provide detailed security techniques and best practices to address these challenges.
 
 # IANA Considerations
 
@@ -327,4 +410,11 @@ This document has no IANA actions.
 
 TODO acknowledge.
 
+# Appendix A: Code Examples
+{:numbered="false"}
+
+## Code Examples for Tidal Network
+{:numbered="false"}
+
+Provide a YANG and XML example here
 
