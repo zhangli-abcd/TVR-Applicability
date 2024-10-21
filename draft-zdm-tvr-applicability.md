@@ -56,8 +56,12 @@ informative:
 
 --- abstract
 
-Time-Variant Routing (TVR) is a routing system that can support the predicted topology changes caused by internal or external reasons. Typical use cases include mobility networks with moving nodes, resource constraints such as power, and tidal traffic demand networks.
-This document provides examples of how to implement the TVR scheduling capabilities for key use cases. It describes which part of the TVR data model is used and why, and it outlines operational and security considerations when deploying TVR-based technologies.  
+Time-Variant Routing (TVR) is a routing system that can support the predicted topology changes caused by internal or
+external reasons. Typical use cases include mobility networks with moving nodes, resource constraints such as power,
+and tidal traffic demand networks.
+This document provides examples of how to implement the TVR scheduling capabilities for key use cases. It describes
+which part of the TVR data model is used and why, and it outlines operational and security considerations when deploying
+TVR-based technologies.
 
 --- middle
 
@@ -175,7 +179,8 @@ The distributed model only involves the interaction between managing devices and
 The managing device must deliver node-specific schedules to network devices by TVR Schedule Node YANG Module and
 deliver network topology schedules to all the network devices by TVR Network Topology Yang module for route
 calculation. The network devices must report their status data to the managing device.
-Editors note: In future versions of this document, we will provide a more detailed procedure for both the distributed and centralized approach. 
+Editors note: In future versions of this document, we will provide a more detailed procedure for both the distributed
+and centralized approach.
 
 
 ## Encoding of the YANG Model
@@ -286,12 +291,21 @@ The software-based protocols are appropriate for most of the TVR use cases.
 
 
 ## NTP
-NTP is fundamental for ensuring that TVR mechanisms, which depend on highly accurate timing, function as intended across an entire network. Misalignment in time could lead to serious routing issues, including inefficiency in path forwarding, instability in routing tables, and traffic outages.
-NTP will be used to ensure: 
-o Coordination of Planned Network Events;
-o Verification of TVR Data Model Time Stamps
-o Accurate Scheduling of Paths;
-o Fault Tolerance.
+
+NTP is fundamental for ensuring that TVR mechanisms, which depend on highly accurate timing, function as intended across
+an entire network. Misalignment in time could lead to serious routing issues, including inefficiency in path forwarding,
+instability in routing tables, and traffic outages.
+
+NTP will be used to ensure:
+
+ - Coordination of Planned Network Events;
+
+ - Verification of TVR Data Model Time Stamps
+
+ - Accurate Scheduling of Paths;
+
+ - Fault Tolerance.
+
 NTP uses a hierarchical structure of time sources. Each level of this hierarchy is termed a stratum. Generally, an NTP
 server synchronized to an authoritative clock runs at stratum 1. Such NTP server functions as the primary time server
 to provide clock synchronization for other devices on the network. Stratum 2 servers obtain time from stratum 1 servers,
@@ -350,7 +364,8 @@ in the domain through the TVR YANG model.
 Option 2 relies on advertisement mechanisms (such as routing techniques) to advertise the scheduling data generated
 by itself to other devices. This could be achieved using extensions to existing routing schemes and techniques.
 
-These options will be discussed with the TVR Working Group, and agreed approaches will be documented in future versions of this Internet Draft. 
+These options will be discussed with the TVR Working Group, and agreed approaches will be documented in future versions
+of this Internet Draft.
 
 ## Data Structure
 
@@ -359,16 +374,24 @@ includes node power schedule and interface schedule. The Topology YANG module in
 
 Based on the preceding four schedule types, the schedule database should contain four types of schedule entries in
 different formats: 
-Node power schedule entry;
-o Interface schedule entry;
-o Node schedule entry;
-o Links schedule entry;
+
+ - Node power schedule entry;
+
+ - Interface schedule entry;
+
+ - Node schedule entry;
+
+ - Links schedule entry;
+
 The detailed format and fields of different types of schedule entries could reference to the definitions of the corresponding
 YANG modules. 
+
 Editors note: Code examples will be provided here in future versions of this document.
 
 ## Schedule Operations
-This section provides general requirements for using the TVR schedule. 
+
+This section provides general requirements for using the TVR schedule.
+
 The schedule database should support the add, update, and delete operations.
 
 When adding or updating a schedule entry, the execution node needs to check whether resource conflicts exist between the
@@ -377,13 +400,27 @@ current schedule and existing schedules. If a conflict exists, the operation sho
 Schedules are updated and deleted based on schedule IDs. Therefore, schedule IDs must be unique in a time-variant domain.
 This can be handled, e.g., by a dedicated allocation agent within the time-variant domain.
 
-Editors note: Future versions of this document will expand on the schedule operations requirements and best practices. 
+Editors note: Future versions of this document will expand on the schedule operations requirements and best practices.
+
 # Operational Considerations
-Several operational considerations exist when using TVR techniques and data models in a network. This section provides some high-level observations and more detailed sub-sections for specific consideration related to schedule dissemination, execution, and recovery in case of failure to apply a schedule or partial change. 
-o Coordinated Network Events: TVR often coordinates routing changes anticipating events like predictable low-traffic periods or link downtimes (e.g., scheduled maintenance or traffic demand).
-o Accurate Scheduling of Paths: TVR schedule capable routers and network nodes will dynamically adjust forwarding paths based on planned changes in link availability or network conditions. 
-o Time-Stamped Data Models: TVR will require the use time-stamped data models (e.g., schedules for link changes or availability windows) to make interface management decisions. This ensures that all TVR nodes interpret the timing of events consistently and implement time-based policies correctly.
-Therefore, network time accuracy and time-stamped data models are critical to ensure that coordinated network events and scheduled path decisions across the network are based on a consistent time reference. Without accurate time sync, nodes could apply different schedules, causing routing inconsistencies, path flapping, or packet loss.
+
+Several operational considerations exist when using TVR techniques and data models in a network. This section provides
+some high-level observations and more detailed sub-sections for specific consideration related to schedule dissemination,
+execution, and recovery in case of failure to apply a schedule or partial change.
+
+ - Coordinated Network Events: TVR often coordinates routing changes anticipating events like predictable low-traffic
+periods or link downtimes (e.g., scheduled maintenance or traffic demand).
+
+ - Accurate Scheduling of Paths: TVR schedule capable routers and network nodes will dynamically adjust forwarding paths
+based on planned changes in link availability or network conditions.
+
+ - Time-Stamped Data Models: TVR will require the use time-stamped data models (e.g., schedules for link changes or
+availability windows) to make interface management decisions. This ensures that all TVR nodes interpret the timing of
+events consistently and implement time-based policies correctly.
+
+Therefore, network time accuracy and time-stamped data models are critical to ensure that coordinated network events
+and scheduled path decisions across the network are based on a consistent time reference. Without accurate time sync,
+nodes could apply different schedules, causing routing inconsistencies, path flapping, or packet loss.
 
 ## Schedule Execution Consideration
 
@@ -439,7 +476,12 @@ TODO acknowledge.
 
 ## Code Examples for Tidal Network
 {:numbered="false"}
-Tidal networks usually need to manage the availability of some node or interfaces. {{ex-inf}} shows the example of a scheduling node that is powered on from 12 AM, December 1, 2025 to 12 AM, December 1, 2026 in UTC and its interface named "interface1" is scheduled to be enabled at 7:00 AM and disabled at 1:00 AM, every day, from December 1, 2025 to December 1, 2026 in UTC.
+
+Tidal networks usually need to manage the availability of some node or interfaces. {{ex-inf}} shows the example of a
+scheduling node that is powered on from 12 AM, December 1, 2025 to 12 AM, December 1, 2026 in UTC and its interface
+named "interface1" is scheduled to be enabled at 7:00 AM and disabled at 1:00 AM, every day, from December 1, 2025 to
+December 1, 2026 in UTC.
+
 The JSON encoding is used only for illustration purposes.
 
 ~~~~
