@@ -187,7 +187,7 @@ single node with scheduled attributes (e.g., powered on/off).
 ## Encoding of Yang Model
 
 The TVR data model {{?I-D.ietf-tvr-schedule-yang}} can be used to manage network resources and topologies with scheduled
-attributes. There modules defined in the TVR data model, these are:
+attributes. There are modules defined in the TVR data model, these are:
 
 - Module ietf-tvr-schedule.yang contains the schedule YANG definitions. This module uses groupings from {{?I-D.ietf-netmod-schedule-yang}} data model;
 - Module ietf-tvr-topology.yang defines a network topology with time-variant availability schedule;
