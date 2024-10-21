@@ -261,7 +261,7 @@ Table of Contents
 
    The TVR data model [I-D.ietf-tvr-schedule-yang] can be used to manage
    network resources and topologies with scheduled attributes.  There
-   modules defined in the TVR data model, these are:
+   are modules defined in the TVR data model, these are:
 
    *  Module ietf-tvr-schedule.yang contains the schedule YANG
       definitions.  This module uses groupings from
