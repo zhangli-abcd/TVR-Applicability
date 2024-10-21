@@ -411,6 +411,7 @@ This document has no IANA actions.
 TODO acknowledge.
 
 # Appendix A: Code Examples
+{:numbered="false"}
 
 ## Code Examples for Tidal Network
 
