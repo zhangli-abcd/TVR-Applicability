@@ -189,7 +189,7 @@ single node with scheduled attributes (e.g., powered on/off).
 The TVR data model {{?I-D.ietf-tvr-schedule-yang}} can be used to manage network resources and topologies with scheduled
 attributes. There modules defined in the TVR data model, these are:
 
-- Module ietf-tvr-schedule.yang contains the schedule YANG definitions. This module uses groupings from {{?I.D.ietf-netmod-schedule-yang}} data model;
+- Module ietf-tvr-schedule.yang contains the schedule YANG definitions. This module uses groupings from {{?I-D.ietf-netmod-schedule-yang}} data model;
 - Module ietf-tvr-topology.yang defines a network topology with time-variant availability schedule;
 - Module ietf-tvr-node.yang is to be used to manage scheduled attributes of a single node.
 
@@ -257,7 +257,7 @@ to use with the TVR YANG model should be driven by the specific requirements of 
 the scheduling tasks involved.
 
 The security aspects of both NETCONF and RESTCONF including the strengths and weaknesses, are discussed further in Section 8
-{{Security-Considerations}} of this document.
+{{security-considerations}} of this document.
 
 # Time Synchronization
 
@@ -385,13 +385,13 @@ metric to direct traffic to alternate paths. This type of change does require so
 network, so the metric change should be initiated far enough in advance that the network converges before the actual
 topological change.
 
-# Security Considerations{#Security-Considerations}
+# Security Considerations
 
 The integration of time-variant mechanisms in network operations presents distinct security challenges that require thorough
 analysis to safeguard the network’s integrity, availability, and confidentiality. Networks that rely on time-sensitive data
 for routing and forwarding decisions are particularly susceptible to attacks that exploit timing dependencies.
 
-The "Security Considerations" section of {{?ID.ietf-tvr-requirements}} outlines various threat vectors and categories specific
+The "Security Considerations" section of {{?I-D.ietf-tvr-requirements}} outlines various threat vectors and categories specific
 to time-variant environments. In this document, a tidal demand use case has been presented, highlighting the need for robust
 security measures in the processes of generating, disseminating, and applying schedules to control tidal interfaces.
 It is essential to assess security risks and implement mitigation strategies to ensure the security of both the network and
