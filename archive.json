@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-20T00:50:15.613265+00:00",
+  "timestamp": "2024-10-22T00:45:21.911437+00:00",
   "repo": "zhangli-abcd/TVR-Applicability",
   "labels": [
     {
@@ -49,7 +49,172 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 4,
+      "id": "I_kwDOMz9S7M6bBXBS",
+      "title": "Suggested text for \"Introduction\" section",
+      "url": "https://github.com/zhangli-abcd/TVR-Applicability/issues/4",
+      "state": "CLOSED",
+      "author": "danielkinguk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "zhangli-abcd"
+      ],
+      "labels": [],
+      "body": "Hi Authors, \r\n\r\nFor some reason I am unable to see the latest or Editors Copy of the document. I reviewed and merged the latest set of contributions but for whatever reason I was unable to see the most up-to-date version. Instead of branching and making changes. I'll just create a set of issues with document contributions. I'll let Li merge these into the document where appropriate. \r\n\r\nSection 1 Introduction\r\n\r\n>>\r\nThe Time-Variant Routing (TVR) Working Group addresses a growing need in modern network environments where predictable variations in topology - such as the restoration, activation, or loss of network elements, are part of normal operations. This approach is essential in dynamic networks with mobile nodes, where links may be frequently disrupted and re-established due to mobility, or in networks with highly predictable traffic patterns, where links may be powered down to conserve or reduce energy.\r\n\r\nThis document provides examples of implementing TVR scheduling capabilities in identified use cases. It demonstrates the applicability of the TVR data model, methods for disseminating the TVR schedule, and the necessary IETF ancillary technologies for network environments, such as time synchronization and policy, that support TVR capabilities.\r\n<<",
+      "createdAt": "2024-10-20T19:48:02Z",
+      "updatedAt": "2024-10-21T02:08:57Z",
+      "closedAt": "2024-10-21T02:08:57Z",
+      "comments": [
+        {
+          "author": "zhangli-abcd",
+          "authorAssociation": "OWNER",
+          "body": "Merged",
+          "createdAt": "2024-10-21T02:08:46Z",
+          "updatedAt": "2024-10-21T02:08:46Z"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "I_kwDOMz9S7M6bBYG8",
+      "title": "Section 3 renaming for future use case examples",
+      "url": "https://github.com/zhangli-abcd/TVR-Applicability/issues/5",
+      "state": "CLOSED",
+      "author": "danielkinguk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "zhangli-abcd"
+      ],
+      "labels": [],
+      "body": "Maybe rename Section 3 (\u201cOverview of Tidal Network Use Case\u201d) to \u201cApplicability and Use Case Examples\u201d. Then, Section 3.1, \u201cTidal Network Use Case,\u201d is presented. The Table of Contents would then read:\r\n\r\n>>\r\n3. Applicability and Use Case Examples\r\n3.1 Tidal Network Use Case\r\n<<\r\n\r\nThis would signal the authors are open to including other use cases in the future. ",
+      "createdAt": "2024-10-20T19:52:13Z",
+      "updatedAt": "2024-10-21T02:11:41Z",
+      "closedAt": "2024-10-21T02:11:41Z",
+      "comments": [
+        {
+          "author": "zhangli-abcd",
+          "authorAssociation": "OWNER",
+          "body": "Good idea, modefied",
+          "createdAt": "2024-10-21T02:11:16Z",
+          "updatedAt": "2024-10-21T02:11:16Z"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "I_kwDOMz9S7M6bBcLy",
+      "title": "Section 4.4 Encoding of YANG Model",
+      "url": "https://github.com/zhangli-abcd/TVR-Applicability/issues/6",
+      "state": "CLOSED",
+      "author": "danielkinguk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "zhangli-abcd"
+      ],
+      "labels": [],
+      "body": "Here is some suggested text for Section 4.4 Encoding of YANG Model\r\n\r\n>>\r\nThe TVR data model  [I-D.ietf-tvr-schedule-yang] can be used to manage network resources and topologies with scheduled attributes.  There modules defined in the TVR data model, these are:\r\n\r\no Module ietf-tvr-schedule.yang contains the schedule YANG definitions. This module uses groupings from [I.D.ietf-netmod-schedule-yang] data model;\r\no Module ietf-tvr-topology.yang defines a network topology with time-variant availability schedule;  \r\no Module ietf-tvr-node.yang is to be used to manage scheduled attributes of a single node.\r\n\r\nTo create a schedule the following TVR data model objects and subsequent branches are used:\r\n\r\no node-schedule\r\no interface-schedule\r\no attribute-schedule\r\n\r\nAn example TVR scenario is provided below, where a a wireless link is shut down for 12 hours, from 19:00 to 7am the next day. The schedule is identified using a schedule-id, and the recurring schedule can be applied for multiple days using Coordinated Universal Time (UTC).\r\n\r\n[example.txt](https://github.com/user-attachments/files/17451973/example.txt)\r\n\r\nThe methods for disseminating and propagating the generated schedule are discussed in the following subsections.\r\n<<",
+      "createdAt": "2024-10-20T20:27:34Z",
+      "updatedAt": "2024-10-21T02:18:45Z",
+      "closedAt": "2024-10-21T02:18:45Z",
+      "comments": [
+        {
+          "author": "zhangli-abcd",
+          "authorAssociation": "OWNER",
+          "body": "Merged",
+          "createdAt": "2024-10-21T02:18:35Z",
+          "updatedAt": "2024-10-21T02:18:35Z"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "I_kwDOMz9S7M6bBgVA",
+      "title": "Text for Section 8. Security Considerations",
+      "url": "https://github.com/zhangli-abcd/TVR-Applicability/issues/7",
+      "state": "CLOSED",
+      "author": "danielkinguk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "zhangli-abcd"
+      ],
+      "labels": [],
+      "body": "Here is some placeholder text for the security section. I'll take the action to pursue this in more detail. \r\n\r\nSection 8.  Security Considerations\r\n\r\n>>\r\nThe integration of time-variant mechanisms in network operations presents distinct security challenges that require thorough analysis to safeguard the network\u2019s integrity, availability, and confidentiality. Networks that rely on time-sensitive data for routing and forwarding decisions are particularly susceptible to attacks that exploit timing dependencies.\r\n\r\nThe \"Security Considerations\" section of [ID.ietf-tvr-requirements] outlines various threat vectors and categories specific to time-variant environments. In this document, a tidal demand use case has been presented, highlighting the need for robust security measures in the processes of generating, disseminating, and applying schedules to control tidal interfaces. It is essential to assess security risks and implement mitigation strategies to ensure the security of both the network and individual nodes throughout the scheduling process.\r\n\r\nFuture iterations of this document will provide detailed security techniques and best practices to address these challenges.\r\n<<\r\n",
+      "createdAt": "2024-10-20T20:48:58Z",
+      "updatedAt": "2024-10-21T02:21:56Z",
+      "closedAt": "2024-10-21T02:21:56Z",
+      "comments": [
+        {
+          "author": "zhangli-abcd",
+          "authorAssociation": "OWNER",
+          "body": "Merged",
+          "createdAt": "2024-10-21T02:21:56Z",
+          "updatedAt": "2024-10-21T02:21:56Z"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "I_kwDOMz9S7M6bBhU8",
+      "title": "Tidal Use Case Code Example ",
+      "url": "https://github.com/zhangli-abcd/TVR-Applicability/issues/8",
+      "state": "CLOSED",
+      "author": "danielkinguk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "zhangli-abcd"
+      ],
+      "labels": [],
+      "body": "Hi Li, \r\n\r\nAre you planning to include YANG and XML examples for the tidal use case in the 00 version of the document, or will you present the scenario first in the TVR working group and add the examples in a later version? I\u2019d recommend having some code examples ready before your WG presentation. Even if you need to add placeholders for now and finalize the examples over the next few weeks, you can still submit the document when the IETF submission tool reopens on Monday of IETF 121.\r\n\r\nLet me know if you\u2019d like any assistance with this. You can also find some helpful examples in the appendix of https://datatracker.ietf.org/doc/draft-ietf-netmod-schedule-yang/. ",
+      "createdAt": "2024-10-20T20:55:03Z",
+      "updatedAt": "2024-10-21T12:42:32Z",
+      "closedAt": "2024-10-21T12:42:32Z",
+      "comments": [
+        {
+          "author": "zhangli-abcd",
+          "authorAssociation": "OWNER",
+          "body": "Good suggestion, I will add an appendix section to describe the YANG and XML examples",
+          "createdAt": "2024-10-21T02:26:16Z",
+          "updatedAt": "2024-10-21T02:26:16Z"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "I_kwDOMz9S7M6bBjiv",
+      "title": "Text for Section 4.5 and 4.6",
+      "url": "https://github.com/zhangli-abcd/TVR-Applicability/issues/9",
+      "state": "CLOSED",
+      "author": "danielkinguk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "zhangli-abcd"
+      ],
+      "labels": [],
+      "body": "I'm thinking we merge the following sections:\r\n\r\n4.5.  NetConf Example\r\n4.6.  RESTConf Example\r\n\r\nTo \"4.5 Management Protocols for TVR\", then add the following text:\r\n\r\nThe TVR data model is designed to be accessed via YANG-based management protocols such as NETCONF [RFC6241] and RESTCONF [RFC8040]. This section discusses the applicability of these protocols for configuring time-variant network resources using the TVR YANG data models.\r\n\r\nNETCONF provides a robust mechanism for managing complex network configurations, particularly when transactional integrity and operational consistency are required. Its ability to execute atomic transactions ensures that schedules involving multiple resources are applied in full, preventing partial updates that could lead to configuration inconsistencies. This feature is important for time-sensitive scheduling in TVR environments. Additionally, NETCONF supports validation of configurations prior to commitment, allowing operators to verify the correctness of schedules before they are applied. It also includes rollback capabilities, enabling the restoration of a previous configuration in the event of scheduling errors.\r\n\r\nIn contrast, RESTCONF offers a simpler, stateless method for interacting with network devices, making it suitable for use cases requiring lightweight, rapid configuration. RESTCONF utilizes a RESTful interface over HTTP, providing a streamlined approach to network configuration and management. Therefore, RESTCONF may be advantageous in scenarios where quick adjustments to schedules are needed or where integration with web-based or cloud-native systems is a priority.\r\n\r\nDepending on the type of node in the TVR network, NETCONF would be the preferred protocol for large-scale, critical scheduling operations requiring validation and rollback mechanisms. For smaller-scale or isolated scheduling tasks, RESTCONF provides an efficient and straightforward option without the need for the transactional features offered by NETCONF. The choice of protocol to use with the TVR YANG model should be driven by the specific requirements of the network environment and the complexity of the scheduling tasks involved.\r\n\r\nThe security aspects of both NETCONF and RESTCONF including the strengths and weaknesses, are discussed further in Section 8 (\"Security Considerations\") of this document. \r\n<<",
+      "createdAt": "2024-10-20T21:12:09Z",
+      "updatedAt": "2024-10-21T02:06:49Z",
+      "closedAt": "2024-10-21T02:06:49Z",
+      "comments": []
+    },
+    {
+      "number": 11,
+      "id": "I_kwDOMz9S7M6bFM53",
+      "title": "Suggested Abstract text",
+      "url": "https://github.com/zhangli-abcd/TVR-Applicability/issues/11",
+      "state": "OPEN",
+      "author": "danielkinguk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Hi All, \r\n\r\nA suggestion for the abstract. \r\n\r\n>>\r\nTime Variant Routing (TVR) is increasingly used in modern networking environments, which are characterized by dynamic and rapidly changing network topologies with predicted link changes. TVR environments demonstrate the ability to adapt and reconfigure based on temporal shifts in traffic patterns, link availability, and other operational conditions.\r\n\r\nThis document provides applicability examples of how TVR techniques, along with schedule data models, may be utilized for specific use cases and requirements. It highlights the practical considerations of deploying TVR into various network environments.\r\n<<",
+      "createdAt": "2024-10-21T08:53:12Z",
+      "updatedAt": "2024-10-21T08:53:12Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": [
     {
       "number": 1,
@@ -235,24 +400,26 @@
       "id": "PR_kwDOMz9S7M5_FJZb",
       "title": "Add Yang Model for Tidal Network and operation consideration sections",
       "url": "https://github.com/zhangli-abcd/TVR-Applicability/pull/3",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "zhangli-abcd",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-10-18T09:49:24Z",
-      "updatedAt": "2024-10-18T13:23:11Z",
+      "updatedAt": "2024-10-20T19:09:09Z",
       "baseRepository": "zhangli-abcd/TVR-Applicability",
       "baseRefName": "main",
       "baseRefOid": "26ef15bae71c891a4464492e0d8e507f2dce7a10",
       "headRepository": "zhangli-abcd/TVR-Applicability",
       "headRefName": "Li-dev",
       "headRefOid": "6476ec42c06bfc2baee98c29692d08c7003a0403",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-10-20T19:08:16Z",
+      "mergedAt": "2024-10-20T19:08:16Z",
+      "mergedBy": "danielkinguk",
+      "mergeCommit": {
+        "oid": "3a52538713a6da84b02ce478bc6c668d62f39f13"
+      },
       "comments": [],
       "reviews": [
         {
@@ -286,8 +453,187 @@
               "updatedAt": "2024-10-18T13:23:11Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOMz9S7M6N5e69",
+          "commit": {
+            "abbreviatedOid": "6476ec4"
+          },
+          "author": "danielkinguk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks good. Merging these to see the latest text of the I-D.",
+          "createdAt": "2024-10-20T19:08:10Z",
+          "updatedAt": "2024-10-20T19:08:10Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMz9S7M6N5e97",
+          "commit": {
+            "abbreviatedOid": "6476ec4"
+          },
+          "author": "danielkinguk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Looks good. ",
+          "createdAt": "2024-10-20T19:09:09Z",
+          "updatedAt": "2024-10-20T19:09:09Z",
+          "comments": []
         }
       ]
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOMz9S7M5_QIPM",
+      "title": "Li dev",
+      "url": "https://github.com/zhangli-abcd/TVR-Applicability/pull/10",
+      "state": "MERGED",
+      "author": "zhangli-abcd",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-21T03:00:21Z",
+      "updatedAt": "2024-10-21T08:40:15Z",
+      "baseRepository": "zhangli-abcd/TVR-Applicability",
+      "baseRefName": "main",
+      "baseRefOid": "3a52538713a6da84b02ce478bc6c668d62f39f13",
+      "headRepository": "zhangli-abcd/TVR-Applicability",
+      "headRefName": "Li-dev",
+      "headRefOid": "d61903954549c0b3cd200f59ddadb980e7e5cca5",
+      "closedAt": "2024-10-21T08:40:10Z",
+      "mergedAt": "2024-10-21T08:40:10Z",
+      "mergedBy": "danielkinguk",
+      "mergeCommit": {
+        "oid": "55a5cc609077027b6de04a042ce6ed8adc85faee"
+      },
+      "comments": [
+        {
+          "author": "danielkinguk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks Med. ",
+          "createdAt": "2024-10-21T08:40:14Z",
+          "updatedAt": "2024-10-21T08:40:14Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMz9S7M6N6lUY",
+          "commit": {
+            "abbreviatedOid": "d386db4"
+          },
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2024-10-21T05:21:49Z",
+          "updatedAt": "2024-10-21T05:36:41Z",
+          "comments": [
+            {
+              "originalPosition": 32,
+              "body": "```suggestion\r\nattributes. There are modules defined in the TVR data model, these are:\r\n```",
+              "createdAt": "2024-10-21T05:21:49Z",
+              "updatedAt": "2024-10-21T05:36:41Z"
+            },
+            {
+              "originalPosition": 34,
+              "body": "```suggestion\r\n- The \"ietf-tvr-schedule\" module contains the schedule YANG definitions. This module uses groupings from {{?I-D.ietf-netmod-schedule-yang}} data model.\r\n```",
+              "createdAt": "2024-10-21T05:22:18Z",
+              "updatedAt": "2024-10-21T05:36:41Z"
+            },
+            {
+              "originalPosition": 35,
+              "body": "```suggestion\r\n- The \"ietf-tvr-topology\" defines a network topology with time-variant availability schedule.\r\n```",
+              "createdAt": "2024-10-21T05:22:36Z",
+              "updatedAt": "2024-10-21T05:36:41Z"
+            },
+            {
+              "originalPosition": 36,
+              "body": "```suggestion\r\n- The \"ietf-tvr-node\" module is used to manage scheduled attributes of a single node.\r\n```",
+              "createdAt": "2024-10-21T05:23:18Z",
+              "updatedAt": "2024-10-21T05:36:41Z"
+            },
+            {
+              "originalPosition": 40,
+              "body": "```suggestion\r\n- 'node-schedule'\r\n```",
+              "createdAt": "2024-10-21T05:23:30Z",
+              "updatedAt": "2024-10-21T05:36:41Z"
+            },
+            {
+              "originalPosition": 41,
+              "body": "```suggestion\r\n- 'interface-schedule'\r\n```",
+              "createdAt": "2024-10-21T05:23:38Z",
+              "updatedAt": "2024-10-21T05:36:41Z"
+            },
+            {
+              "originalPosition": 42,
+              "body": "```suggestion\r\n- 'attribute-schedule'\r\n```",
+              "createdAt": "2024-10-21T05:23:45Z",
+              "updatedAt": "2024-10-21T05:36:41Z"
+            },
+            {
+              "originalPosition": 44,
+              "body": "```suggestion\r\nA TVR scenario example  is provided below, where a wireless link is shut down for 12 hours, from 19:00 to 7am the next day.\r\n```",
+              "createdAt": "2024-10-21T05:24:22Z",
+              "updatedAt": "2024-10-21T05:36:41Z"
+            },
+            {
+              "originalPosition": 45,
+              "body": "```suggestion\r\nThe schedule is identified using a unique identifier that is conveyed in 'schedule-id', and the recurring schedule can be applied for multiple days using Coordinated\r\n```",
+              "createdAt": "2024-10-21T05:24:48Z",
+              "updatedAt": "2024-10-21T05:36:41Z"
+            },
+            {
+              "originalPosition": 46,
+              "body": "The example does not use UTC. ",
+              "createdAt": "2024-10-21T05:32:25Z",
+              "updatedAt": "2024-10-21T05:36:41Z"
+            },
+            {
+              "originalPosition": 49,
+              "body": "The example should be formatted using JSON.  Please update the example with the following:\r\n\r\n```\r\n{\r\n   \"ietf-tvr-node:rw node-schedule\":{\r\n      \"node-id\":\"192.168.1.101\",\r\n      \"interface-schedule\":{\r\n         \"interfaces\":[\r\n            {\r\n               \"name\":\"Wlan0\",\r\n               \"attribute-schedule\":{\r\n                  \"schedules\":[\r\n                     {\r\n                        \"schedule-id\":\"0123456789\",\r\n                        \"period-start\":\"2024-10-19T19:00:00\",\r\n                        \"time-zone-identifier\":\"Europe/Paris\",\r\n                        \"duration\":43200,\r\n                        \"attr-value\":{\r\n                           \"available\":\"false\"\r\n                        }\r\n                     }\r\n                  ]\r\n               }\r\n            }\r\n         ]\r\n      }\r\n   }\r\n```\r\n\r\n}\r\n\r\n",
+              "createdAt": "2024-10-21T05:34:02Z",
+              "updatedAt": "2024-10-21T05:36:41Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOMz9S7M5_UVfm",
+      "title": "Li dev",
+      "url": "https://github.com/zhangli-abcd/TVR-Applicability/pull/12",
+      "state": "MERGED",
+      "author": "zhangli-abcd",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-21T12:59:47Z",
+      "updatedAt": "2024-10-21T13:02:10Z",
+      "baseRepository": "zhangli-abcd/TVR-Applicability",
+      "baseRefName": "main",
+      "baseRefOid": "55a5cc609077027b6de04a042ce6ed8adc85faee",
+      "headRepository": "zhangli-abcd/TVR-Applicability",
+      "headRefName": "Li-dev",
+      "headRefOid": "10078834ae56dbe4ce7c0758a676a611c642aafb",
+      "closedAt": "2024-10-21T13:02:10Z",
+      "mergedAt": "2024-10-21T13:02:10Z",
+      "mergedBy": "zhangli-abcd",
+      "mergeCommit": {
+        "oid": "fd009ad30506bb9e1184c480fe5cdb8296ba8485"
+      },
+      "comments": [
+        {
+          "author": "zhangli-abcd",
+          "authorAssociation": "OWNER",
+          "body": "I need to merge this contribution for draft submission, if there are any other comments, I will fix them in the later version.",
+          "createdAt": "2024-10-21T13:01:59Z",
+          "updatedAt": "2024-10-21T13:01:59Z"
+        }
+      ],
+      "reviews": []
     }
   ]
 }
