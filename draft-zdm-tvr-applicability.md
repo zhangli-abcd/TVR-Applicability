@@ -105,7 +105,7 @@ network traffic. The following sections will describe how to use the TVR YANG mo
 According to the description of {{Section 3.1 of ?I-D.ietf-tvr-requirements}}, the scheduling generation locality
 and execution locality may be centralized or distributed.
 
-When the schedule is generated and executed in a centralized manner, the changes are sent to routing applications
+When the schedule is generated and executed in a centralized manner and within the same device, the changes are sent to routing applications
 in wall-clock time via a management interface, which does not need to be delivered by the YANG model. This can be
 implemented using the existing management plane technology. Therefore, this scenario is outside of the scope of this document.
 
@@ -445,6 +445,9 @@ and configuration. When using an IGP or other distributed routing protocols, the
 metric to direct traffic to alternate paths. This type of change does require some time to propagate through the
 network, so the metric change should be initiated far enough in advance that the network converges before the actual
 topological change.
+
+
+Editor's Note: multi-manager scenarios need to be considered.
 
 # Security Considerations
 
