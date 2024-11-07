@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-05T00:44:04.548372+00:00",
+  "timestamp": "2024-11-07T00:44:16.672844+00:00",
   "repo": "zhangli-abcd/TVR-Applicability",
   "labels": [
     {
@@ -633,6 +633,62 @@
           "updatedAt": "2024-10-21T13:01:59Z"
         }
       ],
+      "reviews": []
+    },
+    {
+      "number": 13,
+      "id": "PR_kwDOMz9S7M6A6S0G",
+      "title": "update ",
+      "url": "https://github.com/zhangli-abcd/TVR-Applicability/pull/13",
+      "state": "MERGED",
+      "author": "zhangli-abcd",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-11-05T10:37:40Z",
+      "updatedAt": "2024-11-05T10:38:05Z",
+      "baseRepository": "zhangli-abcd/TVR-Applicability",
+      "baseRefName": "Li-dev",
+      "baseRefOid": "10078834ae56dbe4ce7c0758a676a611c642aafb",
+      "headRepository": "zhangli-abcd/TVR-Applicability",
+      "headRefName": "main",
+      "headRefOid": "2d306fa2ab79faf1d42793c28649ef963074635e",
+      "closedAt": "2024-11-05T10:38:05Z",
+      "mergedAt": "2024-11-05T10:38:05Z",
+      "mergedBy": "zhangli-abcd",
+      "mergeCommit": {
+        "oid": "e84382ffa650e12e90cf075ca106a9f7c2edb495"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 14,
+      "id": "PR_kwDOMz9S7M6A6WDF",
+      "title": "Add an editor's note for multi-manager consideration",
+      "url": "https://github.com/zhangli-abcd/TVR-Applicability/pull/14",
+      "state": "MERGED",
+      "author": "zhangli-abcd",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-11-05T10:44:35Z",
+      "updatedAt": "2024-11-05T10:46:30Z",
+      "baseRepository": "zhangli-abcd/TVR-Applicability",
+      "baseRefName": "main",
+      "baseRefOid": "2d306fa2ab79faf1d42793c28649ef963074635e",
+      "headRepository": "zhangli-abcd/TVR-Applicability",
+      "headRefName": "Li-dev",
+      "headRefOid": "289b9ec6270910458e275c0451715b2e11a23f2e",
+      "closedAt": "2024-11-05T10:46:30Z",
+      "mergedAt": "2024-11-05T10:46:30Z",
+      "mergedBy": "zhangli-abcd",
+      "mergeCommit": {
+        "oid": "fcfc00425447a665a3e08ad7167d4f052e67e8d5"
+      },
+      "comments": [],
       "reviews": []
     }
   ]
