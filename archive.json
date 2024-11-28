@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-26T00:48:31.891268+00:00",
+  "timestamp": "2024-11-28T00:49:18.489753+00:00",
   "repo": "zhangli-abcd/TVR-Applicability",
   "labels": [
     {
@@ -688,6 +688,32 @@
       "mergeCommit": {
         "oid": "fcfc00425447a665a3e08ad7167d4f052e67e8d5"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 15,
+      "id": "PR_kwDOMz9S7M6DTZ90",
+      "title": "Merge pull request #14 from zhangli-abcd/Li-dev",
+      "url": "https://github.com/zhangli-abcd/TVR-Applicability/pull/15",
+      "state": "CLOSED",
+      "author": "zhangli-abcd",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Add an editor's note for multi-manager consideration",
+      "createdAt": "2024-11-27T08:37:50Z",
+      "updatedAt": "2024-11-27T08:38:01Z",
+      "baseRepository": "zhangli-abcd/TVR-Applicability",
+      "baseRefName": "Li-dev",
+      "baseRefOid": "289b9ec6270910458e275c0451715b2e11a23f2e",
+      "headRepository": "zhangli-abcd/TVR-Applicability",
+      "headRefName": "main",
+      "headRefOid": "fcfc00425447a665a3e08ad7167d4f052e67e8d5",
+      "closedAt": "2024-11-27T08:38:01Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
