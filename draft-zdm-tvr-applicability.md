@@ -300,7 +300,9 @@ GPS provides a precise time synchronization service based on the signals transmi
 
 PTP is a network protocol that complies with the IEEE 1588 standard and is used to implement high-precision time synchronization between network nodes. PTP implements time synchronization by transmitting synchronization messages between master and slave devices. Based on the hardware timestamp, the precision of time synchronization is much higher than that of NTP, and can reach the sub-microsecond level or even tens of nanoseconds.  When deploying PTP in TVR networks, the managing devices should be the master and the network devices and controller should be the slaves which get time from the master.
 
-Both GPS and PTP can realize micro-second level time synchronization. Depending on the features of TVR network, the GPS would be the preferred mechanisms for large-scale, high dynamic and open-air networks, especially networks with unreliable links as it does not require network links to exchange time information. For the small-scale networks with stable links but have high-precision time synchronization requirements, the PTP is much preferred. 
+Both GPS and PTP can realize micro-second level time synchronization. Depending on the features of TVR network, the GPS would be the preferred mechanisms for
+large-scale, high dynamic and open-air networks, especially networks with unreliable links as it does not require network links to exchange time information.
+For the small-scale networks with stable links but have high-precision time synchronization requirements, the PTP is much preferred.
 
 ## Software-based Time Synchronization Protocols
 
@@ -484,7 +486,7 @@ In addition, the identification authentication is also an important way to prote
 
 ## Traffic Analysis and Path Prediction {#traffic-analysis}
 
-In a time variant network, if time information is not adequately protected, attackers could conduct traffic analysis to infer routing decisions, network load, or usage patterns. The schedule ability could enable attackers to launch highly targeted attacks, such as selectively overloading certain links or intercepting sensitive communications. 
+In a time variant network, if time information is not adequately protected, attackers could conduct traffic analysis to infer routing decisions, network load, or usage patterns. The schedule ability could enable attackers to launch highly targeted attacks, such as selectively overloading certain links or intercepting sensitive communications.
 
 This kind of attack could be addressed by the encryption of schedules and the authentication of managing devices. For the networks using NETCONF to deliver schedules, NETCONF over TLS{{?RFC7589}} is recommended to achieve the bidirectional authentication and encryption of YANG model data. RESTCONF supports TLS originally, so it can be deployed without additional configurations or modifications.
 
@@ -498,7 +500,7 @@ This risk could also be mitigated by the solutions mentioned in {{activity-ident
 
 ## Spoofing and Manipulation of Time Information
 
-In a time variant network, if an attacker were to inject false or manipulated time data into the network, it could cause routers and devices to make incorrect decisions, potentially leading to traffic misrouting, network partitions, or inefficient use of resources. 
+In a time variant network, if an attacker were to inject false or manipulated time data into the network, it could cause routers and devices to make incorrect decisions, potentially leading to traffic misrouting, network partitions, or inefficient use of resources.
 
 This risk could also be mitigated by the solutions mentioned in {{dos-attack}}.
 
@@ -645,3 +647,4 @@ The JSON encoding is used only for illustration purposes.
 }
 ~~~~
 {: #ex-inf2 title="An Example of Topology with Link Scheduling" artwork-align="center"}
+
