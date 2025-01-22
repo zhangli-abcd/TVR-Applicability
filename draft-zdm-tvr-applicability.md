@@ -123,7 +123,7 @@ When a schedule is generated in a centralized manner and executed in a distribut
 needs to be used to deliver the schedule to the managed device. Depending on the location of the routing
 application, the network model can be divided into two types: distributed and centralized.
 
-### Centralized Model
+### Centralized Model {#centralized-model}
 
 In the centralized model, the network managing device generates and maintains schedules, the routing application
 is deployed in the network controller, and the network devices execute the schedules and routing results.
@@ -142,7 +142,7 @@ The following figure shows the components of the centralized model.
 ~~~
 {: #ref-to-fig1  title="Components of Centralized Model"}
 
-### Distributed Model
+### Distributed Model {#distributed-model}
 
 In the distributed model, the managing device generates and maintains schedules, the routing application
 is deployed in the network devices which also executes schedules and route calculation.
@@ -162,7 +162,7 @@ is deployed in the network devices which also executes schedules and route calcu
 
 ## Interaction Between Devices
 
-### Centralized Model {#centralized-model}
+### Interactions in Centralized Model
 
 A centralized model involves the interaction between the managing device and network controller, the managing
 device and network devices, and the controller and network devices.
@@ -179,7 +179,7 @@ The network controller should deliver the route calculation result to the networ
 results depend on the protocols deployed (The typical protocols include BGP, PCEP, etc.). The routing result for a period in the future could be sent to
 the network devices in wall-clock time or be packed and sent at some special points.
 
-### Distributed Model {#distributed-model}
+### Interactions in Distributed Model
 
 The distributed model only involves the interaction between managing devices and network devices.
 
