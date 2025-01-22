@@ -16,7 +16,6 @@ keyword:
  - YANG module
  - applicability
 
-
 author:
 -
   fullname: Li Zhang
@@ -96,9 +95,17 @@ throughput all the time, often, power will be wasted on network resources that a
 of some or all components of network nodes. These activities have the potential to alter network topology and
 impact data routing/forwarding in a variety of ways. Interfaces on network nodes can be selectively disabled
 or enabled based on traffic patterns, thereby reducing the energy consumption of nodes during periods of low
-network traffic. The following sections will describe how to use the TVR YANG model{{?I-D.ietf-tvr-schedule-yang}} in Tidal Network.
+network traffic. 
 
-# Applicability of TVR Yang Model in Tidal Network
+## Dynamic Reachability Use Case
+
+Dynamic Reachability referred to the scenarios where a node is placed on a mobile platform, the mobility of the
+platform may cause changes to the topology of the network over time{{Section 4 of ?I-D.ietf-tvr-use-cases}}. As the relative mobility between and among nodes in the network and the impacts of the environment on the signal
+propagation can be predicted, the associated loss and establishment of adjacencies can also be planned for.
+
+The typical detailed use cases of Dynamic Reachability include but not limited to satellite network, predictable moving vessels and vehicles.
+
+# Applicability of TVR Yang Model
 
 ## Network Model
 
@@ -109,7 +116,7 @@ When the schedule is generated and executed in a centralized manner and within t
 in wall-clock time via a management interface, which does not need to be delivered by the YANG model. This can be
 implemented using the existing management plane technology. Therefore, this scenario is outside of the scope of this document.
 
-When the schedule is generated and executed in a distributed manner, there is also no need for delivering the
+When the schedule is generated and executed in a distributed manner, which means that each node generates its specific schedules. In this scenario, there is also no need for delivering the
 schedule by the YANG model. Therefore, this scenario is also outside of the scope of this document.
 
 When a schedule is generated in a centralized manner and executed in a distributed manner, the YANG module
@@ -155,7 +162,7 @@ is deployed in the network devices which also executes schedules and route calcu
 
 ## Interaction Between Devices
 
-### Centralized Model
+### Centralized Model {#centralized-model}
 
 A centralized model involves the interaction between the managing device and network controller, the managing
 device and network devices, and the controller and network devices.
@@ -169,19 +176,18 @@ Topology YANG module{{Section 5.3 of ?I-D.ietf-tvr-schedule-yang}}, so that the 
 can consider the impact of topology changes on routes when calculating routes.
 
 The network controller should deliver the route calculation result to the network devices. The format of the routing
-results depends on the protocols deployed(The typical protocols include BGP , PCEP, etc.). The routing result for a period of time in the future could be sent to
+results depend on the protocols deployed (The typical protocols include BGP, PCEP, etc.). The routing result for a period in the future could be sent to
 the network devices in wall-clock time or be packed and sent at some special points.
 
-### Distributed Model
+### Distributed Model {#distributed-model}
 
 The distributed model only involves the interaction between managing devices and network devices.
 
 The managing device must deliver node-specific schedules to network devices by TVR Schedule Node YANG Module and
 deliver network topology schedules to all the network devices by TVR Network Topology Yang module for route
 calculation. The network devices must report their status data to the managing device.
-Editors note: In future versions of this document, we will provide a more detailed procedure for both the distributed
+Editor’s note: In future versions of this document, we will provide a more detailed procedure for both the distributed
 and centralized approach.
-
 
 ## Encoding of the YANG Model
 
@@ -276,7 +282,7 @@ or distributed mode, a mechanism is required to keep the time synchronization be
 
 Different time-variant scenarios may require different granularities of time synchronization. For example, the
 period of traffic and topology changes in tidal networks is usually a day or week. Therefore, a second-level time
-synchronization is enough.
+synchronization is enough. However, for the dynamic reachability scenarios, a fine-granularity time synchronization may be necessary, as the nodes may moving very fast in some cases(the moving speed of a low earth orbit satellite is more than 7900 m/s)
 
 Existing clock synchronization protocols can be classified into hardware-based protocols and software-based protocols.
 Hardware-based protocols often rely on dedicated hardware to ensure clock synchronization, such as Global Positioning
@@ -284,13 +290,24 @@ System (GPS) and Precision Time Protocol (PTP). Software-based protocols, on the
 clocks through software packages running on systems, such as Network Time Protocol (NTP) {{?RFC5905}} and Simple Network
 Time Protocol (SNTP) {{?RFC4330}}.
 
-Hardware-based protocols typically have higher precision and stability, but also have higher cost due to the dedicated
-Hardware. Software-based protocols are simple and applicable to common hardware devices, but have lower precision (For
+The security aspects of hardware-based and software-based time synchronization mechanisms are discussed further in {{security-considerations}} of this document.
+
+## Hardware-based Time Synchronization Mechanisms
+
+Hardware-based protocols typically have higher precision and stability, but also have higher cost due to the dedicated hardware. GPS and PTP are the typical hardware-based time synchronization mechanisms.
+
+GPS provides a precise time synchronization service based on the signals transmitted by the GPS satellites. GPS can realize the micro-second level time synchronization among the devices installed with GPS reviver hardware.
+
+PTP is a network protocol that complies with the IEEE 1588 standard and is used to implement high-precision time synchronization between network nodes. PTP implements time synchronization by transmitting synchronization messages between master and slave devices. Based on the hardware timestamp, the precision of time synchronization is much higher than that of NTP, and can reach the sub-microsecond level or even tens of nanoseconds.  When deploying PTP in TVR networks, the managing devices should be the master and the network devices and controller should be the slaves which get time from the master.
+
+Both GPS and PTP can realize micro-second level time synchronization. Depending on the features of TVR network, the GPS would be the preferred mechanisms for large-scale, high dynamic and open-air networks, especially networks with unreliable links as it does not require network links to exchange time information. For the small-scale networks with stable links but have high-precision time synchronization requirements, the PTP is much preferred. 
+
+## Software-based Time Synchronization Protocols
+
+Software-based protocols are simple and applicable to common hardware devices, but have lower precision (For
 example, the NTP can realize the synchronization at tens of milliseconds level).
-The software-based protocols are appropriate for most of the TVR use cases.
 
-
-## NTP
+### NTP
 
 NTP is fundamental for ensuring that TVR mechanisms, which depend on highly accurate timing, function as intended across
 an entire network. Misalignment in time could lead to serious routing issues, including inefficiency in path forwarding,
@@ -333,13 +350,13 @@ Stratum 2 |  Network Controller  |       |  Network Devices  |
 ~~~
 {: #ref-to-fig3  title="Deployment Case of NTP in Tidal Networks"}
 
-## SNTP
+NTP is preferred in large-scale networks with reliable links and long-term changes, which dose not require a high-precision time synchronization.
+
+### SNTP
 
 SNTP is a subset of the NTP used to synchronize computer clocks in the Internet. It simplifies the complex NTP
-synchronization function and is suitable for networks with limited resources and loose precision requirements.
-Compared with NTP, SNTP has lower clock precision, but the synchronization precision still can be guarded under
-seconds. Therefore, SNTP also meets the time synchronization requirements of tidal networks and can be used as
-an alternative clock synchronization protocol.
+synchronization function and has lower clock precision, but the synchronization precision still can be guarded under
+seconds. SNTP is also preferred in large-scale networks with reliable links, long-term changes, and loose synchronization precision. In addition, it is more suitable for networks with limited resources than NTP.
 
 # Schedule Database
 
@@ -386,7 +403,7 @@ different formats:
 The detailed format and fields of different types of schedule entries could reference to the definitions of the corresponding
 YANG modules.
 
-Editors note: Code examples will be provided here in future versions of this document.
+Editor’s note: Code examples will be provided here in future versions of this document.
 
 ## Schedule Operations
 
@@ -400,7 +417,7 @@ current schedule and existing schedules. If a conflict exists, the operation sho
 Schedules are updated and deleted based on schedule IDs. Therefore, schedule IDs must be unique in a time-variant domain.
 This can be handled, e.g., by a dedicated allocation agent within the time-variant domain.
 
-Editors note: Future versions of this document will expand on the schedule operations requirements and best practices.
+Editor’s note: Future versions of this document will expand on the schedule operations requirements and best practices.
 
 # Operational Considerations
 
@@ -428,11 +445,11 @@ Schedules execution means that a component (e.g., device) undertakes an action (
 at specified time points. In a tidal network, the schedule execution indicates powering on/off specific network components
 (such as interfaces or entire network devices) directly or by commands.
 
-The schedule executor should understand the consequences of the schedule execution. The power on/off of network components
+The schedule executor should understand the consequences of the schedule execution. The power on/off network components
 usually affects the network topology, the addition and deletion of the topology need to be considered separately.
 
 A link coming up or a node joining a topology should not have any functional change until the change is proven to be fully
-operational. The routing paths may be pre-computed but should not be installed before all of the topology changes are
+operational. The routing paths may be pre-computed but should not be installed before all the topology changes are
 confirmed to be operational. The benefits of this pre-computation appear to be very small. The network may choose to
 not do any pre-installation or pre-computation in reaction to topological additions at a small cost of some operational
 efficiency.
@@ -446,22 +463,56 @@ metric to direct traffic to alternate paths. This type of change does require so
 network, so the metric change should be initiated far enough in advance that the network converges before the actual
 topological change.
 
-
 Editor's Note: multi-manager scenarios need to be considered.
 
-# Security Considerations
+# Security Considerations{#security-considerations}
 
 The integration of time-variant mechanisms in network operations presents distinct security challenges that require thorough
 analysis to safeguard the network’s integrity, availability, and confidentiality. Networks that rely on time-sensitive data
 for routing and forwarding decisions are particularly susceptible to attacks that exploit timing dependencies.
 
 The "Security Considerations" section of {{?I-D.ietf-tvr-requirements}} outlines various threat vectors and categories specific
-to time-variant environments. In this document, a tidal demand use case has been presented, highlighting the need for robust
-security measures in the processes of generating, disseminating, and applying schedules to control tidal interfaces.
-It is essential to assess security risks and implement mitigation strategies to ensure the security of both the network and
-individual nodes throughout the scheduling process.
+to time-variant environments. 
 
-Future iterations of this document will provide detailed security techniques and best practices to address these challenges.
+## Denial-of-Service (DoS) Attack{#dos-attack}
+
+In a time variant network, malicious actors could attack the network by disrupting or manipulating the time synchronization process. For example, an attacker could intentionally delay or corrupt time signals exchanged within the network, leading to routing errors and widespread denial-of-service (DoS) attacks. 
+
+This kind of attack could be addressed by the redundancy time synchronization mechanisms, for example, multiple NTP sources or multiple time synchronization protocols could be deployed in a TVR network. The network devices could guarantee the correctness of the time by checking whether the time signals from different sources or protocols. 
+
+In addition, the identification authentication is also an important way to protect the time signals being tampered by attackers. Some security extensions for time synchronization protocols (such as NTS (Network Time Security)) are recommended to be applied.
+
+## Traffic Analysis and Path Prediction{#traffic-analysis}
+
+In a time variant network, if time information is not adequately protected, attackers could conduct traffic analysis to infer routing decisions, network load, or usage patterns. The schedule ability could enable attackers to launch highly targeted attacks, such as selectively overloading certain links or intercepting sensitive communications. 
+
+This kind of attack could be addressed by the encryption of schedules and the authentication of managing devices. For the networks using NETCONF to deliver schedules, NETCONF over TLS{{?RFC7589}} is recommended to achieve the bidirectional authentication and encryption of YANG model data. RESTCONF supports TLS originally, so it can be deployed without additional configurations or modifications. 
+
+In addition, in time variant networks with centralized model{{centralized-model}}, the encryption of routing path information is also necessary to avoid the fake routing information. Considering the most typical protocols used to deliver the routing path information between controller and network devices are BGP and PCEP, and both are based on TCP. Therefore, the TLS is recommended to be applied for the conservation.
+
+## Activity Identification and Privacy{#activity-identification}
+
+In certain scenarios, precise time information exchanged within the network could be correlated with specific user or device behavior, inadvertently revealing private information. 
+
+This risk could also be mitigated by the solutions mentioned in {{activity-identification}}.
+
+## Spoofing and Manipulation of Time Information
+
+In a time variant network, if an attacker were to inject false or manipulated time data into the network, it could cause routers and devices to make incorrect decisions, potentially leading to traffic misrouting, network partitions, or inefficient use of resources. 
+
+This risk could also be mitigated by the solutions mentioned in {{dos-attack}}.
+
+## Replay Attacks on Time-Sensitive Data
+
+Time variant network data and schedule updates may be susceptible to replay attacks, which could cause network devices to act on outdated information, leading to inconsistent routing decisions, misaligned schedules, or security gaps. In particular, attackers could exploit replay attacks to force devices into outdated configurations or interfere with the synchronization of schedules across the network. 
+
+This kind of attack could be addressed by encrypting time signals, schedules and routing path data, and adding a unique number to the encrypted section of a packet. This has been implemented in existing protocols, for example, the NTS supports unique identifier extension field (EF) containing a random number, the TLS supports Message Authentication Code generated from sequence number.
+
+## Compromised Time Sources
+
+The reliance on external time sources for synchronization purposes presents a potential attack surface for time-variant networks. If a trusted time source, such as a GPS signal or an NTP server, is compromised, the attacker could feed erroneous time information to the entire network, disrupting its operation.
+
+This kind of attack could be mitigated by implement multiple, redundant time sources or protocols and regularly verify the integrity of these sources. In addition, alerting mechanisms should be in place to detect significant deviations in time data that could indicate an attack.
 
 # IANA Considerations
 
@@ -480,7 +531,7 @@ TODO acknowledge.
 ## Code Examples for Tidal Network
 {:numbered="false"}
 
-Tidal networks usually need to manage the availability of some node or interfaces. {{ex-inf}} shows the example of a
+Tidal networks usually need to manage the availability of some node or interfaces. {{ex-inf1}} shows the example of a
 scheduling node that is powered on from 12 AM, December 1, 2025 to 12 AM, December 1, 2026 in UTC and its interface
 named "interface1" is scheduled to be enabled at 7:00 AM and disabled at 1:00 AM, every day, from December 1, 2025 to
 December 1, 2026 in UTC.
@@ -533,6 +584,65 @@ The JSON encoding is used only for illustration purposes.
    ]
 }
 ~~~~
-{: #ex-inf title="An Example of Interface Activation Scheduling" artwork-align="center"}
+{: #ex-inf1 title="An Example of Interface Activation Scheduling" artwork-align="center"}
 
+## Code Examples for Dynamic Reachability Network
+{:numbered="false"}
+
+In a dynamic reachability network, the managing device usually needs to deliver the time-variant network topology to the network devices for them could react to
+the predictable topology changes in time. {{ex-inf2}} shows the example of a topology with two nodes and one link. Due to the moving of these two nodes, the link between these two nodes will be interrupted from 10:00 AM to 10:05 and 10:10 AM to 10:20 AM, April 1, 2025 in UTC.
+
+The JSON encoding is used only for illustration purposes.
+
+~~~~
+{
+    "ietf-tvr-topology:topology-schedule": {
+        "nodes": [
+            {
+                "node-id": 10000000,
+                "available": {
+                    "default-node-available": true,
+                    "schedules": []
+                }
+            },
+            {
+                "node-id": 10000001,
+                "available": {
+                    "default-node-available": true,
+                    "schedules": []
+                }
+            }
+        ],
+        "links": [
+            {
+                "source-node": 10000000,
+                "source-link-id": 32,
+                "available": {
+                    "schedules": [
+                        {
+                            "schedule-id": 111111,
+                            "period-description": "schedule down1",
+                            "period-start": "2025-4-01T10:00:00Z",
+                            "period-end": "2025-4-01T10:05:00Z",
+                            "attr-vaule": {
+                                "link-available": false
+                            }
+                        },
+                        {
+                            "schedule-id": 222222,
+                            "period-description": "schedule down2",
+                            "period-start": "2025-4-01T10:10:00Z",
+                            "period-end": "2025-4-01T10:20:00Z",
+                            "attr-vaule": {
+                                "link-available": false
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
+~~~~
+{: #ex-inf2 title="An Example of Topology with link Scheduling" artwork-align="center"}
 
