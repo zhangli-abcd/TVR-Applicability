@@ -95,7 +95,7 @@ throughput all the time, often, power will be wasted on network resources that a
 of some or all components of network nodes. These activities have the potential to alter network topology and
 impact data routing/forwarding in a variety of ways. Interfaces on network nodes can be selectively disabled
 or enabled based on traffic patterns, thereby reducing the energy consumption of nodes during periods of low
-network traffic. 
+network traffic.
 
 ## Dynamic Reachability Use Case
 
@@ -465,34 +465,34 @@ topological change.
 
 Editor's Note: multi-manager scenarios need to be considered.
 
-# Security Considerations{#security-considerations}
+# Security Considerations {#security-considerations}
 
 The integration of time-variant mechanisms in network operations presents distinct security challenges that require thorough
 analysis to safeguard the network’s integrity, availability, and confidentiality. Networks that rely on time-sensitive data
 for routing and forwarding decisions are particularly susceptible to attacks that exploit timing dependencies.
 
 The "Security Considerations" section of {{?I-D.ietf-tvr-requirements}} outlines various threat vectors and categories specific
-to time-variant environments. 
+to time-variant environments.
 
-## Denial-of-Service (DoS) Attack{#dos-attack}
+## Denial-of-Service (DoS) Attack {#dos-attack}
 
-In a time variant network, malicious actors could attack the network by disrupting or manipulating the time synchronization process. For example, an attacker could intentionally delay or corrupt time signals exchanged within the network, leading to routing errors and widespread denial-of-service (DoS) attacks. 
+In a time variant network, malicious actors could attack the network by disrupting or manipulating the time synchronization process. For example, an attacker could intentionally delay or corrupt time signals exchanged within the network, leading to routing errors and widespread denial-of-service (DoS) attacks.
 
-This kind of attack could be addressed by the redundancy time synchronization mechanisms, for example, multiple NTP sources or multiple time synchronization protocols could be deployed in a TVR network. The network devices could guarantee the correctness of the time by checking whether the time signals from different sources or protocols. 
+This kind of attack could be addressed by the redundancy time synchronization mechanisms, for example, multiple NTP sources or multiple time synchronization protocols could be deployed in a TVR network. The network devices could guarantee the correctness of the time by checking whether the time signals from different sources or protocols.
 
 In addition, the identification authentication is also an important way to protect the time signals being tampered by attackers. Some security extensions for time synchronization protocols (such as NTS (Network Time Security)) are recommended to be applied.
 
-## Traffic Analysis and Path Prediction{#traffic-analysis}
+## Traffic Analysis and Path Prediction {#traffic-analysis}
 
 In a time variant network, if time information is not adequately protected, attackers could conduct traffic analysis to infer routing decisions, network load, or usage patterns. The schedule ability could enable attackers to launch highly targeted attacks, such as selectively overloading certain links or intercepting sensitive communications. 
 
-This kind of attack could be addressed by the encryption of schedules and the authentication of managing devices. For the networks using NETCONF to deliver schedules, NETCONF over TLS{{?RFC7589}} is recommended to achieve the bidirectional authentication and encryption of YANG model data. RESTCONF supports TLS originally, so it can be deployed without additional configurations or modifications. 
+This kind of attack could be addressed by the encryption of schedules and the authentication of managing devices. For the networks using NETCONF to deliver schedules, NETCONF over TLS{{?RFC7589}} is recommended to achieve the bidirectional authentication and encryption of YANG model data. RESTCONF supports TLS originally, so it can be deployed without additional configurations or modifications.
 
 In addition, in time variant networks with centralized model{{centralized-model}}, the encryption of routing path information is also necessary to avoid the fake routing information. Considering the most typical protocols used to deliver the routing path information between controller and network devices are BGP and PCEP, and both are based on TCP. Therefore, the TLS is recommended to be applied for the conservation.
 
-## Activity Identification and Privacy{#activity-identification}
+## Activity Identification and Privacy {#activity-identification}
 
-In certain scenarios, precise time information exchanged within the network could be correlated with specific user or device behavior, inadvertently revealing private information. 
+In certain scenarios, precise time information exchanged within the network could be correlated with specific user or device behavior, inadvertently revealing private information.
 
 This risk could also be mitigated by the solutions mentioned in {{activity-identification}}.
 
@@ -504,7 +504,7 @@ This risk could also be mitigated by the solutions mentioned in {{dos-attack}}.
 
 ## Replay Attacks on Time-Sensitive Data
 
-Time variant network data and schedule updates may be susceptible to replay attacks, which could cause network devices to act on outdated information, leading to inconsistent routing decisions, misaligned schedules, or security gaps. In particular, attackers could exploit replay attacks to force devices into outdated configurations or interfere with the synchronization of schedules across the network. 
+Time variant network data and schedule updates may be susceptible to replay attacks, which could cause network devices to act on outdated information, leading to inconsistent routing decisions, misaligned schedules, or security gaps. In particular, attackers could exploit replay attacks to force devices into outdated configurations or interfere with the synchronization of schedules across the network.
 
 This kind of attack could be addressed by encrypting time signals, schedules and routing path data, and adding a unique number to the encrypted section of a packet. This has been implemented in existing protocols, for example, the NTS supports unique identifier extension field (EF) containing a random number, the TLS supports Message Authentication Code generated from sequence number.
 
@@ -644,5 +644,4 @@ The JSON encoding is used only for illustration purposes.
     }
 }
 ~~~~
-{: #ex-inf2 title="An Example of Topology with link Scheduling" artwork-align="center"}
-
+{: #ex-inf2 title="An Example of Topology with Link Scheduling" artwork-align="center"}
