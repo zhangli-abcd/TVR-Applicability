@@ -26,10 +26,6 @@ author:
    fullname: Jie Dong
    organization: Huawei
    email: jie.dong@huawei.com
--
-   fullname: Mohamed Boucadair
-   organization: Orange
-   email: mohamed.boucadair@orange.com
 
 contributor:
 -
