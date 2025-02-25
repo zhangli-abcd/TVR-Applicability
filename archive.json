@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-23T00:50:44.350913+00:00",
+  "timestamp": "2025-02-25T00:46:51.847241+00:00",
   "repo": "zhangli-abcd/TVR-Applicability",
   "labels": [
     {
@@ -750,24 +750,26 @@
       "id": "PR_kwDOMz9S7M6IpeN5",
       "title": "Provide more use cases and security considerations",
       "url": "https://github.com/zhangli-abcd/TVR-Applicability/pull/17",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "zhangli-abcd",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-01-22T15:54:15Z",
-      "updatedAt": "2025-01-22T15:54:16Z",
+      "updatedAt": "2025-02-24T01:57:11Z",
       "baseRepository": "zhangli-abcd/TVR-Applicability",
       "baseRefName": "main",
       "baseRefOid": "fcfc00425447a665a3e08ad7167d4f052e67e8d5",
       "headRepository": "zhangli-abcd/TVR-Applicability",
       "headRefName": "Li-dev",
       "headRefOid": "edd0bff8d02408118754bb3b49c65b6816a61913",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-02-24T01:57:11Z",
+      "mergedAt": "2025-02-24T01:57:11Z",
+      "mergedBy": "zhangli-abcd",
+      "mergeCommit": {
+        "oid": "1348ce4d0955453d0cb6f6a2c75d0a3bfe1c7ce6"
+      },
       "comments": [],
       "reviews": []
     },
