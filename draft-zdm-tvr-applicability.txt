@@ -5,9 +5,9 @@
 Time-Variant Routing                                            L. Zhang
 Internet-Draft                                                   J. Dong
 Intended status: Informational                                    Huawei
-Expires: 28 August 2025                                     M. Boucadair
+Expires: 1 September 2025                                   M. Boucadair
                                                                   Orange
-                                                        24 February 2025
+                                                        28 February 2025
 
 
     Applicability of TVR YANG Data Models for Scheduling of Network
@@ -18,13 +18,12 @@ Abstract
 
    Time-Variant Routing (TVR) is a routing system that can support the
    predicted topology changes caused by internal or external reasons.
-   Typical use cases include mobility networks with moving nodes,
-   resource constraints such as power, and tidal traffic demand
-   networks.  This document provides examples of how to implement the
-   TVR scheduling capabilities for key use cases.  It describes which
-   part of the TVR data model is used and why, and it outlines
-   operational and security considerations when deploying TVR-based
-   technologies.
+   Typical use cases include resource preservation networks, operating
+   efficiency networks and dynamic reachability networks.  This document
+   provides examples of how to implement the TVR scheduling capabilities
+   for key use cases.  It describes which part of the TVR data model is
+   used and why, and it outlines operational and security considerations
+   when deploying TVR-based technologies.
 
 Discussion Venues
 
@@ -52,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 August 2025.
+   This Internet-Draft will expire on 1 September 2025.
 
 Copyright Notice
 
@@ -414,9 +413,8 @@ Table of Contents
    systems, such as Network Time Protocol (NTP) [RFC5905] and Simple
    Network Time Protocol (SNTP) [RFC4330].
 
-   The security aspects of hardware-based and software-based time
-   synchronization mechanisms are discussed further in Section 8 of this
-   document.
+   The security aspects of time synchronization mechanisms are discussed
+   further in Section 8 of this document.
 
 5.1.  Hardware-based Time Synchronization Mechanisms
 
@@ -684,7 +682,7 @@ Table of Contents
    signals exchanged within the network, leading to routing errors and
    widespread denial-of-service (DoS) attacks.
 
-   This kind of attack could be addressed by the redundancy time
+   This kind of attack could be mitigated by the redundancy time
    synchronization mechanisms, for example, multiple NTP sources or
    multiple time synchronization protocols could be deployed in a TVR
    network.  The network devices could guarantee the correctness of the
@@ -705,7 +703,7 @@ Table of Contents
    selectively overloading certain links or intercepting sensitive
    communications.
 
-   This kind of attack could be addressed by the encryption of schedules
+   This kind of attack could be mitigated by the encryption of schedules
    and the authentication of managing devices.  For the networks using
    NETCONF to deliver schedules, NETCONF over TLS[RFC7589] is
    recommended to achieve the bidirectional authentication and
@@ -749,7 +747,7 @@ Table of Contents
    replay attacks to force devices into outdated configurations or
    interfere with the synchronization of schedules across the network.
 
-   This kind of attack could be addressed by encrypting time signals,
+   This kind of attack could be mitigated by encrypting time signals,
    schedules and routing path data, and adding a unique number to the
    encrypted section of a packet.  This has been implemented in existing
    protocols, for example, the NTS supports unique identifier extension
@@ -765,10 +763,10 @@ Table of Contents
    the entire network, disrupting its operation.
 
    This kind of attack could be mitigated by implement multiple,
-   redundant time sources or protocols and regularly verify the
-   integrity of these sources.  In addition, alerting mechanisms should
-   be in place to detect significant deviations in time data that could
-   indicate an attack.
+   redundant time sources or time synchronization protocols and
+   regularly verify the integrity of these sources.  In addition,
+   alerting mechanisms should be in place to detect significant
+   deviations in time data that could indicate an attack.
 
 9.  IANA Considerations
 

@@ -10,8 +10,8 @@
 <meta content="Mohamed Boucadair" name="author">
 <meta content="
        Time-Variant Routing (TVR) is a routing system that can support the predicted topology changes caused by internal or
-external reasons. Typical use cases include mobility networks with moving nodes, resource constraints such as power,
-and tidal traffic demand networks.
+external reasons. Typical use cases include resource preservation networks, operating efficiency networks and dynamic
+reachability networks.
 This document provides examples of how to implement the TVR scheduling capabilities for key use cases. It describes
 which part of the TVR data model is used and why, and it outlines operational and security considerations when deploying
 TVR-based technologies. 
@@ -1057,7 +1057,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Zhang, et al.</td>
-<td class="center">Expires 28 August 2025</td>
+<td class="center">Expires 1 September 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1070,12 +1070,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-zdm-tvr-applicability-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-24" class="published">24 February 2025</time>
+<time datetime="2025-02-28" class="published">28 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-28">28 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-09-01">1 September 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1097,8 +1097,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">Time-Variant Routing (TVR) is a routing system that can support the predicted topology changes caused by internal or
-external reasons. Typical use cases include mobility networks with moving nodes, resource constraints such as power,
-and tidal traffic demand networks.
+external reasons. Typical use cases include resource preservation networks, operating efficiency networks and dynamic
+reachability networks.
 This document provides examples of how to implement the TVR scheduling capabilities for key use cases. It describes
 which part of the TVR data model is used and why, and it outlines operational and security considerations when deploying
 TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
@@ -1133,7 +1133,7 @@ TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 28 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 1 September 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1366,9 +1366,11 @@ network traffic.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-dynamic-reachability-use-ca" class="section-name selfRef">Dynamic Reachability Use Case</a>
         </h3>
 <p id="section-3.2-1">Dynamic Reachability referred to the scenarios where a node is placed on a mobile platform, the mobility of the
-platform may cause changes to the topology of the network over time<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-use-cases-09#section-4" class="relref">Section 4</a> of [<a href="#I-D.ietf-tvr-use-cases" class="cite xref">I-D.ietf-tvr-use-cases</a>]</span>. As the relative mobility between and among nodes in the network and the impacts of the environment on the signal
+platform may cause changes to the topology of the network over time<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-use-cases-09#section-4" class="relref">Section 4</a> of [<a href="#I-D.ietf-tvr-use-cases" class="cite xref">I-D.ietf-tvr-use-cases</a>]</span>. As the
+relative mobility between and among nodes in the network and the impacts of the environment on the signal
 propagation can be predicted, the associated loss and establishment of adjacencies can also be planned for.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
-<p id="section-3.2-2">The typical detailed use cases of Dynamic Reachability include but not limited to satellite network, predictable moving vessels and vehicles.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">The typical detailed use cases of Dynamic Reachability include but not limited to satellite network, predictable moving
+vessels and vehicles.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1388,8 +1390,9 @@ and execution locality may be centralized or distributed.<a href="#section-4.1-1
 <p id="section-4.1-2">When the schedule is generated and executed in a centralized manner and within the same device, the changes are sent to routing applications
 in wall-clock time via a management interface, which does not need to be delivered by the YANG model. This can be
 implemented using the existing management plane technology. Therefore, this scenario is outside of the scope of this document.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
-<p id="section-4.1-3">When the schedule is generated and executed in a distributed manner, which means that each node generates its specific schedules. In this scenario, there is also no need for delivering the
-schedule by the YANG model. Therefore, this scenario is also outside of the scope of this document.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.1-3">When the schedule is generated and executed in a distributed manner, which means that each node generates its specific
+schedules. In this scenario, there is also no need for delivering the schedule by the YANG model. Therefore, this scenario
+is also outside of the scope of this document.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
 <p id="section-4.1-4">When a schedule is generated in a centralized manner and executed in a distributed manner, the YANG module
 needs to be used to deliver the schedule to the managed device. Depending on the location of the routing
 application, the network model can be divided into two types: distributed and centralized.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
@@ -1471,8 +1474,8 @@ data to the management device.<a href="#section-4.2.1-2" class="pilcrow">¶</a><
 Topology YANG module<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-03#section-5.3" class="relref">Section 5.3</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>, so that the routing application in the controller
 can consider the impact of topology changes on routes when calculating routes.<a href="#section-4.2.1-3" class="pilcrow">¶</a></p>
 <p id="section-4.2.1-4">The network controller should deliver the route calculation result to the network devices. The format of the routing
-results depend on the protocols deployed (The typical protocols include BGP, PCEP, etc.). The routing result for a period in the future could be sent to
-the network devices in wall-clock time or be packed and sent at some special points.<a href="#section-4.2.1-4" class="pilcrow">¶</a></p>
+results depend on the protocols deployed (The typical protocols include BGP, PCEP, etc.). The routing result for a period
+in the future could be sent to the network devices in wall-clock time or be packed and sent at some special points.<a href="#section-4.2.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="interactions-in-distributed-model">
@@ -1608,7 +1611,7 @@ Hardware-based protocols often rely on dedicated hardware to ensure clock synchr
 System (GPS) and Precision Time Protocol (PTP). Software-based protocols, on the other hand, synchronize
 clocks through software packages running on systems, such as Network Time Protocol (NTP) <span>[<a href="#RFC5905" class="cite xref">RFC5905</a>]</span> and Simple Network
 Time Protocol (SNTP) <span>[<a href="#RFC4330" class="cite xref">RFC4330</a>]</span>.<a href="#section-5-3" class="pilcrow">¶</a></p>
-<p id="section-5-4">The security aspects of hardware-based and software-based time synchronization mechanisms are discussed further in <a href="#security-considerations" class="auto internal xref">Section 8</a> of this document.<a href="#section-5-4" class="pilcrow">¶</a></p>
+<p id="section-5-4">The security aspects of time synchronization mechanisms are discussed further in <a href="#security-considerations" class="auto internal xref">Section 8</a> of this document.<a href="#section-5-4" class="pilcrow">¶</a></p>
 <div id="hardware-based-time-synchronization-mechanisms">
 <section id="section-5.1">
         <h3 id="name-hardware-based-time-synchro">
@@ -1841,9 +1844,15 @@ to time-variant environments.<a href="#section-8-2" class="pilcrow">¶</a></p>
         <h3 id="name-denial-of-service-dos-attac">
 <a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-denial-of-service-dos-attac" class="section-name selfRef">Denial-of-Service (DoS) Attack</a>
         </h3>
-<p id="section-8.1-1">In a time variant network, malicious actors could attack the network by disrupting or manipulating the time synchronization process. For example, an attacker could intentionally delay or corrupt time signals exchanged within the network, leading to routing errors and widespread denial-of-service (DoS) attacks.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
-<p id="section-8.1-2">This kind of attack could be addressed by the redundancy time synchronization mechanisms, for example, multiple NTP sources or multiple time synchronization protocols could be deployed in a TVR network. The network devices could guarantee the correctness of the time by checking whether the time signals from different sources or protocols.<a href="#section-8.1-2" class="pilcrow">¶</a></p>
-<p id="section-8.1-3">In addition, the identification authentication is also an important way to protect the time signals being tampered by attackers. Some security extensions for time synchronization protocols (such as NTS (Network Time Security)) are recommended to be applied.<a href="#section-8.1-3" class="pilcrow">¶</a></p>
+<p id="section-8.1-1">In a time variant network, malicious actors could attack the network by disrupting or manipulating the time synchronization
+process. For example, an attacker could intentionally delay or corrupt time signals exchanged within the network, leading
+to routing errors and widespread denial-of-service (DoS) attacks.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
+<p id="section-8.1-2">This kind of attack could be mitigated by the redundancy time synchronization mechanisms, for example, multiple NTP sources
+or multiple time synchronization protocols could be deployed in a TVR network. The network devices could guarantee the
+correctness of the time by checking whether the time signals from different sources or protocols.<a href="#section-8.1-2" class="pilcrow">¶</a></p>
+<p id="section-8.1-3">In addition, the identification authentication is also an important way to protect the time signals being tampered by
+attackers. Some security extensions for time synchronization protocols (such as NTS (Network Time Security)) are
+recommended to be applied.<a href="#section-8.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="traffic-analysis">
@@ -1851,9 +1860,17 @@ to time-variant environments.<a href="#section-8-2" class="pilcrow">¶</a></p>
         <h3 id="name-traffic-analysis-and-path-p">
 <a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-traffic-analysis-and-path-p" class="section-name selfRef">Traffic Analysis and Path Prediction</a>
         </h3>
-<p id="section-8.2-1">In a time variant network, if time information is not adequately protected, attackers could conduct traffic analysis to infer routing decisions, network load, or usage patterns. The schedule ability could enable attackers to launch highly targeted attacks, such as selectively overloading certain links or intercepting sensitive communications.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
-<p id="section-8.2-2">This kind of attack could be addressed by the encryption of schedules and the authentication of managing devices. For the networks using NETCONF to deliver schedules, NETCONF over TLS<span>[<a href="#RFC7589" class="cite xref">RFC7589</a>]</span> is recommended to achieve the bidirectional authentication and encryption of YANG model data. RESTCONF supports TLS originally, so it can be deployed without additional configurations or modifications.<a href="#section-8.2-2" class="pilcrow">¶</a></p>
-<p id="section-8.2-3">In addition, in time variant networks with centralized model<a href="#centralized-model" class="auto internal xref">Section 4.1.1</a>, the encryption of routing path information is also necessary to avoid the fake routing information. Considering the most typical protocols used to deliver the routing path information between controller and network devices are BGP and PCEP, and both are based on TCP. Therefore, the TLS is recommended to be applied for the conservation.<a href="#section-8.2-3" class="pilcrow">¶</a></p>
+<p id="section-8.2-1">In a time variant network, if time information is not adequately protected, attackers could conduct traffic analysis to
+infer routing decisions, network load, or usage patterns. The schedule ability could enable attackers to launch highly
+targeted attacks, such as selectively overloading certain links or intercepting sensitive communications.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.2-2">This kind of attack could be mitigated by the encryption of schedules and the authentication of managing devices. For
+the networks using NETCONF to deliver schedules, NETCONF over TLS<span>[<a href="#RFC7589" class="cite xref">RFC7589</a>]</span> is recommended to achieve the bidirectional
+authentication and encryption of YANG model data. RESTCONF supports TLS originally, so it can be deployed without
+additional configurations or modifications.<a href="#section-8.2-2" class="pilcrow">¶</a></p>
+<p id="section-8.2-3">In addition, in time variant networks with centralized model<a href="#centralized-model" class="auto internal xref">Section 4.1.1</a>, the encryption of routing path
+information is also necessary to avoid the fake routing information. Considering the most typical protocols used to
+deliver the routing path information between controller and network devices are BGP and PCEP, and both are based on TCP.
+Therefore, the TLS is recommended to be applied for the conservation.<a href="#section-8.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="activity-identification">
@@ -1861,7 +1878,8 @@ to time-variant environments.<a href="#section-8-2" class="pilcrow">¶</a></p>
         <h3 id="name-activity-identification-and">
 <a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-activity-identification-and" class="section-name selfRef">Activity Identification and Privacy</a>
         </h3>
-<p id="section-8.3-1">In certain scenarios, precise time information exchanged within the network could be correlated with specific user or device behavior, inadvertently revealing private information.<a href="#section-8.3-1" class="pilcrow">¶</a></p>
+<p id="section-8.3-1">In certain scenarios, precise time information exchanged within the network could be correlated with specific user or
+device behavior, inadvertently revealing private information.<a href="#section-8.3-1" class="pilcrow">¶</a></p>
 <p id="section-8.3-2">This risk could also be mitigated by the solutions mentioned in <a href="#activity-identification" class="auto internal xref">Section 8.3</a>.<a href="#section-8.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1870,7 +1888,9 @@ to time-variant environments.<a href="#section-8-2" class="pilcrow">¶</a></p>
         <h3 id="name-spoofing-and-manipulation-o">
 <a href="#section-8.4" class="section-number selfRef">8.4. </a><a href="#name-spoofing-and-manipulation-o" class="section-name selfRef">Spoofing and Manipulation of Time Information</a>
         </h3>
-<p id="section-8.4-1">In a time variant network, if an attacker were to inject false or manipulated time data into the network, it could cause routers and devices to make incorrect decisions, potentially leading to traffic misrouting, network partitions, or inefficient use of resources.<a href="#section-8.4-1" class="pilcrow">¶</a></p>
+<p id="section-8.4-1">In a time variant network, if an attacker were to inject false or manipulated time data into the network, it could cause
+routers and devices to make incorrect decisions, potentially leading to traffic misrouting, network partitions, or
+inefficient use of resources.<a href="#section-8.4-1" class="pilcrow">¶</a></p>
 <p id="section-8.4-2">This risk could also be mitigated by the solutions mentioned in <a href="#dos-attack" class="auto internal xref">Section 8.1</a>.<a href="#section-8.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1879,8 +1899,14 @@ to time-variant environments.<a href="#section-8-2" class="pilcrow">¶</a></p>
         <h3 id="name-replay-attacks-on-time-sens">
 <a href="#section-8.5" class="section-number selfRef">8.5. </a><a href="#name-replay-attacks-on-time-sens" class="section-name selfRef">Replay Attacks on Time-Sensitive Data</a>
         </h3>
-<p id="section-8.5-1">Time variant network data and schedule updates may be susceptible to replay attacks, which could cause network devices to act on outdated information, leading to inconsistent routing decisions, misaligned schedules, or security gaps. In particular, attackers could exploit replay attacks to force devices into outdated configurations or interfere with the synchronization of schedules across the network.<a href="#section-8.5-1" class="pilcrow">¶</a></p>
-<p id="section-8.5-2">This kind of attack could be addressed by encrypting time signals, schedules and routing path data, and adding a unique number to the encrypted section of a packet. This has been implemented in existing protocols, for example, the NTS supports unique identifier extension field (EF) containing a random number, the TLS supports Message Authentication Code generated from sequence number.<a href="#section-8.5-2" class="pilcrow">¶</a></p>
+<p id="section-8.5-1">Time variant network data and schedule updates may be susceptible to replay attacks, which could cause network devices
+to act on outdated information, leading to inconsistent routing decisions, misaligned schedules, or security gaps. In
+particular, attackers could exploit replay attacks to force devices into outdated configurations or interfere with the
+synchronization of schedules across the network.<a href="#section-8.5-1" class="pilcrow">¶</a></p>
+<p id="section-8.5-2">This kind of attack could be mitigated by encrypting time signals, schedules and routing path data, and adding a unique
+number to the encrypted section of a packet. This has been implemented in existing protocols, for example, the NTS
+supports unique identifier extension field (EF) containing a random number, the TLS supports Message Authentication Code
+generated from sequence number.<a href="#section-8.5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="compromised-time-sources">
@@ -1888,8 +1914,12 @@ to time-variant environments.<a href="#section-8-2" class="pilcrow">¶</a></p>
         <h3 id="name-compromised-time-sources">
 <a href="#section-8.6" class="section-number selfRef">8.6. </a><a href="#name-compromised-time-sources" class="section-name selfRef">Compromised Time Sources</a>
         </h3>
-<p id="section-8.6-1">The reliance on external time sources for synchronization purposes presents a potential attack surface for time-variant networks. If a trusted time source, such as a GPS signal or an NTP server, is compromised, the attacker could feed erroneous time information to the entire network, disrupting its operation.<a href="#section-8.6-1" class="pilcrow">¶</a></p>
-<p id="section-8.6-2">This kind of attack could be mitigated by implement multiple, redundant time sources or protocols and regularly verify the integrity of these sources. In addition, alerting mechanisms should be in place to detect significant deviations in time data that could indicate an attack.<a href="#section-8.6-2" class="pilcrow">¶</a></p>
+<p id="section-8.6-1">The reliance on external time sources for synchronization purposes presents a potential attack surface for time-variant
+networks. If a trusted time source, such as a GPS signal or an NTP server, is compromised, the attacker could feed
+erroneous time information to the entire network, disrupting its operation.<a href="#section-8.6-1" class="pilcrow">¶</a></p>
+<p id="section-8.6-2">This kind of attack could be mitigated by implement multiple, redundant time sources or time synchronization protocols and regularly verify
+the integrity of these sources. In addition, alerting mechanisms should be in place to detect significant deviations in
+time data that could indicate an attack.<a href="#section-8.6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
