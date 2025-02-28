@@ -56,8 +56,8 @@ informative:
 --- abstract
 
 Time-Variant Routing (TVR) is a routing system that can support the predicted topology changes caused by internal or
-external reasons. Typical use cases include mobility networks with moving nodes, resource constraints such as power,
-and tidal traffic demand networks.
+external reasons. Typical use cases include resource preservation networks, operating efficiency networks and dynamic
+reachability networks.
 This document provides examples of how to implement the TVR scheduling capabilities for key use cases. It describes
 which part of the TVR data model is used and why, and it outlines operational and security considerations when deploying
 TVR-based technologies.
@@ -100,10 +100,12 @@ network traffic.
 ## Dynamic Reachability Use Case
 
 Dynamic Reachability referred to the scenarios where a node is placed on a mobile platform, the mobility of the
-platform may cause changes to the topology of the network over time{{Section 4 of ?I-D.ietf-tvr-use-cases}}. As the relative mobility between and among nodes in the network and the impacts of the environment on the signal
+platform may cause changes to the topology of the network over time{{Section 4 of ?I-D.ietf-tvr-use-cases}}. As the
+relative mobility between and among nodes in the network and the impacts of the environment on the signal
 propagation can be predicted, the associated loss and establishment of adjacencies can also be planned for.
 
-The typical detailed use cases of Dynamic Reachability include but not limited to satellite network, predictable moving vessels and vehicles.
+The typical detailed use cases of Dynamic Reachability include but not limited to satellite network, predictable moving
+vessels and vehicles.
 
 # Applicability of TVR Yang Model
 
@@ -116,8 +118,9 @@ When the schedule is generated and executed in a centralized manner and within t
 in wall-clock time via a management interface, which does not need to be delivered by the YANG model. This can be
 implemented using the existing management plane technology. Therefore, this scenario is outside of the scope of this document.
 
-When the schedule is generated and executed in a distributed manner, which means that each node generates its specific schedules. In this scenario, there is also no need for delivering the
-schedule by the YANG model. Therefore, this scenario is also outside of the scope of this document.
+When the schedule is generated and executed in a distributed manner, which means that each node generates its specific
+schedules. In this scenario, there is also no need for delivering the schedule by the YANG model. Therefore, this scenario
+is also outside of the scope of this document.
 
 When a schedule is generated in a centralized manner and executed in a distributed manner, the YANG module
 needs to be used to deliver the schedule to the managed device. Depending on the location of the routing
@@ -176,8 +179,8 @@ Topology YANG module{{Section 5.3 of ?I-D.ietf-tvr-schedule-yang}}, so that the 
 can consider the impact of topology changes on routes when calculating routes.
 
 The network controller should deliver the route calculation result to the network devices. The format of the routing
-results depend on the protocols deployed (The typical protocols include BGP, PCEP, etc.). The routing result for a period in the future could be sent to
-the network devices in wall-clock time or be packed and sent at some special points.
+results depend on the protocols deployed (The typical protocols include BGP, PCEP, etc.). The routing result for a period
+in the future could be sent to the network devices in wall-clock time or be packed and sent at some special points.
 
 ### Interactions in Distributed Model
 
@@ -290,7 +293,7 @@ System (GPS) and Precision Time Protocol (PTP). Software-based protocols, on the
 clocks through software packages running on systems, such as Network Time Protocol (NTP) {{?RFC5905}} and Simple Network
 Time Protocol (SNTP) {{?RFC4330}}.
 
-The security aspects of hardware-based and software-based time synchronization mechanisms are discussed further in {{security-considerations}} of this document.
+The security aspects of time synchronization mechanisms are discussed further in {{security-considerations}} of this document.
 
 ## Hardware-based Time Synchronization Mechanisms
 
@@ -478,43 +481,70 @@ to time-variant environments.
 
 ## Denial-of-Service (DoS) Attack {#dos-attack}
 
-In a time variant network, malicious actors could attack the network by disrupting or manipulating the time synchronization process. For example, an attacker could intentionally delay or corrupt time signals exchanged within the network, leading to routing errors and widespread denial-of-service (DoS) attacks.
+In a time variant network, malicious actors could attack the network by disrupting or manipulating the time synchronization
+process. For example, an attacker could intentionally delay or corrupt time signals exchanged within the network, leading
+to routing errors and widespread denial-of-service (DoS) attacks.
 
-This kind of attack could be addressed by the redundancy time synchronization mechanisms, for example, multiple NTP sources or multiple time synchronization protocols could be deployed in a TVR network. The network devices could guarantee the correctness of the time by checking whether the time signals from different sources or protocols.
+This kind of attack could be mitigated by the redundancy time synchronization mechanisms, for example, multiple NTP sources
+or multiple time synchronization protocols could be deployed in a TVR network. The network devices could guarantee the
+correctness of the time by checking whether the time signals from different sources or protocols.
 
-In addition, the identification authentication is also an important way to protect the time signals being tampered by attackers. Some security extensions for time synchronization protocols (such as NTS (Network Time Security)) are recommended to be applied.
+In addition, the identification authentication is also an important way to protect the time signals being tampered by
+attackers. Some security extensions for time synchronization protocols (such as NTS (Network Time Security)) are
+recommended to be applied.
 
 ## Traffic Analysis and Path Prediction {#traffic-analysis}
 
-In a time variant network, if time information is not adequately protected, attackers could conduct traffic analysis to infer routing decisions, network load, or usage patterns. The schedule ability could enable attackers to launch highly targeted attacks, such as selectively overloading certain links or intercepting sensitive communications.
+In a time variant network, if time information is not adequately protected, attackers could conduct traffic analysis to
+infer routing decisions, network load, or usage patterns. The schedule ability could enable attackers to launch highly
+targeted attacks, such as selectively overloading certain links or intercepting sensitive communications.
 
-This kind of attack could be addressed by the encryption of schedules and the authentication of managing devices. For the networks using NETCONF to deliver schedules, NETCONF over TLS{{?RFC7589}} is recommended to achieve the bidirectional authentication and encryption of YANG model data. RESTCONF supports TLS originally, so it can be deployed without additional configurations or modifications.
+This kind of attack could be mitigated by the encryption of schedules and the authentication of managing devices. For
+the networks using NETCONF to deliver schedules, NETCONF over TLS{{?RFC7589}} is recommended to achieve the bidirectional
+authentication and encryption of YANG model data. RESTCONF supports TLS originally, so it can be deployed without
+additional configurations or modifications.
 
-In addition, in time variant networks with centralized model{{centralized-model}}, the encryption of routing path information is also necessary to avoid the fake routing information. Considering the most typical protocols used to deliver the routing path information between controller and network devices are BGP and PCEP, and both are based on TCP. Therefore, the TLS is recommended to be applied for the conservation.
+In addition, in time variant networks with centralized model{{centralized-model}}, the encryption of routing path
+information is also necessary to avoid the fake routing information. Considering the most typical protocols used to
+deliver the routing path information between controller and network devices are BGP and PCEP, and both are based on TCP.
+Therefore, the TLS is recommended to be applied for the conservation.
 
 ## Activity Identification and Privacy {#activity-identification}
 
-In certain scenarios, precise time information exchanged within the network could be correlated with specific user or device behavior, inadvertently revealing private information.
+In certain scenarios, precise time information exchanged within the network could be correlated with specific user or
+device behavior, inadvertently revealing private information.
 
 This risk could also be mitigated by the solutions mentioned in {{activity-identification}}.
 
 ## Spoofing and Manipulation of Time Information
 
-In a time variant network, if an attacker were to inject false or manipulated time data into the network, it could cause routers and devices to make incorrect decisions, potentially leading to traffic misrouting, network partitions, or inefficient use of resources.
+In a time variant network, if an attacker were to inject false or manipulated time data into the network, it could cause
+routers and devices to make incorrect decisions, potentially leading to traffic misrouting, network partitions, or
+inefficient use of resources.
 
 This risk could also be mitigated by the solutions mentioned in {{dos-attack}}.
 
 ## Replay Attacks on Time-Sensitive Data
 
-Time variant network data and schedule updates may be susceptible to replay attacks, which could cause network devices to act on outdated information, leading to inconsistent routing decisions, misaligned schedules, or security gaps. In particular, attackers could exploit replay attacks to force devices into outdated configurations or interfere with the synchronization of schedules across the network.
+Time variant network data and schedule updates may be susceptible to replay attacks, which could cause network devices
+to act on outdated information, leading to inconsistent routing decisions, misaligned schedules, or security gaps. In
+particular, attackers could exploit replay attacks to force devices into outdated configurations or interfere with the
+synchronization of schedules across the network.
 
-This kind of attack could be addressed by encrypting time signals, schedules and routing path data, and adding a unique number to the encrypted section of a packet. This has been implemented in existing protocols, for example, the NTS supports unique identifier extension field (EF) containing a random number, the TLS supports Message Authentication Code generated from sequence number.
+This kind of attack could be mitigated by encrypting time signals, schedules and routing path data, and adding a unique
+number to the encrypted section of a packet. This has been implemented in existing protocols, for example, the NTS
+supports unique identifier extension field (EF) containing a random number, the TLS supports Message Authentication Code
+generated from sequence number.
 
 ## Compromised Time Sources
 
-The reliance on external time sources for synchronization purposes presents a potential attack surface for time-variant networks. If a trusted time source, such as a GPS signal or an NTP server, is compromised, the attacker could feed erroneous time information to the entire network, disrupting its operation.
+The reliance on external time sources for synchronization purposes presents a potential attack surface for time-variant
+networks. If a trusted time source, such as a GPS signal or an NTP server, is compromised, the attacker could feed
+erroneous time information to the entire network, disrupting its operation.
 
-This kind of attack could be mitigated by implement multiple, redundant time sources or protocols and regularly verify the integrity of these sources. In addition, alerting mechanisms should be in place to detect significant deviations in time data that could indicate an attack.
+This kind of attack could be mitigated by implement multiple, redundant time sources or time synchronization protocols and regularly verify
+the integrity of these sources. In addition, alerting mechanisms should be in place to detect significant deviations in
+time data that could indicate an attack.
 
 # IANA Considerations
 
