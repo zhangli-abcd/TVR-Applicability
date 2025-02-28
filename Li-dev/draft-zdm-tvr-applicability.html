@@ -7,22 +7,23 @@
 <title>Applicability of TVR YANG Data Models for Scheduling of Network Resources</title>
 <meta content="Li Zhang" name="author">
 <meta content="Jie Dong" name="author">
+<meta content="Mohamed Boucadair" name="author">
 <meta content="
        Time-Variant Routing (TVR) is a routing system that can support the predicted topology changes caused by internal or
-external reasons. Typical use cases include mobility networks with moving nodes, resource constraints such as power,
-and tidal traffic demand networks.
+external reasons. Typical use cases include resource preservation networks, operating efficiency networks and dynamic
+reachability networks.
 This document provides examples of how to implement the TVR scheduling capabilities for key use cases. It describes
 which part of the TVR data model is used and why, and it outlines operational and security considerations when deploying
 TVR-based technologies. 
     " name="description">
-<meta content="xml2rfc 3.25.0" name="generator">
+<meta content="xml2rfc 3.27.0" name="generator">
 <meta content="schedule" name="keyword">
 <meta content="YANG module" name="keyword">
 <meta content="applicability" name="keyword">
 <meta content="draft-zdm-tvr-applicability-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.25.0
-    Python 3.12.8
+  xml2rfc 3.27.0
+    Python 3.12.9
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
@@ -443,7 +444,7 @@ dl {
     margin-bottom: 0;
   }
 }
-dl > dt {
+dl:not(.dlNewline) > dt {
   float: left;
   margin-right: 2ch;
   min-width: 8ch;
@@ -1052,11 +1053,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Applicability Statement</td>
-<td class="right">January 2025</td>
+<td class="right">February 2025</td>
 </tr></thead>
 <tfoot><tr>
-<td class="left">Zhang &amp; Dong</td>
-<td class="center">Expires 1 August 2025</td>
+<td class="left">Zhang, et al.</td>
+<td class="center">Expires 1 September 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1069,12 +1070,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-zdm-tvr-applicability-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-01-28" class="published">28 January 2025</time>
+<time datetime="2025-02-28" class="published">28 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-01">1 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-09-01">1 September 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1085,6 +1086,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <div class="author-name">J. Dong</div>
 <div class="org">Huawei</div>
 </div>
+<div class="author">
+      <div class="author-name">M. Boucadair</div>
+<div class="org">Orange</div>
+</div>
 </dd>
 </dl>
 </div>
@@ -1092,8 +1097,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">Time-Variant Routing (TVR) is a routing system that can support the predicted topology changes caused by internal or
-external reasons. Typical use cases include mobility networks with moving nodes, resource constraints such as power,
-and tidal traffic demand networks.
+external reasons. Typical use cases include resource preservation networks, operating efficiency networks and dynamic
+reachability networks.
 This document provides examples of how to implement the TVR scheduling capabilities for key use cases. It describes
 which part of the TVR data model is used and why, and it outlines operational and security considerations when deploying
 TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
@@ -1128,7 +1133,7 @@ TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 1 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 1 September 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1169,10 +1174,13 @@ TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
                 <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-tidal-network-use-case" class="internal xref">Tidal Network Use Case</a></p>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-dynamic-reachability-use-ca" class="internal xref">Dynamic Reachability Use Case</a></p>
+</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-applicability-of-tvr-yang-m" class="internal xref">Applicability of TVR Yang Model in Tidal Network</a></p>
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-applicability-of-tvr-yang-m" class="internal xref">Applicability of TVR Yang Model</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
                 <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-network-model" class="internal xref">Network Model</a></p>
@@ -1189,10 +1197,10 @@ TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
                 <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-interaction-between-devices" class="internal xref">Interaction Between Devices</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2.2.1">
-                    <p id="section-toc.1-1.4.2.2.2.1.1"><a href="#section-4.2.1" class="auto internal xref">4.2.1</a>.  <a href="#name-centralized-model-2" class="internal xref">Centralized Model</a></p>
+                    <p id="section-toc.1-1.4.2.2.2.1.1"><a href="#section-4.2.1" class="auto internal xref">4.2.1</a>.  <a href="#name-interactions-in-centralized" class="internal xref">Interactions in Centralized Model</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2.2.2">
-                    <p id="section-toc.1-1.4.2.2.2.2.1"><a href="#section-4.2.2" class="auto internal xref">4.2.2</a>.  <a href="#name-distributed-model-2" class="internal xref">Distributed Model</a></p>
+                    <p id="section-toc.1-1.4.2.2.2.2.1"><a href="#section-4.2.2" class="auto internal xref">4.2.2</a>.  <a href="#name-interactions-in-distributed" class="internal xref">Interactions in Distributed Model</a></p>
 </li>
                 </ul>
 </li>
@@ -1208,10 +1216,18 @@ TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-time-synchronization" class="internal xref">Time Synchronization</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
-                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-ntp" class="internal xref">NTP</a></p>
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-hardware-based-time-synchro" class="internal xref">Hardware-based Time Synchronization Mechanisms</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
-                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-sntp" class="internal xref">SNTP</a></p>
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-software-based-time-synchro" class="internal xref">Software-based Time Synchronization Protocols</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.1">
+                    <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="auto internal xref">5.2.1</a>.  <a href="#name-ntp" class="internal xref">NTP</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.2">
+                    <p id="section-toc.1-1.5.2.2.2.2.1"><a href="#section-5.2.2" class="auto internal xref">5.2.2</a>.  <a href="#name-sntp" class="internal xref">SNTP</a></p>
+</li>
+                </ul>
 </li>
             </ul>
 </li>
@@ -1236,6 +1252,26 @@ TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
             <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-denial-of-service-dos-attac" class="internal xref">Denial-of-Service (DoS) Attack</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-traffic-analysis-and-path-p" class="internal xref">Traffic Analysis and Path Prediction</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.3">
+                <p id="section-toc.1-1.8.2.3.1"><a href="#section-8.3" class="auto internal xref">8.3</a>.  <a href="#name-activity-identification-and" class="internal xref">Activity Identification and Privacy</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.4">
+                <p id="section-toc.1-1.8.2.4.1"><a href="#section-8.4" class="auto internal xref">8.4</a>.  <a href="#name-spoofing-and-manipulation-o" class="internal xref">Spoofing and Manipulation of Time Information</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.5">
+                <p id="section-toc.1-1.8.2.5.1"><a href="#section-8.5" class="auto internal xref">8.5</a>.  <a href="#name-replay-attacks-on-time-sens" class="internal xref">Replay Attacks on Time-Sensitive Data</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.6">
+                <p id="section-toc.1-1.8.2.6.1"><a href="#section-8.6" class="auto internal xref">8.6</a>.  <a href="#name-compromised-time-sources" class="internal xref">Compromised Time Sources</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
@@ -1259,6 +1295,9 @@ TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.1">
                 <p id="section-toc.1-1.12.2.1.1"><a href="#appendix-B.1" class="auto internal xref"></a><a href="#name-code-examples-for-tidal-net" class="internal xref">Code Examples for Tidal Network</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.2">
+                <p id="section-toc.1-1.12.2.2.1"><a href="#appendix-B.2" class="auto internal xref"></a><a href="#name-code-examples-for-dynamic-r" class="internal xref">Code Examples for Dynamic Reachability Network</a></p>
 </li>
             </ul>
 </li>
@@ -1318,15 +1357,28 @@ throughput all the time, often, power will be wasted on network resources that a
 of some or all components of network nodes. These activities have the potential to alter network topology and
 impact data routing/forwarding in a variety of ways. Interfaces on network nodes can be selectively disabled
 or enabled based on traffic patterns, thereby reducing the energy consumption of nodes during periods of low
-network traffic. The following sections will describe how to use the TVR YANG model<span>[<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span> in Tidal Network.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+network traffic.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="dynamic-reachability-use-case">
+<section id="section-3.2">
+        <h3 id="name-dynamic-reachability-use-ca">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-dynamic-reachability-use-ca" class="section-name selfRef">Dynamic Reachability Use Case</a>
+        </h3>
+<p id="section-3.2-1">Dynamic Reachability referred to the scenarios where a node is placed on a mobile platform, the mobility of the
+platform may cause changes to the topology of the network over time<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-use-cases-09#section-4" class="relref">Section 4</a> of [<a href="#I-D.ietf-tvr-use-cases" class="cite xref">I-D.ietf-tvr-use-cases</a>]</span>. As the
+relative mobility between and among nodes in the network and the impacts of the environment on the signal
+propagation can be predicted, the associated loss and establishment of adjacencies can also be planned for.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">The typical detailed use cases of Dynamic Reachability include but not limited to satellite network, predictable moving
+vessels and vehicles.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
-<div id="applicability-of-tvr-yang-model-in-tidal-network">
+<div id="applicability-of-tvr-yang-model">
 <section id="section-4">
       <h2 id="name-applicability-of-tvr-yang-m">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-applicability-of-tvr-yang-m" class="section-name selfRef">Applicability of TVR Yang Model in Tidal Network</a>
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-applicability-of-tvr-yang-m" class="section-name selfRef">Applicability of TVR Yang Model</a>
       </h2>
 <div id="network-model">
 <section id="section-4.1">
@@ -1338,8 +1390,9 @@ and execution locality may be centralized or distributed.<a href="#section-4.1-1
 <p id="section-4.1-2">When the schedule is generated and executed in a centralized manner and within the same device, the changes are sent to routing applications
 in wall-clock time via a management interface, which does not need to be delivered by the YANG model. This can be
 implemented using the existing management plane technology. Therefore, this scenario is outside of the scope of this document.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
-<p id="section-4.1-3">When the schedule is generated and executed in a distributed manner, there is also no need for delivering the
-schedule by the YANG model. Therefore, this scenario is also outside of the scope of this document.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.1-3">When the schedule is generated and executed in a distributed manner, which means that each node generates its specific
+schedules. In this scenario, there is also no need for delivering the schedule by the YANG model. Therefore, this scenario
+is also outside of the scope of this document.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
 <p id="section-4.1-4">When a schedule is generated in a centralized manner and executed in a distributed manner, the YANG module
 needs to be used to deliver the schedule to the managed device. Depending on the location of the routing
 application, the network model can be divided into two types: distributed and centralized.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
@@ -1407,10 +1460,10 @@ is deployed in the network devices which also executes schedules and route calcu
         <h3 id="name-interaction-between-devices">
 <a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-interaction-between-devices" class="section-name selfRef">Interaction Between Devices</a>
         </h3>
-<div id="centralized-model-1">
+<div id="interactions-in-centralized-model">
 <section id="section-4.2.1">
-          <h4 id="name-centralized-model-2">
-<a href="#section-4.2.1" class="section-number selfRef">4.2.1. </a><a href="#name-centralized-model-2" class="section-name selfRef">Centralized Model</a>
+          <h4 id="name-interactions-in-centralized">
+<a href="#section-4.2.1" class="section-number selfRef">4.2.1. </a><a href="#name-interactions-in-centralized" class="section-name selfRef">Interactions in Centralized Model</a>
           </h4>
 <p id="section-4.2.1-1">A centralized model involves the interaction between the managing device and network controller, the managing
 device and network devices, and the controller and network devices.<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
@@ -1421,20 +1474,20 @@ data to the management device.<a href="#section-4.2.1-2" class="pilcrow">¶</a><
 Topology YANG module<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-03#section-5.3" class="relref">Section 5.3</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>, so that the routing application in the controller
 can consider the impact of topology changes on routes when calculating routes.<a href="#section-4.2.1-3" class="pilcrow">¶</a></p>
 <p id="section-4.2.1-4">The network controller should deliver the route calculation result to the network devices. The format of the routing
-results depends on the protocols deployed(The typical protocols include BGP , PCEP, etc.). The routing result for a period of time in the future could be sent to
-the network devices in wall-clock time or be packed and sent at some special points.<a href="#section-4.2.1-4" class="pilcrow">¶</a></p>
+results depend on the protocols deployed (The typical protocols include BGP, PCEP, etc.). The routing result for a period
+in the future could be sent to the network devices in wall-clock time or be packed and sent at some special points.<a href="#section-4.2.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="distributed-model-1">
+<div id="interactions-in-distributed-model">
 <section id="section-4.2.2">
-          <h4 id="name-distributed-model-2">
-<a href="#section-4.2.2" class="section-number selfRef">4.2.2. </a><a href="#name-distributed-model-2" class="section-name selfRef">Distributed Model</a>
+          <h4 id="name-interactions-in-distributed">
+<a href="#section-4.2.2" class="section-number selfRef">4.2.2. </a><a href="#name-interactions-in-distributed" class="section-name selfRef">Interactions in Distributed Model</a>
           </h4>
 <p id="section-4.2.2-1">The distributed model only involves the interaction between managing devices and network devices.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.2.2-2">The managing device must deliver node-specific schedules to network devices by TVR Schedule Node YANG Module and
 deliver network topology schedules to all the network devices by TVR Network Topology Yang module for route
 calculation. The network devices must report their status data to the managing device.
-Editors note: In future versions of this document, we will provide a more detailed procedure for both the distributed
+Editor’s note: In future versions of this document, we will provide a more detailed procedure for both the distributed
 and centralized approach.<a href="#section-4.2.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1552,49 +1605,66 @@ the scheduling tasks involved.<a href="#section-4.4-4" class="pilcrow">¶</a></p
 or distributed mode, a mechanism is required to keep the time synchronization between different devices.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <p id="section-5-2">Different time-variant scenarios may require different granularities of time synchronization. For example, the
 period of traffic and topology changes in tidal networks is usually a day or week. Therefore, a second-level time
-synchronization is enough.<a href="#section-5-2" class="pilcrow">¶</a></p>
+synchronization is enough. However, for the dynamic reachability scenarios, a fine-granularity time synchronization may be necessary, as the nodes may moving very fast in some cases(the moving speed of a low earth orbit satellite is more than 7900 m/s)<a href="#section-5-2" class="pilcrow">¶</a></p>
 <p id="section-5-3">Existing clock synchronization protocols can be classified into hardware-based protocols and software-based protocols.
 Hardware-based protocols often rely on dedicated hardware to ensure clock synchronization, such as Global Positioning
 System (GPS) and Precision Time Protocol (PTP). Software-based protocols, on the other hand, synchronize
 clocks through software packages running on systems, such as Network Time Protocol (NTP) <span>[<a href="#RFC5905" class="cite xref">RFC5905</a>]</span> and Simple Network
 Time Protocol (SNTP) <span>[<a href="#RFC4330" class="cite xref">RFC4330</a>]</span>.<a href="#section-5-3" class="pilcrow">¶</a></p>
-<p id="section-5-4">Hardware-based protocols typically have higher precision and stability, but also have higher cost due to the dedicated
-Hardware. Software-based protocols are simple and applicable to common hardware devices, but have lower precision (For
-example, the NTP can realize the synchronization at tens of milliseconds level).
-The software-based protocols are appropriate for most of the TVR use cases.<a href="#section-5-4" class="pilcrow">¶</a></p>
-<div id="ntp">
+<p id="section-5-4">The security aspects of time synchronization mechanisms are discussed further in <a href="#security-considerations" class="auto internal xref">Section 8</a> of this document.<a href="#section-5-4" class="pilcrow">¶</a></p>
+<div id="hardware-based-time-synchronization-mechanisms">
 <section id="section-5.1">
-        <h3 id="name-ntp">
-<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-ntp" class="section-name selfRef">NTP</a>
+        <h3 id="name-hardware-based-time-synchro">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-hardware-based-time-synchro" class="section-name selfRef">Hardware-based Time Synchronization Mechanisms</a>
         </h3>
-<p id="section-5.1-1">NTP is fundamental for ensuring that TVR mechanisms, which depend on highly accurate timing, function as intended across
+<p id="section-5.1-1">Hardware-based protocols typically have higher precision and stability, but also have higher cost due to the dedicated hardware. GPS and PTP are the typical hardware-based time synchronization mechanisms.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">GPS provides a precise time synchronization service based on the signals transmitted by the GPS satellites. GPS can realize the micro-second level time synchronization among the devices installed with GPS reviver hardware.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.1-3">PTP is a network protocol that complies with the IEEE 1588 standard and is used to implement high-precision time synchronization between network nodes. PTP implements time synchronization by transmitting synchronization messages between master and slave devices. Based on the hardware timestamp, the precision of time synchronization is much higher than that of NTP, and can reach the sub-microsecond level or even tens of nanoseconds.  When deploying PTP in TVR networks, the managing devices should be the master and the network devices and controller should be the slaves which get time from the master.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.1-4">Both GPS and PTP can realize micro-second level time synchronization. Depending on the features of TVR network, the GPS would be the preferred mechanisms for
+large-scale, high dynamic and open-air networks, especially networks with unreliable links as it does not require network links to exchange time information.
+For the small-scale networks with stable links but have high-precision time synchronization requirements, the PTP is much preferred.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="software-based-time-synchronization-protocols">
+<section id="section-5.2">
+        <h3 id="name-software-based-time-synchro">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-software-based-time-synchro" class="section-name selfRef">Software-based Time Synchronization Protocols</a>
+        </h3>
+<p id="section-5.2-1">Software-based protocols are simple and applicable to common hardware devices, but have lower precision (For
+example, the NTP can realize the synchronization at tens of milliseconds level).<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<div id="ntp">
+<section id="section-5.2.1">
+          <h4 id="name-ntp">
+<a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-ntp" class="section-name selfRef">NTP</a>
+          </h4>
+<p id="section-5.2.1-1">NTP is fundamental for ensuring that TVR mechanisms, which depend on highly accurate timing, function as intended across
 an entire network. Misalignment in time could lead to serious routing issues, including inefficiency in path forwarding,
-instability in routing tables, and traffic outages.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2">NTP will be used to ensure:<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+instability in routing tables, and traffic outages.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-2">NTP will be used to ensure:<a href="#section-5.2.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1-3.1">
-            <p id="section-5.1-3.1.1">Coordination of Planned Network Events;<a href="#section-5.1-3.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.2.1-3.1">
+              <p id="section-5.2.1-3.1.1">Coordination of Planned Network Events;<a href="#section-5.2.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.1-3.2">
-            <p id="section-5.1-3.2.1">Verification of TVR Data Model Time Stamps<a href="#section-5.1-3.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-5.2.1-3.2">
+              <p id="section-5.2.1-3.2.1">Verification of TVR Data Model Time Stamps<a href="#section-5.2.1-3.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.1-3.3">
-            <p id="section-5.1-3.3.1">Accurate Scheduling of Paths;<a href="#section-5.1-3.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-5.2.1-3.3">
+              <p id="section-5.2.1-3.3.1">Accurate Scheduling of Paths;<a href="#section-5.2.1-3.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.1-3.4">
-            <p id="section-5.1-3.4.1">Fault Tolerance.<a href="#section-5.1-3.4.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-5.2.1-3.4">
+              <p id="section-5.2.1-3.4.1">Fault Tolerance.<a href="#section-5.2.1-3.4.1" class="pilcrow">¶</a></p>
 </li>
-        </ul>
-<p id="section-5.1-4">NTP uses a hierarchical structure of time sources. Each level of this hierarchy is termed a stratum. Generally, an NTP
+          </ul>
+<p id="section-5.2.1-4">NTP uses a hierarchical structure of time sources. Each level of this hierarchy is termed a stratum. Generally, an NTP
 server synchronized to an authoritative clock runs at stratum 1. Such NTP server functions as the primary time server
 to provide clock synchronization for other devices on the network. Stratum 2 servers obtain time from stratum 1 servers,
-stratum 3 servers obtain time from stratum 2 servers, and so on.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
-<p id="section-5.1-5">In TVR use cases, the managing device functions as a level-1 NTP server and synchronized to an authoritative clock
+stratum 3 servers obtain time from stratum 2 servers, and so on.<a href="#section-5.2.1-4" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-5">In TVR use cases, the managing device functions as a level-1 NTP server and synchronized to an authoritative clock
 source. The network controller and network devices behave as clients to obtain accurate time from the managing device.
-<a href="#ref-to-fig3" class="auto internal xref">Figure 3</a> shows an NTP deployment scenario for obtaining clock from a GPS clock source.<a href="#section-5.1-5" class="pilcrow">¶</a></p>
+<a href="#ref-to-fig3" class="auto internal xref">Figure 3</a> shows an NTP deployment scenario for obtaining clock from a GPS clock source.<a href="#section-5.2.1-5" class="pilcrow">¶</a></p>
 <span id="name-deployment-case-of-ntp-in-t"></span><div id="ref-to-fig3">
 <figure id="figure-3">
-          <div class="alignLeft art-text artwork" id="section-5.1-6.1">
+            <div class="alignLeft art-text artwork" id="section-5.2.1-6.1">
 <pre>
                            +--------------------+
                            |  GPS Clock Source  |
@@ -1614,20 +1684,21 @@ Stratum 2 |  Network Controller  |       |  Network Devices  |
 </div>
 <figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
 <a href="#name-deployment-case-of-ntp-in-t" class="selfRef">Deployment Case of NTP in Tidal Networks</a>
-          </figcaption></figure>
+            </figcaption></figure>
 </div>
+<p id="section-5.2.1-7">NTP is preferred in large-scale networks with reliable links and long-term changes, which dose not require a high-precision time synchronization.<a href="#section-5.2.1-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sntp">
-<section id="section-5.2">
-        <h3 id="name-sntp">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-sntp" class="section-name selfRef">SNTP</a>
-        </h3>
-<p id="section-5.2-1">SNTP is a subset of the NTP used to synchronize computer clocks in the Internet. It simplifies the complex NTP
-synchronization function and is suitable for networks with limited resources and loose precision requirements.
-Compared with NTP, SNTP has lower clock precision, but the synchronization precision still can be guarded under
-seconds. Therefore, SNTP also meets the time synchronization requirements of tidal networks and can be used as
-an alternative clock synchronization protocol.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<section id="section-5.2.2">
+          <h4 id="name-sntp">
+<a href="#section-5.2.2" class="section-number selfRef">5.2.2. </a><a href="#name-sntp" class="section-name selfRef">SNTP</a>
+          </h4>
+<p id="section-5.2.2-1">SNTP is a subset of the NTP used to synchronize computer clocks in the Internet. It simplifies the complex NTP
+synchronization function and has lower clock precision, but the synchronization precision still can be guarded under
+seconds. SNTP is also preferred in large-scale networks with reliable links, long-term changes, and loose synchronization precision. In addition, it is more suitable for networks with limited resources than NTP.<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 </section>
@@ -1685,7 +1756,7 @@ different formats:<a href="#section-6.1-2" class="pilcrow">¶</a></p>
         </ul>
 <p id="section-6.1-4">The detailed format and fields of different types of schedule entries could reference to the definitions of the corresponding
 YANG modules.<a href="#section-6.1-4" class="pilcrow">¶</a></p>
-<p id="section-6.1-5">Editors note: Code examples will be provided here in future versions of this document.<a href="#section-6.1-5" class="pilcrow">¶</a></p>
+<p id="section-6.1-5">Editor’s note: Code examples will be provided here in future versions of this document.<a href="#section-6.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="schedule-operations">
@@ -1699,7 +1770,7 @@ YANG modules.<a href="#section-6.1-4" class="pilcrow">¶</a></p>
 current schedule and existing schedules. If a conflict exists, the operation should be failed.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
 <p id="section-6.2-4">Schedules are updated and deleted based on schedule IDs. Therefore, schedule IDs must be unique in a time-variant domain.
 This can be handled, e.g., by a dedicated allocation agent within the time-variant domain.<a href="#section-6.2-4" class="pilcrow">¶</a></p>
-<p id="section-6.2-5">Editors note: Future versions of this document will expand on the schedule operations requirements and best practices.<a href="#section-6.2-5" class="pilcrow">¶</a></p>
+<p id="section-6.2-5">Editor’s note: Future versions of this document will expand on the schedule operations requirements and best practices.<a href="#section-6.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1738,10 +1809,10 @@ nodes could apply different schedules, causing routing inconsistencies, path fla
 <p id="section-7.1-1">Schedules execution means that a component (e.g., device) undertakes an action (e.g., allocates and deallocates resources)
 at specified time points. In a tidal network, the schedule execution indicates powering on/off specific network components
 (such as interfaces or entire network devices) directly or by commands.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.1-2">The schedule executor should understand the consequences of the schedule execution. The power on/off of network components
+<p id="section-7.1-2">The schedule executor should understand the consequences of the schedule execution. The power on/off network components
 usually affects the network topology, the addition and deletion of the topology need to be considered separately.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
 <p id="section-7.1-3">A link coming up or a node joining a topology should not have any functional change until the change is proven to be fully
-operational. The routing paths may be pre-computed but should not be installed before all of the topology changes are
+operational. The routing paths may be pre-computed but should not be installed before all the topology changes are
 confirmed to be operational. The benefits of this pre-computation appear to be very small. The network may choose to
 not do any pre-installation or pre-computation in reaction to topological additions at a small cost of some operational
 efficiency.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
@@ -1767,11 +1838,90 @@ topological change.<a href="#section-7.1-4" class="pilcrow">¶</a></p>
 analysis to safeguard the network’s integrity, availability, and confidentiality. Networks that rely on time-sensitive data
 for routing and forwarding decisions are particularly susceptible to attacks that exploit timing dependencies.<a href="#section-8-1" class="pilcrow">¶</a></p>
 <p id="section-8-2">The "Security Considerations" section of <span>[<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span> outlines various threat vectors and categories specific
-to time-variant environments. In this document, a tidal demand use case has been presented, highlighting the need for robust
-security measures in the processes of generating, disseminating, and applying schedules to control tidal interfaces.
-It is essential to assess security risks and implement mitigation strategies to ensure the security of both the network and
-individual nodes throughout the scheduling process.<a href="#section-8-2" class="pilcrow">¶</a></p>
-<p id="section-8-3">Future iterations of this document will provide detailed security techniques and best practices to address these challenges.<a href="#section-8-3" class="pilcrow">¶</a></p>
+to time-variant environments.<a href="#section-8-2" class="pilcrow">¶</a></p>
+<div id="dos-attack">
+<section id="section-8.1">
+        <h3 id="name-denial-of-service-dos-attac">
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-denial-of-service-dos-attac" class="section-name selfRef">Denial-of-Service (DoS) Attack</a>
+        </h3>
+<p id="section-8.1-1">In a time variant network, malicious actors could attack the network by disrupting or manipulating the time synchronization
+process. For example, an attacker could intentionally delay or corrupt time signals exchanged within the network, leading
+to routing errors and widespread denial-of-service (DoS) attacks.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
+<p id="section-8.1-2">This kind of attack could be mitigated by the redundancy time synchronization mechanisms, for example, multiple NTP sources
+or multiple time synchronization protocols could be deployed in a TVR network. The network devices could guarantee the
+correctness of the time by checking whether the time signals from different sources or protocols.<a href="#section-8.1-2" class="pilcrow">¶</a></p>
+<p id="section-8.1-3">In addition, the identification authentication is also an important way to protect the time signals being tampered by
+attackers. Some security extensions for time synchronization protocols (such as NTS (Network Time Security)) are
+recommended to be applied.<a href="#section-8.1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="traffic-analysis">
+<section id="section-8.2">
+        <h3 id="name-traffic-analysis-and-path-p">
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-traffic-analysis-and-path-p" class="section-name selfRef">Traffic Analysis and Path Prediction</a>
+        </h3>
+<p id="section-8.2-1">In a time variant network, if time information is not adequately protected, attackers could conduct traffic analysis to
+infer routing decisions, network load, or usage patterns. The schedule ability could enable attackers to launch highly
+targeted attacks, such as selectively overloading certain links or intercepting sensitive communications.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.2-2">This kind of attack could be mitigated by the encryption of schedules and the authentication of managing devices. For
+the networks using NETCONF to deliver schedules, NETCONF over TLS<span>[<a href="#RFC7589" class="cite xref">RFC7589</a>]</span> is recommended to achieve the bidirectional
+authentication and encryption of YANG model data. RESTCONF supports TLS originally, so it can be deployed without
+additional configurations or modifications.<a href="#section-8.2-2" class="pilcrow">¶</a></p>
+<p id="section-8.2-3">In addition, in time variant networks with centralized model<a href="#centralized-model" class="auto internal xref">Section 4.1.1</a>, the encryption of routing path
+information is also necessary to avoid the fake routing information. Considering the most typical protocols used to
+deliver the routing path information between controller and network devices are BGP and PCEP, and both are based on TCP.
+Therefore, the TLS is recommended to be applied for the conservation.<a href="#section-8.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="activity-identification">
+<section id="section-8.3">
+        <h3 id="name-activity-identification-and">
+<a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-activity-identification-and" class="section-name selfRef">Activity Identification and Privacy</a>
+        </h3>
+<p id="section-8.3-1">In certain scenarios, precise time information exchanged within the network could be correlated with specific user or
+device behavior, inadvertently revealing private information.<a href="#section-8.3-1" class="pilcrow">¶</a></p>
+<p id="section-8.3-2">This risk could also be mitigated by the solutions mentioned in <a href="#activity-identification" class="auto internal xref">Section 8.3</a>.<a href="#section-8.3-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="spoofing-and-manipulation-of-time-information">
+<section id="section-8.4">
+        <h3 id="name-spoofing-and-manipulation-o">
+<a href="#section-8.4" class="section-number selfRef">8.4. </a><a href="#name-spoofing-and-manipulation-o" class="section-name selfRef">Spoofing and Manipulation of Time Information</a>
+        </h3>
+<p id="section-8.4-1">In a time variant network, if an attacker were to inject false or manipulated time data into the network, it could cause
+routers and devices to make incorrect decisions, potentially leading to traffic misrouting, network partitions, or
+inefficient use of resources.<a href="#section-8.4-1" class="pilcrow">¶</a></p>
+<p id="section-8.4-2">This risk could also be mitigated by the solutions mentioned in <a href="#dos-attack" class="auto internal xref">Section 8.1</a>.<a href="#section-8.4-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="replay-attacks-on-time-sensitive-data">
+<section id="section-8.5">
+        <h3 id="name-replay-attacks-on-time-sens">
+<a href="#section-8.5" class="section-number selfRef">8.5. </a><a href="#name-replay-attacks-on-time-sens" class="section-name selfRef">Replay Attacks on Time-Sensitive Data</a>
+        </h3>
+<p id="section-8.5-1">Time variant network data and schedule updates may be susceptible to replay attacks, which could cause network devices
+to act on outdated information, leading to inconsistent routing decisions, misaligned schedules, or security gaps. In
+particular, attackers could exploit replay attacks to force devices into outdated configurations or interfere with the
+synchronization of schedules across the network.<a href="#section-8.5-1" class="pilcrow">¶</a></p>
+<p id="section-8.5-2">This kind of attack could be mitigated by encrypting time signals, schedules and routing path data, and adding a unique
+number to the encrypted section of a packet. This has been implemented in existing protocols, for example, the NTS
+supports unique identifier extension field (EF) containing a random number, the TLS supports Message Authentication Code
+generated from sequence number.<a href="#section-8.5-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="compromised-time-sources">
+<section id="section-8.6">
+        <h3 id="name-compromised-time-sources">
+<a href="#section-8.6" class="section-number selfRef">8.6. </a><a href="#name-compromised-time-sources" class="section-name selfRef">Compromised Time Sources</a>
+        </h3>
+<p id="section-8.6-1">The reliance on external time sources for synchronization purposes presents a potential attack surface for time-variant
+networks. If a trusted time source, such as a GPS signal or an NTP server, is compromised, the attacker could feed
+erroneous time information to the entire network, disrupting its operation.<a href="#section-8.6-1" class="pilcrow">¶</a></p>
+<p id="section-8.6-2">This kind of attack could be mitigated by implement multiple, redundant time sources or time synchronization protocols and regularly verify
+the integrity of these sources. In addition, alerting mechanisms should be in place to detect significant deviations in
+time data that could indicate an attack.<a href="#section-8.6-2" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="iana-considerations">
@@ -1816,7 +1966,7 @@ individual nodes throughout the scheduling process.<a href="#section-8-2" class=
 <dl class="references">
 <dt id="I-D.ietf-netmod-schedule-yang">[I-D.ietf-netmod-schedule-yang]</dt>
         <dd>
-<span class="refAuthor">Ma, Q.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">D. King</span>, <span class="refTitle">"A Common YANG Data Model for Scheduling"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-schedule-yang-03</span>, <time datetime="2024-10-10" class="refDate">10 October 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-schedule-yang-03">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-schedule-yang-03</a>&gt;</span>. </dd>
+<span class="refAuthor">Ma, Q.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">D. King</span>, <span class="refTitle">"A Common YANG Data Model for Scheduling"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-schedule-yang-04</span>, <time datetime="2025-02-07" class="refDate">7 February 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-schedule-yang-04">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-schedule-yang-04</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-tvr-requirements">[I-D.ietf-tvr-requirements]</dt>
         <dd>
@@ -1837,6 +1987,10 @@ individual nodes throughout the scheduling process.<a href="#section-8-2" class=
 <dt id="RFC6241">[RFC6241]</dt>
         <dd>
 <span class="refAuthor">Enns, R., Ed.</span>, <span class="refAuthor">Bjorklund, M., Ed.</span>, <span class="refAuthor">Schoenwaelder, J., Ed.</span>, and <span class="refAuthor">A. Bierman, Ed.</span>, <span class="refTitle">"Network Configuration Protocol (NETCONF)"</span>, <span class="seriesInfo">RFC 6241</span>, <span class="seriesInfo">DOI 10.17487/RFC6241</span>, <time datetime="2011-06" class="refDate">June 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6241">https://www.rfc-editor.org/rfc/rfc6241</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7589">[RFC7589]</dt>
+        <dd>
+<span class="refAuthor">Badra, M.</span>, <span class="refAuthor">Luchuk, A.</span>, and <span class="refAuthor">J. Schoenwaelder</span>, <span class="refTitle">"Using the NETCONF Protocol over Transport Layer Security (TLS) with Mutual X.509 Authentication"</span>, <span class="seriesInfo">RFC 7589</span>, <span class="seriesInfo">DOI 10.17487/RFC7589</span>, <time datetime="2015-06" class="refDate">June 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7589">https://www.rfc-editor.org/rfc/rfc7589</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8040">[RFC8040]</dt>
       <dd>
@@ -1865,12 +2019,12 @@ individual nodes throughout the scheduling process.<a href="#section-8-2" class=
         <h3 id="name-code-examples-for-tidal-net">
 <a href="#name-code-examples-for-tidal-net" class="section-name selfRef">Code Examples for Tidal Network</a>
         </h3>
-<p id="appendix-B.1-1">Tidal networks usually need to manage the availability of some node or interfaces. <a href="#ex-inf" class="auto internal xref">Figure 4</a> shows the example of a
+<p id="appendix-B.1-1">Tidal networks usually need to manage the availability of some node or interfaces. <a href="#ex-inf1" class="auto internal xref">Figure 4</a> shows the example of a
 scheduling node that is powered on from 12 AM, December 1, 2025 to 12 AM, December 1, 2026 in UTC and its interface
 named "interface1" is scheduled to be enabled at 7:00 AM and disabled at 1:00 AM, every day, from December 1, 2025 to
 December 1, 2026 in UTC.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
 <p id="appendix-B.1-2">The JSON encoding is used only for illustration purposes.<a href="#appendix-B.1-2" class="pilcrow">¶</a></p>
-<span id="name-an-example-of-interface-act"></span><div id="ex-inf">
+<span id="name-an-example-of-interface-act"></span><div id="ex-inf1">
 <figure id="figure-4">
           <div class="alignCenter art-text artwork" id="appendix-B.1-3.1">
 <pre>
@@ -1922,6 +2076,74 @@ December 1, 2026 in UTC.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
 </div>
 <figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
 <a href="#name-an-example-of-interface-act" class="selfRef">An Example of Interface Activation Scheduling</a>
+          </figcaption></figure>
+</div>
+</section>
+</div>
+<div id="code-examples-for-dynamic-reachability-network">
+<section id="appendix-B.2">
+        <h3 id="name-code-examples-for-dynamic-r">
+<a href="#name-code-examples-for-dynamic-r" class="section-name selfRef">Code Examples for Dynamic Reachability Network</a>
+        </h3>
+<p id="appendix-B.2-1">In a dynamic reachability network, the managing device usually needs to deliver the time-variant network topology to the network devices for them could react to
+the predictable topology changes in time. <a href="#ex-inf2" class="auto internal xref">Figure 5</a> shows the example of a topology with two nodes and one link. Due to the moving of these two nodes, the link between these two nodes will be interrupted from 10:00 AM to 10:05 and 10:10 AM to 10:20 AM, April 1, 2025 in UTC.<a href="#appendix-B.2-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.2-2">The JSON encoding is used only for illustration purposes.<a href="#appendix-B.2-2" class="pilcrow">¶</a></p>
+<span id="name-an-example-of-topology-with"></span><div id="ex-inf2">
+<figure id="figure-5">
+          <div class="alignCenter art-text artwork" id="appendix-B.2-3.1">
+<pre>
+{
+    "ietf-tvr-topology:topology-schedule": {
+        "nodes": [
+            {
+                "node-id": 10000000,
+                "available": {
+                    "default-node-available": true,
+                    "schedules": []
+                }
+            },
+            {
+                "node-id": 10000001,
+                "available": {
+                    "default-node-available": true,
+                    "schedules": []
+                }
+            }
+        ],
+        "links": [
+            {
+                "source-node": 10000000,
+                "source-link-id": 32,
+                "available": {
+                    "schedules": [
+                        {
+                            "schedule-id": 111111,
+                            "period-description": "schedule down1",
+                            "period-start": "2025-4-01T10:00:00Z",
+                            "period-end": "2025-4-01T10:05:00Z",
+                            "attr-vaule": {
+                                "link-available": false
+                            }
+                        },
+                        {
+                            "schedule-id": 222222,
+                            "period-description": "schedule down2",
+                            "period-start": "2025-4-01T10:10:00Z",
+                            "period-end": "2025-4-01T10:20:00Z",
+                            "attr-vaule": {
+                                "link-available": false
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
+</pre>
+</div>
+<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<a href="#name-an-example-of-topology-with" class="selfRef">An Example of Topology with Link Scheduling</a>
           </figcaption></figure>
 </div>
 </section>
@@ -1987,6 +2209,14 @@ December 1, 2026 in UTC.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
 <div class="email">
 <span>Email:</span>
 <a href="mailto:jie.dong@huawei.com" class="email">jie.dong@huawei.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Mohamed Boucadair</span></div>
+<div dir="auto" class="left"><span class="org">Orange</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:mohamed.boucadair@orange.com" class="email">mohamed.boucadair@orange.com</a>
 </div>
 </address>
 </section>
