@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-27T00:46:38.283231+00:00",
+  "timestamp": "2025-03-02T00:51:04.115804+00:00",
   "repo": "zhangli-abcd/TVR-Applicability",
   "labels": [
     {
@@ -203,15 +203,15 @@
       "id": "I_kwDOMz9S7M6bFM53",
       "title": "Suggested Abstract text",
       "url": "https://github.com/zhangli-abcd/TVR-Applicability/issues/11",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "danielkinguk",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Hi All, \r\n\r\nA suggestion for the abstract. \r\n\r\n>>\r\nTime Variant Routing (TVR) is increasingly used in modern networking environments, which are characterized by dynamic and rapidly changing network topologies with predicted link changes. TVR environments demonstrate the ability to adapt and reconfigure based on temporal shifts in traffic patterns, link availability, and other operational conditions.\r\n\r\nThis document provides applicability examples of how TVR techniques, along with schedule data models, may be utilized for specific use cases and requirements. It highlights the practical considerations of deploying TVR into various network environments.\r\n<<",
       "createdAt": "2024-10-21T08:53:12Z",
-      "updatedAt": "2024-10-21T08:53:12Z",
-      "closedAt": null,
+      "updatedAt": "2025-02-28T09:25:38Z",
+      "closedAt": "2025-02-28T09:25:38Z",
       "comments": []
     }
   ],
@@ -796,6 +796,34 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 19,
+      "id": "PR_kwDOMz9S7M6M6YiE",
+      "title": "Update draft-zdm-tvr-applicability.md",
+      "url": "https://github.com/zhangli-abcd/TVR-Applicability/pull/19",
+      "state": "MERGED",
+      "author": "zhangli-abcd",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "some editorial updates",
+      "createdAt": "2025-02-28T09:26:45Z",
+      "updatedAt": "2025-02-28T09:27:20Z",
+      "baseRepository": "zhangli-abcd/TVR-Applicability",
+      "baseRefName": "main",
+      "baseRefOid": "1348ce4d0955453d0cb6f6a2c75d0a3bfe1c7ce6",
+      "headRepository": "zhangli-abcd/TVR-Applicability",
+      "headRefName": "Li-dev",
+      "headRefOid": "5e0a4f6feb39f2f6a11f7f398891d7619d65eb11",
+      "closedAt": "2025-02-28T09:27:20Z",
+      "mergedAt": "2025-02-28T09:27:20Z",
+      "mergedBy": "zhangli-abcd",
+      "mergeCommit": {
+        "oid": "23d9df12fa7dfee6a1072e2dcfcef710aa4ab1f0"
+      },
       "comments": [],
       "reviews": []
     }
