@@ -491,16 +491,16 @@ managed device has enough time to execute this schedule.
 Schedule execution means that a component (e.g., device) undertakes an action (e.g., allocates and deallocates resources)
 at specified time points. The schedule execution of Node Module and Topology Module should be considered separately.
 
-### Execution of Node Module Schedule
+### Execution of Node Schedule
 
-In node module, schedule execution indicates a node to change its node/interfaces availability/power up
+Node schedule execution indicates a node to change its node/interfaces availability/power up
 and down, and other attributes directly or by commands.
 
-when executing node module schedule, the schedule executor should undertake an action at specified time points as indicated in the schedule.
+when executing a node schedule, the schedule executor should undertake an action at specified time points as indicated in the schedule.
 
 ### Execution of Topology Module Schedule
 
-In Topology module, schedule execution means a node take some measures before or upon the scheduled topology changes.
+Topology schedule execution means a node take some measures before or upon the scheduled topology changes.
 
 The schedule executor should understand the consequences of the schedule execution. The addition and deletion of the topology
 need to be considered separately.
