@@ -88,7 +88,7 @@ Table of Contents
    6.  Operational Considerations
      6.1.  Schedule Dissemination
      6.2.  Schedule Execution
-       6.2.1.  Execution of Node Module Schedule
+       6.2.1.  Execution of Node Schedule
        6.2.2.  Execution of Topology Module Schedule
      6.3.  Schedule Recovery
      6.4.  Error Handling
@@ -664,20 +664,20 @@ Table of Contents
    time points.  The schedule execution of Node Module and Topology
    Module should be considered separately.
 
-6.2.1.  Execution of Node Module Schedule
+6.2.1.  Execution of Node Schedule
 
-   In node module, schedule execution indicates a node to change its
-   node/interfaces availability/power up and down, and other attributes
+   Node schedule execution indicates a node to change its node/
+   interfaces availability/power up and down, and other attributes
    directly or by commands.
 
-   when executing node module schedule, the schedule executor should
+   when executing a node schedule, the schedule executor should
    undertake an action at specified time points as indicated in the
    schedule.
 
 6.2.2.  Execution of Topology Module Schedule
 
-   In Topology module, schedule execution means a node take some
-   measures before or upon the scheduled topology changes.
+   Topology schedule execution means a node take some measures before or
+   upon the scheduled topology changes.
 
    The schedule executor should understand the consequences of the
    schedule execution.  The addition and deletion of the topology need

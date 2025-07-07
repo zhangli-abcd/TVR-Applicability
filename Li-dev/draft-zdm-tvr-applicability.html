@@ -1233,7 +1233,7 @@ TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
                 <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-schedule-execution" class="internal xref">Schedule Execution</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2.2.1">
-                    <p id="section-toc.1-1.6.2.2.2.1.1"><a href="#section-6.2.1" class="auto internal xref">6.2.1</a>.  <a href="#name-execution-of-node-module-sc" class="internal xref">Execution of Node Module Schedule</a></p>
+                    <p id="section-toc.1-1.6.2.2.2.1.1"><a href="#section-6.2.1" class="auto internal xref">6.2.1</a>.  <a href="#name-execution-of-node-schedule" class="internal xref">Execution of Node Schedule</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2.2.2">
                     <p id="section-toc.1-1.6.2.2.2.2.1"><a href="#section-6.2.2" class="auto internal xref">6.2.2</a>.  <a href="#name-execution-of-topology-modul" class="internal xref">Execution of Topology Module Schedule</a></p>
@@ -1830,14 +1830,14 @@ managed device has enough time to execute this schedule.<a href="#section-6.1-2.
         </h3>
 <p id="section-6.2-1">Schedule execution means that a component (e.g., device) undertakes an action (e.g., allocates and deallocates resources)
 at specified time points. The schedule execution of Node Module and Topology Module should be considered separately.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
-<div id="execution-of-node-module-schedule">
+<div id="execution-of-node-schedule">
 <section id="section-6.2.1">
-          <h4 id="name-execution-of-node-module-sc">
-<a href="#section-6.2.1" class="section-number selfRef">6.2.1. </a><a href="#name-execution-of-node-module-sc" class="section-name selfRef">Execution of Node Module Schedule</a>
+          <h4 id="name-execution-of-node-schedule">
+<a href="#section-6.2.1" class="section-number selfRef">6.2.1. </a><a href="#name-execution-of-node-schedule" class="section-name selfRef">Execution of Node Schedule</a>
           </h4>
-<p id="section-6.2.1-1">In node module, schedule execution indicates a node to change its node/interfaces availability/power up
+<p id="section-6.2.1-1">Node schedule execution indicates a node to change its node/interfaces availability/power up
 and down, and other attributes directly or by commands.<a href="#section-6.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.2.1-2">when executing node module schedule, the schedule executor should undertake an action at specified time points as indicated in the schedule.<a href="#section-6.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-2">when executing a node schedule, the schedule executor should undertake an action at specified time points as indicated in the schedule.<a href="#section-6.2.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="execution-of-topology-module-schedule">
@@ -1845,7 +1845,7 @@ and down, and other attributes directly or by commands.<a href="#section-6.2.1-1
           <h4 id="name-execution-of-topology-modul">
 <a href="#section-6.2.2" class="section-number selfRef">6.2.2. </a><a href="#name-execution-of-topology-modul" class="section-name selfRef">Execution of Topology Module Schedule</a>
           </h4>
-<p id="section-6.2.2-1">In Topology module, schedule execution means a node take some measures before or upon the scheduled topology changes.<a href="#section-6.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-1">Topology schedule execution means a node take some measures before or upon the scheduled topology changes.<a href="#section-6.2.2-1" class="pilcrow">¶</a></p>
 <p id="section-6.2.2-2">The schedule executor should understand the consequences of the schedule execution. The addition and deletion of the topology
 need to be considered separately.<a href="#section-6.2.2-2" class="pilcrow">¶</a></p>
 <p id="section-6.2.2-3">A link coming up or a node joining a topology should not have any functional change until the change is proven to be fully
