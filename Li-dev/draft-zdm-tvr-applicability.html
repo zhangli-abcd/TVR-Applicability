@@ -16,25 +16,25 @@ This document provides examples of how to implement the TVR scheduling capabilit
 which part of the TVR data model is used and why, and it outlines operational and security considerations when deploying
 TVR-based technologies. 
     " name="description">
-<meta content="xml2rfc 3.29.0" name="generator">
+<meta content="xml2rfc 3.30.2" name="generator">
 <meta content="schedule" name="keyword">
 <meta content="YANG module" name="keyword">
 <meta content="applicability" name="keyword">
 <meta content="draft-zdm-tvr-applicability-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.29.0
+  xml2rfc 3.30.2
     Python 3.12.11
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
     lxml 5.3.1
-    platformdirs 4.3.8
+    platformdirs 4.4.0
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.4
+    requests 2.32.5
     setuptools 80.9.0
-    wcwidth 0.2.13
+    wcwidth 0.2.14
 -->
 <link href="draft-zdm-tvr-applicability.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1053,11 +1053,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Applicability Statement</td>
-<td class="right">July 2025</td>
+<td class="right">October 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Zhang, et al.</td>
-<td class="center">Expires 8 January 2026</td>
+<td class="center">Expires 17 April 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1070,12 +1070,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-zdm-tvr-applicability-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-07-07" class="published">7 July 2025</time>
+<time datetime="2025-10-14" class="published">14 October 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-01-08">8 January 2026</time></dd>
+<dd class="expires"><time datetime="2026-04-17">17 April 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1133,7 +1133,7 @@ TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 8 January 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 17 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1370,7 +1370,7 @@ the environment or centrally controlled.<a href="#section-3.1-2" class="pilcrow"
 <li class="normal" id="section-3.1-3.1">
             <p id="section-3.1-3.1.1">When the changes are caused by the environment changes (such as movement, sunlight changes, and weather changes) or
 the devices themselves decisions, the network device does not need to get the managed information through the YANG module. For example,
-when two nodes's distance is too fat to establish connection, then the link is down. Another case is that when the weather is
+when two nodes's distance is too far to establish a connection, then the link is down. Another case is that when the weather is
 not good and leading to the link degradation, then the nodes decide to disconnect the link.<a href="#section-3.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.1-3.2">
@@ -1388,7 +1388,7 @@ network devices through TVR node YANG module.<a href="#section-3.1-3.2.1" class=
         </h3>
 <p id="section-3.2-1">As specified in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-05#section-5.3" class="relref">Section 5.3</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>, module ietf-tvr-topology.yang describes a network topology
 with a time-variant availability schedule. This YANG module is also not applicable for all TVR use cases.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
-<p id="section-3.2-2">According to the description of <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-05#section-3.1" class="relref">Section 3.1</a> of [<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span>, the scheduling generation locality
+<p id="section-3.2-2">According to the description of <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-07#section-3.1" class="relref">Section 3.1</a> of [<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span>, the scheduling generation locality
 and execution locality may be centralized or distributed.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2-3.1">
@@ -1754,7 +1754,6 @@ different formats:<a href="#section-5.1-2" class="pilcrow">¶</a></p>
         </ul>
 <p id="section-5.1-4">The detailed format and fields of different types of schedule entries could reference to the definitions of the corresponding
 YANG modules.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
-<p id="section-5.1-5">Editor’s note: Code examples will be provided here in future versions of this document.<a href="#section-5.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="schedule-operations">
@@ -1768,7 +1767,6 @@ YANG modules.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
 current schedule and existing schedules. If a conflict exists, the operation should be failed.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 <p id="section-5.2-4">Schedules are updated and deleted based on schedule IDs. Therefore, schedule IDs must be unique in a time-variant domain.
 This can be handled, e.g., by a dedicated allocation agent within the time-variant domain.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
-<p id="section-5.2-5">Editor’s note: Future versions of this document will expand on the schedule operations requirements and best practices.<a href="#section-5.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1799,6 +1797,9 @@ events consistently and implement time-based policies correctly.<a href="#sectio
 <p id="section-6-3">Therefore, network time accuracy and time-stamped data models are critical to ensure that coordinated network events
 and scheduled path decisions across the network are based on a consistent time reference. Without accurate time sync,
 nodes could apply different schedules, causing routing inconsistencies, path flapping, or packet loss.<a href="#section-6-3" class="pilcrow">¶</a></p>
+<p id="section-6-4">Since the all the schedules are generated by the managing devices, it is necessary to make sure that the managing
+device and managed devices within a schedule domian <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-07#section-2.1.1" class="relref">Section 2.1.1</a> of [<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span> are synchronized
+with the same time source. It ensures they have the same notion of when that is.<a href="#section-6-4" class="pilcrow">¶</a></p>
 <div id="schedule-dissemination">
 <section id="section-6.1">
         <h3 id="name-schedule-dissemination">
@@ -1807,18 +1808,12 @@ nodes could apply different schedules, causing routing inconsistencies, path fla
 <p id="section-6.1-1">when distributing schedules, the following problems should be considered:<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.1-2.1">
-            <p id="section-6.1-2.1.1">The managed devices that receives a schedule should have the ability to execute the schedule. It is meaningless to send
-a schedule to a managed device that does not have the ability to execute the schedule. If the device does not support schedule
+            <p id="section-6.1-2.1.1">The managed devices that receives a schedule should have the ability to execute the schedule. If the device does not support schedule
 execution, it must ignore it on receipt.<a href="#section-6.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-6.1-2.2">
-            <p id="section-6.1-2.2.1">Before distributing schedules to a managed device, the managing device need to ensure that the time of the managing
-device is synchronized with that of the managed device. If the time is not synchronized, the schedules will be executed at
-a wrong timepoint and may causing unexpected network faults.<a href="#section-6.1-2.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-6.1-2.3">
-            <p id="section-6.1-2.3.1">The distributing of a schedule should be earlier than the earliest start time of the schedule, this ensures that the
-managed device has enough time to execute this schedule.<a href="#section-6.1-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-6.1-2.2.1">The distributing of a schedule should be earlier than the earliest start time of the schedule, this ensures that the
+managed device has enough time to execute this schedule.<a href="#section-6.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1899,9 +1894,9 @@ the duration is longer than the product of frequency and interval, or the durati
 should be discarded and an error should be returned to the managed device.<a href="#section-6.4.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-6.4.1-2.2">
-              <p id="section-6.4.1-2.2.1">If there is a conflict between schedules, for example, schedule1 indicates that interface B is closed at time A, but
+              <p id="section-6.4.1-2.2.1">If there is a conflict between schedules with different schedule IDs, for example, schedule1 indicates that interface B is closed at time A, but
 schedule2 indicates that interface B is open at time A, then all conflicting schedules should be discarded and an error
-should be returned to the managed device.<a href="#section-6.4.1-2.2.1" class="pilcrow">¶</a></p>
+should be returned to the managed device. If two schedules have the same schedule ID, then it is considered as a update of the former schedule.<a href="#section-6.4.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-6.4.1-3">Editor's Note: multi-manager scenarios need to be considered.<a href="#section-6.4.1-3" class="pilcrow">¶</a></p>
@@ -2054,11 +2049,11 @@ erroneous time information to the entire network, disrupting its operation.<a hr
 <dd class="break"></dd>
 <dt id="I-D.ietf-netmod-schedule-yang">[I-D.ietf-netmod-schedule-yang]</dt>
         <dd>
-<span class="refAuthor">Ma, Q.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">D. King</span>, <span class="refTitle">"A Common YANG Data Model for Scheduling"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-schedule-yang-08</span>, <time datetime="2025-07-04" class="refDate">4 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-schedule-yang-08">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-schedule-yang-08</a>&gt;</span>. </dd>
+<span class="refAuthor">Ma, Q.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">D. King</span>, <span class="refTitle">"A Common YANG Data Model for Scheduling"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-schedule-yang-10</span>, <time datetime="2025-08-07" class="refDate">7 August 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-schedule-yang-10">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-schedule-yang-10</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-tvr-requirements">[I-D.ietf-tvr-requirements]</dt>
         <dd>
-<span class="refAuthor">King, D.</span>, <span class="refAuthor">Contreras, L. M.</span>, <span class="refAuthor">Sipos, B.</span>, and <span class="refAuthor">L. Zhang</span>, <span class="refTitle">"TVR (Time-Variant Routing) Requirements"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tvr-requirements-05</span>, <time datetime="2025-03-03" class="refDate">3 March 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-05">https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-05</a>&gt;</span>. </dd>
+<span class="refAuthor">King, D.</span>, <span class="refAuthor">Contreras, L. M.</span>, <span class="refAuthor">Sipos, B.</span>, and <span class="refAuthor">L. Zhang</span>, <span class="refTitle">"TVR (Time-Variant Routing) Requirements"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tvr-requirements-07</span>, <time datetime="2025-10-10" class="refDate">10 October 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-07">https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-07</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-tvr-use-cases">[I-D.ietf-tvr-use-cases]</dt>
         <dd>
