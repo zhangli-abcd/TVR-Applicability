@@ -1,0 +1,2860 @@
+<!DOCTYPE html>
+<html lang="en" class="Internet-Draft">
+<head>
+<meta charset="utf-8">
+<meta content="Common,Latin" name="scripts">
+<meta content="initial-scale=1.0" name="viewport">
+<title>Applicability of TVR YANG Data Models</title>
+<meta content="Li Zhang" name="author">
+<meta content="Jie Dong" name="author">
+<meta content="Mohamed Boucadair" name="author">
+<meta content="
+       Time-Variant Routing (TVR) is a routing system that can support the predicted topology changes caused by internal or
+external reasons. Typical use cases include resource preservation networks, operating efficiency networks and dynamic
+reachability networks.
+This document provides examples of how to implement the TVR scheduling capabilities for key use cases. It describes
+which part of the TVR data model is used and why, and it outlines operational and security considerations when deploying
+TVR-based technologies. 
+    " name="description">
+<meta content="xml2rfc 3.30.2" name="generator">
+<meta content="schedule" name="keyword">
+<meta content="YANG module" name="keyword">
+<meta content="applicability" name="keyword">
+<meta content="draft-zdm-tvr-applicability-latest" name="ietf.draft">
+<!-- Generator version information:
+  xml2rfc 3.30.2
+    Python 3.12.11
+    ConfigArgParse 1.7
+    google-i18n-address 3.1.1
+    intervaltree 3.1.0
+    Jinja2 3.1.6
+    lxml 5.3.1
+    platformdirs 4.4.0
+    pycountry 24.6.1
+    PyYAML 6.0.2
+    requests 2.32.5
+    setuptools 80.9.0
+    wcwidth 0.2.14
+-->
+<link href="draft-zdm-tvr-applicability.xml" rel="alternate" type="application/rfc+xml">
+<link href="#copyright" rel="license">
+<style type="text/css">@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Lora SemiBold'), local('Lora-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-semibold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  color-scheme: light dark;
+  --background-color: #fff;
+  --text-color: #222;
+  --title-color: #191919;
+  --link-color: #2a6496;
+  --highlight-color: #f9f9f9;
+  --line-color: #eee;
+  --pilcrow-weak: #ddd;
+  --pilcrow-strong: #bbb;
+  --small-font-size: 14.5px;
+  --font-mono: 'Oxygen Mono', monospace;
+  --font-title: "Sofia Sans Semi Condensed", sans-serif;
+  scrollbar-color: #bbb #eee;
+}
+body {
+  max-width: 600px;
+  margin: 75px auto;
+  padding: 0 5px;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  font: 16px/22px "Lora", serif;
+  scroll-behavior: smooth;
+}
+
+.ears {
+  display: none;
+}
+
+/* headings */
+section {
+  clear: both;
+}
+.section-number {
+  padding-right: 0.5em;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title);
+  font-weight: 680;
+  margin: 0.8em 0 0.3em;
+  font-size-adjust: 0.5;
+  color: var(--title-color);
+}
+h1#title {
+  font-size: 32px;
+  line-height: 40px;
+  clear: both;
+}
+h1#title, h1#rfcnum {
+  margin: 1.5em 0 0.2em;
+}
+h1#rfcnum + h1#title {
+  margin: 0.2em 0;
+}
+
+h1, h2, h3 {
+  font-size: 22px;
+  line-height: 27px;
+}
+h4, h5, h6 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+/* general structure */
+.author {
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+#abstract+p {
+  font-size: 18px;
+  line-height: 24px;
+}
+#abstract+p code, #abstract+p samp, #abstract+p tt {
+  font-size: 16px;
+  line-height: 0;
+}
+
+p {
+  padding: 0;
+  margin: 0.5em 0;
+  text-align: left;
+}
+div {
+  margin: 0;
+}
+.alignRight.art-text {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  padding: 0.5em 1em 0;
+  margin-bottom: 0.5em;
+}
+.alignRight.art-text pre {
+  padding: 0;
+  width: auto;
+}
+.alignRight {
+  margin: 1em 0;
+}
+.alignRight > *:first-child {
+  border: none;
+  margin: 0;
+  float: right;
+  clear: both;
+}
+.alignRight > *:nth-child(2) {
+  clear: both;
+  display: block;
+  border: none;
+}
+svg {
+  display: block;
+}
+/* font-family isn't space-separated, but =~ will have to do */
+svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
+  font-family: var(--font-mono);
+}
+.alignCenter.art-text {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  padding: 0.5em 1em 0;
+  margin-bottom: 0.5em;
+}
+.alignCenter.art-text pre {
+  padding: 0;
+  width: auto;
+}
+.alignCenter {
+  margin: 1em 0;
+}
+.alignCenter > *:first-child {
+  border: none;
+  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+     support flexbox yet.
+  */
+  display: table;
+  margin: 0 auto;
+}
+
+/* lists */
+ol, ul {
+  padding: 0;
+  margin: 0 0 0.5em 2em;
+  & :is(ol, ul) {
+    margin-left: 1em;
+  }
+}
+li {
+  margin: 0 0 0.25em 0;
+}
+ul.empty, .ulEmpty {
+  list-style-type: none;
+  & li {
+    margin-top: 0.5em;
+  }
+}
+:is(ul, ol).compact, .ulCompact, .olCompact {
+  margin: 0 0 0 2em;
+  & li {
+    margin: 0;
+    & :first-child { margin-top: 0; }
+    & :last-child { margin-bottom: 0; }
+  }
+}
+
+/* definition lists */
+dl {
+  clear: left;
+  --indent: 3ch;
+  /* --indent: attr(indent ch); not supported in any browser, but we can dream */
+  &.olPercent {
+    --indent: 5ch;
+    & > dt {
+      min-width: calc(var(--indent) - 2ch);
+    }
+  }
+  &.olPercent > dt {
+    float: none;
+  }
+
+  dl > dd > & {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+  }
+}
+dl:not(.dlNewline) > dt {
+  float: left;
+  margin-right: 2ch;
+  min-width: 8ch;
+}
+dl > dd {
+  margin-bottom: .8em;
+  margin-left: var(--indent) !important; /* stupid element overrides */
+  min-height: 2ex;
+}
+:is(dl.compact, .dlCompact) > dd {
+  margin-bottom: 0;
+  & > :is(:first-child, .break:first-child + *) {
+    margin-top: 0;
+  }
+  & > :is(:last-child) {
+    margin-bottom: 0;
+  }
+}
+:is(dd, span).break {
+  display: none;
+}
+
+/* links */
+a, a[href].selfRef:hover {
+  text-decoration: none;
+}
+a[href] {
+  color: var(--link-color);
+}
+a[href].selfRef, .iref + a[href].internal {
+  color: var(--text-color);
+}
+a[href]:hover {
+  text-decoration: underline;
+}
+a[href].selfRef:hover {
+  background-color: var(--highlight-color);
+}
+a.xref:is(.cite, .auto), :is(#status-of-memo, #copyright) a {
+  white-space: nowrap;
+}
+
+/* Figures */
+tt, code, pre {
+  background-color: var(--highlight-color);
+  font: 14px/22px var(--font-mono);
+}
+tt, code {
+  /* changing the font for inline elements leads to different ascender
+     and descender heights; as we want to retain baseline alignment,
+     remove leading to avoid altering the final height of lines
+     note: this fails if these blocks take an entire line,
+     a different solution would be great */
+  line-height: 0;
+}
+:is(h1, h2, h3, h4, h5, h6) :is(tt, code) {
+  font-size: 84%;
+}
+pre {
+  border: 1px solid var(--line-color);
+  font-size: 13.5px;
+  line-height: 16px;
+  letter-spacing: -0.2px;
+  margin: 5px;
+  padding: 5px;
+}
+img {
+  max-width: 100%;
+}
+figure {
+  margin: 0.5em 0;
+  padding: 0;
+}
+figure blockquote {
+  margin: 0.8em 0.4em 0.4em;
+}
+figcaption, caption {
+  font-style: italic;
+  margin: 0.5em 1.5em;
+  text-align: left;
+  caption-side: bottom;
+}
+@media screen {
+  /* Auto-collapse boilerplate. */
+  :is(#status-of-memo, #copyright) p {
+    margin: -2px 0;
+    max-height: 0;
+    transition: max-height 2s ease, margin 0.5s ease 0.5s;
+    overflow: hidden;
+  }
+  :is(#status-of-memo, #copyright):hover p,
+  :is(#status-of-memo, #copyright) h2:target ~ p {
+    margin: 0.5em 0;
+    max-height: 500px;
+    overflow: auto;
+  }
+  pre, svg {
+    display: inline-block;
+    /* In the horizontal direction, sometimes people make over-sized figures.
+       Scrollbars for those is therefore necessary: auto adds them as necessary..
+       In the vertical direction, the line-height can combine with the font
+       asender/descender height to produce scrollbars: hidden avoids that. */
+    overflow: auto hidden;
+  }
+  pre {
+    max-width: 100%;
+    width: calc(100% - 22px - 1em);
+  }
+  svg {
+    max-width: calc(100% - 22px - 1em);
+  }
+  figure pre {
+    display: block;
+    width: calc(100% - 25px);
+  }
+  :is(pre, svg) + .pilcrow {
+    display: inline-block;
+    vertical-align: text-bottom;
+    padding-bottom: 8px;
+  }
+}
+
+/* aside, blockquote */
+aside, blockquote {
+  margin-left: 0;
+  padding: 0 2em;
+  font-style: italic;
+}
+blockquote {
+  margin: 1em 0;
+}
+cite {
+  display: block;
+  text-align: right;
+  font-style: italic;
+}
+
+/* tables */
+table {
+  width: auto;
+  max-width: 100%;
+  margin: 0 0 1em;
+  border-collapse: collapse;
+}
+table.right {
+  margin-left: auto;
+}
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+table.left {
+  margin-right: auto;
+}
+table .text-left {
+  text-align: left;
+}
+table .text-center {
+  text-align: center;
+}
+table .text-right {
+  text-align: right;
+}
+
+thead, tbody {
+  border: 1px solid var(--line-color);
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 5px 10px;
+}
+th {
+  background-color: var(--line-color);
+}
+:is(tr:nth-child(2n), thead+tbody > tr:nth-child(2n+1)) > td {
+  background-color: var(--background-color);
+}
+:is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
+  background-color: var(--highlight-color);
+}
+table caption {
+  margin: 0;
+  padding: 3px 0 3px 1em;
+}
+table p {
+  margin: 0;
+}
+
+/* pilcrow */
+a.pilcrow {
+  margin-left: 3px;
+  opacity: 0.2;
+  user-select: none;
+  &[href] {
+    color: var(--pilcrow-weak);
+    &:hover { text-decoration: none; }
+  }
+}
+@media not print {
+  :hover > a.pilcrow {
+    opacity: 1;
+  }
+  a.pilcrow[href]:hover {
+    color: var(--pilcrow-strong);
+    background-color: transparent;
+  }
+}
+@media print {
+  a.pilcrow {
+    display: none;
+  }
+}
+
+/* misc */
+hr {
+  border: 0;
+  border-top: 1px solid var(--line-color);
+}
+.bcp14 {
+  font-variant: small-caps;
+  font-weight: 600;
+  font-size: var(--small-font-size);
+}
+.role {
+  font-variant: all-small-caps;
+}
+sub, sup {
+  line-height: 1;
+  font-size: 80%;
+}
+
+/* info block */
+#identifiers {
+  margin: 0;
+  font-size: var(--small-font-size);
+  line-height: 18px;
+  --identifier-width: 15ch;
+  & dt {
+    width: var(--identifier-width);
+    min-width: var(--identifier-width);
+    clear: left;
+    float: left;
+    text-align: right;
+    margin-right: 1ch;
+  }
+  & dd {
+    margin: 0;
+    margin-left: calc(1em + var(--identifier-width)) !important;
+    min-width: 5em;
+  }
+  & .authors {
+    & .author {
+      display: inline-block;
+      margin-right: 1.5em;
+    }
+    & .org {
+      font-style: italic;
+    }
+  }
+}
+
+/* The prepared/rendered info at the very bottom of the page */
+.docInfo {
+  color: #999;
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 2em;
+}
+.docInfo .prepared {
+  float: right;
+}
+
+/* table of contents */
+#toc {
+  padding: 0.75em 0 2em 0;
+  margin-bottom: 1em;
+
+  & nav {
+    & ul {
+      margin: 0 0.5em 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    & li {
+      line-height: 1.3em;
+      margin: 2px 0;
+      padding-left: 1.2em;
+      text-indent: -1.2em;
+    }
+  }
+  & a.xref {
+    white-space: normal;
+  }
+}
+
+.references {
+  & > dt {
+    text-align: right;
+    font-weight: bold;
+    min-width: 10ch;
+    margin-right: 1.5ch;
+    &:target::before {
+      content: "⇒";
+      margin: 0 10px 0 -25px;
+    }
+  }
+  & > dd {
+    margin-left: 12ch !important;
+    overflow: visible;
+    & .refInstance {
+      margin-bottom: 0.8em;
+    }
+    & .ascii {
+      margin-bottom: 0.25em;
+    }
+  }
+}
+
+#rfc\.index\.index + ul {
+  margin-left: 0;
+}
+
+/* authors */
+address.vcard {
+  font-style: normal;
+  max-width: 20em;
+  margin: 1em auto 1em 0;
+
+  & .nameRole {
+    font-weight: 700;
+    margin-left: 0;
+  }
+  & .label {
+    margin: 0.5em 0;
+  }
+  & .type {
+    display: none;
+  }
+  & .alternative-contact {
+    margin: 0.5em 0 0.25em 0;
+  }
+  & .non-ascii {
+    margin: 0 0 0 2em;
+  }
+  & div.left {
+    text-align: left;
+  }
+  & div.right {
+    text-align: right;
+  }
+}
+
+hr.addr {
+  border-top: 1px dashed;
+  margin: 0;
+  color: #ddd;
+  max-width: calc(100% - 16px);
+}
+@media (min-width: 500px) {
+  #authors-addresses > section {
+    column-count: 2;
+    column-gap: 20px;
+  }
+  #authors-addresses > section > h2 {
+    column-span: all;
+  }
+  /* hack for break-inside: avoid-column */
+  #authors-addresses address {
+    display: inline-block;
+    break-inside: avoid-column;
+  }
+}
+
+/* Comments */
+.rfcEditorRemove p:first-of-type {
+  font-style: italic;
+}
+.cref {
+  background-color: rgba(249, 232, 105, 0.3);
+  padding: 2px 4px;
+}
+.crefSource {
+  font-style: italic;
+}
+
+@media screen {
+  #toc nav {
+    font-family: var(--font-title);
+    font-weight: 360;
+    & > ul { margin-bottom: 2em; }
+    & ul {
+      margin: 0 0 0 4px;
+      & :is(p, li) {
+        margin: 2px 0;
+      }
+    }
+  }
+  #toc a.toplink {
+    float: right;
+  }
+}
+@media not screen {
+  #toc a.toplink {
+    display: none;
+  }
+}
+
+
+/* TOC layout for smaller screens */
+@media screen and (max-width: 929px) {
+  #toc {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    padding: 1px 0 0 0;
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+    opacity: 0.6;
+  }
+  #toc h2 {
+    margin: 0;
+    padding: 2px 0 2px 6px;
+    padding-right: 1em;
+    font-size: 18px;
+    line-height: 24px;
+    min-width: 190px;
+    text-align: right;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+    &::before { /* css hamburger */
+      float: right;
+      position: relative;
+      width: 1em;
+      height: 1px;
+      left: -164px;
+      margin: 8px 0 0 0;
+      background: white none repeat scroll 0 0;
+      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+      content: "";
+    }
+  }
+  #toc nav {
+    display: none;
+    background-color: var(--background-color);
+    padding: 0.5em 1em 1em;
+    overflow: auto;
+    overscroll-behavior: contain;
+    height: calc(100vh - 48px);
+    border-left: 1px solid #ddd;
+  }
+  #toc.active {
+    opacity: 1;
+    & nav { display: block; }
+  }
+  /* Make the collapsed ToC header render white on gray also when it's a link */
+  #toc h2 a,
+  #toc h2 a:is(:link, :focus, :hover),
+  #toc a.toplink,
+  #toc a.toplink:hover {
+    color: white;
+    background-color: #444;
+    text-decoration: none;
+  }
+  #toc a.toplink {
+    margin: 2px 0.5em 0;
+  }
+}
+
+/* TOC layout for wide screens */
+@media screen and (min-width: 930px) {
+  body {
+    padding-right: 360px;
+    padding-right: calc(min(180px + 20%, 500px));
+  }
+  #toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 480px);
+    width: 312px;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+  }
+  #toc h2 {
+    margin: 0;
+    padding: 0.25em 1em 1em 0;
+  }
+  #toc nav {
+    display: block;
+    height: calc(90vh - 84px);
+    bottom: 0;
+    padding: 0.5em 0 2em;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+  img { /* future proofing */
+    max-width: 100%;
+    height: auto;
+  }
+  #toc a.toplink {
+    margin: 8px 0.5em 0;
+  }
+}
+
+/* pagination */
+@media print {
+  body {
+    width: 100%;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+  #n-copyright-notice {
+    border-bottom: none;
+  }
+  #toc, #n-introduction {
+    page-break-before: always;
+  }
+  #toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  figure, pre, .vcard {
+    page-break-inside: avoid;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  :is(h2, h3, h4, h5, h6)+*, dd {
+    page-break-before: avoid;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 10pt;
+  }
+  table {
+    border: 1px solid #ddd;
+  }
+  td {
+    border-top: 1px solid #ddd;
+  }
+}
+
+@page :first {
+  padding-top: 0;
+  @top-left {
+    content: normal;
+    border: none;
+  }
+  @top-center {
+    content: normal;
+    border: none;
+  }
+  @top-right {
+    content: normal;
+    border: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin-bottom: 45mm;
+  padding-top: 20px;
+}
+
+/* Dark mode. */
+@media (prefers-color-scheme: dark) {
+:root {
+  --background-color: #121212;
+  --text-color: #f0f0f0;
+  --title-color: #fff;
+  --link-color: #4da4f0;
+  --highlight-color: #282828;
+  --line-color: #444;
+  --pilcrow-weak: #444;
+  --pilcrow-strong: #666;
+  scrollbar-color: #777 #333;
+}
+}
+
+/* SVG Trick: a prefix match works because only black and white are allowed */
+svg :is([stroke="black"], [stroke^="#000"]) {
+  stroke: var(--text-color);
+}
+svg :is([stroke="white"], [stroke^="#fff"]) {
+  stroke: var(--background-color);
+}
+svg :is([fill="black"], [fill^="#000"], :not([fill])) {
+  fill: var(--text-color);
+}
+svg :is([fill="white"], [fill^="#fff"]) {
+  fill: var(--background-color);
+}
+</style>
+
+</head>
+<body class="xml2rfc">
+<table class="ears">
+<thead><tr>
+<td class="left">Internet-Draft</td>
+<td class="center">Applicability Statement</td>
+<td class="right">October 2025</td>
+</tr></thead>
+<tfoot><tr>
+<td class="left">Zhang, et al.</td>
+<td class="center">Expires 19 April 2026</td>
+<td class="right">[Page]</td>
+</tr></tfoot>
+</table>
+<div id="external-metadata" class="document-information"></div>
+<div id="internal-metadata" class="document-information">
+<dl id="identifiers">
+<dt class="label-workgroup">Workgroup:</dt>
+<dd class="workgroup">Time-Variant Routing</dd>
+<dt class="label-internet-draft">Internet-Draft:</dt>
+<dd class="internet-draft">draft-zdm-tvr-applicability-latest</dd>
+<dt class="label-published">Published:</dt>
+<dd class="published">
+<time datetime="2025-10-16" class="published">16 October 2025</time>
+    </dd>
+<dt class="label-intended-status">Intended Status:</dt>
+<dd class="intended-status">Informational</dd>
+<dt class="label-expires">Expires:</dt>
+<dd class="expires"><time datetime="2026-04-19">19 April 2026</time></dd>
+<dt class="label-authors">Authors:</dt>
+<dd class="authors">
+<div class="author">
+      <div class="author-name">L. Zhang</div>
+<div class="org">Huawei</div>
+</div>
+<div class="author">
+      <div class="author-name">J. Dong</div>
+<div class="org">Huawei</div>
+</div>
+<div class="author">
+      <div class="author-name">M. Boucadair</div>
+<div class="org">Orange</div>
+</div>
+</dd>
+</dl>
+</div>
+<h1 id="title">Applicability of TVR YANG Data Models</h1>
+<section id="section-abstract">
+      <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
+<p id="section-abstract-1">Time-Variant Routing (TVR) is a routing system that can support the predicted topology changes caused by internal or
+external reasons. Typical use cases include resource preservation networks, operating efficiency networks and dynamic
+reachability networks.
+This document provides examples of how to implement the TVR scheduling capabilities for key use cases. It describes
+which part of the TVR data model is used and why, and it outlines operational and security considerations when deploying
+TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+</section>
+<section class="note rfcEditorRemove" id="section-note.1">
+      <h2 id="name-discussion-venues">
+<a href="#name-discussion-venues" class="section-name selfRef">Discussion Venues</a>
+      </h2>
+<p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
+<p id="section-note.1-2">Discussion of this document takes place on the
+    Time-Variant Routing Working Group mailing list (tvr@ietf.org),
+    which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/tvr/">https://mailarchive.ietf.org/arch/browse/tvr/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+<p id="section-note.1-3">Source for this draft and an issue tracker can be found at
+    <span><a href="https://github.com/zhangli-abcd/TVR-Applicability-2">https://github.com/zhangli-abcd/TVR-Applicability-2</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+</section>
+<div id="status-of-memo">
+<section id="section-boilerplate.1">
+        <h2 id="name-status-of-this-memo">
+<a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
+        </h2>
+<p id="section-boilerplate.1-1">
+        This Internet-Draft is submitted in full conformance with the
+        provisions of BCP 78 and BCP 79.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-2">
+        Internet-Drafts are working documents of the Internet Engineering Task
+        Force (IETF). Note that other groups may also distribute working
+        documents as Internet-Drafts. The list of current Internet-Drafts is
+        at <span><a href="https://datatracker.ietf.org/drafts/current/">https://datatracker.ietf.org/drafts/current/</a></span>.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-3">
+        Internet-Drafts are draft documents valid for a maximum of six months
+        and may be updated, replaced, or obsoleted by other documents at any
+        time. It is inappropriate to use Internet-Drafts as reference
+        material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-4">
+        This Internet-Draft will expire on 19 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="copyright">
+<section id="section-boilerplate.2">
+        <h2 id="name-copyright-notice">
+<a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
+        </h2>
+<p id="section-boilerplate.2-1">
+            Copyright (c) 2025 IETF Trust and the persons identified as the
+            document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.2-2">
+            This document is subject to BCP 78 and the IETF Trust's Legal
+            Provisions Relating to IETF Documents
+            (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
+            publication of this document. Please review these documents
+            carefully, as they describe your rights and restrictions with
+            respect to this document. Code Components extracted from this
+            document must include Revised BSD License text as described in
+            Section 4.e of the Trust Legal Provisions and are provided without
+            warranty as described in the Revised BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="toc">
+<section id="section-toc.1">
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
+<a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
+        </h2>
+<nav class="toc"><ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
+            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-applicability-of-tvr-yang-m" class="internal xref">Applicability of TVR Yang Model</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
+                <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-applicability-of-tvr-node-y" class="internal xref">Applicability of TVR Node YANG Module</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-applicability-of-tvr-topolo" class="internal xref">Applicability of TVR Topology YANG Module</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2.2.1">
+                    <p id="section-toc.1-1.3.2.2.2.1.1"><a href="#section-3.2.1" class="auto internal xref">3.2.1</a>.  <a href="#name-interactions-in-centralized" class="internal xref">Interactions in Centralized Scenario</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2.2.2">
+                    <p id="section-toc.1-1.3.2.2.2.2.1"><a href="#section-3.2.2" class="auto internal xref">3.2.2</a>.  <a href="#name-interactions-in-distributed" class="internal xref">Interactions in Distributed Scenario</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-encoding-of-the-yang-model" class="internal xref">Encoding of the YANG Model</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
+                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-management-protocols-for-tv" class="internal xref">Management Protocols for TVR</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-time-synchronization" class="internal xref">Time Synchronization</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-hardware-based-time-synchro" class="internal xref">Hardware-based Time Synchronization Mechanisms</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-software-based-time-synchro" class="internal xref">Software-based Time Synchronization Protocols</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2.2.1">
+                    <p id="section-toc.1-1.4.2.2.2.1.1"><a href="#section-4.2.1" class="auto internal xref">4.2.1</a>.  <a href="#name-ntp" class="internal xref">NTP</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2.2.2">
+                    <p id="section-toc.1-1.4.2.2.2.2.1"><a href="#section-4.2.2" class="auto internal xref">4.2.2</a>.  <a href="#name-sntp" class="internal xref">SNTP</a></p>
+</li>
+                </ul>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-schedule-database" class="internal xref">Schedule Database</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-data-structure" class="internal xref">Data Structure</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-schedule-operations" class="internal xref">Schedule Operations</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-operational-considerations" class="internal xref">Operational Considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-schedule-dissemination" class="internal xref">Schedule Dissemination</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
+                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-schedule-execution" class="internal xref">Schedule Execution</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2.2.1">
+                    <p id="section-toc.1-1.6.2.2.2.1.1"><a href="#section-6.2.1" class="auto internal xref">6.2.1</a>.  <a href="#name-execution-of-node-schedule" class="internal xref">Execution of Node Schedule</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2.2.2">
+                    <p id="section-toc.1-1.6.2.2.2.2.1"><a href="#section-6.2.2" class="auto internal xref">6.2.2</a>.  <a href="#name-execution-of-topology-modul" class="internal xref">Execution of Topology Module Schedule</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3">
+                <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="auto internal xref">6.3</a>.  <a href="#name-schedule-recovery" class="internal xref">Schedule Recovery</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.4">
+                <p id="section-toc.1-1.6.2.4.1"><a href="#section-6.4" class="auto internal xref">6.4</a>.  <a href="#name-error-handling" class="internal xref">Error Handling</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.4.2.1">
+                    <p id="section-toc.1-1.6.2.4.2.1.1"><a href="#section-6.4.1" class="auto internal xref">6.4.1</a>.  <a href="#name-consistency-error" class="internal xref">Consistency Error</a></p>
+</li>
+                </ul>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-denial-of-service-dos-attac" class="internal xref">Denial-of-Service (DoS) Attack</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-traffic-analysis-and-path-p" class="internal xref">Traffic Analysis and Path Prediction</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
+                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-activity-identification-and" class="internal xref">Activity Identification and Privacy</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.4">
+                <p id="section-toc.1-1.7.2.4.1"><a href="#section-7.4" class="auto internal xref">7.4</a>.  <a href="#name-spoofing-and-manipulation-o" class="internal xref">Spoofing and Manipulation of Time Information</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5">
+                <p id="section-toc.1-1.7.2.5.1"><a href="#section-7.5" class="auto internal xref">7.5</a>.  <a href="#name-replay-attacks-on-time-sens" class="internal xref">Replay Attacks on Time-Sensitive Data</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.6">
+                <p id="section-toc.1-1.7.2.6.1"><a href="#section-7.6" class="auto internal xref">7.6</a>.  <a href="#name-compromised-time-sources" class="internal xref">Compromised Time Sources</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-appendix-a-code-examples" class="internal xref">Appendix A: Code Examples</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
+                <p id="section-toc.1-1.11.2.1.1"><a href="#appendix-B.1" class="auto internal xref"></a><a href="#name-code-examples-for-energy-ha" class="internal xref">Code Examples for “Energy-harvesting Wireless Sensor Network”</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2">
+                <p id="section-toc.1-1.11.2.2.1"><a href="#appendix-B.2" class="auto internal xref"></a><a href="#name-code-examples-for-cellular-" class="internal xref">Code Examples for "Cellular Network"</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.3">
+                <p id="section-toc.1-1.11.2.3.1"><a href="#appendix-B.3" class="auto internal xref"></a><a href="#name-code-examples-for-tidal-net" class="internal xref">Code Examples for “Tidal Network”</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.4">
+                <p id="section-toc.1-1.11.2.4.1"><a href="#appendix-B.4" class="auto internal xref"></a><a href="#name-code-examples-for-mobile-sa" class="internal xref">Code Examples for “Mobile Satellites”</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.5">
+                <p id="section-toc.1-1.11.2.5.1"><a href="#appendix-B.5" class="auto internal xref"></a><a href="#name-code-examples-for-predictab" class="internal xref">Code examples for “Predictable Moving Vessels”</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-contributors" class="internal xref">Contributors</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
+            <p id="section-toc.1-1.13.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+</li>
+        </ul>
+</nav>
+</section>
+</div>
+<div id="introduction">
+<section id="section-1">
+      <h2 id="name-introduction">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
+      </h2>
+<p id="section-1-1">The Time-Variant Routing (TVR) Working Group addresses a growing need in modern network environments where
+predictable variations in topology - such as the restoration, activation, or loss of network elements, are
+part of normal operations. This approach is essential in dynamic networks with mobile nodes, where links may
+be frequently disrupted and re-established due to mobility or in networks with highly predictable traffic
+patterns, where links may be powered down to conserve or reduce energy.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">This document provides examples of implementing TVR scheduling capabilities in identified use cases. It
+demonstrates the applicability of the TVR data model, methods for disseminating the TVR schedules, and the
+necessary IETF ancillary technologies for network environments, such as time synchronization and policy,
+that support TVR capabilities.<a href="#section-1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="conventions-and-definitions">
+<section id="section-2">
+      <h2 id="name-conventions-and-definitions">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
+      </h2>
+<p id="section-2-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
+"<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
+described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
+appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="applicability-of-tvr-yang-model">
+<section id="section-3">
+      <h2 id="name-applicability-of-tvr-yang-m">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-applicability-of-tvr-yang-m" class="section-name selfRef">Applicability of TVR Yang Model</a>
+      </h2>
+<p id="section-3-1">The TVR data model <span>[<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span> defines the TVR node YANG module and TVR topology YANG module. This
+clause discusses the applicability of these two modules separately.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<div id="applicability-node-yang">
+<section id="section-3.1">
+        <h3 id="name-applicability-of-tvr-node-y">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-applicability-of-tvr-node-y" class="section-name selfRef">Applicability of TVR Node YANG Module</a>
+        </h3>
+<p id="section-3.1-1">As specified in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-05#section-5.2" class="relref">Section 5.2</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>, module ietf-tvr-node.yang is a device model and designed to manage a
+single node with scheduled attributes. It is not necessary in all TVR use cases.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2">The applicability of TVR node YANG module depends on whether changes in the attributes of network devices are caused by
+the environment or centrally controlled.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.1-3.1">
+            <p id="section-3.1-3.1.1">When the changes are caused by the environment changes (such as movement, sunlight changes, and weather changes) or
+the devices themselves decisions, the network device does not need to get the managed information through the YANG module. For example,
+when two nodes's distance is too far to establish a connection, then the link is down. Another case is that when the weather is
+not good and leading to the link degradation, then the nodes decide to disconnect the link.<a href="#section-3.1-3.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.1-3.2">
+            <p id="section-3.1-3.2.1">When the changes are caused by the centralized control (such as a controller, or an orchestrator), the devices themselves
+does not know when to adjust the attributes. In this case, the scheduled attributes changes should be delivered to the
+network devices through TVR node YANG module.<a href="#section-3.1-3.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="applicability-topology-yang">
+<section id="section-3.2">
+        <h3 id="name-applicability-of-tvr-topolo">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-applicability-of-tvr-topolo" class="section-name selfRef">Applicability of TVR Topology YANG Module</a>
+        </h3>
+<p id="section-3.2-1">As specified in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-05#section-5.3" class="relref">Section 5.3</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>, module ietf-tvr-topology.yang describes a network topology
+with a time-variant availability schedule. This YANG module is also not applicable for all TVR use cases.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">According to the description of <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-07#section-3.1" class="relref">Section 3.1</a> of [<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span>, the scheduling generation locality
+and execution locality may be centralized or distributed.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.2-3.1">
+            <p id="section-3.2-3.1.1">When the schedules are generated and executed in distributed manner, which means that each node generates and executes its specific
+schedules. In this scenario, the topology YANG module is not necessary, the devices can collect topology schedules by other means.
+This scenario is outside of the scope of this document.<a href="#section-3.2-3.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.2-3.2">
+            <p id="section-3.2-3.2.1">When the schedules are generated and executed in centralized manner and within the same device, the topology YANG module is also not applicable.
+Therefore, this scenario is also outside of the scope of this document.<a href="#section-3.2-3.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.2-3.3">
+            <p id="section-3.2-3.3.1">When the schedules are generated and executed in centralized manner but on different devices. For example, the schedule is
+generated by the managing device, and executed by the network controller. In this scenario the scheduled topology changes
+need to be sent to the execution device through the topology YANG module. This scenario is called "Centralized Scenario".<a href="#section-3.2-3.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.2-3.4">
+            <p id="section-3.2-3.4.1">When the schedules are generated in a centralized manner and executed in a distributed manner, the YANG module
+needs to be used to deliver the scheduled topology changes to the managed device. This scenario is called "Distributed Scenario".<a href="#section-3.2-3.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<div id="centralized-scenario">
+<section id="section-3.2.1">
+          <h4 id="name-interactions-in-centralized">
+<a href="#section-3.2.1" class="section-number selfRef">3.2.1. </a><a href="#name-interactions-in-centralized" class="section-name selfRef">Interactions in Centralized Scenario</a>
+          </h4>
+<p id="section-3.2.1-1">In the centralized scenario, the network managing device generates and maintains schedules, the routing application
+is deployed in the network controller, and the network devices execute the schedules and routing results.
+The following figure shows the components of the centralized scenario.<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
+<span id="name-components-of-centralized-s"></span><div id="ref-to-fig1">
+<figure id="figure-1">
+            <div class="alignLeft art-text artwork" id="section-3.2.1-2.1">
+<pre>
+ +-----------------------------------------------------------------+
+ |                        Managing Device                          |
+ +-----------------------------------------------------------------+
+            |                                           |
+Topology YANG Module                        Node YANG Module(optional)
+            |                                           |
+ +---------\|/----------+                     +--------\|/--------+
+ |  Network Controller  |---Routing Results--&gt;|  Network Devices  |
+ +----------------------+                     +-------------------+
+</pre>
+</div>
+<figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
+<a href="#name-components-of-centralized-s" class="selfRef">Components of Centralized Scenario</a>
+            </figcaption></figure>
+</div>
+<p id="section-3.2.1-3">A centralized scenario involves the interaction between the managing device and network controller, the managing
+device and network devices, and the controller and network devices.<a href="#section-3.2.1-3" class="pilcrow">¶</a></p>
+<p id="section-3.2.1-4">The managing device may need to deliver node-specific schedules to network devices by TVR Schedule Node YANG
+module <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-05#section-5.2" class="relref">Section 5.2</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>. This is optional and only necessary when the node attribute changes
+are instructed by the controller. In the meanwhile, the network devices need to report their own status data to the managing device.<a href="#section-3.2.1-4" class="pilcrow">¶</a></p>
+<p id="section-3.2.1-5">The managing device needs to deliver the schedules of network topology to the network controller by the TVR Network
+Topology YANG module <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-05#section-5.3" class="relref">Section 5.3</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>, so that the routing application in the controller
+can consider the impact of topology changes on routes when calculating routes.<a href="#section-3.2.1-5" class="pilcrow">¶</a></p>
+<p id="section-3.2.1-6">The network controller should deliver the route calculation results to the network devices. The format of the routing
+results depend on the protocols deployed (The typical protocols include BGP, PCEP, etc.). The routing results for a period
+in the future could be sent to the network devices in wall-clock time or be packed and sent at some special points.<a href="#section-3.2.1-6" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="distributed-scenario">
+<section id="section-3.2.2">
+          <h4 id="name-interactions-in-distributed">
+<a href="#section-3.2.2" class="section-number selfRef">3.2.2. </a><a href="#name-interactions-in-distributed" class="section-name selfRef">Interactions in Distributed Scenario</a>
+          </h4>
+<p id="section-3.2.2-1">In the distributed scenario, the managing device generates and maintains schedules, the routing application
+is deployed in the network devices which also executes schedules and route calculation.<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
+<span id="name-components-of-distributed-s"></span><div id="ref-to-fig2">
+<figure id="figure-2">
+            <div class="alignLeft art-text artwork" id="section-3.2.2-2.1">
+<pre>
+ +-------------------------------------------------+
+ |                  Managing Device                |
+ +-------------------------------------------------+
+                          |
+               Topology YANG Module and
+               Node YANG Module(optional)
+                          |
+ +-----------------------\|/-----------------------+
+ |         Managed Devices (Network Devices)        |
+ +-------------------------------------------------+
+</pre>
+</div>
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<a href="#name-components-of-distributed-s" class="selfRef">Components of Distributed Scenario</a>
+            </figcaption></figure>
+</div>
+<p id="section-3.2.2-3">The distributed model only involves the interaction between managing devices and network devices(managed devices).<a href="#section-3.2.2-3" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-4">The managing device need to deliver network topology schedules to all the network devices by TVR Network Topology Yang
+module for route calculation. The managing device may also need to deliver node-specific schedules to network devices by
+TVR Schedule Node YANG module, this is optional and only necessary when the node attributes changes are instructed by
+the controller. The network devices need to report their own status data to the managing device.<a href="#section-3.2.2-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="encoding-of-the-yang-model">
+<section id="section-3.3">
+        <h3 id="name-encoding-of-the-yang-model">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-encoding-of-the-yang-model" class="section-name selfRef">Encoding of the YANG Model</a>
+        </h3>
+<p id="section-3.3-1">The TVR data model <span>[<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span> can manage network resources and topologies with scheduled
+attributes. There are modules defined in the TVR data model, these are:<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.3-2.1">
+            <p id="section-3.3-2.1.1">The “ietf-tvr-schedule” module contains the schedule YANG definitions. This module uses groupings from <span>[<a href="#I-D.ietf-netmod-schedule-yang" class="cite xref">I-D.ietf-netmod-schedule-yang</a>]</span> data model;<a href="#section-3.3-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.3-2.2">
+            <p id="section-3.3-2.2.1">The “ietf-tvr-topology” module defines a network topology with a time-variant availability schedule;<a href="#section-3.3-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.3-2.3">
+            <p id="section-3.3-2.3.1">The “ietf-tvr-node” module is to be used to manage the scheduled attributes of a single node.<a href="#section-3.3-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-3.3-3">To create a schedule, the following TVR data model objects and subsequent branches are used:<a href="#section-3.3-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.3-4.1">
+            <p id="section-3.3-4.1.1">‘node-schedule’<a href="#section-3.3-4.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.3-4.2">
+            <p id="section-3.3-4.2.1">‘interface-schedule’<a href="#section-3.3-4.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.3-4.3">
+            <p id="section-3.3-4.3.1">‘attribute-schedule’<a href="#section-3.3-4.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-3.3-5">A TVR scenario example is provided below, where a wireless link is shut down for 12 hours, from 19:00 to 7am the next day.
+The schedule is identified using a unique identifier that is conveyed in ‘schedule-id’, and the recurring schedule can be applied for multiple days using Coordinated
+Universal Time (UTC).
+More detailed examples of the json code is provided in this documents Appendix.<a href="#section-3.3-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.3-6">
+<pre>
+{
+   "ietf-tvr-node:node-schedule":[
+      {
+         "node-id":1234567890,
+         "node-power-schedule":{
+            "power-default":true,
+         },
+         "interface-schedule":[
+            {
+               "name":"Wlan0",
+               "default-available":false,
+               "attribute-schedule":{
+                  "schedules":[
+                     {
+                        "schedule-id":111111,
+                        "recurrence-first":{
+                           "utc-start-time":"2025-12-01T19:00:00Z",
+                           "duration":43200
+                        },
+                        "utc-until":"2026-12-01T00:00:00Z",
+                        "frequency":"ietf-schedule:daily",
+                        "interval":1,
+                        "attr-value":{
+                           "available":true
+                        }
+                     }
+                  ]
+               }
+            }
+         ]
+      }
+   ]
+}
+</pre><a href="#section-3.3-6" class="pilcrow">¶</a>
+</div>
+<p id="section-3.3-7">The methods for disseminating and propagating the generated schedules are discussed in the following subsections.<a href="#section-3.3-7" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="management-protocols-for-tvr">
+<section id="section-3.4">
+        <h3 id="name-management-protocols-for-tv">
+<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-management-protocols-for-tv" class="section-name selfRef">Management Protocols for TVR</a>
+        </h3>
+<p id="section-3.4-1">The TVR data model is designed to be accessed via YANG-based management protocols such as NETCONF <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span>, RESTCONF
+<span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span> and CORECONF<span>[<a href="#I-D.ietf-core-comi-19" class="cite xref">I-D.ietf-core-comi-19</a>]</span>. This section discusses the applicability of these protocols for
+configuring time-variant network resources using the TVR YANG data models.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.4-2">NETCONF provides a robust mechanism for managing complex network configurations, particularly when transactional integrity
+and operational consistency are required. Its ability to execute atomic transactions ensures that schedules involving
+multiple resources are applied fully, preventing partial updates that could lead to configuration inconsistencies. This
+feature is important for time-sensitive scheduling in TVR environments. Additionally, NETCONF supports the validation of
+configurations prior to commitment, allowing operators to verify the correctness of schedules before they are applied.
+It also includes rollback capabilities, such as restoring a previous configuration during scheduling errors.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
+<p id="section-3.4-3">In contrast, RESTCONF offers a simpler, stateless method for interacting with network devices, making it suitable for use
+cases requiring lightweight, rapid configuration. RESTCONF utilizes a RESTful interface over HTTP, providing a streamlined
+approach to network configuration and management. Therefore, RESTCONF may be advantageous in scenarios where quick adjustments
+to schedules are needed or where integration with web-based or cloud-native systems is a priority.<a href="#section-3.4-3" class="pilcrow">¶</a></p>
+<p id="section-3.4-4">CORECONF provides a lightweight, stateless method for managing small network devices where saving bytes to transport a
+message is very important. CORECONF uses CoAP<span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> methods to access structured data defined in YANG which is a complementary to RESTCONF.
+Contrary to RESTCONF, CORECONF many design decisions are motivated by the saving of bytes. Therefore, CORECONF is advantageous
+in networks with constrained devices and very limited transmission bandwidth, especially in IoT devices that already deployed CoAP.<a href="#section-3.4-4" class="pilcrow">¶</a></p>
+<p id="section-3.4-5">Depending on the type of node in the TVR network, NETCONF would be the preferred protocol for large-scale, critical scheduling
+operations requiring validation and rollback mechanisms. For smaller-scale or isolated scheduling tasks, RESTCONF provides an
+efficient and straightforward option without the need for the transactional features offered by NETCONF. CORECONF is preferred
+in resource constrained IoT networks where saving message bytes is a priority. The choice of protocol
+to use with the TVR YANG model should be driven by the specific requirements of the network environment and the complexity of
+the scheduling tasks involved.<a href="#section-3.4-5" class="pilcrow">¶</a></p>
+<p id="section-3.4-6">The security aspects of these management protocols, including their strengths and weaknesses, are discussed further in
+<a href="#security-considerations" class="auto internal xref">Section 7</a> of this document.<a href="#section-3.4-6" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="time-synchronization">
+<section id="section-4">
+      <h2 id="name-time-synchronization">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-time-synchronization" class="section-name selfRef">Time Synchronization</a>
+      </h2>
+<p id="section-4-1">Time Synchronization is fundamental for ensuring that TVR mechanisms, which depend on highly accurate timing, function as intended across
+an entire network. Misalignment in time could lead to serious routing issues, including inefficiency in path forwarding,
+instability in routing tables, and traffic outages.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">Time Synchronization mechanisms will be used to ensure:<a href="#section-4-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4-3.1">
+          <p id="section-4-3.1.1">Coordination of Planned Network Events;<a href="#section-4-3.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-4-3.2">
+          <p id="section-4-3.2.1">Verification of TVR Data Model Time Stamps<a href="#section-4-3.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-4-3.3">
+          <p id="section-4-3.3.1">Accurate Scheduling of Paths;<a href="#section-4-3.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-4-3.4">
+          <p id="section-4-3.4.1">Fault Tolerance.<a href="#section-4-3.4.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-4-4">Different time-variant scenarios may require different granularities of time synchronization. For example, the
+period of traffic and topology changes in tidal networks is usually a day or week. Therefore, a second-level time
+synchronization is enough. However, for the dynamic reachability scenarios, a fine-granularity time synchronization may
+be necessary, as the nodes may moving very fast in some cases (the moving speed of a low earth orbit satellite is more than 7900 m/s)<a href="#section-4-4" class="pilcrow">¶</a></p>
+<p id="section-4-5">Existing clock synchronization protocols can be classified into hardware-based protocols and software-based protocols.<a href="#section-4-5" class="pilcrow">¶</a></p>
+<p id="section-4-6">Hardware-based protocols often rely on dedicated hardware to ensure clock synchronization, such as Satellite Based Timing Service (SBTS)
+and Precision Time Protocol (PTP). The SBTS includes but not limited to Global Position System (GPS),
+BeiDou Navigation Satellite System(BDS), Global Navigation Satellite System(GLONASS), and Galileo satellite navigation system.
+Software-based protocols, on the other hand, synchronize clocks through software packages running on systems, such as Network
+Time Protocol (NTP) <span>[<a href="#RFC5905" class="cite xref">RFC5905</a>]</span> and Simple Network Time Protocol (SNTP) <span>[<a href="#RFC4330" class="cite xref">RFC4330</a>]</span>.<a href="#section-4-6" class="pilcrow">¶</a></p>
+<p id="section-4-7">The security aspects of time synchronization mechanisms are discussed further in <a href="#security-considerations" class="auto internal xref">Section 7</a> of this document.<a href="#section-4-7" class="pilcrow">¶</a></p>
+<div id="hardware-based-time-synchronization-mechanisms">
+<section id="section-4.1">
+        <h3 id="name-hardware-based-time-synchro">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-hardware-based-time-synchro" class="section-name selfRef">Hardware-based Time Synchronization Mechanisms</a>
+        </h3>
+<p id="section-4.1-1">Hardware-based protocols typically have higher precision and stability, but also have higher cost due to the dedicated hardware. SBTS and PTP are the typical hardware-based time synchronization mechanisms.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-2">SBTS provides a precise time synchronization service based on the signals transmitted by the satellites. SBTS can realize the micro-second level time synchronization among the devices installed with SBTS reviver hardware.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
+<p id="section-4.1-3">PTP is a network protocol that complies with the IEEE 1588 standard and is used to implement high-precision time synchronization between network nodes. PTP implements time synchronization by transmitting synchronization messages between master and slave devices. Based on the hardware timestamp, the precision of time synchronization is much higher than that of NTP, and can reach the sub-microsecond level or even tens of nanoseconds.  When deploying PTP in TVR networks, the managing devices should be the master and the network devices and controller should be the slaves which get time from the master.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.1-4">Both SBTS and PTP can realize micro-second level time synchronization. Depending on the features of TVR network, the SBTS would be the preferred mechanisms for
+large-scale, high dynamic and open-air networks, especially networks with unreliable links as it does not require network links to exchange time information.
+For the small-scale networks with stable links but have high-precision time synchronization requirements, the PTP is much preferred.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="software-based-time-synchronization-protocols">
+<section id="section-4.2">
+        <h3 id="name-software-based-time-synchro">
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-software-based-time-synchro" class="section-name selfRef">Software-based Time Synchronization Protocols</a>
+        </h3>
+<p id="section-4.2-1">Software-based protocols are simple and applicable to common hardware devices, but have lower precision (For
+example, the NTP can realize the synchronization at tens of milliseconds level).<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<div id="ntp">
+<section id="section-4.2.1">
+          <h4 id="name-ntp">
+<a href="#section-4.2.1" class="section-number selfRef">4.2.1. </a><a href="#name-ntp" class="section-name selfRef">NTP</a>
+          </h4>
+<p id="section-4.2.1-1">NTP uses a hierarchical structure of time sources. Each level of this hierarchy is termed a stratum. Generally, an NTP
+server synchronized to an authoritative clock runs at stratum 1. Such NTP server functions as the primary time server
+to provide clock synchronization for other devices on the network. Stratum 2 servers obtain time from stratum 1 servers,
+stratum 3 servers obtain time from stratum 2 servers, and so on.<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.2.1-2">In TVR use cases, the managing device functions as a level-1 NTP server and synchronized to an authoritative clock
+source. The network controller and network devices behave as clients to obtain accurate time from the managing device.
+<a href="#ref-to-fig3" class="auto internal xref">Figure 3</a> shows an NTP deployment scenario for obtaining clock from a GPS clock source.<a href="#section-4.2.1-2" class="pilcrow">¶</a></p>
+<span id="name-deployment-case-of-ntp-in-t"></span><div id="ref-to-fig3">
+<figure id="figure-3">
+            <div class="alignLeft art-text artwork" id="section-4.2.1-3.1">
+<pre>
+                           +--------------------+
+                           |  GPS Clock Source  |
+                           +--------------------+
+                                     |
+               +--------------------\|/------------------+
+Stratum 1      |             Managing Device             |
+               +-----------------------------------------+
+                     |                             |
+                     |                             |
+                     |                             |
+          +---------\|/----------+       +--------\|/--------+
+Stratum 2 |  Network Controller  |       |  Network Devices  |
+          +----------------------+       +-------------------+
+
+</pre>
+</div>
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<a href="#name-deployment-case-of-ntp-in-t" class="selfRef">Deployment Case of NTP in Tidal Networks</a>
+            </figcaption></figure>
+</div>
+<p id="section-4.2.1-4">NTP is preferred in large-scale networks with reliable links and long-term changes, which dose not require a high-precision time synchronization.<a href="#section-4.2.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sntp">
+<section id="section-4.2.2">
+          <h4 id="name-sntp">
+<a href="#section-4.2.2" class="section-number selfRef">4.2.2. </a><a href="#name-sntp" class="section-name selfRef">SNTP</a>
+          </h4>
+<p id="section-4.2.2-1">SNTP is a subset of the NTP used to synchronize computer clocks in the Internet. It simplifies the complex NTP
+synchronization function and has lower clock precision, but the synchronization precision still can be guarded under
+seconds. SNTP is also preferred in large-scale networks with reliable links, long-term changes, and loose synchronization precision. In addition, it is more suitable for networks with limited resources than NTP.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="schedule-database">
+<section id="section-5">
+      <h2 id="name-schedule-database">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-schedule-database" class="section-name selfRef">Schedule Database</a>
+      </h2>
+<p id="section-5-1">The schedule database is used to store and maintain schedules, the database may be deployed on a managing device
+and managed devices based on requirements.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">The source of the schedule database may be diversified, for example, configuration from an administrator
+or YANG model from the management interface. The schedule entries of different databases may be different, but the
+content of the same schedule entry in the schedule databases of different devices in the same domain must be
+consistent. There are at least two ways to make the content of the same schedule entry in different schedule databases
+consistent:<a href="#section-5-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5-3.1">
+          <p id="section-5-3.1.1">All the schedule entries are generated at a specific device;<a href="#section-5-3.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-5-3.2">
+          <p id="section-5-3.2.1">Schedule entries are generated at different devices, but there is a synchronization mechanism to synchronize the
+schedule databases among devices.<a href="#section-5-3.2.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-5-4">Option 1 is simplest and easy to implement. In a time-variant domain, the managing device may receive scheduling
+requests and generate all schedule entries. Then the schedule entries are delivered to the necessary network devices
+in the domain through the TVR YANG model.<a href="#section-5-4" class="pilcrow">¶</a></p>
+<p id="section-5-5">Option 2 relies on advertisement mechanisms (such as routing techniques) to advertise the scheduling data generated
+by itself to other devices. This could be achieved using extensions to existing routing schemes and techniques.<a href="#section-5-5" class="pilcrow">¶</a></p>
+<p id="section-5-6">These options will be discussed with the TVR Working Group, and agreed approaches will be documented in future versions
+of this Internet Draft.<a href="#section-5-6" class="pilcrow">¶</a></p>
+<div id="data-structure">
+<section id="section-5.1">
+        <h3 id="name-data-structure">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-data-structure" class="section-name selfRef">Data Structure</a>
+        </h3>
+<p id="section-5.1-1"><span>[<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span> defines a TVR Node and TVR Topology YANG modules. The Node YANG module
+includes node power schedules and interface schedules. The Topology YANG module includes node schedules and link schedules.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">Based on the preceding four schedule types, the schedule database should contain four types of schedule entries in
+different formats:<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.1-3.1">
+            <p id="section-5.1-3.1.1">Node power schedule entry;<a href="#section-5.1-3.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.1-3.2">
+            <p id="section-5.1-3.2.1">Interface schedule entry;<a href="#section-5.1-3.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.1-3.3">
+            <p id="section-5.1-3.3.1">Node schedule entry;<a href="#section-5.1-3.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.1-3.4">
+            <p id="section-5.1-3.4.1">Link schedule entry;<a href="#section-5.1-3.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-5.1-4">The detailed format and fields of different types of schedule entries could reference to the definitions of the corresponding
+YANG modules.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="schedule-operations">
+<section id="section-5.2">
+        <h3 id="name-schedule-operations">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-schedule-operations" class="section-name selfRef">Schedule Operations</a>
+        </h3>
+<p id="section-5.2-1">This section provides general requirements for using the TVR schedules.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">The schedule database should support the add, update, and delete operations.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">When adding or updating a schedule entry, the execution node needs to check whether resource conflicts exist between the
+current schedule and existing schedules. If a conflict exists, the operation should be failed.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2-4">Schedules are updated and deleted based on schedule IDs. Therefore, schedule IDs must be unique in a time-variant domain.
+This can be handled, e.g., by a dedicated allocation agent within the time-variant domain.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="operational-considerations">
+<section id="section-6">
+      <h2 id="name-operational-considerations">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
+      </h2>
+<p id="section-6-1">Several operational considerations exist when using TVR techniques and data models in a network. This section provides
+some high-level observations and more detailed sub-sections for specific consideration related to schedule dissemination,
+execution, and recovery in case of failure to apply a schedule or partial change.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6-2.1">
+          <p id="section-6-2.1.1">Coordinated Network Events: TVR often coordinates routing changes anticipating events like predictable low-traffic
+periods or link downtimes (e.g., scheduled maintenance or traffic demand).<a href="#section-6-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-6-2.2">
+          <p id="section-6-2.2.1">Accurate Scheduling of Paths: TVR schedules capable routers and network nodes will dynamically adjust forwarding paths
+based on planned changes in link availability or network conditions.<a href="#section-6-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-6-2.3">
+          <p id="section-6-2.3.1">Time-Stamped Data Models: TVR will require the use time-stamped data models (e.g., schedules for link changes or
+availability windows) to make interface management decisions. This ensures that all TVR nodes interpret the timing of
+events consistently and implement time-based policies correctly.<a href="#section-6-2.3.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-6-3">Therefore, network time accuracy and time-stamped data models are critical to ensure that coordinated network events
+and scheduled path decisions across the network are based on a consistent time reference. Without accurate time sync,
+nodes could apply different schedules, causing routing inconsistencies, path flapping, or packet loss.<a href="#section-6-3" class="pilcrow">¶</a></p>
+<p id="section-6-4">Since the all the schedules are generated by the managing devices, it is necessary to make sure that the managing
+device and managed devices within a schedule domian <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-07#section-2.1.1" class="relref">Section 2.1.1</a> of [<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span> are synchronized
+with the same time source. It ensures they have the same notion of when that is.<a href="#section-6-4" class="pilcrow">¶</a></p>
+<div id="schedule-dissemination">
+<section id="section-6.1">
+        <h3 id="name-schedule-dissemination">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-schedule-dissemination" class="section-name selfRef">Schedule Dissemination</a>
+        </h3>
+<p id="section-6.1-1">when distributing schedules, the following problems should be considered:<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.1-2.1">
+            <p id="section-6.1-2.1.1">The managed devices that receives a schedule should have the ability to execute the schedule. If the device does not support schedule
+execution, it must ignore it on receipt.<a href="#section-6.1-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.1-2.2">
+            <p id="section-6.1-2.2.1">The distributing of a schedule should be earlier than the earliest start time of the schedule, this ensures that the
+managed device has enough time to execute this schedule.<a href="#section-6.1-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="schedule-execution">
+<section id="section-6.2">
+        <h3 id="name-schedule-execution">
+<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-schedule-execution" class="section-name selfRef">Schedule Execution</a>
+        </h3>
+<p id="section-6.2-1">Schedule execution means that a component (e.g., device) undertakes an action (e.g., allocates and deallocates resources)
+at specified time points. The schedule execution of Node Module and Topology Module should be considered separately.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<div id="execution-of-node-schedule">
+<section id="section-6.2.1">
+          <h4 id="name-execution-of-node-schedule">
+<a href="#section-6.2.1" class="section-number selfRef">6.2.1. </a><a href="#name-execution-of-node-schedule" class="section-name selfRef">Execution of Node Schedule</a>
+          </h4>
+<p id="section-6.2.1-1">Node schedule execution indicates a node to change its node/interfaces availability/power up
+and down, and other attributes directly or by commands.<a href="#section-6.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-2">when executing a node schedule, the schedule executor should undertake an action at specified time points as indicated in the schedule.<a href="#section-6.2.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="execution-of-topology-module-schedule">
+<section id="section-6.2.2">
+          <h4 id="name-execution-of-topology-modul">
+<a href="#section-6.2.2" class="section-number selfRef">6.2.2. </a><a href="#name-execution-of-topology-modul" class="section-name selfRef">Execution of Topology Module Schedule</a>
+          </h4>
+<p id="section-6.2.2-1">Topology schedule execution means a node take some measures before or upon the scheduled topology changes.<a href="#section-6.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-2">The schedule executor should understand the consequences of the schedule execution. The addition and deletion of the topology
+need to be considered separately.<a href="#section-6.2.2-2" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-3">A link coming up or a node joining a topology should not have any functional change until the change is proven to be fully
+operational. The routing paths may be pre-computed but should not be installed before all the topology changes are
+confirmed to be operational. The benefits of this pre-computation appear to be very small. The network may choose to
+not do any pre-installation or pre-computation in reaction to topological additions at a small cost of some operational
+efficiency.<a href="#section-6.2.2-3" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-4">Topological deletions are an entirely different matter. If a link or node is to be removed from the topology, then the
+network should act before the anticipated change to route traffic around the expected topological change. Specifically,
+at some point before the planned topology change, the routing paths should be pre-computed and installed before the
+topology change takes place. The required time to perform such planned action will vary depending on the exact network
+and configuration. When using an IGP or other distributed routing protocols, the affected links may be set to a high
+metric to direct traffic to alternate paths. This type of change does require some time to propagate through the
+network, so the metric change should be initiated far enough in advance that the network converges before the actual
+topological change.<a href="#section-6.2.2-4" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-5">In addition to the addition and deleting of topology, a schedule may indicate the attributes change of some links, such as bandwidth and delay.
+If an attribute changes better (such as latency decrease and bandwidth increase), then the executer should take actions later
+or until the topology change is proven to be fully operational.
+If an attribute changes worse (such as latency increase and bandwidth decrease), then the node should react to it before the change take place.<a href="#section-6.2.2-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="schedule-recovery">
+<section id="section-6.3">
+        <h3 id="name-schedule-recovery">
+<a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-schedule-recovery" class="section-name selfRef">Schedule Recovery</a>
+        </h3>
+<p id="section-6.3-1">Schedule recovery means when a node lost its specific schedule data, it should be able to recover these schedule data.
+Typical scenarios include data loss due to device restart, disconnection from managing devices and failure to receive new
+schedules for a long time. In these scenarios, once the connection between the managed device and the managing device is
+established again, the managing device needs to re-distribute all schedules that start time is later than the current moment
+to the managed device after time synchronization is finished.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="error-handling">
+<section id="section-6.4">
+        <h3 id="name-error-handling">
+<a href="#section-6.4" class="section-number selfRef">6.4. </a><a href="#name-error-handling" class="section-name selfRef">Error Handling</a>
+        </h3>
+<div id="consistency-error">
+<section id="section-6.4.1">
+          <h4 id="name-consistency-error">
+<a href="#section-6.4.1" class="section-number selfRef">6.4.1. </a><a href="#name-consistency-error" class="section-name selfRef">Consistency Error</a>
+          </h4>
+<p id="section-6.4.1-1">Consistency error means that some time parameters conflict with other time parameters in the same schedule or in other schedules.<a href="#section-6.4.1-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.4.1-2.1">
+              <p id="section-6.4.1-2.1.1">If the time parameters of a schedule conflict with each other, for example, the period-start bigger than period-end,
+the duration is longer than the product of frequency and interval, or the duration is longer than utc-until, then the schedule
+should be discarded and an error should be returned to the managed device.<a href="#section-6.4.1-2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-6.4.1-2.2">
+              <p id="section-6.4.1-2.2.1">If there is a conflict between schedules with different schedule IDs, for example, schedule1 indicates that interface B is closed at time A, but
+schedule2 indicates that interface B is open at time A, then all conflicting schedules should be discarded and an error
+should be returned to the managed device. If two schedules have the same schedule ID, then it is considered as a update of the former schedule.<a href="#section-6.4.1-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-6.4.1-3">Editor's Note: multi-manager scenarios need to be considered.<a href="#section-6.4.1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="security-considerations">
+<section id="section-7">
+      <h2 id="name-security-considerations">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      </h2>
+<p id="section-7-1">The integration of time-variant mechanisms in network operations presents distinct security challenges that require thorough
+analysis to safeguard the network’s integrity, availability, and confidentiality. Networks that rely on time-sensitive data
+for routing and forwarding decisions are particularly susceptible to attacks that exploit timing dependencies.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-2">The "Security Considerations" section of <span>[<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span> outlines various threat vectors and categories specific
+to time-variant environments.<a href="#section-7-2" class="pilcrow">¶</a></p>
+<div id="dos-attack">
+<section id="section-7.1">
+        <h3 id="name-denial-of-service-dos-attac">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-denial-of-service-dos-attac" class="section-name selfRef">Denial-of-Service (DoS) Attack</a>
+        </h3>
+<p id="section-7.1-1">In a time-variant network, malicious actors could attack the network by disrupting or manipulating the time synchronization
+process. For example, an attacker could intentionally delay or corrupt time signals exchanged within the network, leading
+to routing errors and widespread denial-of-service (DoS) attacks.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<p id="section-7.1-2">This kind of attack could be mitigated by the redundancy time synchronization mechanisms, for example, multiple NTP sources
+or multiple time synchronization protocols could be deployed in a TVR network. The network devices could guarantee the
+correctness of the time by checking whether the time signals from different sources or protocols.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
+<p id="section-7.1-3">In addition, the identification authentication is also an important way to protect the time signals being tampered by
+attackers. Some security extensions for time synchronization protocols (such as NTS (Network Time Security)) are
+recommended to be applied.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="traffic-analysis">
+<section id="section-7.2">
+        <h3 id="name-traffic-analysis-and-path-p">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-traffic-analysis-and-path-p" class="section-name selfRef">Traffic Analysis and Path Prediction</a>
+        </h3>
+<p id="section-7.2-1">In a time-variant network, if time information is not adequately protected, attackers could conduct traffic analysis to
+infer routing decisions, network load, or usage patterns. The schedule ability could enable attackers to launch highly
+targeted attacks, such as selectively overloading certain links or intercepting sensitive communications.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+<p id="section-7.2-2">This kind of attack could be mitigated by the encryption of schedules and the authentication of managing devices. For
+the networks using NETCONF to deliver schedules, NETCONF over TLS<span>[<a href="#RFC7589" class="cite xref">RFC7589</a>]</span> is recommended to achieve the bidirectional
+authentication and encryption of YANG model data. RESTCONF supports TLS originally, so it can be deployed without
+additional configurations or modifications.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
+<p id="section-7.2-3">In addition, in time variant networks with centralized scenario<a href="#centralized-scenario" class="auto internal xref">Section 3.2.1</a>, the encryption of routing path
+information is also necessary to avoid the fake routing information. Considering the most typical protocols used to
+deliver the routing path information between controller and network devices are BGP and PCEP, and both are based on TCP.
+Therefore, the TLS is recommended to be applied for the conservation.<a href="#section-7.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="activity-identification">
+<section id="section-7.3">
+        <h3 id="name-activity-identification-and">
+<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-activity-identification-and" class="section-name selfRef">Activity Identification and Privacy</a>
+        </h3>
+<p id="section-7.3-1">In certain scenarios, precise time information exchanged within the network could be correlated with specific user or
+device behavior, inadvertently revealing private information.<a href="#section-7.3-1" class="pilcrow">¶</a></p>
+<p id="section-7.3-2">This risk could also be mitigated by the solutions mentioned in <a href="#activity-identification" class="auto internal xref">Section 7.3</a>.<a href="#section-7.3-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="spoofing-and-manipulation-of-time-information">
+<section id="section-7.4">
+        <h3 id="name-spoofing-and-manipulation-o">
+<a href="#section-7.4" class="section-number selfRef">7.4. </a><a href="#name-spoofing-and-manipulation-o" class="section-name selfRef">Spoofing and Manipulation of Time Information</a>
+        </h3>
+<p id="section-7.4-1">In a time-variant network, if an attacker were to inject false or manipulated time data into the network, it could cause
+routers and devices to make incorrect decisions, potentially leading to traffic misrouting, network partitions, or
+inefficient use of resources.<a href="#section-7.4-1" class="pilcrow">¶</a></p>
+<p id="section-7.4-2">This risk could also be mitigated by the solutions mentioned in <a href="#dos-attack" class="auto internal xref">Section 7.1</a>.<a href="#section-7.4-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="replay-attacks-on-time-sensitive-data">
+<section id="section-7.5">
+        <h3 id="name-replay-attacks-on-time-sens">
+<a href="#section-7.5" class="section-number selfRef">7.5. </a><a href="#name-replay-attacks-on-time-sens" class="section-name selfRef">Replay Attacks on Time-Sensitive Data</a>
+        </h3>
+<p id="section-7.5-1">Time-variant network data and schedules updates may be susceptible to replay attacks, which could cause network devices
+to act on outdated information, leading to inconsistent routing decisions, misaligned schedules, or security gaps. In
+particular, attackers could exploit replay attacks to force devices into outdated configurations or interfere with the
+synchronization of schedules across the network.<a href="#section-7.5-1" class="pilcrow">¶</a></p>
+<p id="section-7.5-2">This kind of attack could be mitigated by encrypting time signals, schedules and routing path data, and adding a unique
+number to the encrypted section of a packet. This has been implemented in existing protocols, for example, the NTS
+supports unique identifier extension field (EF) containing a random number, the TLS supports Message Authentication Code
+generated from sequence number.<a href="#section-7.5-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="compromised-time-sources">
+<section id="section-7.6">
+        <h3 id="name-compromised-time-sources">
+<a href="#section-7.6" class="section-number selfRef">7.6. </a><a href="#name-compromised-time-sources" class="section-name selfRef">Compromised Time Sources</a>
+        </h3>
+<p id="section-7.6-1">The reliance on external time sources for synchronization purposes presents a potential attack surface for time-variant
+networks. If a trusted time source, such as a GPS signal or an NTP server, is compromised, the attacker could feed
+erroneous time information to the entire network, disrupting its operation.<a href="#section-7.6-1" class="pilcrow">¶</a></p>
+<p id="section-7.6-2">This kind of attack could be mitigated by the solutions mentioned in <a href="#dos-attack" class="auto internal xref">Section 7.1</a>.<a href="#section-7.6-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="iana-considerations">
+<section id="section-8">
+      <h2 id="name-iana-considerations">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+      </h2>
+<p id="section-8-1">This document has no IANA actions.<a href="#section-8-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-combined-references">
+<section id="section-9">
+      <h2 id="name-references">
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-references" class="section-name selfRef">References</a>
+      </h2>
+<div id="sec-normative-references">
+<section id="section-9.1">
+        <h3 id="name-normative-references">
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
+<dl class="references">
+<dt id="I-D.ietf-tvr-schedule-yang">[I-D.ietf-tvr-schedule-yang]</dt>
+        <dd>
+<span class="refAuthor">Qu, Y.</span>, <span class="refAuthor">Lindem, A.</span>, <span class="refAuthor">Kinzie, E.</span>, <span class="refAuthor">Fedyk, D.</span>, and <span class="refAuthor">M. Blanchet</span>, <span class="refTitle">"YANG Data Model for Scheduled Attributes"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tvr-schedule-yang-05</span>, <time datetime="2025-07-04" class="refDate">4 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-05">https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-05</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC2119">[RFC2119]</dt>
+        <dd>
+<span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8174">[RFC8174]</dt>
+        <dd>
+<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9657">[RFC9657]</dt>
+      <dd>
+<span class="refAuthor">Birrane, III, E.</span>, <span class="refAuthor">Kuhn, N.</span>, <span class="refAuthor">Qu, Y.</span>, <span class="refAuthor">Taylor, R.</span>, and <span class="refAuthor">L. Zhang</span>, <span class="refTitle">"Time-Variant Routing (TVR) Use Cases"</span>, <span class="seriesInfo">RFC 9657</span>, <span class="seriesInfo">DOI 10.17487/RFC9657</span>, <time datetime="2024-10" class="refDate">October 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9657">https://www.rfc-editor.org/rfc/rfc9657</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="sec-informative-references">
+<section id="section-9.2">
+        <h3 id="name-informative-references">
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="I-D.ietf-core-comi-19">[I-D.ietf-core-comi-19]</dt>
+        <dd>
+<span class="refAuthor">Veillette, M.</span>, <span class="refAuthor">Van der Stok, P.</span>, <span class="refAuthor">Pelov, A.</span>, <span class="refAuthor">Bierman, A.</span>, and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"CoAP Management Interface (CORECONF)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-comi-19</span>, <time datetime="2024-11-03" class="refDate">3 November 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-comi-19">https://datatracker.ietf.org/doc/html/draft-ietf-core-comi-19</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-netmod-schedule-yang">[I-D.ietf-netmod-schedule-yang]</dt>
+        <dd>
+<span class="refAuthor">Ma, Q.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">D. King</span>, <span class="refTitle">"A Common YANG Data Model for Scheduling"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-schedule-yang-10</span>, <time datetime="2025-08-07" class="refDate">7 August 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-schedule-yang-10">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-schedule-yang-10</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-tvr-requirements">[I-D.ietf-tvr-requirements]</dt>
+        <dd>
+<span class="refAuthor">King, D.</span>, <span class="refAuthor">Contreras, L. M.</span>, <span class="refAuthor">Sipos, B.</span>, and <span class="refAuthor">L. Zhang</span>, <span class="refTitle">"TVR (Time-Variant Routing) Requirements"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tvr-requirements-07</span>, <time datetime="2025-10-10" class="refDate">10 October 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-07">https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-07</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-tvr-use-cases">[I-D.ietf-tvr-use-cases]</dt>
+        <dd>
+<span class="refAuthor">Birrane, E. J.</span>, <span class="refAuthor">Kuhn, N.</span>, <span class="refAuthor">Qu, Y.</span>, <span class="refAuthor">Taylor, R.</span>, and <span class="refAuthor">L. Zhang</span>, <span class="refTitle">"TVR (Time-Variant Routing) Use Cases"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tvr-use-cases-09</span>, <time datetime="2024-02-29" class="refDate">29 February 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-use-cases-09">https://datatracker.ietf.org/doc/html/draft-ietf-tvr-use-cases-09</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.lj-rtg-sat-routing-consideration">[I-D.lj-rtg-sat-routing-consideration]</dt>
+        <dd>
+<span class="refAuthor">Liu, P.</span> and <span class="refAuthor">T. Jiang</span>, <span class="refTitle">"Routing in Satellite Networks: Challenges &amp; Considerations"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-lj-rtg-sat-routing-consideration-00</span>, <time datetime="2025-03-02" class="refDate">2 March 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-lj-rtg-sat-routing-consideration-00">https://datatracker.ietf.org/doc/html/draft-lj-rtg-sat-routing-consideration-00</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4330">[RFC4330]</dt>
+        <dd>
+<span class="refAuthor">Mills, D.</span>, <span class="refTitle">"Simple Network Time Protocol (SNTP) Version 4 for IPv4, IPv6 and OSI"</span>, <span class="seriesInfo">RFC 4330</span>, <span class="seriesInfo">DOI 10.17487/RFC4330</span>, <time datetime="2006-01" class="refDate">January 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4330">https://www.rfc-editor.org/rfc/rfc4330</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5905">[RFC5905]</dt>
+        <dd>
+<span class="refAuthor">Mills, D.</span>, <span class="refAuthor">Martin, J., Ed.</span>, <span class="refAuthor">Burbank, J.</span>, and <span class="refAuthor">W. Kasch</span>, <span class="refTitle">"Network Time Protocol Version 4: Protocol and Algorithms Specification"</span>, <span class="seriesInfo">RFC 5905</span>, <span class="seriesInfo">DOI 10.17487/RFC5905</span>, <time datetime="2010-06" class="refDate">June 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5905">https://www.rfc-editor.org/rfc/rfc5905</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6241">[RFC6241]</dt>
+        <dd>
+<span class="refAuthor">Enns, R., Ed.</span>, <span class="refAuthor">Bjorklund, M., Ed.</span>, <span class="refAuthor">Schoenwaelder, J., Ed.</span>, and <span class="refAuthor">A. Bierman, Ed.</span>, <span class="refTitle">"Network Configuration Protocol (NETCONF)"</span>, <span class="seriesInfo">RFC 6241</span>, <span class="seriesInfo">DOI 10.17487/RFC6241</span>, <time datetime="2011-06" class="refDate">June 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6241">https://www.rfc-editor.org/rfc/rfc6241</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7252">[RFC7252]</dt>
+        <dd>
+<span class="refAuthor">Shelby, Z.</span>, <span class="refAuthor">Hartke, K.</span>, and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"The Constrained Application Protocol (CoAP)"</span>, <span class="seriesInfo">RFC 7252</span>, <span class="seriesInfo">DOI 10.17487/RFC7252</span>, <time datetime="2014-06" class="refDate">June 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7252">https://www.rfc-editor.org/rfc/rfc7252</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7589">[RFC7589]</dt>
+        <dd>
+<span class="refAuthor">Badra, M.</span>, <span class="refAuthor">Luchuk, A.</span>, and <span class="refAuthor">J. Schoenwaelder</span>, <span class="refTitle">"Using the NETCONF Protocol over Transport Layer Security (TLS) with Mutual X.509 Authentication"</span>, <span class="seriesInfo">RFC 7589</span>, <span class="seriesInfo">DOI 10.17487/RFC7589</span>, <time datetime="2015-06" class="refDate">June 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7589">https://www.rfc-editor.org/rfc/rfc7589</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8040">[RFC8040]</dt>
+      <dd>
+<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Bjorklund, M.</span>, and <span class="refAuthor">K. Watsen</span>, <span class="refTitle">"RESTCONF Protocol"</span>, <span class="seriesInfo">RFC 8040</span>, <span class="seriesInfo">DOI 10.17487/RFC8040</span>, <time datetime="2017-01" class="refDate">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8040">https://www.rfc-editor.org/rfc/rfc8040</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+</section>
+</div>
+<div id="acknowledgments">
+<section id="appendix-A">
+      <h2 id="name-acknowledgments">
+<a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
+      </h2>
+<p id="appendix-A-1">TBD<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="appendix-a-code-examples">
+<section id="appendix-B">
+      <h2 id="name-appendix-a-code-examples">
+<a href="#name-appendix-a-code-examples" class="section-name selfRef">Appendix A: Code Examples</a>
+      </h2>
+<div id="code-examples-for-energy-harvesting-wireless-sensor-network">
+<section id="appendix-B.1">
+        <h3 id="name-code-examples-for-energy-ha">
+<a href="#name-code-examples-for-energy-ha" class="section-name selfRef">Code Examples for “Energy-harvesting Wireless Sensor Network”</a>
+        </h3>
+<p id="appendix-B.1-1">As described in <span><a href="https://rfc-editor.org/rfc/rfc9657#section-2.3" class="relref">Section 2.3</a> of [<a href="#RFC9657" class="cite xref">RFC9657</a>]</span>, in an energy-harvesting wireless sensor network, nodes rely exclusively on
+environmental sources for power, such as solar panels. On-board power levels may fluctuate based on various factors.
+This example assumes that a node will only power its radio when available power is over some threshold.
+In this scenario, the TVR Node Yang Module is not applicable, since the node attributes changes are caused by the environment,
+not by the instructions from managing device. The TVR Topology Yang Module may be necessary to convey the schedule of topology
+changes to all the nodes.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.1-2">Considering a topology with three nodes, the connectivity of this three-node networks changes over time and repeats daily.
+The detailed change information is shown in <a href="#ex-inf1" class="auto internal xref">Figure 4</a>. The link between node1 and node2 is powered on at 8:00 and powered off at 11:00.
+The link between node2 and node3 is powered on at 11:00 and powered off at 16:00.<a href="#appendix-B.1-2" class="pilcrow">¶</a></p>
+<span id="name-an-example-of-topology-conn"></span><div id="ex-inf1">
+<figure id="figure-4">
+          <div class="alignCenter art-text artwork" id="appendix-B.1-3.1">
+<pre>
+      +----------+        +----------+        +----------+
+8:00  |  Node 1  |--------|  Node 2  |        |  Node 3  |
+      +----------+        +----------+        +----------+
+
+      +----------+        +----------+        +----------+
+11:00 |  Node 1  |        |  Node 2  |--------|  Node 3  |
+      +----------+        +----------+        +----------+
+
+      +----------+        +----------+        +----------+
+16:00 |  Node 1  |        |  Node 2  |        |  Node 3  |
+      +----------+        +----------+        +----------+
+</pre>
+</div>
+<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
+<a href="#name-an-example-of-topology-conn" class="selfRef">An example of topology connectivity of Energy-harvesting Wireless Sensor Network</a>
+          </figcaption></figure>
+</div>
+<p id="appendix-B.1-4">The corresponding json example is shown in <a href="#ex-inf2" class="auto internal xref">Figure 5</a>.<a href="#appendix-B.1-4" class="pilcrow">¶</a></p>
+<span id="name-json-code-of-topology-sched"></span><div id="ex-inf2">
+<figure id="figure-5">
+          <div class="alignCenter art-text artwork" id="appendix-B.1-5.1">
+<pre>
+{
+    "ietf-tvr-topology:topology-schedule": {
+        "nodes": [
+            {
+                "node-id": "192.168.0.1",
+                "available": {
+                    "default-node-available": true,
+                    "schedules": []
+                }
+            },
+            {
+                "node-id": "192.168.0.2",
+                "available": {
+                    "default-node-available": true,
+                    "schedules": []
+                }
+            },
+            {
+                "node-id": "192.168.0.3",
+                "available": {
+                    "default-node-available": true,
+                    "schedules": []
+                }
+            }
+        ],
+        "links": [
+            {
+                "source-node": "192.168.0.1",
+                "source-link-id": "link1",
+                "available": {
+                    "schedules": [
+                        {
+                            "schedule-id": 1,
+                            "recurrence-first": {
+                                "start-time-utc": "2026-01-01T08:00:00Z",
+                                "duration": 10800
+                            },
+                            "utc-until": "2027-01-01T00:00:00Z",
+                            "frequency": "ietf-schedule:daily",
+                            "attr-value": {
+                                "link-available": true
+                            }
+                        }
+                    ],
+                    "default-link-available": false
+                }
+            },
+            {
+                "source-node": "192.168.0.2",
+                "source-link-id": "link1",
+                "available": {
+                    "schedules": [
+                        {
+                            "schedule-id": 2,
+                            "recurrence-first": {
+                                "start-time-utc": "2026-01-01T08:00:00Z",
+                                "duration": 10800
+                            },
+                            "utc-until": "2027-01-01T00:00:00Z",
+                            "frequency": "ietf-schedule:daily",
+                            "attr-value": {
+                                "link-available": true
+                            }
+                        }
+                    ],
+                    "default-link-available": false
+                }
+            },
+            {
+                "source-node": "192.168.0.2",
+                "source-link-id": "link2",
+                "available": {
+                    "schedules": [
+                        {
+                            "schedule-id": 3,
+                            "recurrence-first": {
+                                "start-time-utc": "2026-01-01T11:00:00Z",
+                                "duration": 18000
+                            },
+                            "utc-until": "2027-01-01T00:00:00Z",
+                            "frequency": "ietf-schedule:daily",
+                            "attr-value": {
+                                "link-available": true
+                            }
+                        }
+                    ],
+                    "default-link-available": false
+                }
+            },
+            {
+                "source-node": "192.168.0.3",
+                "source-link-id": "link1",
+                "available": {
+                    "schedules": [
+                        {
+                            "schedule-id": 4,
+                            "recurrence-first": {
+                                "start-time-utc": "2026-01-01T11:00:00Z",
+                                "duration": 18000
+                            },
+                            "utc-until": "2027-01-01T00:00:00Z",
+                            "frequency": "ietf-schedule:daily",
+                            "attr-value": {
+                                "link-available": true
+                            }
+                        }
+                    ],
+                    "default-link-available": false
+                }
+            }
+        ]
+    }
+}
+</pre>
+</div>
+<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<a href="#name-json-code-of-topology-sched" class="selfRef">Json code of topology schedule for Energy-harvesting Wireless Sensor Network</a>
+          </figcaption></figure>
+</div>
+</section>
+</div>
+<div id="code-examples-for-cellular-network">
+<section id="appendix-B.2">
+        <h3 id="name-code-examples-for-cellular-">
+<a href="#name-code-examples-for-cellular-" class="section-name selfRef">Code Examples for "Cellular Network"</a>
+        </h3>
+<p id="appendix-B.2-1">As described in <span><a href="https://rfc-editor.org/rfc/rfc9657#section-3.3" class="relref">Section 3.3</a> of [<a href="#RFC9657" class="cite xref">RFC9657</a>]</span>, the "Cellular Network" is a network where the nodes operating over cellular
+connections that charge both peak and off-peak data rates. In this case, individual nodes may be allocated a fixed set of
+"peak" minutes such that exceeding that amount of time results in expensive overage charges. As a result, links are just
+available at specific "peak" minutes.
+In this scenario, both the TVR node YANG module and TVR topology YANG module are applicable to manage the state of node
+interfaces and deliver the predicted topology changes to each node.<a href="#appendix-B.2-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.2-2">Considering a topology with three nodes, the connectivity variation of it is shown in <a href="#ex-inf1" class="auto internal xref">Figure 4</a>. Taking the node1 as an
+example, the corresponding node YANG module json code for node1 is shown in <a href="#ex-inf3" class="auto internal xref">Figure 6</a><a href="#appendix-B.2-2" class="pilcrow">¶</a></p>
+<span id="name-tvr-node-yang-module-json-c"></span><div id="ex-inf3">
+<figure id="figure-6">
+          <div class="alignCenter art-text artwork" id="appendix-B.2-3.1">
+<pre>
+{
+    "ietf-tvr-node:node-schedule": {
+        "node-id": "192.168.0.1",
+        "node-power-schedule": {
+            "power-default": true,
+            "schedules": []
+        },
+        "interface-schedule": {
+            "interfaces": [
+                "name": "interface1",
+                "default-available": false,
+                "schedules": [
+                    "schedule-id": 100,
+                    "recurrence-first": {
+                        "start-time-utc": "2026-01-01T08:00:00Z",
+                        "duration": 10800
+                    },
+                    "utc-until": "2027-01-01T00:00:00Z",
+                    "frequency": "ietf-schedule:daily",
+                    "attr-value": {
+                        "available": true
+                    }
+                ]
+            ]
+        }
+    }
+}
+</pre>
+</div>
+<figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
+<a href="#name-tvr-node-yang-module-json-c" class="selfRef">TVR node YANG module json code of node1</a>
+          </figcaption></figure>
+</div>
+<p id="appendix-B.2-4">The corresponding topology yang module json code is the same as <a href="#ex-inf2" class="auto internal xref">Figure 5</a><a href="#appendix-B.2-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="code-examples-for-tidal-network">
+<section id="appendix-B.3">
+        <h3 id="name-code-examples-for-tidal-net">
+<a href="#name-code-examples-for-tidal-net" class="section-name selfRef">Code Examples for “Tidal Network”</a>
+        </h3>
+<p id="appendix-B.3-1">As described in <span><a href="https://rfc-editor.org/rfc/rfc9657#section-3.4" class="relref">Section 3.4</a> of [<a href="#RFC9657" class="cite xref">RFC9657</a>]</span>, the "Tidal Network" is a network where traffic volume undergoes significant
+fluctuations at different times. In the context of a tidal network scenario, energy-saving methods may include the deactivation
+of some or all components of network nodes as planned.
+In this scenario, both the TVR node YANG module and TVR topology YANG module are applicable to manage the state of node
+(interfaces) and deliver the predicted topology changes to each node. <a href="#ex-inf4" class="auto internal xref">Figure 7</a> shows a tidal network topology with 4
+nodes.<a href="#appendix-B.3-1" class="pilcrow">¶</a></p>
+<span id="name-an-example-topology-of-tida"></span><div id="ex-inf4">
+<figure id="figure-7">
+          <div class="alignCenter art-text artwork" id="appendix-B.3-2.1">
+<pre>
+    +----+                  +----+               +----+                    +----+
+    | N1 |--------L1--------| N2 |               | N1 |---------L1---------| N2 |
+    +----+                  +----+               +----+                    +----+
+       |  \                /  |                     |                        |
+       |    \            /    |                     |                        |
+       |      \        /      |                     |                        |
+       |        L6    L5      |                     |                        |
+      L2          \/         L3                    L2                       L3
+       |         /  \         |                     |                        |
+       |       /      \       |                     |                        |
+       |     /          \     |                     |                        |
+       |   /              \   |                     |                        |
+    +----+                  +----+               +----+                     +----+
+    | N3 |--------L4--------| N4 |               | N3 |---------L4----------| N4 |
+    +----+                  +----+               +----+                     +----+
+Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 everyday)
+</pre>
+</div>
+<figcaption><a href="#figure-7" class="selfRef">Figure 7</a>:
+<a href="#name-an-example-topology-of-tida" class="selfRef">An example topology of Tidal Network</a>
+          </figcaption></figure>
+</div>
+<p id="appendix-B.3-3">Taking the node N1 as an example, assuming the node-ids of N1, N2, N3, N4 are 192.168.0.1, 192.168.0.2, 192.168.0.3,
+and 192.168.0.4. The corresponding node YANG module json code for it is shown in <a href="#ex-inf5" class="auto internal xref">Figure 8</a><a href="#appendix-B.3-3" class="pilcrow">¶</a></p>
+<span id="name-tvr-node-yang-module-json-co"></span><div id="ex-inf5">
+<figure id="figure-8">
+          <div class="alignCenter art-text artwork" id="appendix-B.3-4.1">
+<pre>
+{
+    "ietf-tvr-node:node-schedule": {
+        "node-id": "192.168.0.1",
+        "node-power-schedule": {
+            "power-default": true,
+            "schedules": []
+        },
+        "interface-schedule": {
+            "interfaces": [
+                "name": "interface2",
+                "default-available": false,
+                "schedules": [
+                    "schedule-id": 100,
+                    "recurrence-first": {
+                        "start-time-utc": "2026-01-01T08:00:00Z",
+                        "duration": 54000
+                    },
+                    "utc-until": "2027-01-01T00:00:00Z",
+                    "frequency": "ietf-schedule:daily",
+                    "attr-value": {
+                        "available": true
+                    }
+                ]
+            ]
+        }
+    }
+}
+</pre>
+</div>
+<figcaption><a href="#figure-8" class="selfRef">Figure 8</a>:
+<a href="#name-tvr-node-yang-module-json-co" class="selfRef">TVR node YANG module json code of node N1</a>
+          </figcaption></figure>
+</div>
+<p id="appendix-B.3-5">The corresponding topology YANG module json code is shown in <a href="#ex-inf6" class="auto internal xref">Figure 9</a><a href="#appendix-B.3-5" class="pilcrow">¶</a></p>
+<span id="name-json-code-of-topology-schedu"></span><div id="ex-inf6">
+<figure id="figure-9">
+          <div class="alignCenter art-text artwork" id="appendix-B.3-6.1">
+<pre>
+{
+    "ietf-tvr-topology:topology-schedule": {
+        "nodes": [
+            {
+                "node-id": "192.168.0.1",
+                "available": {
+                    "default-node-available": true,
+                    "schedules": []
+                }
+            },
+            {
+                "node-id": "192.168.0.2",
+                "available": {
+                    "default-node-available": true,
+                    "schedules": []
+                }
+            },
+            {
+                "node-id": "192.168.0.3",
+                "available": {
+                    "default-node-available": true,
+                    "schedules": []
+                }
+            },
+            {
+                "node-id": "192.168.0.4",
+                "available": {
+                    "default-node-available": true,
+                    "schedules": []
+                }
+            }
+        ],
+        "links": [
+            {
+                "source-node": "192.168.0.1",
+                "source-link-id": "link2",
+                "available": {
+                    "schedules": [
+                        {
+                            "schedule-id": 100,
+                            "recurrence-first": {
+                                "start-time-utc": "2026-01-01T08:00:00Z",
+                                "duration": 54000
+                            },
+                            "utc-until": "2027-01-01T00:00:00Z",
+                            "frequency": "ietf-schedule:daily",
+                            "attr-value": {
+                                "link-available": true
+                            }
+                        }
+                    ],
+                    "default-link-available": false
+                }
+            },
+            {
+                "source-node": "192.168.0.2",
+                "source-link-id": "link2",
+                "available": {
+                    "schedules": [
+                        {
+                            "schedule-id": 200,
+                            "recurrence-first": {
+                                "start-time-utc": "2026-01-01T08:00:00Z",
+                                "duration": 54000
+                            },
+                            "utc-until": "2027-01-01T00:00:00Z",
+                            "frequency": "ietf-schedule:daily",
+                            "attr-value": {
+                                "link-available": true
+                            }
+                        }
+                    ],
+                    "default-link-available": false
+                }
+            },
+            {
+                "source-node": "192.168.0.3",
+                "source-link-id": "link2",
+                "available": {
+                    "schedules": [
+                        {
+                            "schedule-id": 300,
+                            "recurrence-first": {
+                                "start-time-utc": "2026-01-01T08:00:00Z",
+                                "duration": 54000
+                            },
+                            "utc-until": "2027-01-01T00:00:00Z",
+                            "frequency": "ietf-schedule:daily",
+                            "attr-value": {
+                                "link-available": true
+                            }
+                        }
+                    ],
+                    "default-link-available": false
+                }
+            },
+            {
+                "source-node": "192.168.0.4",
+                "source-link-id": "link2",
+                "available": {
+                    "schedules": [
+                        {
+                            "schedule-id": 400,
+                            "recurrence-first": {
+                                "start-time-utc": "2026-01-01T08:00:00Z",
+                                "duration": 54000
+                            },
+                            "utc-until": "2027-01-01T00:00:00Z",
+                            "frequency": "ietf-schedule:daily",
+                            "attr-value": {
+                                "link-available": true
+                            }
+                        }
+                    ],
+                    "default-link-available": false
+                }
+            }
+        ]
+    }
+}
+</pre>
+</div>
+<figcaption><a href="#figure-9" class="selfRef">Figure 9</a>:
+<a href="#name-json-code-of-topology-schedu" class="selfRef">Json code of topology schedule for Tidal Network</a>
+          </figcaption></figure>
+</div>
+</section>
+</div>
+<div id="code-examples-for-mobile-satellites">
+<section id="appendix-B.4">
+        <h3 id="name-code-examples-for-mobile-sa">
+<a href="#name-code-examples-for-mobile-sa" class="section-name selfRef">Code Examples for “Mobile Satellites”</a>
+        </h3>
+<p id="appendix-B.4-1">As described in <span><a href="https://rfc-editor.org/rfc/rfc9657#section-4.3" class="relref">Section 4.3</a> of [<a href="#RFC9657" class="cite xref">RFC9657</a>]</span>, the "Mobile Satellites" generally refers to the Low Earth Orbit(LEO) network,
+which includes hundreds to thousands of spacecrafts that can communicate both with their orbital neighbors as well as
+down to any ground station that they happen to be passing over. The connection between the spacecrafts and the ground
+station depend on the flight trajectories of the spacecrafts, so the link changes between them is predictable.<a href="#appendix-B.4-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.4-2"><span><a href="https://rfc-editor.org/rfc/rfc9657#section-4.3" class="relref">Section 4.3</a> of [<a href="#RFC9657" class="cite xref">RFC9657</a>]</span> introduces a scenario with 3 spacecrafts and 1 ground station. The changes of topology are
+shown in <a href="#ex-inf7" class="auto internal xref">Figure 10</a>. The ground station connects to spacecraft N3 at time t1, connects to N2 at time t2, and connects
+to N1 at time t3. The duration of the connection depends on the satellite altitude and the elevation angle.
+According to <span><a href="https://datatracker.ietf.org/doc/html/draft-lj-rtg-sat-routing-consideration-00#section-2.1" class="relref">Section 2.1</a> of [<a href="#I-D.lj-rtg-sat-routing-consideration" class="cite xref">I-D.lj-rtg-sat-routing-consideration</a>]</span>, for the spacecrafts at the 500km
+altitude, and the connection between the spacecraft and ground station can keep for 7 minutes.<a href="#appendix-B.4-2" class="pilcrow">¶</a></p>
+<span id="name-an-example-topology-for-mob"></span><div id="ex-inf7">
+<figure id="figure-10">
+          <div class="alignCenter art-text artwork" id="appendix-B.4-3.1">
+<pre>
+    +------+          +------+
+t1  |  N2  |----------|  N3  |
+    +------+          +---+--+
+                          |
+                         /|\
+                        \___/
+                         / \
+                       Ground
+                       Station
+------------------------------------------------------------------
+    +------+          +------+          +------+
+t2  |  N1  |----------|  N2  |----------|  N3  |
+    +------+          +---+--+          +------+
+                          |
+                         /|\
+                        \___/
+                         / \
+                       Ground
+                       Station
+------------------------------------------------------------------
+                      +------+          +------+          +------+
+t3                    |  N1  |----------|  N2  |----------|  N3  |
+                      +---+--+          +------+          +------+
+                          |
+                         /|\
+                        \___/
+                         / \
+                       Ground
+                       Station
+------------------------------------------------------------------
+</pre>
+</div>
+<figcaption><a href="#figure-10" class="selfRef">Figure 10</a>:
+<a href="#name-an-example-topology-for-mob" class="selfRef">An example topology for Mobile Satellites</a>
+          </figcaption></figure>
+</div>
+<p id="appendix-B.4-4">In this scenario, the TVR topology YANG module is applicable to deliver the predicted topology changes to each node.
+However, the TVR node YANG module is not applicable, this depends on whether the link changes are controlled by satellites
+themselves or by the managing device. Here, we provide the json codes for TVR topology YANG module and node
+ YANG module as a reference.<a href="#appendix-B.4-4" class="pilcrow">¶</a></p>
+<p id="appendix-B.4-5">Taking the spacecraft N1 as an example, assuming the time t1 is 10:00:00 1 July 2025 and the node-ids of N1, N2, N3, and
+ground station is 192.168.0.1, 192.168.0.2, 192.168.0.3, and 192.168.0.4.,
+then the corresponding node YANG module json code for it is shown in <a href="#ex-inf8" class="auto internal xref">Figure 11</a>.<a href="#appendix-B.4-5" class="pilcrow">¶</a></p>
+<span id="name-tvr-node-yang-module-json-cod"></span><div id="ex-inf8">
+<figure id="figure-11">
+          <div class="alignCenter art-text artwork" id="appendix-B.4-6.1">
+<pre>
+{
+    "ietf-tvr-node:node-schedule": {
+        "node-id": "192.168.0.1",
+        "node-power-schedule": {
+            "power-default": true,
+            "schedules": []
+        },
+        "interface-schedule": {
+            "interfaces": [
+                "name": "satellite2ground-interface",
+                "default-available": false,
+                "schedules": [
+                    "schedule-id": 100,
+                    "period-start": "2025-07-01T10:00:00Z",
+                    "duration": 420,
+                    "attr-value": {
+                        "available": true
+                    }
+                ]
+            ]
+        }
+    }
+}
+</pre>
+</div>
+<figcaption><a href="#figure-11" class="selfRef">Figure 11</a>:
+<a href="#name-tvr-node-yang-module-json-cod" class="selfRef">TVR node YANG module json code of spacecraft N1</a>
+          </figcaption></figure>
+</div>
+<p id="appendix-B.4-7">Assuming that time t1 is 10:00:00 1 July 2025, time t2 is 10:10:00 1 July 2025, and time t3 is 10:20:00 1 July 2025,
+then the corresponding topology YANG module json code is shown in <a href="#ex-inf9" class="auto internal xref">Figure 12</a>.<a href="#appendix-B.4-7" class="pilcrow">¶</a></p>
+<span id="name-json-code-of-topology-schedul"></span><div id="ex-inf9">
+<figure id="figure-12">
+          <div class="alignCenter art-text artwork" id="appendix-B.4-8.1">
+<pre>
+{
+    "ietf-tvr-topology:topology-schedule": {
+        "nodes": [
+            {
+                "node-id": "192.168.0.1",
+                "available": {
+                    "default-node-available": true,
+                    "schedules": []
+                }
+            },
+            {
+                "node-id": "192.168.0.2",
+                "available": {
+                    "default-node-available": true,
+                    "schedules": []
+                }
+            },
+            {
+                "node-id": "192.168.0.3",
+                "available": {
+                    "default-node-available": true,
+                    "schedules": []
+                }
+            },
+            {
+                "node-id": "192.168.0.4",
+                "available": {
+                    "default-node-available": true,
+                    "schedules": []
+                }
+            }
+        ],
+        "links": [
+            {
+                "source-node": "192.168.0.3",
+                "source-link-id": "gs-link",
+                "available": {
+                    "schedules": [
+                        {
+                            "schedule-id": 100,
+                            "period-start": "2025-07-01T10:00:00Z",
+                            "duration": 420,
+                            "attr-value": {
+                                "available": true
+                            }
+                        }
+                    ],
+                    "default-link-available": false
+                }
+            },
+            {
+                "source-node": "192.168.0.2",
+                "source-link-id": "gs-link",
+                "available": {
+                    "schedules": [
+                        {
+                            "schedule-id": 200,
+                            "period-start": "2025-07-01T10:10:00Z",
+                            "duration": 420,
+                            "attr-value": {
+                                "available": true
+                            }
+                        }
+                    ],
+                    "default-link-available": false
+                }
+            },
+            {
+                "source-node": "192.168.0.1",
+                "source-link-id": "gs-link",
+                "available": {
+                    "schedules": [
+                        {
+                            "schedule-id": 300,
+                            "period-start": "2025-07-01T10:20:00Z",
+                            "duration": 420,
+                            "attr-value": {
+                                "available": true
+                            }
+                        }
+                    ],
+                    "default-link-available": false
+                }
+            }
+        ]
+    }
+}
+</pre>
+</div>
+<figcaption><a href="#figure-12" class="selfRef">Figure 12</a>:
+<a href="#name-json-code-of-topology-schedul" class="selfRef">Json code of topology schedule for Mobile Satellites</a>
+          </figcaption></figure>
+</div>
+</section>
+</div>
+<div id="code-examples-for-predictable-moving-vessels">
+<section id="appendix-B.5">
+        <h3 id="name-code-examples-for-predictab">
+<a href="#name-code-examples-for-predictab" class="section-name selfRef">Code examples for “Predictable Moving Vessels”</a>
+        </h3>
+<p id="appendix-B.5-1">As described in <span><a href="https://rfc-editor.org/rfc/rfc9657#section-4.4" class="relref">Section 4.4</a> of [<a href="#RFC9657" class="cite xref">RFC9657</a>]</span>, the "Predictable Moving Vessels" involves the movement of vessels with
+predictable trajectories, such as ferries or planes. These endpoints often rely on a combination of satellite and
+terrestrial systems for Internet connectivity. Consider a scenario where a vessel uses satellites to access the Internet,
+including a ship and three satellites. As the satellite and the vessel move, the vessel establishes connections with the
+satellites N1, N2, and N3 at t1, t2, and t3 respectively. It is assumed that each connection lasts for 1 minutes.
+The changes of topology are shown in <a href="#ex-inf10" class="auto internal xref">Figure 13</a>.<a href="#appendix-B.5-1" class="pilcrow">¶</a></p>
+<span id="name-an-example-topology-for-pre"></span><div id="ex-inf10">
+<figure id="figure-13">
+          <div class="alignCenter art-text artwork" id="appendix-B.5-2.1">
+<pre>
+    +------+          +------+
+t1  |  N2  |----------|  N1  |
+    +------+          +---+--+
+                          |
+                         /|\
+                        \___/
+                         / \
+                       Vessel
+------------------------------------------------------------------
+    +------+          +------+          +------+
+t2  |  N3  |----------|  N2  |----------|  N1  |
+    +------+          +---+--+          +------+
+                          |
+                         /|\
+                        \___/
+                         / \
+                       Vessel
+------------------------------------------------------------------
+                      +------+          +------+          +------+
+t3                    |  N3  |----------|  N2  |----------|  N1  |
+                      +---+--+          +------+          +------+
+                          |
+                         /|\
+                        \___/
+                         / \
+                       Vessel
+------------------------------------------------------------------
+</pre>
+</div>
+<figcaption><a href="#figure-13" class="selfRef">Figure 13</a>:
+<a href="#name-an-example-topology-for-pre" class="selfRef">An example topology for Predictable Moving Vessels</a>
+          </figcaption></figure>
+</div>
+<p id="appendix-B.5-3">This scenario is quite similar to the "Mobile Satellites" example, so the TVR node YANG module json code and topology YANG
+json code of this scenario can refer to the json code of the "Mobile Satellites" example.<a href="#appendix-B.5-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="contributors">
+<section id="appendix-C">
+      <h2 id="name-contributors">
+<a href="#name-contributors" class="section-name selfRef">Contributors</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Daniel King</span></div>
+<div dir="auto" class="left"><span class="org">Lancaster University</span></div>
+<div dir="auto" class="left"><span class="country-name">United Kingdom</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:d.king@lancaster.ac.uk" class="email">d.king@lancaster.ac.uk</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Charalampos (Haris) Rotsos</span></div>
+<div dir="auto" class="left"><span class="org">Lancaster University</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:c.rotsos@lancaster.ac.uk" class="email">c.rotsos@lancaster.ac.uk</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Peng Liu</span></div>
+<div dir="auto" class="left"><span class="org">China Mobile</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:liupengyjy@chinamobile.com" class="email">liupengyjy@chinamobile.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Tony Li</span></div>
+<div dir="auto" class="left"><span class="org">Juniper Networks</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:tony.li@tony.li" class="email">tony.li@tony.li</a>
+</div>
+</address>
+</section>
+</div>
+<div id="authors-addresses">
+<section id="appendix-D">
+      <h2 id="name-authors-addresses">
+<a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Li Zhang</span></div>
+<div dir="auto" class="left"><span class="org">Huawei</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:zhangli344@huawei.com" class="email">zhangli344@huawei.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Jie Dong</span></div>
+<div dir="auto" class="left"><span class="org">Huawei</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:jie.dong@huawei.com" class="email">jie.dong@huawei.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Mohamed Boucadair</span></div>
+<div dir="auto" class="left"><span class="org">Orange</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:mohamed.boucadair@orange.com" class="email">mohamed.boucadair@orange.com</a>
+</div>
+</address>
+</section>
+</div>
+<script>const toc = document.getElementById("toc");
+toc.querySelector("h2").addEventListener("click", e => {
+  toc.classList.toggle("active");
+});
+toc.querySelector("nav").addEventListener("click", e => {
+  toc.classList.remove("active");
+});
+</script>
+</body>
+</html>
