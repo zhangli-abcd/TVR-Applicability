@@ -55,7 +55,7 @@ informative:
 
 --- abstract
 
-Time-Variant Routing (TVR) is a routing system that can accommodate the predicted topology changes caused by internal or
+Time-Variant Routing (TVR) is a routing system that can accommodate predicted topology changes caused by internal or
 external factors. Typical use cases include resource preservation networks, operating efficiency networks and dynamic
 reachability networks.
 This document provides examples of how to implement the TVR scheduling capabilities for key use cases. It describes
