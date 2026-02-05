@@ -1352,26 +1352,30 @@ that support TVR capabilities. The examples assume YANG instance data encoding p
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
 appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <p id="section-2-2">This document uses the following terms:<a href="#section-2-2" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-2-3.1">
-          <p id="section-2-3.1.1">Managing Device: A centralized entity responsible for generating
+<span class="break"></span><dl class="dlParallel" id="section-2-3">
+        <dt id="section-2-3.1">Managing Device:</dt>
+        <dd style="margin-left: 1.5em" id="section-2-3.2">
+          <p id="section-2-3.2.1">A centralized entity responsible for generating
 and maintaining TVR schedules.  The managing device distributes
 schedules to network controllers and/or managed devices using the
 TVR YANG modules.  In some deployments, the managing device may
-also serve as the network controller.<a href="#section-2-3.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-2-3.2">
-          <p id="section-2-3.2.1">Network Controller: An entity that receives topology schedules
+also serve as the network controller.<a href="#section-2-3.2.1" class="pilcrow">¶</a></p>
+</dd>
+      <dd class="break"></dd>
+</dl>
+<ul class="normal">
+<li class="normal" id="section-2-4.1">
+          <p id="section-2-4.1.1">Network Controller: An entity that receives topology schedules
 from the managing device and performs route computation based on
 time-variant network conditions.  The controller then distributes
-routing results to managed devices.<a href="#section-2-3.2.1" class="pilcrow">¶</a></p>
+routing results to managed devices.<a href="#section-2-4.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-2-3.3">
-          <p id="section-2-3.3.1">Managed Device: A network device (e.g., router, switch) that
+        <li class="normal" id="section-2-4.2">
+          <p id="section-2-4.2.1">Managed Device: A network device (e.g., router, switch) that
 receives schedules and/or routing instructions, and executes them
 according to the specified time windows.  Managed devices may
 receive schedules directly from the managing device or routing
-results from the network controller.<a href="#section-2-3.3.1" class="pilcrow">¶</a></p>
+results from the network controller.<a href="#section-2-4.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
