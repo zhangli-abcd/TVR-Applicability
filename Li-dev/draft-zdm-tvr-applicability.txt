@@ -132,7 +132,7 @@ Table of Contents
    TVR schedules, and the necessary IETF ancillary technologies for
    network environments, such as time synchronization and policy, that
    support TVR capabilities.  The examples assume YANG instance data
-   encoding as per RFC 7951 for JSON and the TVR schedule YANG modules.
+   encoding per [RFC7951] for JSON and the TVR schedule YANG modules.
 
 2.  Conventions and Definitions
 
