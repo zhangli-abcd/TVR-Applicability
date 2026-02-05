@@ -75,7 +75,7 @@ patterns, where links may be powered down to conserve or reduce energy.
 This document provides examples of implementing TVR scheduling capabilities in identified use cases. It
 demonstrates the applicability of the TVR data model, methods for disseminating the TVR schedules, and the
 necessary IETF ancillary technologies for network environments, such as time synchronization and policy,
-that support TVR capabilities. The examples assume YANG instance data encoding as per RFC 7951 for JSON and the TVR schedule YANG modules.
+that support TVR capabilities. The examples assume YANG instance data encoding per {{?RFC7951}} for JSON and the TVR schedule YANG modules.
 
 # Conventions and Definitions
 
