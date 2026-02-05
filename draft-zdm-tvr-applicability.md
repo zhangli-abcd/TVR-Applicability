@@ -83,7 +83,8 @@ that support TVR capabilities. The examples assume YANG instance data encoding p
 
 This document uses the following terms:
 
-* Managing Device: A centralized entity responsible for generating
+Managing Device:
+: A centralized entity responsible for generating
 and maintaining TVR schedules.  The managing device distributes
 schedules to network controllers and/or managed devices using the
 TVR YANG modules.  In some deployments, the managing device may
