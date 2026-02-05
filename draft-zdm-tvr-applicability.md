@@ -66,7 +66,7 @@ TVR-based technologies.
 
 # Introduction
 
-The Time-Variant Routing (TVR) Working Group addresses a growing need in modern network environments where
+The Time-Variant Routing (TVR) Working Group addresses a need in network environments where
 predictable variations in topology - such as the restoration, activation, or loss of network elements, are
 part of normal operations. This approach is essential in dynamic networks with mobile nodes, where links may
 be frequently disrupted and re-established due to mobility. It is also essential in networks with highly predictable traffic
