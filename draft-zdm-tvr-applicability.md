@@ -1302,7 +1302,7 @@ t3                    |  N3  |----------|  N2  |----------|  N1  |
 ~~~
 {: #ex-inf10 title="An example topology for Predictable Moving Vessels" artwork-align="center"}
 
-This scenario is quite similar to the "Mobile Satellites" example, so the TVR node YANG module JSON example and topology YANG
+This scenario is similar to the "Mobile Satellites" example, so the TVR node YANG module JSON example and topology YANG
 JSON example of this scenario can refer to the JSON example of the "Mobile Satellites" example.
 
 
