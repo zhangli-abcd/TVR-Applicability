@@ -685,7 +685,7 @@ TBD
 # Appendix A: Code Examples
 {:numbered="false"}
 
-All examples in this appendix are intended as RFC 7951 {{?RFC7951}} JSON instance data, following the YANG instance data encoding rules for JSON.  The duration field values are expressed in seconds unless otherwise noted.
+All examples in this appendix are intended as {{?RFC7951}} JSON instance data, following the YANG instance data encoding rules for JSON.  The duration field values are expressed in seconds unless otherwise noted.
 
 ## Code Examples for "Energy-harvesting Wireless Sensor Network"
 {:numbered="false"}
