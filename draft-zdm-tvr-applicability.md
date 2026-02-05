@@ -188,7 +188,7 @@ Topology YANG module {{Section 5.3 of ?I-D.ietf-tvr-schedule-yang}}, so that the
 can consider the impact of topology changes on routes when calculating routes.
 
 The network controller should deliver the route calculation results to the network devices. The format of the routing
-results depend on the protocols deployed (The typical protocols include BGP, PCEP, etc.). Routing results MAY be delivered ahead and activated using an explicit time reference (e.g., absolute UTC), or via pre-staging plus an activation trigger.
+results depend on the protocols deployed (BGP, PCEP, etc.). Routing results MAY be delivered ahead and activated using an explicit time reference (e.g., absolute UTC), or via pre-staging plus an activation trigger.
 
 ### Interactions in Distributed Scenario {#distributed-scenario}
 
