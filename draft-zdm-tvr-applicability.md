@@ -90,7 +90,8 @@ schedules to network controllers and/or managed devices using the
 TVR YANG modules.  In some deployments, the managing device may
 also serve as the network controller.
 
-* Network Controller: An entity that receives topology schedules
+Network Controller:
+: An entity that receives topology schedules
 from the managing device and performs route computation based on
 time-variant network conditions.  The controller then distributes
 routing results to managed devices.
