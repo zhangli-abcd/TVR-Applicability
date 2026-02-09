@@ -55,8 +55,8 @@ informative:
 
 --- abstract
 
-Time-Variant Routing (TVR) is a routing system that can support the predicted topology changes caused by internal or
-external reasons. Typical use cases include resource preservation networks, operating efficiency networks and dynamic
+Time-Variant Routing (TVR) is a routing system that can accommodate predicted topology changes caused by internal or
+external factors. Typical use cases include resource preservation networks, operating efficiency networks and dynamic
 reachability networks.
 This document provides examples of how to implement the TVR scheduling capabilities for key use cases. It describes
 which part of the TVR data model is used and why, and it outlines operational and security considerations when deploying
@@ -66,50 +66,43 @@ TVR-based technologies.
 
 # Introduction
 
-The Time-Variant Routing (TVR) Working Group addresses a growing need in modern network environments where
+The Time-Variant Routing (TVR) Working Group addresses a need in network environments where
 predictable variations in topology - such as the restoration, activation, or loss of network elements, are
 part of normal operations. This approach is essential in dynamic networks with mobile nodes, where links may
-be frequently disrupted and re-established due to mobility or in networks with highly predictable traffic
+be frequently disrupted and re-established due to mobility. It is also essential in networks with highly predictable traffic
 patterns, where links may be powered down to conserve or reduce energy.
 
 This document provides examples of implementing TVR scheduling capabilities in identified use cases. It
 demonstrates the applicability of the TVR data model, methods for disseminating the TVR schedules, and the
 necessary IETF ancillary technologies for network environments, such as time synchronization and policy,
-that support TVR capabilities.
+that support TVR capabilities. The examples assume YANG instance data encoding per {{?RFC7951}} for JSON and the TVR schedule YANG modules.
 
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
-<!--
-# Use Case Examples
 
-## Tidal Network Use Case
+This document uses the following terms:
 
-A tidal network is a typical scenario of an Energy Efficient case ({{Section 3 of ?I-D.ietf-tvr-use-cases}}).
-The tidal network means that the volume of traffic in the network changes periodically, like the ocean tide.
-These changes are mainly affected by human activities. Therefore, this tidal effect is obvious in
-human-populated areas, such as campuses and airports.
+Managing Device:
+: A centralized entity responsible for generating
+and maintaining TVR schedules.  The managing device distributes
+schedules to network controllers and/or managed devices using the
+TVR YANG modules.  In some deployments, the managing device may
+also serve as the network controller.
 
-In the context of a tidal network, if the network maintains all the devices up to guarantee a maximum
-throughput all the time, often, power will be wasted on network resources that are not being used. Energy-saving methods may include the deactivation
-of some or all components of network nodes. These activities have the potential to alter network topology and
-impact data routing/forwarding in a variety of ways. Interfaces on network nodes can be selectively disabled
-or enabled based on traffic patterns, thereby reducing the energy consumption of nodes during periods of low
-network traffic.
+Network Controller:
+: An entity that receives topology schedules
+from the managing device and performs route computation based on
+time-variant network conditions.  The controller then distributes
+routing results to managed devices.
 
-## Dynamic Reachability Use Case
+* Managed Device: A network device (e.g., router, switch) that
+receives schedules and/or routing instructions, and executes them
+according to the specified time windows.  Managed devices may
+receive schedules directly from the managing device or routing
+results from the network controller.
 
-Dynamic Reachability referred to the scenarios where a node is placed on a mobile platform, the mobility of the
-platform may cause changes to the topology of the network over time{{Section 4 of ?I-D.ietf-tvr-use-cases}}. As the
-relative mobility between and among nodes in the network and the impacts of the environment on the signal
-propagation can be predicted, the associated loss and establishment of adjacencies can also be planned for.
-
-The typical detailed use cases of Dynamic Reachability include but not limited to satellite network, predictable moving
-vessels and vehicles.
-
--->
-
-# Applicability of TVR Yang Model
+# Applicability of the TVR YANG Model
 
 The TVR data model {{?I-D.ietf-tvr-schedule-yang}} defines the TVR node YANG module and TVR topology YANG module. This
 clause discusses the applicability of these two modules separately.
@@ -123,12 +116,12 @@ The applicability of TVR node YANG module depends on whether changes in the attr
 the environment or centrally controlled.
 
 - When the changes are caused by the environment changes (such as movement, sunlight changes, and weather changes) or
-the devices themselves decisions, the network device does not need to get the managed information through the YANG module. For example,
-when two nodes's distance is too far to establish a connection, then the link is down. Another case is that when the weather is
+by decisions made by the devices themselves, the network device does not need to get the managed information through the YANG module. For example,
+when the distance between two nodes' is too far to establish a connection, then the link is down. Another case is that when the weather is
 not good and leading to the link degradation, then the nodes decide to disconnect the link.
 
 - When the changes are caused by the centralized control (such as a controller, or an orchestrator), the devices themselves
-does not know when to adjust the attributes. In this case, the scheduled attributes changes should be delivered to the
+do not know when to adjust the attributes. In this case, the scheduled attributes changes should be delivered to the
 network devices through TVR node YANG module.
 
 ## Applicability of TVR Topology YANG Module {#applicability-topology-yang}
@@ -152,6 +145,17 @@ need to be sent to the execution device through the topology YANG module. This s
 
 - When the schedules are generated in a centralized manner and executed in a distributed manner, the YANG module
 needs to be used to deliver the scheduled topology changes to the managed device. This scenario is called "Distributed Scenario".
+
+To summarize the key differences between these scenarios:
+
+- Centralized Scenario: Schedules are generated by the managing
+device, stored in the network controller, and executed by network
+devices.  Route computation runs in the controller, and routing
+results are pushed to the network devices.
+
+- Distributed Scenario: Schedules are generated by the managing
+device, stored in and executed by the network devices.  Route
+computation runs in the network devices themselves.
 
 ### Interactions in Centralized Scenario {#centralized-scenario}
 
@@ -177,15 +181,14 @@ device and network devices, and the controller and network devices.
 
 The managing device may need to deliver node-specific schedules to network devices by TVR Schedule Node YANG
 module {{Section 5.2 of ?I-D.ietf-tvr-schedule-yang}}. This is optional and only necessary when the node attribute changes
-are instructed by the controller. In the meanwhile, the network devices need to report their own status data to the managing device.
+are instructed by the controller. Meanwhile, the network devices need to report their own status data to the managing device.
 
 The managing device needs to deliver the schedules of network topology to the network controller by the TVR Network
 Topology YANG module {{Section 5.3 of ?I-D.ietf-tvr-schedule-yang}}, so that the routing application in the controller
 can consider the impact of topology changes on routes when calculating routes.
 
 The network controller should deliver the route calculation results to the network devices. The format of the routing
-results depend on the protocols deployed (The typical protocols include BGP, PCEP, etc.). The routing results for a period
-in the future could be sent to the network devices in wall-clock time or be packed and sent at some special points.
+results depend on the protocols deployed (BGP, PCEP, etc.). Routing results MAY be delivered ahead and activated using an explicit time reference (e.g., absolute UTC), or via pre-staging plus an activation trigger.
 
 ### Interactions in Distributed Scenario {#distributed-scenario}
 
@@ -208,7 +211,7 @@ is deployed in the network devices which also executes schedules and route calcu
 
 The distributed model only involves the interaction between managing devices and network devices(managed devices).
 
-The managing device need to deliver network topology schedules to all the network devices by TVR Network Topology Yang
+The managing device need to deliver network topology schedules to all the network devices by TVR Network Topology YANG
 module for route calculation. The managing device may also need to deliver node-specific schedules to network devices by
 TVR Schedule Node YANG module, this is optional and only necessary when the node attributes changes are instructed by
 the controller. The network devices need to report their own status data to the managing device.
@@ -218,20 +221,29 @@ the controller. The network devices need to report their own status data to the 
 The TVR data model {{?I-D.ietf-tvr-schedule-yang}} can manage network resources and topologies with scheduled
 attributes. There are modules defined in the TVR data model, these are:
 
-- The “ietf-tvr-schedule” module contains the schedule YANG definitions. This module uses groupings from {{?I-D.ietf-netmod-schedule-yang}} data model;
-- The “ietf-tvr-topology” module defines a network topology with a time-variant availability schedule;
-- The “ietf-tvr-node” module is to be used to manage the scheduled attributes of a single node.
+- The "ietf-tvr-schedule" module contains the schedule YANG definitions. This module uses groupings from {{?I-D.ietf-netmod-schedule-yang}} data model;
+- The "ietf-tvr-topology" module defines a network topology with a time-variant availability schedule;
+- The "ietf-tvr-node" module is to be used to manage the scheduled attributes of a single node.
 
 To create a schedule, the following TVR data model objects and subsequent branches are used:
 
-- ‘node-schedule’
-- ‘interface-schedule’
-- ‘attribute-schedule’
+- 'node-schedule'
+- 'interface-schedule'
+- 'attribute-schedule'
+
+When using these YANG modules with NETCONF or RESTCONF, implementations SHOULD target the intended configuration datastore
+for schedule provisioning and MAY read from the operational datastore
+to retrieve execution status and applied schedules.  Clients can use
+NMDA (Network Management Datastore Architecture, {{?RFC8342}})
+operations to distinguish between intended configuration and actual
+operational state.  For example, the managing device writes schedules
+to the intended or running datastore, and network devices report
+execution status via the operational datastore.
 
 A TVR scenario example is provided below, where a wireless link is shut down for 12 hours, from 19:00 to 7am the next day.
-The schedule is identified using a unique identifier that is conveyed in ‘schedule-id’, and the recurring schedule can be applied for multiple days using Coordinated
+The schedule is identified using a unique identifier that is conveyed in 'schedule-id', and the recurring schedule can be applied for multiple days using Coordinated
 Universal Time (UTC).
-More detailed examples of the json code is provided in this documents Appendix.
+More detailed examples of the JSON example is provided in this documents Appendix.
 
 ~~~
 
@@ -251,7 +263,7 @@ More detailed examples of the json code is provided in this documents Appendix.
                      {
                         "schedule-id":111111,
                         "recurrence-first":{
-                           "utc-start-time":"2025-12-01T19:00:00Z",
+                           "start-time-utc":"2025-12-01T19:00:00Z",
                            "duration":43200
                         },
                         "utc-until":"2026-12-01T00:00:00Z",
@@ -292,7 +304,7 @@ to schedules are needed or where integration with web-based or cloud-native syst
 
 CORECONF provides a lightweight, stateless method for managing small network devices where saving bytes to transport a
 message is very important. CORECONF uses CoAP{{?RFC7252}} methods to access structured data defined in YANG which is a complementary to RESTCONF.
-Contrary to RESTCONF, CORECONF many design decisions are motivated by the saving of bytes. Therefore, CORECONF is advantageous
+Unlike RESTCONF, many CORECONF design decisions are motivated by minimizing the message size. Therefore, CORECONF is advantageous
 in networks with constrained devices and very limited transmission bandwidth, especially in IoT devices that already deployed CoAP.
 
 Depending on the type of node in the TVR network, NETCONF would be the preferred protocol for large-scale, critical scheduling
@@ -325,6 +337,11 @@ Different time-variant scenarios may require different granularities of time syn
 period of traffic and topology changes in tidal networks is usually a day or week. Therefore, a second-level time
 synchronization is enough. However, for the dynamic reachability scenarios, a fine-granularity time synchronization may
 be necessary, as the nodes may moving very fast in some cases (the moving speed of a low earth orbit satellite is more than 7900 m/s)
+
+Operators SHOULD derive a maximum acceptable time-error bound based on the schedule granularity, execution jitter tolerance, and
+activation window requirements.  For instance, if a schedule has a 1-second activation window and the system can tolerate up to 100ms of
+execution jitter, the time synchronization error MUST be kept well below 900ms.  The chosen time synchronization protocol and
+configuration MUST be capable of meeting this derived bound under all expected network conditions.
 
 Existing clock synchronization protocols can be classified into hardware-based protocols and software-based protocols.
 
@@ -382,12 +399,12 @@ Stratum 2 |  Network Controller  |       |  Network Devices  |
 ~~~
 {: #ref-to-fig3  title="Deployment Case of NTP in Tidal Networks"}
 
-NTP is preferred in large-scale networks with reliable links and long-term changes, which dose not require a high-precision time synchronization.
+NTP is preferred in large-scale networks with reliable links and long-term changes, which does not require a high-precision time synchronization.
 
 ### SNTP
 
 SNTP is a subset of the NTP used to synchronize computer clocks in the Internet. It simplifies the complex NTP
-synchronization function and has lower clock precision, but the synchronization precision still can be guarded under
+synchronization function and has lower clock precision, but the synchronization precision still can be kept within
 seconds. SNTP is also preferred in large-scale networks with reliable links, long-term changes, and loose synchronization precision. In addition, it is more suitable for networks with limited resources than NTP.
 
 # Schedule Database
@@ -395,7 +412,7 @@ seconds. SNTP is also preferred in large-scale networks with reliable links, lon
 The schedule database is used to store and maintain schedules, the database may be deployed on a managing device
 and managed devices based on requirements.
 
-The source of the schedule database may be diversified, for example, configuration from an administrator
+The source of the schedule database may be created from multiple sources, for example, configuration from an administrator
 or YANG model from the management interface. The schedule entries of different databases may be different, but the
 content of the same schedule entry in the schedule databases of different devices in the same domain must be
 consistent. There are at least two ways to make the content of the same schedule entry in different schedule databases
@@ -413,8 +430,7 @@ in the domain through the TVR YANG model.
 Option 2 relies on advertisement mechanisms (such as routing techniques) to advertise the scheduling data generated
 by itself to other devices. This could be achieved using extensions to existing routing schemes and techniques.
 
-These options will be discussed with the TVR Working Group, and agreed approaches will be documented in future versions
-of this Internet Draft.
+Detailed schedule distribution mechanisms beyond YANG-based configuration are outside of this document.
 
 ## Data Structure
 
@@ -434,7 +450,6 @@ different formats:
 
 The detailed format and fields of different types of schedule entries could reference to the definitions of the corresponding
 YANG modules.
-
 
 ## Schedule Operations
 
@@ -469,17 +484,17 @@ and scheduled path decisions across the network are based on a consistent time r
 nodes could apply different schedules, causing routing inconsistencies, path flapping, or packet loss.
 
 Since the all the schedules are generated by the managing devices, it is necessary to make sure that the managing
-device and managed devices within a schedule domian {{Section 2.1.1 of ?I-D.ietf-tvr-requirements}} are synchronized
+device and managed devices within a schedule domain ({{Section 2.1.1 of ?I-D.ietf-tvr-requirements}}) are synchronized
 with the same time source. It ensures they have the same notion of when that is.
 
 ## Schedule Dissemination
 
-when distributing schedules, the following problems should be considered:
+When distributing schedules, the following problems should be considered:
 
 - The managed devices that receives a schedule should have the ability to execute the schedule. If the device does not support schedule
-execution, it must ignore it on receipt.
+execution, it SHOULD reject the update with an appropriate error, or ignore it if the management interface does not support error reporting.
 
-- The distributing of a schedule should be earlier than the earliest start time of the schedule, this ensures that the
+- The distributing of a schedule SHOULD be delivered at least x (operator-defined) time before the earliest start time of the schedule, this ensures that the
 managed device has enough time to execute this schedule.
 
 ## Schedule Execution
@@ -503,7 +518,7 @@ need to be considered separately.
 
 A link coming up or a node joining a topology should not have any functional change until the change is proven to be fully
 operational. The routing paths may be pre-computed but should not be installed before all the topology changes are
-confirmed to be operational. The benefits of this pre-computation appear to be very small. The network may choose to
+confirmed to be operational. Pre-computation MAY be used, operators should weigh compute cost versus reduced activation latency. The network may choose to
 not do any pre-installation or pre-computation in reaction to topological additions at a small cost of some operational
 efficiency.
 
@@ -516,8 +531,8 @@ metric to direct traffic to alternate paths. This type of change does require so
 network, so the metric change should be initiated far enough in advance that the network converges before the actual
 topological change.
 
-In addition to the addition and deleting of topology, a schedule may indicate the attributes change of some links, such as bandwidth and delay.
-If an attribute changes better (such as latency decrease and bandwidth increase), then the executer should take actions later
+In addition to the addition and deletion of topology, a schedule may indicate the attributes change of some links, such as bandwidth and delay.
+If an attribute changes better (such as latency decrease and bandwidth increase), then the executor should take actions later
 or until the topology change is proven to be fully operational.
 If an attribute changes worse (such as latency increase and bandwidth decrease), then the node should react to it before the change take place.
 
@@ -535,16 +550,17 @@ to the managed device after time synchronization is finished.
 
 Consistency error means that some time parameters conflict with other time parameters in the same schedule or in other schedules.
 
-- If the time parameters of a schedule conflict with each other, for example, the period-start bigger than period-end,
+- If the time parameters of a schedule conflict with each other, for example, the period-start later than period-end,
 the duration is longer than the product of frequency and interval, or the duration is longer than utc-until, then the schedule
-should be discarded and an error should be returned to the managed device.
-
+should be discarded and an error should be returned to the schedule originator (e.g., the managing device or management client).
 
 - If there is a conflict between schedules with different schedule IDs, for example, schedule1 indicates that interface B is closed at time A, but
-schedule2 indicates that interface B is open at time A, then all conflicting schedules should be discarded and an error
-should be returned to the managed device. If two schedules have the same schedule ID, then it is considered as a update of the former schedule.
-
-Editor's Note: multi-manager scenarios need to be considered.
+schedule2 indicates that interface B is open at time A, then only the conflicting update should be rejected (retaining the last-known-good schedule).
+An error should be returned to the schedule originator, and the conflict MUST be
+logged for audit purposes.
+If two schedules have the same schedule ID, then it is considered as an update of the former schedule. Updates with the same schedule ID SHALL completely replace the previous schedule (full replacement, not merge).
+Implementations SHOULD support versioning or etag-based mechanisms to detect concurrent updates.
+Partial updates to a schedule are NOT permitted; clients MUST send the complete schedule definition.
 
 # Security Considerations {#security-considerations}
 
@@ -561,11 +577,11 @@ In a time-variant network, malicious actors could attack the network by disrupti
 process. For example, an attacker could intentionally delay or corrupt time signals exchanged within the network, leading
 to routing errors and widespread denial-of-service (DoS) attacks.
 
-This kind of attack could be mitigated by the redundancy time synchronization mechanisms, for example, multiple NTP sources
+This kind of attack could be mitigated by the redundant time synchronization mechanisms, for example, multiple NTP sources
 or multiple time synchronization protocols could be deployed in a TVR network. The network devices could guarantee the
 correctness of the time by checking whether the time signals from different sources or protocols.
 
-In addition, the identification authentication is also an important way to protect the time signals being tampered by
+In addition, peer authentication is also an important way to protect the time signals being tampered by
 attackers. Some security extensions for time synchronization protocols (such as NTS (Network Time Security)) are
 recommended to be applied.
 
@@ -583,14 +599,14 @@ additional configurations or modifications.
 In addition, in time variant networks with centralized scenario{{centralized-scenario}}, the encryption of routing path
 information is also necessary to avoid the fake routing information. Considering the most typical protocols used to
 deliver the routing path information between controller and network devices are BGP and PCEP, and both are based on TCP.
-Therefore, the TLS is recommended to be applied for the conservation.
+Therefore, the TLS is RECOMMENDED to provide confidentiality and integrity protection.
 
 ## Activity Identification and Privacy {#activity-identification}
 
 In certain scenarios, precise time information exchanged within the network could be correlated with specific user or
 device behavior, inadvertently revealing private information.
 
-This risk could also be mitigated by the solutions mentioned in {{activity-identification}}.
+This risk could also be mitigated by the solutions mentioned in {{traffic-analysis}}.
 
 ## Spoofing and Manipulation of Time Information
 
@@ -620,6 +636,41 @@ erroneous time information to the entire network, disrupting its operation.
 
 This kind of attack could be mitigated by the solutions mentioned in {{dos-attack}}.
 
+## Schedule Tampering and Malicious Schedule Injection
+
+Unauthorized modification or injection of malicious TVR schedules
+poses significant operational and security risks.  An attacker who
+successfully tampers with schedules could cause traffic blackholing
+(by scheduling link or node shutdowns at critical times), trigger
+costly network-wide reroutes, degrade service-level agreement (SLA)
+performance, or enable targeted interception of sensitive traffic
+flows.  Such attacks undermine the predictability and reliability
+that TVR aims to provide.
+
+Mitigating schedule tampering requires a defense-in-depth approach:
+
+*  Authentication and Authorization: All schedule updates MUST be
+authenticated to verify the identity of the originator.  Role
+based access control (RBAC) or attribute-based access control
+(ABAC) SHOULD be enforced to ensure that only authorized entities
+can modify schedules.
+
+*  Integrity Protection: Schedules MUST be protected against
+tampering in transit and at rest using cryptographic integrity
+mechanisms (e.g., digital signatures, HMAC).  NETCONF over TLS
+{{?RFC7589}}, RESTCONF over TLS, and similar secure transport
+protocols provide such protection.
+
+*  Audit Logging: All schedule creation, modification, and deletion
+operations SHOULD be logged with timestamps, originator identity,
+and a description of the change.  These logs are essential for
+forensic analysis and detecting anomalous behavior.
+
+*  Rate Limiting and Anomaly Detection: Implementations SHOULD
+enforce rate limits on schedule update operations and deploy
+anomaly detection mechanisms to identify suspicious patterns
+(e.g., rapid schedule churn, schedules from unexpected sources).
+
 # IANA Considerations
 
 This document has no IANA actions.
@@ -634,14 +685,16 @@ TBD
 # Appendix A: Code Examples
 {:numbered="false"}
 
-## Code Examples for “Energy-harvesting Wireless Sensor Network”
+All examples in this appendix are intended as {{?RFC7951}} JSON instance data, following the YANG instance data encoding rules for JSON.  The duration field values are expressed in seconds unless otherwise noted.
+
+## Code Examples for "Energy-harvesting Wireless Sensor Network"
 {:numbered="false"}
 
 As described in {{Section 2.3 of ?RFC9657}}, in an energy-harvesting wireless sensor network, nodes rely exclusively on
 environmental sources for power, such as solar panels. On-board power levels may fluctuate based on various factors.
 This example assumes that a node will only power its radio when available power is over some threshold.
-In this scenario, the TVR Node Yang Module is not applicable, since the node attributes changes are caused by the environment,
-not by the instructions from managing device. The TVR Topology Yang Module may be necessary to convey the schedule of topology
+In this scenario, the TVR Node YANG Module is not applicable, since the node attributes changes are caused by the environment,
+not by the instructions from managing device. The TVR Topology YANG Module may be necessary to convey the schedule of topology
 changes to all the nodes.
 
 Considering a topology with three nodes, the connectivity of this three-node networks changes over time and repeats daily.
@@ -663,7 +716,7 @@ The link between node2 and node3 is powered on at 11:00 and powered off at 16:00
 ~~~
 {: #ex-inf1 title="An example of topology connectivity of Energy-harvesting Wireless Sensor Network" artwork-align="center"}
 
-The corresponding json example is shown in {{ex-inf2}}.
+The corresponding JSON example is shown in {{ex-inf2}}.
 
 ~~~
 {
@@ -780,7 +833,7 @@ The corresponding json example is shown in {{ex-inf2}}.
     }
 }
 ~~~
-{: #ex-inf2 title="Json code of topology schedule for Energy-harvesting Wireless Sensor Network" artwork-align="center"}
+{: #ex-inf2 title="JSON example of topology schedule for Energy-harvesting Wireless Sensor Network" artwork-align="center"}
 
 ## Code Examples for "Cellular Network"
 {:numbered="false"}
@@ -793,42 +846,47 @@ In this scenario, both the TVR node YANG module and TVR topology YANG module are
 interfaces and deliver the predicted topology changes to each node.
 
 Considering a topology with three nodes, the connectivity variation of it is shown in {{ex-inf1}}. Taking the node1 as an
-example, the corresponding node YANG module json code for node1 is shown in {{ex-inf3}}
+example, the corresponding node YANG module JSON example for node1 is shown in {{ex-inf3}}
 
 ~~~
-{
-    "ietf-tvr-node:node-schedule": {
-        "node-id": "192.168.0.1",
-        "node-power-schedule": {
-            "power-default": true,
-            "schedules": []
-        },
-        "interface-schedule": {
-            "interfaces": [
-                "name": "interface1",
-                "default-available": false,
-                "schedules": [
-                    "schedule-id": 100,
-                    "recurrence-first": {
-                        "start-time-utc": "2026-01-01T08:00:00Z",
-                        "duration": 10800
-                    },
-                    "utc-until": "2027-01-01T00:00:00Z",
-                    "frequency": "ietf-schedule:daily",
-                    "attr-value": {
-                        "available": true
-                    }
-                ]
-            ]
-        }
-    }
-}
+
+ {
+     "ietf-tvr-node:node-schedule": {
+         "node-id": "192.168.0.1",
+         "node-power-schedule": {
+             "power-default": true,
+             "schedules": []
+         },
+         "interface-schedule": {
+             "interface": [
+                 {
+                     "name": "interface1",
+                     "default-available": false,
+                     "schedules": [
+                         {
+                             "schedule-id": 100,
+                             "recurrence-first": {
+                                 "start-time-utc": "2026-01-01T08:00:00Z",
+                                 "duration": 10800
+                             },
+                             "utc-until": "2027-01-01T00:00:00Z",
+                             "frequency": "ietf-schedule:daily",
+                             "attr-value": {
+                                 "available": true
+                             }
+                         }
+                     ]
+                 }
+             ]
+         }
+     }
+ }
 ~~~
-{: #ex-inf3 title="TVR node YANG module json code of node1" artwork-align="center"}
+{: #ex-inf3 title="TVR node YANG module JSON example of node1" artwork-align="center"}
 
-The corresponding topology yang module json code is the same as {{ex-inf2}}
+The corresponding topology yang module JSON example is the same as {{ex-inf2}}
 
-## Code Examples for “Tidal Network”
+## Code Examples for "Tidal Network"
 {:numbered="false"}
 
 As described in {{Section 3.4 of ?RFC9657}}, the "Tidal Network" is a network where traffic volume undergoes significant
@@ -859,40 +917,44 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
 {: #ex-inf4 title="An example topology of Tidal Network" artwork-align="center"}
 
 Taking the node N1 as an example, assuming the node-ids of N1, N2, N3, N4 are 192.168.0.1, 192.168.0.2, 192.168.0.3,
-and 192.168.0.4. The corresponding node YANG module json code for it is shown in {{ex-inf5}}
+and 192.168.0.4. The corresponding node YANG module JSON example for it is shown in {{ex-inf5}}
 
 ~~~
-{
-    "ietf-tvr-node:node-schedule": {
-        "node-id": "192.168.0.1",
-        "node-power-schedule": {
-            "power-default": true,
-            "schedules": []
-        },
-        "interface-schedule": {
-            "interfaces": [
-                "name": "interface2",
-                "default-available": false,
-                "schedules": [
-                    "schedule-id": 100,
-                    "recurrence-first": {
-                        "start-time-utc": "2026-01-01T08:00:00Z",
-                        "duration": 54000
-                    },
-                    "utc-until": "2027-01-01T00:00:00Z",
-                    "frequency": "ietf-schedule:daily",
-                    "attr-value": {
-                        "available": true
-                    }
-                ]
-            ]
-        }
-    }
-}
+ {
+     "ietf-tvr-node:node-schedule": {
+         "node-id": "192.168.0.1",
+         "node-power-schedule": {
+             "power-default": true,
+             "schedules": []
+         },
+         "interface-schedule": {
+             "interface": [
+                 {
+                     "name": "interface2",
+                     "default-available": false,
+                     "schedules": [
+                         {
+                             "schedule-id": 100,
+                             "recurrence-first": {
+                                 "start-time-utc": "2026-01-01T08:00:00Z",
+                                 "duration": 54000
+                             },
+                             "utc-until": "2027-01-01T00:00:00Z",
+                             "frequency": "ietf-schedule:daily",
+                             "attr-value": {
+                                 "available": true
+                             }
+                         }
+                     ]
+                 }
+             ]
+         }
+     }
+ }
 ~~~
-{: #ex-inf5 title="TVR node YANG module json code of node N1" artwork-align="center"}
+{: #ex-inf5 title="TVR node YANG module JSON example of node N1" artwork-align="center"}
 
-The corresponding topology YANG module json code is shown in {{ex-inf6}}
+The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
 
 ~~~
 {
@@ -1016,9 +1078,9 @@ The corresponding topology YANG module json code is shown in {{ex-inf6}}
     }
 }
 ~~~
-{: #ex-inf6 title="Json code of topology schedule for Tidal Network" artwork-align="center"}
+{: #ex-inf6 title="JSON example of topology schedule for Tidal Network" artwork-align="center"}
 
-## Code Examples for “Mobile Satellites”
+## Code Examples for "Mobile Satellites"
 {:numbered="false"}
 As described in {{Section 4.3 of !RFC9657}}, the "Mobile Satellites" generally refers to the Low Earth Orbit(LEO) network,
 which includes hundreds to thousands of spacecrafts that can communicate both with their orbital neighbors as well as
@@ -1067,12 +1129,12 @@ t3                    |  N1  |----------|  N2  |----------|  N3  |
 
 In this scenario, the TVR topology YANG module is applicable to deliver the predicted topology changes to each node.
 However, the TVR node YANG module is not applicable, this depends on whether the link changes are controlled by satellites
-themselves or by the managing device. Here, we provide the json codes for TVR topology YANG module and node
+themselves or by the managing device. Here, we provide the JSON examples for TVR topology YANG module and node
  YANG module as a reference.
 
 Taking the spacecraft N1 as an example, assuming the time t1 is 10:00:00 1 July 2025 and the node-ids of N1, N2, N3, and
 ground station is 192.168.0.1, 192.168.0.2, 192.168.0.3, and 192.168.0.4.,
-then the corresponding node YANG module json code for it is shown in {{ex-inf8}}.
+then the corresponding node YANG module JSON example for it is shown in {{ex-inf8}}.
 
 ~~~
 {
@@ -1084,25 +1146,29 @@ then the corresponding node YANG module json code for it is shown in {{ex-inf8}}
         },
         "interface-schedule": {
             "interfaces": [
-                "name": "satellite2ground-interface",
-                "default-available": false,
-                "schedules": [
-                    "schedule-id": 100,
-                    "period-start": "2025-07-01T10:00:00Z",
-                    "duration": 420,
-                    "attr-value": {
-                        "available": true
-                    }
-                ]
+                {
+                    "name": "satellite2ground-interface",
+                    "default-available": false,
+                    "schedules": [
+                        {
+                            "schedule-id": 100,
+                            "period-start": "2025-07-01T10:00:00Z",
+                            "duration": 420,
+                            "attr-value": {
+                                "available": true
+                            }
+                        }
+                    ]
+                }
             ]
         }
     }
 }
 ~~~
-{: #ex-inf8 title="TVR node YANG module json code of spacecraft N1" artwork-align="center"}
+{: #ex-inf8 title="TVR node YANG module JSON example of spacecraft N1" artwork-align="center"}
 
 Assuming that time t1 is 10:00:00 1 July 2025, time t2 is 10:10:00 1 July 2025, and time t3 is 10:20:00 1 July 2025,
-then the corresponding topology YANG module json code is shown in {{ex-inf9}}.
+then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}.
 
 ~~~
 {
@@ -1193,10 +1259,9 @@ then the corresponding topology YANG module json code is shown in {{ex-inf9}}.
     }
 }
 ~~~
-{: #ex-inf9 title="Json code of topology schedule for Mobile Satellites" artwork-align="center"}
+{: #ex-inf9 title="JSON example of topology schedule for Mobile Satellites" artwork-align="center"}
 
-
-## Code examples for “Predictable Moving Vessels”
+## Code examples for "Predictable Moving Vessels"
 {:numbered="false"}
 
 As described in {{Section 4.4 of !RFC9657}}, the "Predictable Moving Vessels" involves the movement of vessels with
@@ -1237,5 +1302,7 @@ t3                    |  N3  |----------|  N2  |----------|  N1  |
 ~~~
 {: #ex-inf10 title="An example topology for Predictable Moving Vessels" artwork-align="center"}
 
-This scenario is quite similar to the "Mobile Satellites" example, so the TVR node YANG module json code and topology YANG
-json code of this scenario can refer to the json code of the "Mobile Satellites" example.
+This scenario is similar to the "Mobile Satellites" example, so the TVR node YANG module JSON example and topology YANG
+JSON example of this scenario can refer to the JSON example of the "Mobile Satellites" example.
+
+
