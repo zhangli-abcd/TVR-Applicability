@@ -55,27 +55,29 @@ informative:
 
 --- abstract
 
-Time-Variant Routing (TVR) is a routing system that can accommodate predicted topology changes caused by internal or
-external factors. Typical use cases include resource preservation networks, operating efficiency networks and dynamic
+Time-Variant Routing (TVR) is a routing system that is designed to accommodate predicted topology changes caused by internal or
+external factors. Typical use cases include resource preservation networks, operating efficiency networks, and dynamic
 reachability networks.
 This document provides examples of how to implement the TVR scheduling capabilities for key use cases. It describes
-which part of the TVR data model is used and why, and it outlines operational and security considerations when deploying
+which part of the TVR data model is used and why. It also outlines operational and security considerations when deploying
 TVR-based technologies.
 
 --- middle
 
 # Introduction
 
-The Time-Variant Routing (TVR) Working Group addresses a need in network environments where
-predictable variations in topology - such as the restoration, activation, or loss of network elements, are
+The Time-Variant Routing (TVR) addresses a need in network environments where
+predictable variations in topology such as the restoration, activation, or loss of network elements are
 part of normal operations. This approach is essential in dynamic networks with mobile nodes, where links may
-be frequently disrupted and re-established due to mobility. It is also essential in networks with highly predictable traffic
-patterns, where links may be powered down to conserve or reduce energy.
+be frequently disrupted and re-established due to mobility or regular planned events. It is also essential in networks with highly predictable traffic
+patterns, where links may be powered down to optimize energy use.
 
-This document provides examples of implementing TVR scheduling capabilities in identified use cases. It
+This document provides examples of implementing TVR scheduling capabilities in a set of use cases. It
 demonstrates the applicability of the TVR data model, methods for disseminating the TVR schedules, and the
 necessary IETF ancillary technologies for network environments, such as time synchronization and policy,
-that support TVR capabilities. The examples assume YANG instance data encoding per {{?RFC7951}} for JSON and the TVR schedule YANG modules.
+that support TVR capabilities.
+
+The examples assume YANG instance data encoding per {{?RFC7951}} for JSON and the TVR schedule YANG modules.
 
 # Conventions and Definitions
 
@@ -96,7 +98,8 @@ from the managing device and performs route computation based on
 time-variant network conditions.  The controller then distributes
 routing results to managed devices.
 
-* Managed Device: A network device (e.g., router, switch) that
+Managed Device:
+: A network device (e.g., router or switch) that
 receives schedules and/or routing instructions, and executes them
 according to the specified time windows.  Managed devices may
 receive schedules directly from the managing device or routing
@@ -104,16 +107,16 @@ results from the network controller.
 
 # Applicability of the TVR YANG Model
 
-The TVR data model {{?I-D.ietf-tvr-schedule-yang}} defines the TVR node YANG module and TVR topology YANG module. This
-clause discusses the applicability of these two modules separately.
+The TVR data model {{!I-D.ietf-tvr-schedule-yang}} defines the TVR node and topology YANG modules. This
+section discusses the applicability of these two modules separately.
 
 ## Applicability of TVR Node YANG Module {#applicability-node-yang}
 
-As specified in {{Section 5.2 of ?I-D.ietf-tvr-schedule-yang}}, module ietf-tvr-node.yang is a device model and designed to manage a
+As specified in {{Section 5.2 of !I-D.ietf-tvr-schedule-yang}}, the "ietf-tvr-node" YANG module is a device model which is designed to manage a
 single node with scheduled attributes. It is not necessary in all TVR use cases.
 
 The applicability of TVR node YANG module depends on whether changes in the attributes of network devices are caused by
-the environment or centrally controlled.
+the environment or centrally controlled:
 
 - When the changes are caused by the environment changes (such as movement, sunlight changes, and weather changes) or
 by decisions made by the devices themselves, the network device does not need to get the managed information through the YANG module. For example,
@@ -126,11 +129,11 @@ network devices through TVR node YANG module.
 
 ## Applicability of TVR Topology YANG Module {#applicability-topology-yang}
 
-As specified in {{Section 5.3 of ?I-D.ietf-tvr-schedule-yang}}, module ietf-tvr-topology.yang describes a network topology
+As specified in {{Section 5.3 of !I-D.ietf-tvr-schedule-yang}}, the "ietf-tvr-topology" YANG module describes a network topology
 with a time-variant availability schedule. This YANG module is also not applicable for all TVR use cases.
 
-According to the description of {{Section 3.1 of ?I-D.ietf-tvr-requirements}}, the scheduling generation locality
-and execution locality may be centralized or distributed.
+According to the description of {{Section 3.1 of !I-D.ietf-tvr-requirements}}, the scheduling generation locality
+and execution locality may be centralized or distributed:
 
 - When the schedules are generated and executed in distributed manner, which means that each node generates and executes its specific
 schedules. In this scenario, the topology YANG module is not necessary, the devices can collect topology schedules by other means.
@@ -146,7 +149,7 @@ need to be sent to the execution device through the topology YANG module. This s
 - When the schedules are generated in a centralized manner and executed in a distributed manner, the YANG module
 needs to be used to deliver the scheduled topology changes to the managed device. This scenario is called "Distributed Scenario".
 
-To summarize the key differences between these scenarios:
+To summarize the key differences between these scenarios are:
 
 - Centralized Scenario: Schedules are generated by the managing
 device, stored in the network controller, and executed by network
