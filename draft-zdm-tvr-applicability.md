@@ -252,7 +252,7 @@ More detailed examples of the JSON example is provided in this documents Appendi
 
 {
    "ietf-tvr-node:node-schedule": {
-         "node-id":"1234567890",
+         "node-id":"example:1234567890",
          "node-power-schedule":{
             "power-default":true,
             "schedule": []
@@ -728,21 +728,21 @@ The corresponding JSON example is shown in {{ex-inf2}}.
     "ietf-tvr-topology:topology-schedule": {
         "node": [
             {
-                "node-id": "192.168.0.1",
+                "node-id": "example:192.168.0.1",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.2",
+                "node-id": "example:192.168.0.2",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.3",
+                "node-id": "example:192.168.0.3",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
@@ -751,7 +751,7 @@ The corresponding JSON example is shown in {{ex-inf2}}.
         ],
         "link": [
             {
-                "source-node": "192.168.0.1",
+                "source-node": "example:192.168.0.1",
                 "source-link-id": "link1",
                 "available": {
                     "schedule": [
@@ -772,7 +772,7 @@ The corresponding JSON example is shown in {{ex-inf2}}.
                 }
             },
             {
-                "source-node": "192.168.0.2",
+                "source-node": "example:192.168.0.2",
                 "source-link-id": "link1",
                 "available": {
                     "schedule": [
@@ -793,7 +793,7 @@ The corresponding JSON example is shown in {{ex-inf2}}.
                 }
             },
             {
-                "source-node": "192.168.0.2",
+                "source-node": "example:192.168.0.2",
                 "source-link-id": "link2",
                 "available": {
                     "schedule": [
@@ -814,7 +814,7 @@ The corresponding JSON example is shown in {{ex-inf2}}.
                 }
             },
             {
-                "source-node": "192.168.0.3",
+                "source-node": "example:192.168.0.3",
                 "source-link-id": "link1",
                 "available": {
                     "schedule": [
@@ -857,7 +857,7 @@ example, the corresponding node YANG module JSON example for node1 is shown in {
 
  {
      "ietf-tvr-node:node-schedule": {
-         "node-id": "192.168.0.1",
+         "node-id": "example:192.168.0.1",
          "node-power-schedule": {
              "power-default": true,
              "schedule": []
@@ -927,7 +927,7 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
 ~~~
  {
      "ietf-tvr-node:node-schedule": {
-         "node-id": "192.168.0.1",
+         "node-id": "example:192.168.0.1",
          "node-power-schedule": {
              "power-default": true,
              "schedule": []
@@ -966,28 +966,28 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
     "ietf-tvr-topology:topology-schedule": {
         "node": [
             {
-                "node-id": "192.168.0.1",
+                "node-id": "example:192.168.0.1",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.2",
+                "node-id": "example:192.168.0.2",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.3",
+                "node-id": "example:192.168.0.3",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.4",
+                "node-id": "example:192.168.0.4",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
@@ -996,7 +996,7 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
         ],
         "link": [
             {
-                "source-node": "192.168.0.1",
+                "source-node": "example:192.168.0.1",
                 "source-link-id": "link2",
                 "available": {
                     "schedule": [
@@ -1017,7 +1017,7 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
                 }
             },
             {
-                "source-node": "192.168.0.2",
+                "source-node": "example:192.168.0.2",
                 "source-link-id": "link2",
                 "available": {
                     "schedule": [
@@ -1038,7 +1038,7 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
                 }
             },
             {
-                "source-node": "192.168.0.3",
+                "source-node": "example:192.168.0.3",
                 "source-link-id": "link2",
                 "available": {
                     "schedule": [
@@ -1059,7 +1059,7 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
                 }
             },
             {
-                "source-node": "192.168.0.4",
+                "source-node": "example:192.168.0.4",
                 "source-link-id": "link2",
                 "available": {
                     "schedule": [
@@ -1144,7 +1144,7 @@ then the corresponding node YANG module JSON example for it is shown in {{ex-inf
 ~~~
 {
     "ietf-tvr-node:node-schedule": {
-        "node-id": "192.168.0.1",
+        "node-id": "example:192.168.0.1",
         "node-power-schedule": {
             "power-default": true,
             "schedule": []
@@ -1180,28 +1180,28 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
     "ietf-tvr-topology:topology-schedule": {
         "node": [
             {
-                "node-id": "192.168.0.1",
+                "node-id": "example:192.168.0.1",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.2",
+                "node-id": "example:192.168.0.2",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.3",
+                "node-id": "example:192.168.0.3",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.4",
+                "node-id": "example:192.168.0.4",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
@@ -1210,7 +1210,7 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
         ],
         "links": [
             {
-                "source-node": "192.168.0.3",
+                "source-node": "example:192.168.0.3",
                 "source-link-id": "gs-link",
                 "available": {
                     "schedule": [
@@ -1227,7 +1227,7 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
                 }
             },
             {
-                "source-node": "192.168.0.2",
+                "source-node": "example:192.168.0.2",
                 "source-link-id": "gs-link",
                 "available": {
                     "schedule": [
@@ -1244,7 +1244,7 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
                 }
             },
             {
-                "source-node": "192.168.0.1",
+                "source-node": "example:192.168.0.1",
                 "source-link-id": "gs-link",
                 "available": {
                     "schedule": [
