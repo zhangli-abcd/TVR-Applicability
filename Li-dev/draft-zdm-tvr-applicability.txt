@@ -5,9 +5,9 @@
 Time-Variant Routing                                            L. Zhang
 Internet-Draft                                                   J. Dong
 Intended status: Informational                                    Huawei
-Expires: 9 August 2026                                      M. Boucadair
+Expires: 30 October 2026                                    M. Boucadair
                                                                   Orange
-                                                         5 February 2026
+                                                           28 April 2026
 
 
                  Applicability of TVR YANG Data Models
@@ -15,14 +15,14 @@ Expires: 9 August 2026                                      M. Boucadair
 
 Abstract
 
-   Time-Variant Routing (TVR) is a routing system that can accommodate
-   predicted topology changes caused by internal or external factors.
-   Typical use cases include resource preservation networks, operating
-   efficiency networks and dynamic reachability networks.  This document
-   provides examples of how to implement the TVR scheduling capabilities
-   for key use cases.  It describes which part of the TVR data model is
-   used and why, and it outlines operational and security considerations
-   when deploying TVR-based technologies.
+   Time-Variant Routing (TVR) is a routing system that is designed to
+   accommodate predicted topology changes caused by internal or external
+   factors.  Typical use cases include resource preservation networks,
+   operating efficiency networks, and dynamic reachability networks.
+   This document provides examples of how to implement the TVR
+   scheduling capabilities for key use cases.  It describes which part
+   of the TVR data model is used and why.  It also outlines operational
+   and security considerations when deploying TVR-based technologies.
 
 Discussion Venues
 
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 August 2026.
+   This Internet-Draft will expire on 30 October 2026.
 
 Copyright Notice
 
@@ -117,22 +117,24 @@ Table of Contents
 
 1.  Introduction
 
-   The Time-Variant Routing (TVR) Working Group addresses a need in
-   network environments where predictable variations in topology - such
-   as the restoration, activation, or loss of network elements, are part
-   of normal operations.  This approach is essential in dynamic networks
+   The Time-Variant Routing (TVR) addresses a need in network
+   environments where predictable variations in topology such as the
+   restoration, activation, or loss of network elements are part of
+   normal operations.  This approach is essential in dynamic networks
    with mobile nodes, where links may be frequently disrupted and re-
-   established due to mobility.  It is also essential in networks with
-   highly predictable traffic patterns, where links may be powered down
-   to conserve or reduce energy.
+   established due to mobility or regular planned events.  It is also
+   essential in networks with highly predictable traffic patterns, where
+   links may be powered down to optimize energy use.
 
    This document provides examples of implementing TVR scheduling
-   capabilities in identified use cases.  It demonstrates the
+   capabilities in a set of use cases.  It demonstrates the
    applicability of the TVR data model, methods for disseminating the
    TVR schedules, and the necessary IETF ancillary technologies for
    network environments, such as time synchronization and policy, that
-   support TVR capabilities.  The examples assume YANG instance data
-   encoding per [RFC7951] for JSON and the TVR schedule YANG modules.
+   support TVR capabilities.
+
+   The examples assume YANG instance data encoding per [RFC7951] for
+   JSON and the TVR schedule YANG modules.
 
 2.  Conventions and Definitions
 
@@ -155,7 +157,7 @@ Table of Contents
       variant network conditions.  The controller then distributes
       routing results to managed devices.
 
-   *  Managed Device: A network device (e.g., router, switch) that
+   Managed Device:  A network device (e.g., router or switch) that
       receives schedules and/or routing instructions, and executes them
       according to the specified time windows.  Managed devices may
       receive schedules directly from the managing device or routing
@@ -164,19 +166,19 @@ Table of Contents
 3.  Applicability of the TVR YANG Model
 
    The TVR data model [I-D.ietf-tvr-schedule-yang] defines the TVR node
-   YANG module and TVR topology YANG module.  This clause discusses the
-   applicability of these two modules separately.
+   and topology YANG modules.  This section discusses the applicability
+   of these two modules separately.
 
 3.1.  Applicability of TVR Node YANG Module
 
-   As specified in Section 5.2 of [I-D.ietf-tvr-schedule-yang], module
-   ietf-tvr-node.yang is a device model and designed to manage a single
-   node with scheduled attributes.  It is not necessary in all TVR use
-   cases.
+   As specified in Section 5.2 of [I-D.ietf-tvr-schedule-yang], the
+   "ietf-tvr-node" YANG module is a device model which is designed to
+   manage a single node with scheduled attributes.  It is not necessary
+   in all TVR use cases.
 
    The applicability of TVR node YANG module depends on whether changes
    in the attributes of network devices are caused by the environment or
-   centrally controlled.
+   centrally controlled:
 
    *  When the changes are caused by the environment changes (such as
       movement, sunlight changes, and weather changes) or by decisions
@@ -195,14 +197,14 @@ Table of Contents
 
 3.2.  Applicability of TVR Topology YANG Module
 
-   As specified in Section 5.3 of [I-D.ietf-tvr-schedule-yang], module
-   ietf-tvr-topology.yang describes a network topology with a time-
-   variant availability schedule.  This YANG module is also not
+   As specified in Section 5.3 of [I-D.ietf-tvr-schedule-yang], the
+   "ietf-tvr-topology" YANG module describes a network topology with a
+   time-variant availability schedule.  This YANG module is also not
    applicable for all TVR use cases.
 
    According to the description of Section 3.1 of
    [I-D.ietf-tvr-requirements], the scheduling generation locality and
-   execution locality may be centralized or distributed.
+   execution locality may be centralized or distributed:
 
    *  When the schedules are generated and executed in distributed
       manner, which means that each node generates and executes its
@@ -227,7 +229,7 @@ Table of Contents
       to deliver the scheduled topology changes to the managed device.
       This scenario is called "Distributed Scenario".
 
-   To summarize the key differences between these scenarios:
+   To summarize the key differences between these scenarios are:
 
    *  Centralized Scenario: Schedules are generated by the managing
       device, stored in the network controller, and executed by network
@@ -947,13 +949,20 @@ Table of Contents
 
 9.1.  Normative References
 
+   [I-D.ietf-tvr-requirements]
+              King, D., Contreras, L. M., Sipos, B., and L. Zhang,
+              "Time-Variant Routing (TVR) Requirements", Work in
+              Progress, Internet-Draft, draft-ietf-tvr-requirements-08,
+              2 March 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-tvr-requirements-08>.
+
    [I-D.ietf-tvr-schedule-yang]
               Qu, Y., Lindem, A., Kinzie, E., Fedyk, D., and M.
               Blanchet, "YANG Data Model for Scheduled Attributes", Work
               in Progress, Internet-Draft, draft-ietf-tvr-schedule-yang-
-              07, 19 January 2026,
+              08, 9 February 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-tvr-
-              schedule-yang-07>.
+              schedule-yang-08>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -984,13 +993,6 @@ Table of Contents
               Draft, draft-ietf-netmod-schedule-yang-10, 7 August 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
               schedule-yang-10>.
-
-   [I-D.ietf-tvr-requirements]
-              King, D., Contreras, L. M., Sipos, B., and L. Zhang, "TVR
-              (Time-Variant Routing) Requirements", Work in Progress,
-              Internet-Draft, draft-ietf-tvr-requirements-07, 10 October
-              2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              tvr-requirements-07>.
 
    [I-D.lj-rtg-sat-routing-consideration]
               Liu, P. and T. Jiang, "Routing in Satellite Networks:
@@ -1684,9 +1686,9 @@ Code examples for "Predictable Moving Vessels"
 
        Figure 13: An example topology for Predictable Moving Vessels
 
-   This scenario is quite similar to the "Mobile Satellites" example, so
-   the TVR node YANG module JSON example and topology YANG JSON example
-   of this scenario can refer to the JSON example of the "Mobile
+   This scenario is similar to the "Mobile Satellites" example, so the
+   TVR node YANG module JSON example and topology YANG JSON example of
+   this scenario can refer to the JSON example of the "Mobile
    Satellites" example.
 
 Contributors
