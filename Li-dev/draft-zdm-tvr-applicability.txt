@@ -357,7 +357,7 @@ Table of Contents
 
 {
    "ietf-tvr-node:node-schedule": {
-         "node-id":"1234567890",
+         "node-id":"example:1234567890",
          "node-power-schedule":{
             "power-default":true,
             "schedule": []
@@ -1093,21 +1093,21 @@ Code Examples for "Energy-harvesting Wireless Sensor Network"
     "ietf-tvr-topology:topology-schedule": {
         "node": [
             {
-                "node-id": "192.168.0.1",
+                "node-id": "example:192.168.0.1",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.2",
+                "node-id": "example:192.168.0.2",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.3",
+                "node-id": "example:192.168.0.3",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
@@ -1116,7 +1116,7 @@ Code Examples for "Energy-harvesting Wireless Sensor Network"
         ],
         "link": [
             {
-                "source-node": "192.168.0.1",
+                "source-node": "example:192.168.0.1",
                 "source-link-id": "link1",
                 "available": {
                     "schedule": [
@@ -1137,7 +1137,7 @@ Code Examples for "Energy-harvesting Wireless Sensor Network"
                 }
             },
             {
-                "source-node": "192.168.0.2",
+                "source-node": "example:192.168.0.2",
                 "source-link-id": "link1",
                 "available": {
                     "schedule": [
@@ -1158,7 +1158,7 @@ Code Examples for "Energy-harvesting Wireless Sensor Network"
                 }
             },
             {
-                "source-node": "192.168.0.2",
+                "source-node": "example:192.168.0.2",
                 "source-link-id": "link2",
                 "available": {
                     "schedule": [
@@ -1179,7 +1179,7 @@ Code Examples for "Energy-harvesting Wireless Sensor Network"
                 }
             },
             {
-                "source-node": "192.168.0.3",
+                "source-node": "example:192.168.0.3",
                 "source-link-id": "link1",
                 "available": {
                     "schedule": [
@@ -1225,7 +1225,7 @@ Code Examples for "Cellular Network"
 
  {
      "ietf-tvr-node:node-schedule": {
-         "node-id": "192.168.0.1",
+         "node-id": "example:192.168.0.1",
          "node-power-schedule": {
              "power-default": true,
              "schedule": []
@@ -1297,7 +1297,7 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
 
  {
      "ietf-tvr-node:node-schedule": {
-         "node-id": "192.168.0.1",
+         "node-id": "example:192.168.0.1",
          "node-power-schedule": {
              "power-default": true,
              "schedule": []
@@ -1336,28 +1336,28 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
     "ietf-tvr-topology:topology-schedule": {
         "node": [
             {
-                "node-id": "192.168.0.1",
+                "node-id": "example:192.168.0.1",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.2",
+                "node-id": "example:192.168.0.2",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.3",
+                "node-id": "example:192.168.0.3",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.4",
+                "node-id": "example:192.168.0.4",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
@@ -1366,7 +1366,7 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
         ],
         "link": [
             {
-                "source-node": "192.168.0.1",
+                "source-node": "example:192.168.0.1",
                 "source-link-id": "link2",
                 "available": {
                     "schedule": [
@@ -1387,7 +1387,7 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
                 }
             },
             {
-                "source-node": "192.168.0.2",
+                "source-node": "example:192.168.0.2",
                 "source-link-id": "link2",
                 "available": {
                     "schedule": [
@@ -1408,7 +1408,7 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
                 }
             },
             {
-                "source-node": "192.168.0.3",
+                "source-node": "example:192.168.0.3",
                 "source-link-id": "link2",
                 "available": {
                     "schedule": [
@@ -1429,7 +1429,7 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
                 }
             },
             {
-                "source-node": "192.168.0.4",
+                "source-node": "example:192.168.0.4",
                 "source-link-id": "link2",
                 "available": {
                     "schedule": [
@@ -1522,7 +1522,7 @@ Code Examples for "Mobile Satellites"
 
     {
         "ietf-tvr-node:node-schedule": {
-            "node-id": "192.168.0.1",
+            "node-id": "example:192.168.0.1",
             "node-power-schedule": {
                 "power-default": true,
                 "schedule": []
@@ -1559,28 +1559,28 @@ Code Examples for "Mobile Satellites"
         "ietf-tvr-topology:topology-schedule": {
             "node": [
                 {
-                    "node-id": "192.168.0.1",
+                    "node-id": "example:192.168.0.1",
                     "available": {
                         "default-node-available": true,
                         "schedule": []
                     }
                 },
                 {
-                    "node-id": "192.168.0.2",
+                    "node-id": "example:192.168.0.2",
                     "available": {
                         "default-node-available": true,
                         "schedule": []
                     }
                 },
                 {
-                    "node-id": "192.168.0.3",
+                    "node-id": "example:192.168.0.3",
                     "available": {
                         "default-node-available": true,
                         "schedule": []
                     }
                 },
                 {
-                    "node-id": "192.168.0.4",
+                    "node-id": "example:192.168.0.4",
                     "available": {
                         "default-node-available": true,
                         "schedule": []
@@ -1589,7 +1589,7 @@ Code Examples for "Mobile Satellites"
             ],
             "links": [
                 {
-                    "source-node": "192.168.0.3",
+                    "source-node": "example:192.168.0.3",
                     "source-link-id": "gs-link",
                     "available": {
                         "schedule": [
@@ -1606,7 +1606,7 @@ Code Examples for "Mobile Satellites"
                     }
                 },
                 {
-                    "source-node": "192.168.0.2",
+                    "source-node": "example:192.168.0.2",
                     "source-link-id": "gs-link",
                     "available": {
                         "schedule": [
@@ -1623,7 +1623,7 @@ Code Examples for "Mobile Satellites"
                     }
                 },
                 {
-                    "source-node": "192.168.0.1",
+                    "source-node": "example:192.168.0.1",
                     "source-link-id": "gs-link",
                     "available": {
                         "schedule": [
