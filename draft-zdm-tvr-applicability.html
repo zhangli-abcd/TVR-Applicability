@@ -32,8 +32,8 @@ TVR-based technologies.
     platformdirs 4.9.6
     pycountry 24.6.1
     PyYAML 6.0.3
-    requests 2.32.5
-    wcwidth 0.6.0
+    requests 2.33.1
+    wcwidth 0.7.0
 -->
 <link href="draft-zdm-tvr-applicability.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1054,11 +1054,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Applicability Statement</td>
-<td class="right">April 2026</td>
+<td class="right">May 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Zhang, et al.</td>
-<td class="center">Expires 29 October 2026</td>
+<td class="center">Expires 9 November 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1071,12 +1071,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-zdm-tvr-applicability-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-04-27" class="published">27 April 2026</time>
+<time datetime="2026-05-08" class="published">8 May 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-10-29">29 October 2026</time></dd>
+<dd class="expires"><time datetime="2026-11-09">9 November 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1134,7 +1134,7 @@ TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 29 October 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 9 November 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1578,37 +1578,39 @@ More detailed examples of the JSON example is provided in this documents Appendi
 <div class="alignLeft art-text artwork" id="section-3.3-7">
 <pre>
 {
-   "ietf-tvr-node:node-schedule":[
-      {
-         "node-id":1234567890,
+   "ietf-tvr-node:node-schedule": {
+         "node-id":"example:1234567890",
          "node-power-schedule":{
             "power-default":true,
+            "schedule": []
          },
-         "interface-schedule":[
-            {
-               "name":"Wlan0",
-               "default-available":false,
-               "attribute-schedule":{
-                  "schedules":[
-                     {
-                        "schedule-id":111111,
-                        "recurrence-first":{
-                           "start-time-utc":"2025-12-01T19:00:00Z",
-                           "duration":43200
-                        },
-                        "utc-until":"2026-12-01T00:00:00Z",
-                        "frequency":"ietf-schedule:daily",
-                        "interval":1,
-                        "attr-value":{
-                           "available":true
-                        }
-                     }
-                  ]
-               }
-            }
-         ]
-      }
-   ]
+         "interface-schedule":{
+             "interface": [
+                {
+                    "name":"Wlan0",
+                    "default-available":false,
+                    "default-bandwidth":
+                    "attribute-schedule":{
+                        "schedule":[
+                            {
+                                "schedule-id":111111,
+                                "recurrence-first":{
+                                    "start-time-utc":"2025-12-01T19:00:00Z",
+                                    "duration":43200
+                                },
+                                "utc-until":"2026-12-01T00:00:00Z",
+                                "frequency":"ietf-schedule:daily",
+                                "interval":1,
+                                "scheduled-attributes":{
+                                    "available":true
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+   }
 }
 </pre><a href="#section-3.3-7" class="pilcrow">¶</a>
 </div>
@@ -2257,35 +2259,35 @@ The link between node2 and node3 is powered on at 11:00 and powered off at 16:00
 <pre>
 {
     "ietf-tvr-topology:topology-schedule": {
-        "nodes": [
+        "node": [
             {
-                "node-id": "192.168.0.1",
+                "node-id": "example:192.168.0.1",
                 "available": {
                     "default-node-available": true,
-                    "schedules": []
+                    "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.2",
+                "node-id": "example:192.168.0.2",
                 "available": {
                     "default-node-available": true,
-                    "schedules": []
+                    "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.3",
+                "node-id": "example:192.168.0.3",
                 "available": {
                     "default-node-available": true,
-                    "schedules": []
+                    "schedule": []
                 }
             }
         ],
-        "links": [
+        "link": [
             {
-                "source-node": "192.168.0.1",
+                "source-node": "example:192.168.0.1",
                 "source-link-id": "link1",
                 "available": {
-                    "schedules": [
+                    "schedule": [
                         {
                             "schedule-id": 1,
                             "recurrence-first": {
@@ -2294,7 +2296,7 @@ The link between node2 and node3 is powered on at 11:00 and powered off at 16:00
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "attr-value": {
+                            "link-attributes": {
                                 "link-available": true
                             }
                         }
@@ -2303,10 +2305,10 @@ The link between node2 and node3 is powered on at 11:00 and powered off at 16:00
                 }
             },
             {
-                "source-node": "192.168.0.2",
+                "source-node": "example:192.168.0.2",
                 "source-link-id": "link1",
                 "available": {
-                    "schedules": [
+                    "schedule": [
                         {
                             "schedule-id": 2,
                             "recurrence-first": {
@@ -2315,7 +2317,7 @@ The link between node2 and node3 is powered on at 11:00 and powered off at 16:00
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "attr-value": {
+                            "link-attributes": {
                                 "link-available": true
                             }
                         }
@@ -2324,10 +2326,10 @@ The link between node2 and node3 is powered on at 11:00 and powered off at 16:00
                 }
             },
             {
-                "source-node": "192.168.0.2",
+                "source-node": "example:192.168.0.2",
                 "source-link-id": "link2",
                 "available": {
-                    "schedules": [
+                    "schedule": [
                         {
                             "schedule-id": 3,
                             "recurrence-first": {
@@ -2336,7 +2338,7 @@ The link between node2 and node3 is powered on at 11:00 and powered off at 16:00
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "attr-value": {
+                            "link-attributes": {
                                 "link-available": true
                             }
                         }
@@ -2345,10 +2347,10 @@ The link between node2 and node3 is powered on at 11:00 and powered off at 16:00
                 }
             },
             {
-                "source-node": "192.168.0.3",
+                "source-node": "example:192.168.0.3",
                 "source-link-id": "link1",
                 "available": {
-                    "schedules": [
+                    "schedule": [
                         {
                             "schedule-id": 4,
                             "recurrence-first": {
@@ -2357,7 +2359,7 @@ The link between node2 and node3 is powered on at 11:00 and powered off at 16:00
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "attr-value": {
+                            "link-attributes": {
                                 "link-available": true
                             }
                         }
@@ -2395,17 +2397,17 @@ example, the corresponding node YANG module JSON example for node1 is shown in <
 <pre>
  {
      "ietf-tvr-node:node-schedule": {
-         "node-id": "192.168.0.1",
+         "node-id": "example:192.168.0.1",
          "node-power-schedule": {
              "power-default": true,
-             "schedules": []
+             "schedule": []
          },
          "interface-schedule": {
              "interface": [
                  {
                      "name": "interface1",
                      "default-available": false,
-                     "schedules": [
+                     "schedule": [
                          {
                              "schedule-id": 100,
                              "recurrence-first": {
@@ -2414,7 +2416,7 @@ example, the corresponding node YANG module JSON example for node1 is shown in <
                              },
                              "utc-until": "2027-01-01T00:00:00Z",
                              "frequency": "ietf-schedule:daily",
-                             "attr-value": {
+                             "scheduled-attributes": {
                                  "available": true
                              }
                          }
@@ -2478,17 +2480,17 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
 <pre>
  {
      "ietf-tvr-node:node-schedule": {
-         "node-id": "192.168.0.1",
+         "node-id": "example:192.168.0.1",
          "node-power-schedule": {
              "power-default": true,
-             "schedules": []
+             "schedule": []
          },
          "interface-schedule": {
              "interface": [
                  {
                      "name": "interface2",
                      "default-available": false,
-                     "schedules": [
+                     "schedule": [
                          {
                              "schedule-id": 100,
                              "recurrence-first": {
@@ -2497,7 +2499,7 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
                              },
                              "utc-until": "2027-01-01T00:00:00Z",
                              "frequency": "ietf-schedule:daily",
-                             "attr-value": {
+                             "scheduled-attributes": {
                                  "available": true
                              }
                          }
@@ -2520,42 +2522,42 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
 <pre>
 {
     "ietf-tvr-topology:topology-schedule": {
-        "nodes": [
+        "node": [
             {
-                "node-id": "192.168.0.1",
+                "node-id": "example:192.168.0.1",
                 "available": {
                     "default-node-available": true,
-                    "schedules": []
+                    "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.2",
+                "node-id": "example:192.168.0.2",
                 "available": {
                     "default-node-available": true,
-                    "schedules": []
+                    "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.3",
+                "node-id": "example:192.168.0.3",
                 "available": {
                     "default-node-available": true,
-                    "schedules": []
+                    "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.4",
+                "node-id": "example:192.168.0.4",
                 "available": {
                     "default-node-available": true,
-                    "schedules": []
+                    "schedule": []
                 }
             }
         ],
-        "links": [
+        "link": [
             {
-                "source-node": "192.168.0.1",
+                "source-node": "example:192.168.0.1",
                 "source-link-id": "link2",
                 "available": {
-                    "schedules": [
+                    "schedule": [
                         {
                             "schedule-id": 100,
                             "recurrence-first": {
@@ -2564,7 +2566,7 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "attr-value": {
+                            "link-attributes": {
                                 "link-available": true
                             }
                         }
@@ -2573,10 +2575,10 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
                 }
             },
             {
-                "source-node": "192.168.0.2",
+                "source-node": "example:192.168.0.2",
                 "source-link-id": "link2",
                 "available": {
-                    "schedules": [
+                    "schedule": [
                         {
                             "schedule-id": 200,
                             "recurrence-first": {
@@ -2585,7 +2587,7 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "attr-value": {
+                            "link-attributes": {
                                 "link-available": true
                             }
                         }
@@ -2594,10 +2596,10 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
                 }
             },
             {
-                "source-node": "192.168.0.3",
+                "source-node": "example:192.168.0.3",
                 "source-link-id": "link2",
                 "available": {
-                    "schedules": [
+                    "schedule": [
                         {
                             "schedule-id": 300,
                             "recurrence-first": {
@@ -2606,7 +2608,7 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "attr-value": {
+                            "link-attributes": {
                                 "link-available": true
                             }
                         }
@@ -2615,10 +2617,10 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
                 }
             },
             {
-                "source-node": "192.168.0.4",
+                "source-node": "example:192.168.0.4",
                 "source-link-id": "link2",
                 "available": {
-                    "schedules": [
+                    "schedule": [
                         {
                             "schedule-id": 400,
                             "recurrence-first": {
@@ -2627,7 +2629,7 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "attr-value": {
+                            "link-attributes": {
                                 "link-available": true
                             }
                         }
@@ -2713,22 +2715,22 @@ then the corresponding node YANG module JSON example for it is shown in <a href=
 <pre>
 {
     "ietf-tvr-node:node-schedule": {
-        "node-id": "192.168.0.1",
+        "node-id": "example:192.168.0.1",
         "node-power-schedule": {
             "power-default": true,
-            "schedules": []
+            "schedule": []
         },
         "interface-schedule": {
             "interfaces": [
                 {
                     "name": "satellite2ground-interface",
                     "default-available": false,
-                    "schedules": [
+                    "schedule": [
                         {
                             "schedule-id": 100,
                             "period-start": "2025-07-01T10:00:00Z",
                             "duration": 420,
-                            "attr-value": {
+                            "scheduled-attributes": {
                                 "available": true
                             }
                         }
@@ -2752,47 +2754,47 @@ then the corresponding topology YANG module JSON example is shown in <a href="#e
 <pre>
 {
     "ietf-tvr-topology:topology-schedule": {
-        "nodes": [
+        "node": [
             {
-                "node-id": "192.168.0.1",
+                "node-id": "example:192.168.0.1",
                 "available": {
                     "default-node-available": true,
-                    "schedules": []
+                    "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.2",
+                "node-id": "example:192.168.0.2",
                 "available": {
                     "default-node-available": true,
-                    "schedules": []
+                    "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.3",
+                "node-id": "example:192.168.0.3",
                 "available": {
                     "default-node-available": true,
-                    "schedules": []
+                    "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.4",
+                "node-id": "example:192.168.0.4",
                 "available": {
                     "default-node-available": true,
-                    "schedules": []
+                    "schedule": []
                 }
             }
         ],
         "links": [
             {
-                "source-node": "192.168.0.3",
+                "source-node": "example:192.168.0.3",
                 "source-link-id": "gs-link",
                 "available": {
-                    "schedules": [
+                    "schedule": [
                         {
                             "schedule-id": 100,
                             "period-start": "2025-07-01T10:00:00Z",
                             "duration": 420,
-                            "attr-value": {
+                            "link-attributes": {
                                 "available": true
                             }
                         }
@@ -2801,15 +2803,15 @@ then the corresponding topology YANG module JSON example is shown in <a href="#e
                 }
             },
             {
-                "source-node": "192.168.0.2",
+                "source-node": "example:192.168.0.2",
                 "source-link-id": "gs-link",
                 "available": {
-                    "schedules": [
+                    "schedule": [
                         {
                             "schedule-id": 200,
                             "period-start": "2025-07-01T10:10:00Z",
                             "duration": 420,
-                            "attr-value": {
+                            "link-attributes": {
                                 "available": true
                             }
                         }
@@ -2818,15 +2820,15 @@ then the corresponding topology YANG module JSON example is shown in <a href="#e
                 }
             },
             {
-                "source-node": "192.168.0.1",
+                "source-node": "example:192.168.0.1",
                 "source-link-id": "gs-link",
                 "available": {
-                    "schedules": [
+                    "schedule": [
                         {
                             "schedule-id": 300,
                             "period-start": "2025-07-01T10:20:00Z",
                             "duration": 420,
-                            "attr-value": {
+                            "link-attributes": {
                                 "available": true
                             }
                         }
