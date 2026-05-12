@@ -9,11 +9,11 @@
 <meta content="Jie Dong" name="author">
 <meta content="Mohamed Boucadair" name="author">
 <meta content="
-       Time-Variant Routing (TVR) is a routing system that is designed to accommodate predicted topology changes caused by internal or
-external factors. Typical use cases include resource preservation networks, operating efficiency networks, and dynamic
+       Time-Variant Routing (TVR) is a routing system that can accommodate predicted topology changes caused by internal or
+external factors. Typical use cases include resource preservation networks, operating efficiency networks and dynamic
 reachability networks.
 This document provides examples of how to implement the TVR scheduling capabilities for key use cases. It describes
-which part of the TVR data model is used and why. It also outlines operational and security considerations when deploying
+which part of the TVR data model is used and why, and it outlines operational and security considerations when deploying
 TVR-based technologies. 
     " name="description">
 <meta content="xml2rfc 3.33.0" name="generator">
@@ -1097,11 +1097,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Applicability of TVR YANG Data Models</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">Time-Variant Routing (TVR) is a routing system that is designed to accommodate predicted topology changes caused by internal or
-external factors. Typical use cases include resource preservation networks, operating efficiency networks, and dynamic
+<p id="section-abstract-1">Time-Variant Routing (TVR) is a routing system that can accommodate predicted topology changes caused by internal or
+external factors. Typical use cases include resource preservation networks, operating efficiency networks and dynamic
 reachability networks.
 This document provides examples of how to implement the TVR scheduling capabilities for key use cases. It describes
-which part of the TVR data model is used and why. It also outlines operational and security considerations when deploying
+which part of the TVR data model is used and why, and it outlines operational and security considerations when deploying
 TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
@@ -1332,16 +1332,15 @@ TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">The Time-Variant Routing (TVR) addresses a need in network environments where
-predictable variations in topology such as the restoration, activation, or loss of network elements are
+<p id="section-1-1">The Time-Variant Routing (TVR) Working Group addresses a need in network environments where
+predictable variations in topology - such as the restoration, activation, or loss of network elements, are
 part of normal operations. This approach is essential in dynamic networks with mobile nodes, where links may
-be frequently disrupted and re-established due to mobility or regular planned events. It is also essential in networks with highly predictable traffic
-patterns, where links may be powered down to optimize energy use.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">This document provides examples of implementing TVR scheduling capabilities in a set of use cases. It
+be frequently disrupted and re-established due to mobility. It is also essential in networks with highly predictable traffic
+patterns, where links may be powered down to conserve or reduce energy.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">This document provides examples of implementing TVR scheduling capabilities in identified use cases. It
 demonstrates the applicability of the TVR data model, methods for disseminating the TVR schedules, and the
 necessary IETF ancillary technologies for network environments, such as time synchronization and policy,
-that support TVR capabilities.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">The examples assume YANG instance data encoding per <span>[<a href="#RFC7951" class="cite xref">RFC7951</a>]</span> for JSON and the TVR schedule YANG modules.<a href="#section-1-3" class="pilcrow">¶</a></p>
+that support TVR capabilities. The examples assume YANG instance data encoding per <span>[<a href="#RFC7951" class="cite xref">RFC7951</a>]</span> for JSON and the TVR schedule YANG modules.<a href="#section-1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1371,17 +1370,17 @@ from the managing device and performs route computation based on
 time-variant network conditions.  The controller then distributes
 routing results to managed devices.<a href="#section-2-3.4.1" class="pilcrow">¶</a></p>
 </dd>
-        <dd class="break"></dd>
-<dt id="section-2-3.5">Managed Device:</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.6">
-          <p id="section-2-3.6.1">A network device (e.g., router or switch) that
+      <dd class="break"></dd>
+</dl>
+<ul class="normal">
+<li class="normal" id="section-2-4.1">
+          <p id="section-2-4.1.1">Managed Device: A network device (e.g., router, switch) that
 receives schedules and/or routing instructions, and executes them
 according to the specified time windows.  Managed devices may
 receive schedules directly from the managing device or routing
-results from the network controller.<a href="#section-2-3.6.1" class="pilcrow">¶</a></p>
-</dd>
-      <dd class="break"></dd>
-</dl>
+results from the network controller.<a href="#section-2-4.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
 </section>
 </div>
 <div id="applicability-of-the-tvr-yang-model">
@@ -1389,17 +1388,17 @@ results from the network controller.<a href="#section-2-3.6.1" class="pilcrow">�
       <h2 id="name-applicability-of-the-tvr-ya">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-applicability-of-the-tvr-ya" class="section-name selfRef">Applicability of the TVR YANG Model</a>
       </h2>
-<p id="section-3-1">The TVR data model <span>[<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span> defines the TVR node and topology YANG modules. This
-section discusses the applicability of these two modules separately.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">The TVR data model <span>[<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span> defines the TVR node YANG module and TVR topology YANG module. This
+clause discusses the applicability of these two modules separately.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <div id="applicability-node-yang">
 <section id="section-3.1">
         <h3 id="name-applicability-of-tvr-node-y">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-applicability-of-tvr-node-y" class="section-name selfRef">Applicability of TVR Node YANG Module</a>
         </h3>
-<p id="section-3.1-1">As specified in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-08#section-5.2" class="relref">Section 5.2</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>, the "ietf-tvr-node" YANG module is a device model which is designed to manage a
+<p id="section-3.1-1">As specified in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-08#section-5.2" class="relref">Section 5.2</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>, module ietf-tvr-node.yang is a device model and designed to manage a
 single node with scheduled attributes. It is not necessary in all TVR use cases.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">The applicability of TVR node YANG module depends on whether changes in the attributes of network devices are caused by
-the environment or centrally controlled:<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+the environment or centrally controlled.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.1-3.1">
             <p id="section-3.1-3.1.1">When the changes are caused by the environment changes (such as movement, sunlight changes, and weather changes) or
@@ -1420,10 +1419,10 @@ network devices through TVR node YANG module.<a href="#section-3.1-3.2.1" class=
         <h3 id="name-applicability-of-tvr-topolo">
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-applicability-of-tvr-topolo" class="section-name selfRef">Applicability of TVR Topology YANG Module</a>
         </h3>
-<p id="section-3.2-1">As specified in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-08#section-5.3" class="relref">Section 5.3</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>, the "ietf-tvr-topology" YANG module describes a network topology
+<p id="section-3.2-1">As specified in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-08#section-5.3" class="relref">Section 5.3</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>, module ietf-tvr-topology.yang describes a network topology
 with a time-variant availability schedule. This YANG module is also not applicable for all TVR use cases.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2-2">According to the description of <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-08#section-3.1" class="relref">Section 3.1</a> of [<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span>, the scheduling generation locality
-and execution locality may be centralized or distributed:<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+and execution locality may be centralized or distributed.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2-3.1">
             <p id="section-3.2-3.1.1">When the schedules are generated and executed in distributed manner, which means that each node generates and executes its specific
@@ -1444,7 +1443,7 @@ need to be sent to the execution device through the topology YANG module. This s
 needs to be used to deliver the scheduled topology changes to the managed device. This scenario is called "Distributed Scenario".<a href="#section-3.2-3.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-3.2-4">To summarize the key differences between these scenarios are:<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.2-4">To summarize the key differences between these scenarios:<a href="#section-3.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2-5.1">
             <p id="section-3.2-5.1.1">Centralized Scenario: Schedules are generated by the managing
@@ -2123,10 +2122,6 @@ anomaly detection mechanisms to identify suspicious patterns
 <a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
-<dt id="I-D.ietf-tvr-requirements">[I-D.ietf-tvr-requirements]</dt>
-        <dd>
-<span class="refAuthor">King, D.</span>, <span class="refAuthor">Contreras, L. M.</span>, <span class="refAuthor">Sipos, B.</span>, and <span class="refAuthor">L. Zhang</span>, <span class="refTitle">"Time-Variant Routing (TVR) Requirements"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tvr-requirements-08</span>, <time datetime="2026-03-02" class="refDate">2 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-08">https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-08</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="I-D.ietf-tvr-schedule-yang">[I-D.ietf-tvr-schedule-yang]</dt>
         <dd>
 <span class="refAuthor">Qu, Y.</span>, <span class="refAuthor">Lindem, A.</span>, <span class="refAuthor">Kinzie, E.</span>, <span class="refAuthor">Fedyk, D.</span>, and <span class="refAuthor">M. Blanchet</span>, <span class="refTitle">"YANG Data Model for Scheduled Attributes"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tvr-schedule-yang-08</span>, <time datetime="2026-02-09" class="refDate">9 February 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-08">https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-08</a>&gt;</span>. </dd>
@@ -2159,6 +2154,10 @@ anomaly detection mechanisms to identify suspicious patterns
 <dt id="I-D.ietf-netmod-schedule-yang">[I-D.ietf-netmod-schedule-yang]</dt>
         <dd>
 <span class="refAuthor">Ma, Q.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">D. King</span>, <span class="refTitle">"A Common YANG Data Model for Scheduling"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-schedule-yang-10</span>, <time datetime="2025-08-07" class="refDate">7 August 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-schedule-yang-10">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-schedule-yang-10</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-tvr-requirements">[I-D.ietf-tvr-requirements]</dt>
+        <dd>
+<span class="refAuthor">King, D.</span>, <span class="refAuthor">Contreras, L. M.</span>, <span class="refAuthor">Sipos, B.</span>, and <span class="refAuthor">L. Zhang</span>, <span class="refTitle">"Time-Variant Routing (TVR) Requirements"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tvr-requirements-08</span>, <time datetime="2026-03-02" class="refDate">2 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-08">https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-08</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.lj-rtg-sat-routing-consideration">[I-D.lj-rtg-sat-routing-consideration]</dt>
         <dd>
