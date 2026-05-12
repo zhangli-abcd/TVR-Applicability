@@ -251,39 +251,37 @@ More detailed examples of the JSON example is provided in this documents Appendi
 ~~~
 
 {
-   "ietf-tvr-node:node-schedule": {
-         "node-id":"example:1234567890",
+   "ietf-tvr-node:node-schedule":[
+      {
+         "node-id":1234567890,
          "node-power-schedule":{
             "power-default":true,
-            "schedule": []
          },
-         "interface-schedule":{
-             "interface": [
-                {
-                    "name":"Wlan0",
-                    "default-available":false,
-                    "default-bandwidth":
-                    "attribute-schedule":{
-                        "schedule":[
-                            {
-                                "schedule-id":111111,
-                                "recurrence-first":{
-                                    "start-time-utc":"2025-12-01T19:00:00Z",
-                                    "duration":43200
-                                },
-                                "utc-until":"2026-12-01T00:00:00Z",
-                                "frequency":"ietf-schedule:daily",
-                                "interval":1,
-                                "scheduled-attributes":{
-                                    "available":true
-                                }
-                            }
-                        ]
-                    }
-                }
-            ]
-        }
-   }
+         "interface-schedule":[
+            {
+               "name":"Wlan0",
+               "default-available":false,
+               "attribute-schedule":{
+                  "schedules":[
+                     {
+                        "schedule-id":111111,
+                        "recurrence-first":{
+                           "start-time-utc":"2025-12-01T19:00:00Z",
+                           "duration":43200
+                        },
+                        "utc-until":"2026-12-01T00:00:00Z",
+                        "frequency":"ietf-schedule:daily",
+                        "interval":1,
+                        "attr-value":{
+                           "available":true
+                        }
+                     }
+                  ]
+               }
+            }
+         ]
+      }
+   ]
 }
 ~~~
 
@@ -726,35 +724,35 @@ The corresponding JSON example is shown in {{ex-inf2}}.
 ~~~
 {
     "ietf-tvr-topology:topology-schedule": {
-        "node": [
+        "nodes": [
             {
-                "node-id": "example:192.168.0.1",
+                "node-id": "192.168.0.1",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             },
             {
-                "node-id": "example:192.168.0.2",
+                "node-id": "192.168.0.2",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             },
             {
-                "node-id": "example:192.168.0.3",
+                "node-id": "192.168.0.3",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             }
         ],
-        "link": [
+        "links": [
             {
-                "source-node": "example:192.168.0.1",
+                "source-node": "192.168.0.1",
                 "source-link-id": "link1",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 1,
                             "recurrence-first": {
@@ -763,7 +761,7 @@ The corresponding JSON example is shown in {{ex-inf2}}.
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
+                            "attr-value": {
                                 "link-available": true
                             }
                         }
@@ -772,10 +770,10 @@ The corresponding JSON example is shown in {{ex-inf2}}.
                 }
             },
             {
-                "source-node": "example:192.168.0.2",
+                "source-node": "192.168.0.2",
                 "source-link-id": "link1",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 2,
                             "recurrence-first": {
@@ -784,7 +782,7 @@ The corresponding JSON example is shown in {{ex-inf2}}.
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
+                            "attr-value": {
                                 "link-available": true
                             }
                         }
@@ -793,10 +791,10 @@ The corresponding JSON example is shown in {{ex-inf2}}.
                 }
             },
             {
-                "source-node": "example:192.168.0.2",
+                "source-node": "192.168.0.2",
                 "source-link-id": "link2",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 3,
                             "recurrence-first": {
@@ -805,7 +803,7 @@ The corresponding JSON example is shown in {{ex-inf2}}.
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
+                            "attr-value": {
                                 "link-available": true
                             }
                         }
@@ -814,10 +812,10 @@ The corresponding JSON example is shown in {{ex-inf2}}.
                 }
             },
             {
-                "source-node": "example:192.168.0.3",
+                "source-node": "192.168.0.3",
                 "source-link-id": "link1",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 4,
                             "recurrence-first": {
@@ -826,7 +824,7 @@ The corresponding JSON example is shown in {{ex-inf2}}.
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
+                            "attr-value": {
                                 "link-available": true
                             }
                         }
@@ -857,17 +855,17 @@ example, the corresponding node YANG module JSON example for node1 is shown in {
 
  {
      "ietf-tvr-node:node-schedule": {
-         "node-id": "example:192.168.0.1",
+         "node-id": "192.168.0.1",
          "node-power-schedule": {
              "power-default": true,
-             "schedule": []
+             "schedules": []
          },
          "interface-schedule": {
              "interface": [
                  {
                      "name": "interface1",
                      "default-available": false,
-                     "schedule": [
+                     "schedules": [
                          {
                              "schedule-id": 100,
                              "recurrence-first": {
@@ -876,7 +874,7 @@ example, the corresponding node YANG module JSON example for node1 is shown in {
                              },
                              "utc-until": "2027-01-01T00:00:00Z",
                              "frequency": "ietf-schedule:daily",
-                             "scheduled-attributes": {
+                             "attr-value": {
                                  "available": true
                              }
                          }
@@ -927,17 +925,17 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
 ~~~
  {
      "ietf-tvr-node:node-schedule": {
-         "node-id": "example:192.168.0.1",
+         "node-id": "192.168.0.1",
          "node-power-schedule": {
              "power-default": true,
-             "schedule": []
+             "schedules": []
          },
          "interface-schedule": {
              "interface": [
                  {
                      "name": "interface2",
                      "default-available": false,
-                     "schedule": [
+                     "schedules": [
                          {
                              "schedule-id": 100,
                              "recurrence-first": {
@@ -946,7 +944,7 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
                              },
                              "utc-until": "2027-01-01T00:00:00Z",
                              "frequency": "ietf-schedule:daily",
-                             "scheduled-attributes": {
+                             "attr-value": {
                                  "available": true
                              }
                          }
@@ -964,42 +962,42 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
 ~~~
 {
     "ietf-tvr-topology:topology-schedule": {
-        "node": [
+        "nodes": [
             {
-                "node-id": "example:192.168.0.1",
+                "node-id": "192.168.0.1",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             },
             {
-                "node-id": "example:192.168.0.2",
+                "node-id": "192.168.0.2",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             },
             {
-                "node-id": "example:192.168.0.3",
+                "node-id": "192.168.0.3",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             },
             {
-                "node-id": "example:192.168.0.4",
+                "node-id": "192.168.0.4",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             }
         ],
-        "link": [
+        "links": [
             {
-                "source-node": "example:192.168.0.1",
+                "source-node": "192.168.0.1",
                 "source-link-id": "link2",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 100,
                             "recurrence-first": {
@@ -1008,7 +1006,7 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
+                            "attr-value": {
                                 "link-available": true
                             }
                         }
@@ -1017,10 +1015,10 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
                 }
             },
             {
-                "source-node": "example:192.168.0.2",
+                "source-node": "192.168.0.2",
                 "source-link-id": "link2",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 200,
                             "recurrence-first": {
@@ -1029,7 +1027,7 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
+                            "attr-value": {
                                 "link-available": true
                             }
                         }
@@ -1038,10 +1036,10 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
                 }
             },
             {
-                "source-node": "example:192.168.0.3",
+                "source-node": "192.168.0.3",
                 "source-link-id": "link2",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 300,
                             "recurrence-first": {
@@ -1050,7 +1048,7 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
+                            "attr-value": {
                                 "link-available": true
                             }
                         }
@@ -1059,10 +1057,10 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
                 }
             },
             {
-                "source-node": "example:192.168.0.4",
+                "source-node": "192.168.0.4",
                 "source-link-id": "link2",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 400,
                             "recurrence-first": {
@@ -1071,7 +1069,7 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
+                            "attr-value": {
                                 "link-available": true
                             }
                         }
@@ -1144,22 +1142,22 @@ then the corresponding node YANG module JSON example for it is shown in {{ex-inf
 ~~~
 {
     "ietf-tvr-node:node-schedule": {
-        "node-id": "example:192.168.0.1",
+        "node-id": "192.168.0.1",
         "node-power-schedule": {
             "power-default": true,
-            "schedule": []
+            "schedules": []
         },
         "interface-schedule": {
             "interfaces": [
                 {
                     "name": "satellite2ground-interface",
                     "default-available": false,
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 100,
                             "period-start": "2025-07-01T10:00:00Z",
                             "duration": 420,
-                            "scheduled-attributes": {
+                            "attr-value": {
                                 "available": true
                             }
                         }
@@ -1178,47 +1176,47 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
 ~~~
 {
     "ietf-tvr-topology:topology-schedule": {
-        "node": [
+        "nodes": [
             {
-                "node-id": "example:192.168.0.1",
+                "node-id": "192.168.0.1",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             },
             {
-                "node-id": "example:192.168.0.2",
+                "node-id": "192.168.0.2",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             },
             {
-                "node-id": "example:192.168.0.3",
+                "node-id": "192.168.0.3",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             },
             {
-                "node-id": "example:192.168.0.4",
+                "node-id": "192.168.0.4",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             }
         ],
         "links": [
             {
-                "source-node": "example:192.168.0.3",
+                "source-node": "192.168.0.3",
                 "source-link-id": "gs-link",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 100,
                             "period-start": "2025-07-01T10:00:00Z",
                             "duration": 420,
-                            "link-attributes": {
+                            "attr-value": {
                                 "available": true
                             }
                         }
@@ -1227,15 +1225,15 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
                 }
             },
             {
-                "source-node": "example:192.168.0.2",
+                "source-node": "192.168.0.2",
                 "source-link-id": "gs-link",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 200,
                             "period-start": "2025-07-01T10:10:00Z",
                             "duration": 420,
-                            "link-attributes": {
+                            "attr-value": {
                                 "available": true
                             }
                         }
@@ -1244,15 +1242,15 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
                 }
             },
             {
-                "source-node": "example:192.168.0.1",
+                "source-node": "192.168.0.1",
                 "source-link-id": "gs-link",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 300,
                             "period-start": "2025-07-01T10:20:00Z",
                             "duration": 420,
-                            "link-attributes": {
+                            "attr-value": {
                                 "available": true
                             }
                         }
