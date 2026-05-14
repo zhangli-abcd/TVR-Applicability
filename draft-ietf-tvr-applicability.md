@@ -3,7 +3,7 @@ title: "Applicability of TVR YANG Data Models"
 abbrev: "Applicability Statement"
 category: info
 
-docname: draft-zdm-tvr-applicability-latest
+docname: draft-ietf-tvr-applicability-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
