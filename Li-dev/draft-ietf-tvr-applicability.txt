@@ -15,14 +15,14 @@ Expires: 19 November 2026                                   M. Boucadair
 
 Abstract
 
-   Time-Variant Routing (TVR) is a routing system that can accommodate
-   predicted topology changes caused by internal or external factors.
-   Typical use cases include resource preservation networks, operating
-   efficiency networks and dynamic reachability networks.  This document
-   provides examples of how to implement the TVR scheduling capabilities
-   for key use cases.  It describes which part of the TVR data model is
-   used and why, and it outlines operational and security considerations
-   when deploying TVR-based technologies.
+   Time-Variant Routing (TVR) is a routing system that is designed to
+   accommodate predicted topology changes caused by internal or external
+   factors.  Typical use cases include resource preservation networks,
+   operating efficiency networks, and dynamic reachability networks.
+   This document provides examples of how to implement the TVR
+   scheduling capabilities for key use cases.  It describes which part
+   of the TVR data model is used and why.  It also outlines operational
+   and security considerations when deploying TVR-based technologies.
 
 Discussion Venues
 
@@ -117,22 +117,24 @@ Table of Contents
 
 1.  Introduction
 
-   The Time-Variant Routing (TVR) Working Group addresses a need in
-   network environments where predictable variations in topology - such
-   as the restoration, activation, or loss of network elements, are part
-   of normal operations.  This approach is essential in dynamic networks
+   The Time-Variant Routing (TVR) addresses a need in network
+   environments where predictable variations in topology such as the
+   restoration, activation, or loss of network elements are part of
+   normal operations.  This approach is essential in dynamic networks
    with mobile nodes, where links may be frequently disrupted and re-
-   established due to mobility.  It is also essential in networks with
-   highly predictable traffic patterns, where links may be powered down
-   to conserve or reduce energy.
+   established due to mobility or regular planned events.  It is also
+   essential in networks with highly predictable traffic patterns, where
+   links may be powered down to optimize energy use.
 
    This document provides examples of implementing TVR scheduling
-   capabilities in identified use cases.  It demonstrates the
+   capabilities in a set of use cases.  It demonstrates the
    applicability of the TVR data model, methods for disseminating the
    TVR schedules, and the necessary IETF ancillary technologies for
    network environments, such as time synchronization and policy, that
-   support TVR capabilities.  The examples assume YANG instance data
-   encoding per [RFC7951] for JSON and the TVR schedule YANG modules.
+   support TVR capabilities.
+
+   The examples assume YANG instance data encoding per [RFC7951] for
+   JSON and the TVR schedule YANG modules.
 
 2.  Conventions and Definitions
 
@@ -155,7 +157,7 @@ Table of Contents
       variant network conditions.  The controller then distributes
       routing results to managed devices.
 
-   *  Managed Device: A network device (e.g., router, switch) that
+   Managed Device:  A network device (e.g., router or switch) that
       receives schedules and/or routing instructions, and executes them
       according to the specified time windows.  Managed devices may
       receive schedules directly from the managing device or routing
@@ -164,19 +166,19 @@ Table of Contents
 3.  Applicability of the TVR YANG Model
 
    The TVR data model [I-D.ietf-tvr-schedule-yang] defines the TVR node
-   YANG module and TVR topology YANG module.  This clause discusses the
-   applicability of these two modules separately.
+   and topology YANG modules.  This section discusses the applicability
+   of these two modules separately.
 
 3.1.  Applicability of TVR Node YANG Module
 
-   As specified in Section 5.2 of [I-D.ietf-tvr-schedule-yang], module
-   ietf-tvr-node.yang is a device model and designed to manage a single
-   node with scheduled attributes.  It is not necessary in all TVR use
-   cases.
+   As specified in Section 5.2 of [I-D.ietf-tvr-schedule-yang], the
+   "ietf-tvr-node" YANG module is a device model which is designed to
+   manage a single node with scheduled attributes.  It is not necessary
+   in all TVR use cases.
 
    The applicability of TVR node YANG module depends on whether changes
    in the attributes of network devices are caused by the environment or
-   centrally controlled.
+   centrally controlled:
 
    *  When the changes are caused by the environment changes (such as
       movement, sunlight changes, and weather changes) or by decisions
@@ -195,14 +197,14 @@ Table of Contents
 
 3.2.  Applicability of TVR Topology YANG Module
 
-   As specified in Section 5.3 of [I-D.ietf-tvr-schedule-yang], module
-   ietf-tvr-topology.yang describes a network topology with a time-
-   variant availability schedule.  This YANG module is also not
+   As specified in Section 5.3 of [I-D.ietf-tvr-schedule-yang], the
+   "ietf-tvr-topology" YANG module describes a network topology with a
+   time-variant availability schedule.  This YANG module is also not
    applicable for all TVR use cases.
 
    According to the description of Section 3.1 of
    [I-D.ietf-tvr-requirements], the scheduling generation locality and
-   execution locality may be centralized or distributed.
+   execution locality may be centralized or distributed:
 
    *  When the schedules are generated and executed in distributed
       manner, which means that each node generates and executes its
@@ -227,7 +229,7 @@ Table of Contents
       to deliver the scheduled topology changes to the managed device.
       This scenario is called "Distributed Scenario".
 
-   To summarize the key differences between these scenarios:
+   To summarize the key differences between these scenarios are:
 
    *  Centralized Scenario: Schedules are generated by the managing
       device, stored in the network controller, and executed by network
@@ -353,39 +355,41 @@ Table of Contents
    days using Coordinated Universal Time (UTC).  More detailed examples
    of the JSON example is provided in this documents Appendix.
 
-   {
-      "ietf-tvr-node:node-schedule":[
-         {
-            "node-id":1234567890,
-            "node-power-schedule":{
-               "power-default":true,
-            },
-            "interface-schedule":[
-               {
-                  "name":"Wlan0",
-                  "default-available":false,
-                  "attribute-schedule":{
-                     "schedules":[
-                        {
-                           "schedule-id":111111,
-                           "recurrence-first":{
-                              "start-time-utc":"2025-12-01T19:00:00Z",
-                              "duration":43200
-                           },
-                           "utc-until":"2026-12-01T00:00:00Z",
-                           "frequency":"ietf-schedule:daily",
-                           "interval":1,
-                           "attr-value":{
-                              "available":true
-                           }
-                        }
-                     ]
-                  }
-               }
+{
+   "ietf-tvr-node:node-schedule": {
+         "node-id":"example:1234567890",
+         "node-power-schedule":{
+            "power-default":true,
+            "schedule": []
+         },
+         "interface-schedule":{
+             "interface": [
+                {
+                    "name":"Wlan0",
+                    "default-available":false,
+                    "default-bandwidth":
+                    "attribute-schedule":{
+                        "schedule":[
+                            {
+                                "schedule-id":111111,
+                                "recurrence-first":{
+                                    "start-time-utc":"2025-12-01T19:00:00Z",
+                                    "duration":43200
+                                },
+                                "utc-until":"2026-12-01T00:00:00Z",
+                                "frequency":"ietf-schedule:daily",
+                                "interval":1,
+                                "scheduled-attributes":{
+                                    "available":true
+                                }
+                            }
+                        ]
+                    }
+                }
             ]
-         }
-      ]
+        }
    }
+}
 
    The methods for disseminating and propagating the generated schedules
    are discussed in the following subsections.
@@ -947,6 +951,13 @@ Table of Contents
 
 9.1.  Normative References
 
+   [I-D.ietf-tvr-requirements]
+              King, D., Contreras, L. M., Sipos, B., and L. Zhang,
+              "Time-Variant Routing (TVR) Requirements", Work in
+              Progress, Internet-Draft, draft-ietf-tvr-requirements-08,
+              2 March 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-tvr-requirements-08>.
+
    [I-D.ietf-tvr-schedule-yang]
               Qu, Y., Lindem, A., Kinzie, E., Fedyk, D., and M.
               Blanchet, "YANG Data Model for Scheduled Attributes", Work
@@ -984,13 +995,6 @@ Table of Contents
               Draft, draft-ietf-netmod-schedule-yang-10, 7 August 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
               schedule-yang-10>.
-
-   [I-D.ietf-tvr-requirements]
-              King, D., Contreras, L. M., Sipos, B., and L. Zhang,
-              "Time-Variant Routing (TVR) Requirements", Work in
-              Progress, Internet-Draft, draft-ietf-tvr-requirements-08,
-              2 March 2026, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-tvr-requirements-08>.
 
    [I-D.lj-rtg-sat-routing-consideration]
               Liu, P. and T. Jiang, "Routing in Satellite Networks:
@@ -1087,35 +1091,35 @@ Code Examples for "Energy-harvesting Wireless Sensor Network"
 
 {
     "ietf-tvr-topology:topology-schedule": {
-        "nodes": [
+        "node": [
             {
-                "node-id": "192.168.0.1",
+                "node-id": "example:192.168.0.1",
                 "available": {
                     "default-node-available": true,
-                    "schedules": []
+                    "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.2",
+                "node-id": "example:192.168.0.2",
                 "available": {
                     "default-node-available": true,
-                    "schedules": []
+                    "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.3",
+                "node-id": "example:192.168.0.3",
                 "available": {
                     "default-node-available": true,
-                    "schedules": []
+                    "schedule": []
                 }
             }
         ],
-        "links": [
+        "link": [
             {
-                "source-node": "192.168.0.1",
+                "source-node": "example:192.168.0.1",
                 "source-link-id": "link1",
                 "available": {
-                    "schedules": [
+                    "schedule": [
                         {
                             "schedule-id": 1,
                             "recurrence-first": {
@@ -1124,7 +1128,7 @@ Code Examples for "Energy-harvesting Wireless Sensor Network"
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "attr-value": {
+                            "link-attributes": {
                                 "link-available": true
                             }
                         }
@@ -1133,10 +1137,10 @@ Code Examples for "Energy-harvesting Wireless Sensor Network"
                 }
             },
             {
-                "source-node": "192.168.0.2",
+                "source-node": "example:192.168.0.2",
                 "source-link-id": "link1",
                 "available": {
-                    "schedules": [
+                    "schedule": [
                         {
                             "schedule-id": 2,
                             "recurrence-first": {
@@ -1145,7 +1149,7 @@ Code Examples for "Energy-harvesting Wireless Sensor Network"
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "attr-value": {
+                            "link-attributes": {
                                 "link-available": true
                             }
                         }
@@ -1154,10 +1158,10 @@ Code Examples for "Energy-harvesting Wireless Sensor Network"
                 }
             },
             {
-                "source-node": "192.168.0.2",
+                "source-node": "example:192.168.0.2",
                 "source-link-id": "link2",
                 "available": {
-                    "schedules": [
+                    "schedule": [
                         {
                             "schedule-id": 3,
                             "recurrence-first": {
@@ -1166,7 +1170,7 @@ Code Examples for "Energy-harvesting Wireless Sensor Network"
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "attr-value": {
+                            "link-attributes": {
                                 "link-available": true
                             }
                         }
@@ -1175,10 +1179,10 @@ Code Examples for "Energy-harvesting Wireless Sensor Network"
                 }
             },
             {
-                "source-node": "192.168.0.3",
+                "source-node": "example:192.168.0.3",
                 "source-link-id": "link1",
                 "available": {
-                    "schedules": [
+                    "schedule": [
                         {
                             "schedule-id": 4,
                             "recurrence-first": {
@@ -1187,7 +1191,7 @@ Code Examples for "Energy-harvesting Wireless Sensor Network"
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "attr-value": {
+                            "link-attributes": {
                                 "link-available": true
                             }
                         }
@@ -1221,17 +1225,17 @@ Code Examples for "Cellular Network"
 
  {
      "ietf-tvr-node:node-schedule": {
-         "node-id": "192.168.0.1",
+         "node-id": "example:192.168.0.1",
          "node-power-schedule": {
              "power-default": true,
-             "schedules": []
+             "schedule": []
          },
          "interface-schedule": {
              "interface": [
                  {
                      "name": "interface1",
                      "default-available": false,
-                     "schedules": [
+                     "schedule": [
                          {
                              "schedule-id": 100,
                              "recurrence-first": {
@@ -1240,7 +1244,7 @@ Code Examples for "Cellular Network"
                              },
                              "utc-until": "2027-01-01T00:00:00Z",
                              "frequency": "ietf-schedule:daily",
-                             "attr-value": {
+                             "scheduled-attributes": {
                                  "available": true
                              }
                          }
@@ -1293,17 +1297,17 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
 
  {
      "ietf-tvr-node:node-schedule": {
-         "node-id": "192.168.0.1",
+         "node-id": "example:192.168.0.1",
          "node-power-schedule": {
              "power-default": true,
-             "schedules": []
+             "schedule": []
          },
          "interface-schedule": {
              "interface": [
                  {
                      "name": "interface2",
                      "default-available": false,
-                     "schedules": [
+                     "schedule": [
                          {
                              "schedule-id": 100,
                              "recurrence-first": {
@@ -1312,7 +1316,7 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
                              },
                              "utc-until": "2027-01-01T00:00:00Z",
                              "frequency": "ietf-schedule:daily",
-                             "attr-value": {
+                             "scheduled-attributes": {
                                  "available": true
                              }
                          }
@@ -1330,42 +1334,42 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
 
 {
     "ietf-tvr-topology:topology-schedule": {
-        "nodes": [
+        "node": [
             {
-                "node-id": "192.168.0.1",
+                "node-id": "example:192.168.0.1",
                 "available": {
                     "default-node-available": true,
-                    "schedules": []
+                    "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.2",
+                "node-id": "example:192.168.0.2",
                 "available": {
                     "default-node-available": true,
-                    "schedules": []
+                    "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.3",
+                "node-id": "example:192.168.0.3",
                 "available": {
                     "default-node-available": true,
-                    "schedules": []
+                    "schedule": []
                 }
             },
             {
-                "node-id": "192.168.0.4",
+                "node-id": "example:192.168.0.4",
                 "available": {
                     "default-node-available": true,
-                    "schedules": []
+                    "schedule": []
                 }
             }
         ],
-        "links": [
+        "link": [
             {
-                "source-node": "192.168.0.1",
+                "source-node": "example:192.168.0.1",
                 "source-link-id": "link2",
                 "available": {
-                    "schedules": [
+                    "schedule": [
                         {
                             "schedule-id": 100,
                             "recurrence-first": {
@@ -1374,7 +1378,7 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "attr-value": {
+                            "link-attributes": {
                                 "link-available": true
                             }
                         }
@@ -1383,10 +1387,10 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
                 }
             },
             {
-                "source-node": "192.168.0.2",
+                "source-node": "example:192.168.0.2",
                 "source-link-id": "link2",
                 "available": {
-                    "schedules": [
+                    "schedule": [
                         {
                             "schedule-id": 200,
                             "recurrence-first": {
@@ -1395,7 +1399,7 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "attr-value": {
+                            "link-attributes": {
                                 "link-available": true
                             }
                         }
@@ -1404,10 +1408,10 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
                 }
             },
             {
-                "source-node": "192.168.0.3",
+                "source-node": "example:192.168.0.3",
                 "source-link-id": "link2",
                 "available": {
-                    "schedules": [
+                    "schedule": [
                         {
                             "schedule-id": 300,
                             "recurrence-first": {
@@ -1416,7 +1420,7 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "attr-value": {
+                            "link-attributes": {
                                 "link-available": true
                             }
                         }
@@ -1425,10 +1429,10 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
                 }
             },
             {
-                "source-node": "192.168.0.4",
+                "source-node": "example:192.168.0.4",
                 "source-link-id": "link2",
                 "available": {
-                    "schedules": [
+                    "schedule": [
                         {
                             "schedule-id": 400,
                             "recurrence-first": {
@@ -1437,7 +1441,7 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "attr-value": {
+                            "link-attributes": {
                                 "link-available": true
                             }
                         }
@@ -1518,22 +1522,22 @@ Code Examples for "Mobile Satellites"
 
     {
         "ietf-tvr-node:node-schedule": {
-            "node-id": "192.168.0.1",
+            "node-id": "example:192.168.0.1",
             "node-power-schedule": {
                 "power-default": true,
-                "schedules": []
+                "schedule": []
             },
             "interface-schedule": {
                 "interfaces": [
                     {
                         "name": "satellite2ground-interface",
                         "default-available": false,
-                        "schedules": [
+                        "schedule": [
                             {
                                 "schedule-id": 100,
                                 "period-start": "2025-07-01T10:00:00Z",
                                 "duration": 420,
-                                "attr-value": {
+                                "scheduled-attributes": {
                                     "available": true
                                 }
                             }
@@ -1553,47 +1557,47 @@ Code Examples for "Mobile Satellites"
 
     {
         "ietf-tvr-topology:topology-schedule": {
-            "nodes": [
+            "node": [
                 {
-                    "node-id": "192.168.0.1",
+                    "node-id": "example:192.168.0.1",
                     "available": {
                         "default-node-available": true,
-                        "schedules": []
+                        "schedule": []
                     }
                 },
                 {
-                    "node-id": "192.168.0.2",
+                    "node-id": "example:192.168.0.2",
                     "available": {
                         "default-node-available": true,
-                        "schedules": []
+                        "schedule": []
                     }
                 },
                 {
-                    "node-id": "192.168.0.3",
+                    "node-id": "example:192.168.0.3",
                     "available": {
                         "default-node-available": true,
-                        "schedules": []
+                        "schedule": []
                     }
                 },
                 {
-                    "node-id": "192.168.0.4",
+                    "node-id": "example:192.168.0.4",
                     "available": {
                         "default-node-available": true,
-                        "schedules": []
+                        "schedule": []
                     }
                 }
             ],
             "links": [
                 {
-                    "source-node": "192.168.0.3",
+                    "source-node": "example:192.168.0.3",
                     "source-link-id": "gs-link",
                     "available": {
-                        "schedules": [
+                        "schedule": [
                             {
                                 "schedule-id": 100,
                                 "period-start": "2025-07-01T10:00:00Z",
                                 "duration": 420,
-                                "attr-value": {
+                                "link-attributes": {
                                     "available": true
                                 }
                             }
@@ -1602,15 +1606,15 @@ Code Examples for "Mobile Satellites"
                     }
                 },
                 {
-                    "source-node": "192.168.0.2",
+                    "source-node": "example:192.168.0.2",
                     "source-link-id": "gs-link",
                     "available": {
-                        "schedules": [
+                        "schedule": [
                             {
                                 "schedule-id": 200,
                                 "period-start": "2025-07-01T10:10:00Z",
                                 "duration": 420,
-                                "attr-value": {
+                                "link-attributes": {
                                     "available": true
                                 }
                             }
@@ -1619,15 +1623,15 @@ Code Examples for "Mobile Satellites"
                     }
                 },
                 {
-                    "source-node": "192.168.0.1",
+                    "source-node": "example:192.168.0.1",
                     "source-link-id": "gs-link",
                     "available": {
-                        "schedules": [
+                        "schedule": [
                             {
                                 "schedule-id": 300,
                                 "period-start": "2025-07-01T10:20:00Z",
                                 "duration": 420,
-                                "attr-value": {
+                                "link-attributes": {
                                     "available": true
                                 }
                             }
