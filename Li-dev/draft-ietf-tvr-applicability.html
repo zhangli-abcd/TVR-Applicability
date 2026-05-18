@@ -9,18 +9,18 @@
 <meta content="Jie Dong" name="author">
 <meta content="Mohamed Boucadair" name="author">
 <meta content="
-       Time-Variant Routing (TVR) is a routing system that is designed to accommodate predicted topology changes caused by internal or
-external factors. Typical use cases include resource preservation networks, operating efficiency networks, and dynamic
+       Time-Variant Routing (TVR) is a routing system that can accommodate predicted topology changes caused by internal or
+external factors. Typical use cases include resource preservation networks, operating efficiency networks and dynamic
 reachability networks.
 This document provides examples of how to implement the TVR scheduling capabilities for key use cases. It describes
-which part of the TVR data model is used and why. It also outlines operational and security considerations when deploying
+which part of the TVR data model is used and why, and it outlines operational and security considerations when deploying
 TVR-based technologies. 
     " name="description">
 <meta content="xml2rfc 3.33.0" name="generator">
 <meta content="schedule" name="keyword">
 <meta content="YANG module" name="keyword">
 <meta content="applicability" name="keyword">
-<meta content="draft-zdm-tvr-applicability-latest" name="ietf.draft">
+<meta content="draft-ietf-tvr-applicability-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.33.0
     Python 3.12.13
@@ -32,10 +32,10 @@ TVR-based technologies.
     platformdirs 4.9.6
     pycountry 24.6.1
     PyYAML 6.0.3
-    requests 2.32.5
-    wcwidth 0.6.0
+    requests 2.33.1
+    wcwidth 0.7.0
 -->
-<link href="draft-zdm-tvr-applicability.xml" rel="alternate" type="application/rfc+xml">
+<link href="draft-ietf-tvr-applicability.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">@font-face {
   font-family: 'Lora';
@@ -1054,11 +1054,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Applicability Statement</td>
-<td class="right">April 2026</td>
+<td class="right">May 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Zhang, et al.</td>
-<td class="center">Expires 30 October 2026</td>
+<td class="center">Expires 19 November 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,15 +1068,15 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">Time-Variant Routing</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-zdm-tvr-applicability-latest</dd>
+<dd class="internet-draft">draft-ietf-tvr-applicability-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-04-28" class="published">28 April 2026</time>
+<time datetime="2026-05-18" class="published">18 May 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-10-30">30 October 2026</time></dd>
+<dd class="expires"><time datetime="2026-11-19">19 November 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1097,11 +1097,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Applicability of TVR YANG Data Models</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">Time-Variant Routing (TVR) is a routing system that is designed to accommodate predicted topology changes caused by internal or
-external factors. Typical use cases include resource preservation networks, operating efficiency networks, and dynamic
+<p id="section-abstract-1">Time-Variant Routing (TVR) is a routing system that can accommodate predicted topology changes caused by internal or
+external factors. Typical use cases include resource preservation networks, operating efficiency networks and dynamic
 reachability networks.
 This document provides examples of how to implement the TVR scheduling capabilities for key use cases. It describes
-which part of the TVR data model is used and why. It also outlines operational and security considerations when deploying
+which part of the TVR data model is used and why, and it outlines operational and security considerations when deploying
 TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
@@ -1134,7 +1134,7 @@ TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 30 October 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 19 November 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1332,16 +1332,15 @@ TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">The Time-Variant Routing (TVR) addresses a need in network environments where
-predictable variations in topology such as the restoration, activation, or loss of network elements are
+<p id="section-1-1">The Time-Variant Routing (TVR) Working Group addresses a need in network environments where
+predictable variations in topology - such as the restoration, activation, or loss of network elements, are
 part of normal operations. This approach is essential in dynamic networks with mobile nodes, where links may
-be frequently disrupted and re-established due to mobility or regular planned events. It is also essential in networks with highly predictable traffic
-patterns, where links may be powered down to optimize energy use.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">This document provides examples of implementing TVR scheduling capabilities in a set of use cases. It
+be frequently disrupted and re-established due to mobility. It is also essential in networks with highly predictable traffic
+patterns, where links may be powered down to conserve or reduce energy.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">This document provides examples of implementing TVR scheduling capabilities in identified use cases. It
 demonstrates the applicability of the TVR data model, methods for disseminating the TVR schedules, and the
 necessary IETF ancillary technologies for network environments, such as time synchronization and policy,
-that support TVR capabilities.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">The examples assume YANG instance data encoding per <span>[<a href="#RFC7951" class="cite xref">RFC7951</a>]</span> for JSON and the TVR schedule YANG modules.<a href="#section-1-3" class="pilcrow">¶</a></p>
+that support TVR capabilities. The examples assume YANG instance data encoding per <span>[<a href="#RFC7951" class="cite xref">RFC7951</a>]</span> for JSON and the TVR schedule YANG modules.<a href="#section-1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1371,17 +1370,17 @@ from the managing device and performs route computation based on
 time-variant network conditions.  The controller then distributes
 routing results to managed devices.<a href="#section-2-3.4.1" class="pilcrow">¶</a></p>
 </dd>
-        <dd class="break"></dd>
-<dt id="section-2-3.5">Managed Device:</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.6">
-          <p id="section-2-3.6.1">A network device (e.g., router or switch) that
+      <dd class="break"></dd>
+</dl>
+<ul class="normal">
+<li class="normal" id="section-2-4.1">
+          <p id="section-2-4.1.1">Managed Device: A network device (e.g., router, switch) that
 receives schedules and/or routing instructions, and executes them
 according to the specified time windows.  Managed devices may
 receive schedules directly from the managing device or routing
-results from the network controller.<a href="#section-2-3.6.1" class="pilcrow">¶</a></p>
-</dd>
-      <dd class="break"></dd>
-</dl>
+results from the network controller.<a href="#section-2-4.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
 </section>
 </div>
 <div id="applicability-of-the-tvr-yang-model">
@@ -1389,17 +1388,17 @@ results from the network controller.<a href="#section-2-3.6.1" class="pilcrow">�
       <h2 id="name-applicability-of-the-tvr-ya">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-applicability-of-the-tvr-ya" class="section-name selfRef">Applicability of the TVR YANG Model</a>
       </h2>
-<p id="section-3-1">The TVR data model <span>[<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span> defines the TVR node and topology YANG modules. This
-section discusses the applicability of these two modules separately.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">The TVR data model <span>[<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span> defines the TVR node YANG module and TVR topology YANG module. This
+clause discusses the applicability of these two modules separately.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <div id="applicability-node-yang">
 <section id="section-3.1">
         <h3 id="name-applicability-of-tvr-node-y">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-applicability-of-tvr-node-y" class="section-name selfRef">Applicability of TVR Node YANG Module</a>
         </h3>
-<p id="section-3.1-1">As specified in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-08#section-5.2" class="relref">Section 5.2</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>, the "ietf-tvr-node" YANG module is a device model which is designed to manage a
+<p id="section-3.1-1">As specified in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-08#section-5.2" class="relref">Section 5.2</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>, module ietf-tvr-node.yang is a device model and designed to manage a
 single node with scheduled attributes. It is not necessary in all TVR use cases.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">The applicability of TVR node YANG module depends on whether changes in the attributes of network devices are caused by
-the environment or centrally controlled:<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+the environment or centrally controlled.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.1-3.1">
             <p id="section-3.1-3.1.1">When the changes are caused by the environment changes (such as movement, sunlight changes, and weather changes) or
@@ -1420,10 +1419,10 @@ network devices through TVR node YANG module.<a href="#section-3.1-3.2.1" class=
         <h3 id="name-applicability-of-tvr-topolo">
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-applicability-of-tvr-topolo" class="section-name selfRef">Applicability of TVR Topology YANG Module</a>
         </h3>
-<p id="section-3.2-1">As specified in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-08#section-5.3" class="relref">Section 5.3</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>, the "ietf-tvr-topology" YANG module describes a network topology
+<p id="section-3.2-1">As specified in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-08#section-5.3" class="relref">Section 5.3</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>, module ietf-tvr-topology.yang describes a network topology
 with a time-variant availability schedule. This YANG module is also not applicable for all TVR use cases.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2-2">According to the description of <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-08#section-3.1" class="relref">Section 3.1</a> of [<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span>, the scheduling generation locality
-and execution locality may be centralized or distributed:<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+and execution locality may be centralized or distributed.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2-3.1">
             <p id="section-3.2-3.1.1">When the schedules are generated and executed in distributed manner, which means that each node generates and executes its specific
@@ -1444,7 +1443,7 @@ need to be sent to the execution device through the topology YANG module. This s
 needs to be used to deliver the scheduled topology changes to the managed device. This scenario is called "Distributed Scenario".<a href="#section-3.2-3.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-3.2-4">To summarize the key differences between these scenarios are:<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.2-4">To summarize the key differences between these scenarios:<a href="#section-3.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2-5.1">
             <p id="section-3.2-5.1.1">Centralized Scenario: Schedules are generated by the managing
@@ -1578,39 +1577,37 @@ More detailed examples of the JSON example is provided in this documents Appendi
 <div class="alignLeft art-text artwork" id="section-3.3-7">
 <pre>
 {
-   "ietf-tvr-node:node-schedule": {
-         "node-id":"example:1234567890",
+   "ietf-tvr-node:node-schedule":[
+      {
+         "node-id":1234567890,
          "node-power-schedule":{
             "power-default":true,
-            "schedule": []
          },
-         "interface-schedule":{
-             "interface": [
-                {
-                    "name":"Wlan0",
-                    "default-available":false,
-                    "default-bandwidth":
-                    "attribute-schedule":{
-                        "schedule":[
-                            {
-                                "schedule-id":111111,
-                                "recurrence-first":{
-                                    "start-time-utc":"2025-12-01T19:00:00Z",
-                                    "duration":43200
-                                },
-                                "utc-until":"2026-12-01T00:00:00Z",
-                                "frequency":"ietf-schedule:daily",
-                                "interval":1,
-                                "scheduled-attributes":{
-                                    "available":true
-                                }
-                            }
-                        ]
-                    }
-                }
-            ]
-        }
-   }
+         "interface-schedule":[
+            {
+               "name":"Wlan0",
+               "default-available":false,
+               "attribute-schedule":{
+                  "schedules":[
+                     {
+                        "schedule-id":111111,
+                        "recurrence-first":{
+                           "start-time-utc":"2025-12-01T19:00:00Z",
+                           "duration":43200
+                        },
+                        "utc-until":"2026-12-01T00:00:00Z",
+                        "frequency":"ietf-schedule:daily",
+                        "interval":1,
+                        "attr-value":{
+                           "available":true
+                        }
+                     }
+                  ]
+               }
+            }
+         ]
+      }
+   ]
 }
 </pre><a href="#section-3.3-7" class="pilcrow">¶</a>
 </div>
@@ -2125,10 +2122,6 @@ anomaly detection mechanisms to identify suspicious patterns
 <a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
-<dt id="I-D.ietf-tvr-requirements">[I-D.ietf-tvr-requirements]</dt>
-        <dd>
-<span class="refAuthor">King, D.</span>, <span class="refAuthor">Contreras, L. M.</span>, <span class="refAuthor">Sipos, B.</span>, and <span class="refAuthor">L. Zhang</span>, <span class="refTitle">"Time-Variant Routing (TVR) Requirements"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tvr-requirements-08</span>, <time datetime="2026-03-02" class="refDate">2 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-08">https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-08</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="I-D.ietf-tvr-schedule-yang">[I-D.ietf-tvr-schedule-yang]</dt>
         <dd>
 <span class="refAuthor">Qu, Y.</span>, <span class="refAuthor">Lindem, A.</span>, <span class="refAuthor">Kinzie, E.</span>, <span class="refAuthor">Fedyk, D.</span>, and <span class="refAuthor">M. Blanchet</span>, <span class="refTitle">"YANG Data Model for Scheduled Attributes"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tvr-schedule-yang-08</span>, <time datetime="2026-02-09" class="refDate">9 February 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-08">https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-08</a>&gt;</span>. </dd>
@@ -2161,6 +2154,10 @@ anomaly detection mechanisms to identify suspicious patterns
 <dt id="I-D.ietf-netmod-schedule-yang">[I-D.ietf-netmod-schedule-yang]</dt>
         <dd>
 <span class="refAuthor">Ma, Q.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">D. King</span>, <span class="refTitle">"A Common YANG Data Model for Scheduling"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-schedule-yang-10</span>, <time datetime="2025-08-07" class="refDate">7 August 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-schedule-yang-10">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-schedule-yang-10</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-tvr-requirements">[I-D.ietf-tvr-requirements]</dt>
+        <dd>
+<span class="refAuthor">King, D.</span>, <span class="refAuthor">Contreras, L. M.</span>, <span class="refAuthor">Sipos, B.</span>, and <span class="refAuthor">L. Zhang</span>, <span class="refTitle">"Time-Variant Routing (TVR) Requirements"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tvr-requirements-08</span>, <time datetime="2026-03-02" class="refDate">2 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-08">https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-08</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.lj-rtg-sat-routing-consideration">[I-D.lj-rtg-sat-routing-consideration]</dt>
         <dd>
@@ -2259,35 +2256,35 @@ The link between node2 and node3 is powered on at 11:00 and powered off at 16:00
 <pre>
 {
     "ietf-tvr-topology:topology-schedule": {
-        "node": [
+        "nodes": [
             {
-                "node-id": "example:192.168.0.1",
+                "node-id": "192.168.0.1",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             },
             {
-                "node-id": "example:192.168.0.2",
+                "node-id": "192.168.0.2",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             },
             {
-                "node-id": "example:192.168.0.3",
+                "node-id": "192.168.0.3",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             }
         ],
-        "link": [
+        "links": [
             {
-                "source-node": "example:192.168.0.1",
+                "source-node": "192.168.0.1",
                 "source-link-id": "link1",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 1,
                             "recurrence-first": {
@@ -2296,7 +2293,7 @@ The link between node2 and node3 is powered on at 11:00 and powered off at 16:00
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
+                            "attr-value": {
                                 "link-available": true
                             }
                         }
@@ -2305,10 +2302,10 @@ The link between node2 and node3 is powered on at 11:00 and powered off at 16:00
                 }
             },
             {
-                "source-node": "example:192.168.0.2",
+                "source-node": "192.168.0.2",
                 "source-link-id": "link1",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 2,
                             "recurrence-first": {
@@ -2317,7 +2314,7 @@ The link between node2 and node3 is powered on at 11:00 and powered off at 16:00
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
+                            "attr-value": {
                                 "link-available": true
                             }
                         }
@@ -2326,10 +2323,10 @@ The link between node2 and node3 is powered on at 11:00 and powered off at 16:00
                 }
             },
             {
-                "source-node": "example:192.168.0.2",
+                "source-node": "192.168.0.2",
                 "source-link-id": "link2",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 3,
                             "recurrence-first": {
@@ -2338,7 +2335,7 @@ The link between node2 and node3 is powered on at 11:00 and powered off at 16:00
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
+                            "attr-value": {
                                 "link-available": true
                             }
                         }
@@ -2347,10 +2344,10 @@ The link between node2 and node3 is powered on at 11:00 and powered off at 16:00
                 }
             },
             {
-                "source-node": "example:192.168.0.3",
+                "source-node": "192.168.0.3",
                 "source-link-id": "link1",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 4,
                             "recurrence-first": {
@@ -2359,7 +2356,7 @@ The link between node2 and node3 is powered on at 11:00 and powered off at 16:00
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
+                            "attr-value": {
                                 "link-available": true
                             }
                         }
@@ -2397,17 +2394,17 @@ example, the corresponding node YANG module JSON example for node1 is shown in <
 <pre>
  {
      "ietf-tvr-node:node-schedule": {
-         "node-id": "example:192.168.0.1",
+         "node-id": "192.168.0.1",
          "node-power-schedule": {
              "power-default": true,
-             "schedule": []
+             "schedules": []
          },
          "interface-schedule": {
              "interface": [
                  {
                      "name": "interface1",
                      "default-available": false,
-                     "schedule": [
+                     "schedules": [
                          {
                              "schedule-id": 100,
                              "recurrence-first": {
@@ -2416,7 +2413,7 @@ example, the corresponding node YANG module JSON example for node1 is shown in <
                              },
                              "utc-until": "2027-01-01T00:00:00Z",
                              "frequency": "ietf-schedule:daily",
-                             "scheduled-attributes": {
+                             "attr-value": {
                                  "available": true
                              }
                          }
@@ -2480,17 +2477,17 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
 <pre>
  {
      "ietf-tvr-node:node-schedule": {
-         "node-id": "example:192.168.0.1",
+         "node-id": "192.168.0.1",
          "node-power-schedule": {
              "power-default": true,
-             "schedule": []
+             "schedules": []
          },
          "interface-schedule": {
              "interface": [
                  {
                      "name": "interface2",
                      "default-available": false,
-                     "schedule": [
+                     "schedules": [
                          {
                              "schedule-id": 100,
                              "recurrence-first": {
@@ -2499,7 +2496,7 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
                              },
                              "utc-until": "2027-01-01T00:00:00Z",
                              "frequency": "ietf-schedule:daily",
-                             "scheduled-attributes": {
+                             "attr-value": {
                                  "available": true
                              }
                          }
@@ -2522,42 +2519,42 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
 <pre>
 {
     "ietf-tvr-topology:topology-schedule": {
-        "node": [
+        "nodes": [
             {
-                "node-id": "example:192.168.0.1",
+                "node-id": "192.168.0.1",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             },
             {
-                "node-id": "example:192.168.0.2",
+                "node-id": "192.168.0.2",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             },
             {
-                "node-id": "example:192.168.0.3",
+                "node-id": "192.168.0.3",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             },
             {
-                "node-id": "example:192.168.0.4",
+                "node-id": "192.168.0.4",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             }
         ],
-        "link": [
+        "links": [
             {
-                "source-node": "example:192.168.0.1",
+                "source-node": "192.168.0.1",
                 "source-link-id": "link2",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 100,
                             "recurrence-first": {
@@ -2566,7 +2563,7 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
+                            "attr-value": {
                                 "link-available": true
                             }
                         }
@@ -2575,10 +2572,10 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
                 }
             },
             {
-                "source-node": "example:192.168.0.2",
+                "source-node": "192.168.0.2",
                 "source-link-id": "link2",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 200,
                             "recurrence-first": {
@@ -2587,7 +2584,7 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
+                            "attr-value": {
                                 "link-available": true
                             }
                         }
@@ -2596,10 +2593,10 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
                 }
             },
             {
-                "source-node": "example:192.168.0.3",
+                "source-node": "192.168.0.3",
                 "source-link-id": "link2",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 300,
                             "recurrence-first": {
@@ -2608,7 +2605,7 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
+                            "attr-value": {
                                 "link-available": true
                             }
                         }
@@ -2617,10 +2614,10 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
                 }
             },
             {
-                "source-node": "example:192.168.0.4",
+                "source-node": "192.168.0.4",
                 "source-link-id": "link2",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 400,
                             "recurrence-first": {
@@ -2629,7 +2626,7 @@ and 192.168.0.4. The corresponding node YANG module JSON example for it is shown
                             },
                             "utc-until": "2027-01-01T00:00:00Z",
                             "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
+                            "attr-value": {
                                 "link-available": true
                             }
                         }
@@ -2715,22 +2712,22 @@ then the corresponding node YANG module JSON example for it is shown in <a href=
 <pre>
 {
     "ietf-tvr-node:node-schedule": {
-        "node-id": "example:192.168.0.1",
+        "node-id": "192.168.0.1",
         "node-power-schedule": {
             "power-default": true,
-            "schedule": []
+            "schedules": []
         },
         "interface-schedule": {
             "interfaces": [
                 {
                     "name": "satellite2ground-interface",
                     "default-available": false,
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 100,
                             "period-start": "2025-07-01T10:00:00Z",
                             "duration": 420,
-                            "scheduled-attributes": {
+                            "attr-value": {
                                 "available": true
                             }
                         }
@@ -2754,47 +2751,47 @@ then the corresponding topology YANG module JSON example is shown in <a href="#e
 <pre>
 {
     "ietf-tvr-topology:topology-schedule": {
-        "node": [
+        "nodes": [
             {
-                "node-id": "example:192.168.0.1",
+                "node-id": "192.168.0.1",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             },
             {
-                "node-id": "example:192.168.0.2",
+                "node-id": "192.168.0.2",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             },
             {
-                "node-id": "example:192.168.0.3",
+                "node-id": "192.168.0.3",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             },
             {
-                "node-id": "example:192.168.0.4",
+                "node-id": "192.168.0.4",
                 "available": {
                     "default-node-available": true,
-                    "schedule": []
+                    "schedules": []
                 }
             }
         ],
         "links": [
             {
-                "source-node": "example:192.168.0.3",
+                "source-node": "192.168.0.3",
                 "source-link-id": "gs-link",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 100,
                             "period-start": "2025-07-01T10:00:00Z",
                             "duration": 420,
-                            "link-attributes": {
+                            "attr-value": {
                                 "available": true
                             }
                         }
@@ -2803,15 +2800,15 @@ then the corresponding topology YANG module JSON example is shown in <a href="#e
                 }
             },
             {
-                "source-node": "example:192.168.0.2",
+                "source-node": "192.168.0.2",
                 "source-link-id": "gs-link",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 200,
                             "period-start": "2025-07-01T10:10:00Z",
                             "duration": 420,
-                            "link-attributes": {
+                            "attr-value": {
                                 "available": true
                             }
                         }
@@ -2820,15 +2817,15 @@ then the corresponding topology YANG module JSON example is shown in <a href="#e
                 }
             },
             {
-                "source-node": "example:192.168.0.1",
+                "source-node": "192.168.0.1",
                 "source-link-id": "gs-link",
                 "available": {
-                    "schedule": [
+                    "schedules": [
                         {
                             "schedule-id": 300,
                             "period-start": "2025-07-01T10:20:00Z",
                             "duration": 420,
-                            "link-attributes": {
+                            "attr-value": {
                                 "available": true
                             }
                         }
