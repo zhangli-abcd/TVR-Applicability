@@ -107,11 +107,11 @@ Table of Contents
      9.2.  Informative References
    Acknowledgments
    Appendix A: Code Examples
-     Code Examples for "Energy-harvesting Wireless Sensor Network"
-     Code Examples for "Cellular Network"
-     Code Examples for "Tidal Network"
-     Code Examples for "Mobile Satellites"
-     Code examples for "Predictable Moving Vessels"
+     A.1 Code Examples for "Energy-harvesting Wireless Sensor Network"
+     A.2 Code Examples for "Cellular Network"
+     A.3 Code Examples for "Tidal Network"
+     A.4 Code Examples for "Mobile Satellites"
+     A.5 Code examples for "Predictable Moving Vessels"
    Contributors
    Authors' Addresses
 
@@ -971,9 +971,24 @@ Table of Contents
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
+   [RFC7589]  Badra, M., Luchuk, A., and J. Schoenwaelder, "Using the
+              NETCONF Protocol over Transport Layer Security (TLS) with
+              Mutual X.509 Authentication", RFC 7589,
+              DOI 10.17487/RFC7589, June 2015,
+              <https://www.rfc-editor.org/rfc/rfc7589>.
+
+   [RFC7951]  Lhotka, L., "JSON Encoding of Data Modeled with YANG",
+              RFC 7951, DOI 10.17487/RFC7951, August 2016,
+              <https://www.rfc-editor.org/rfc/rfc7951>.
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC8342]  Bjorklund, M., Schoenwaelder, J., Shafer, P., Watsen, K.,
+              and R. Wilton, "Network Management Datastore Architecture
+              (NMDA)", RFC 8342, DOI 10.17487/RFC8342, March 2018,
+              <https://www.rfc-editor.org/rfc/rfc8342>.
 
    [RFC9657]  Birrane, III, E., Kuhn, N., Qu, Y., Taylor, R., and L.
               Zhang, "Time-Variant Routing (TVR) Use Cases", RFC 9657,
@@ -1022,24 +1037,9 @@ Table of Contents
               DOI 10.17487/RFC7252, June 2014,
               <https://www.rfc-editor.org/rfc/rfc7252>.
 
-   [RFC7589]  Badra, M., Luchuk, A., and J. Schoenwaelder, "Using the
-              NETCONF Protocol over Transport Layer Security (TLS) with
-              Mutual X.509 Authentication", RFC 7589,
-              DOI 10.17487/RFC7589, June 2015,
-              <https://www.rfc-editor.org/rfc/rfc7589>.
-
-   [RFC7951]  Lhotka, L., "JSON Encoding of Data Modeled with YANG",
-              RFC 7951, DOI 10.17487/RFC7951, August 2016,
-              <https://www.rfc-editor.org/rfc/rfc7951>.
-
    [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
               <https://www.rfc-editor.org/rfc/rfc8040>.
-
-   [RFC8342]  Bjorklund, M., Schoenwaelder, J., Shafer, P., Watsen, K.,
-              and R. Wilton, "Network Management Datastore Architecture
-              (NMDA)", RFC 8342, DOI 10.17487/RFC8342, March 2018,
-              <https://www.rfc-editor.org/rfc/rfc8342>.
 
 Acknowledgments
 
@@ -1052,7 +1052,7 @@ Appendix A: Code Examples
    duration field values are expressed in seconds unless otherwise
    noted.
 
-Code Examples for "Energy-harvesting Wireless Sensor Network"
+A.1 Code Examples for "Energy-harvesting Wireless Sensor Network"
 
    As described in Section 2.3 of [RFC9657], in an energy-harvesting
    wireless sensor network, nodes rely exclusively on environmental
@@ -1093,21 +1093,21 @@ Code Examples for "Energy-harvesting Wireless Sensor Network"
     "ietf-tvr-topology:topology-schedule": {
         "node": [
             {
-                "node-id": "example:192.168.0.1",
+                "node-id": "example:192.0.2.1",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
                 }
             },
             {
-                "node-id": "example:192.168.0.2",
+                "node-id": "example:192.0.2.2",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
                 }
             },
             {
-                "node-id": "example:192.168.0.3",
+                "node-id": "example:192.0.2.3",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
@@ -1116,7 +1116,7 @@ Code Examples for "Energy-harvesting Wireless Sensor Network"
         ],
         "link": [
             {
-                "source-node": "example:192.168.0.1",
+                "source-node": "example:192.0.2.1",
                 "source-link-id": "link1",
                 "available": {
                     "schedule": [
@@ -1137,7 +1137,7 @@ Code Examples for "Energy-harvesting Wireless Sensor Network"
                 }
             },
             {
-                "source-node": "example:192.168.0.2",
+                "source-node": "example:192.0.2.2",
                 "source-link-id": "link1",
                 "available": {
                     "schedule": [
@@ -1158,7 +1158,7 @@ Code Examples for "Energy-harvesting Wireless Sensor Network"
                 }
             },
             {
-                "source-node": "example:192.168.0.2",
+                "source-node": "example:192.0.2.2",
                 "source-link-id": "link2",
                 "available": {
                     "schedule": [
@@ -1179,7 +1179,7 @@ Code Examples for "Energy-harvesting Wireless Sensor Network"
                 }
             },
             {
-                "source-node": "example:192.168.0.3",
+                "source-node": "example:192.0.2.3",
                 "source-link-id": "link1",
                 "available": {
                     "schedule": [
@@ -1206,7 +1206,7 @@ Code Examples for "Energy-harvesting Wireless Sensor Network"
   Figure 5: JSON example of topology schedule for Energy-harvesting
                        Wireless Sensor Network
 
-Code Examples for "Cellular Network"
+A.2 Code Examples for "Cellular Network"
 
    As described in Section 3.3 of [RFC9657], the "Cellular Network" is a
    network where the nodes operating over cellular connections that
@@ -1225,7 +1225,7 @@ Code Examples for "Cellular Network"
 
  {
      "ietf-tvr-node:node-schedule": {
-         "node-id": "example:192.168.0.1",
+         "node-id": "example:192.0.2.1",
          "node-power-schedule": {
              "power-default": true,
              "schedule": []
@@ -1260,7 +1260,7 @@ Code Examples for "Cellular Network"
    The corresponding topology yang module JSON example is the same as
    Figure 5
 
-Code Examples for "Tidal Network"
+A.3 Code Examples for "Tidal Network"
 
    As described in Section 3.4 of [RFC9657], the "Tidal Network" is a
    network where traffic volume undergoes significant fluctuations at
@@ -1271,33 +1271,34 @@ Code Examples for "Tidal Network"
    state of node (interfaces) and deliver the predicted topology changes
    to each node.  Figure 7 shows a tidal network topology with 4 nodes.
 
-    +----+                  +----+               +----+                    +----+
-    | N1 |--------L1--------| N2 |               | N1 |---------L1---------| N2 |
-    +----+                  +----+               +----+                    +----+
-       |  \                /  |                     |                        |
-       |    \            /    |                     |                        |
-       |      \        /      |                     |                        |
-       |        L6    L5      |                     |                        |
-      L2          \/         L3                    L2                       L3
-       |         /  \         |                     |                        |
-       |       /      \       |                     |                        |
-       |     /          \     |                     |                        |
-       |   /              \   |                     |                        |
-    +----+                  +----+               +----+                     +----+
-    | N3 |--------L4--------| N4 |               | N3 |---------L4----------| N4 |
-    +----+                  +----+               +----+                     +----+
+    +-----+          +-----+                      +-----+          +-----+
+    | N1  |----L1----| N2  |                      | N1  |----L1----| N2  |
+    +-----+          +-----+                      +-----+          +-----+
+       |   \        /   |                            |                |
+       |    \      /    |                            |                |
+       |     \    /     |                            |                |
+       |      L6 L5     |                            |                |
+      L2       \/       L3                          L2                L3
+       |       /\       |                            |                |
+       |      /  \      |                            |                |
+       |     /    \     |                            |                |
+       |    /      \    |                            |                |
+       |   /        \   |                            |                |
+    +-----+          +-----+                      +-----+          +-----+
+    | N3  |----L4----| N4  |                      | N3  |----L4----| N4  |
+    +-----+          +-----+                      +-----+          +-----+
 Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 everyday)
 
             Figure 7: An example topology of Tidal Network
 
    Taking the node N1 as an example, assuming the node-ids of N1, N2,
-   N3, N4 are 192.168.0.1, 192.168.0.2, 192.168.0.3, and 192.168.0.4.
+   N3, N4 are 2001:db8::1, 2001:db8::2, 2001:db8::3, and 2001:db8::4.
    The corresponding node YANG module JSON example for it is shown in
    Figure 8
 
  {
      "ietf-tvr-node:node-schedule": {
-         "node-id": "example:192.168.0.1",
+         "node-id": "example:2001:db8::1",
          "node-power-schedule": {
              "power-default": true,
              "schedule": []
@@ -1336,28 +1337,28 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
     "ietf-tvr-topology:topology-schedule": {
         "node": [
             {
-                "node-id": "example:192.168.0.1",
+                "node-id": "example:2001:db8::1",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
                 }
             },
             {
-                "node-id": "example:192.168.0.2",
+                "node-id": "example:2001:db8::2",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
                 }
             },
             {
-                "node-id": "example:192.168.0.3",
+                "node-id": "example:2001:db8::3",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
                 }
             },
             {
-                "node-id": "example:192.168.0.4",
+                "node-id": "example:2001:db8::4",
                 "available": {
                     "default-node-available": true,
                     "schedule": []
@@ -1366,7 +1367,7 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
         ],
         "link": [
             {
-                "source-node": "example:192.168.0.1",
+                "source-node": "example:2001:db8::1",
                 "source-link-id": "link2",
                 "available": {
                     "schedule": [
@@ -1387,7 +1388,7 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
                 }
             },
             {
-                "source-node": "example:192.168.0.2",
+                "source-node": "example:2001:db8::2",
                 "source-link-id": "link2",
                 "available": {
                     "schedule": [
@@ -1408,7 +1409,7 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
                 }
             },
             {
-                "source-node": "example:192.168.0.3",
+                "source-node": "example:2001:db8::3",
                 "source-link-id": "link2",
                 "available": {
                     "schedule": [
@@ -1429,7 +1430,7 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
                 }
             },
             {
-                "source-node": "example:192.168.0.4",
+                "source-node": "example:2001:db8::4",
                 "source-link-id": "link2",
                 "available": {
                     "schedule": [
@@ -1455,7 +1456,7 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
 
     Figure 9: JSON example of topology schedule for Tidal Network
 
-Code Examples for "Mobile Satellites"
+A.4 Code Examples for "Mobile Satellites"
 
    As described in Section 4.3 of [RFC9657], the "Mobile Satellites"
    generally refers to the Low Earth Orbit(LEO) network, which includes
@@ -1516,13 +1517,13 @@ Code Examples for "Mobile Satellites"
 
    Taking the spacecraft N1 as an example, assuming the time t1 is
    10:00:00 1 July 2025 and the node-ids of N1, N2, N3, and ground
-   station is 192.168.0.1, 192.168.0.2, 192.168.0.3, and 192.168.0.4.,
+   station is 2001:db8::1, 2001:db8::2, 2001:db8::3, and 2001:db8::4.,
    then the corresponding node YANG module JSON example for it is shown
    in Figure 11.
 
     {
         "ietf-tvr-node:node-schedule": {
-            "node-id": "example:192.168.0.1",
+            "node-id": "example:2001:db8::1",
             "node-power-schedule": {
                 "power-default": true,
                 "schedule": []
@@ -1559,28 +1560,28 @@ Code Examples for "Mobile Satellites"
         "ietf-tvr-topology:topology-schedule": {
             "node": [
                 {
-                    "node-id": "example:192.168.0.1",
+                    "node-id": "example:2001:db8::1",
                     "available": {
                         "default-node-available": true,
                         "schedule": []
                     }
                 },
                 {
-                    "node-id": "example:192.168.0.2",
+                    "node-id": "example:2001:db8::2",
                     "available": {
                         "default-node-available": true,
                         "schedule": []
                     }
                 },
                 {
-                    "node-id": "example:192.168.0.3",
+                    "node-id": "example:2001:db8::3",
                     "available": {
                         "default-node-available": true,
                         "schedule": []
                     }
                 },
                 {
-                    "node-id": "example:192.168.0.4",
+                    "node-id": "example:2001:db8::4",
                     "available": {
                         "default-node-available": true,
                         "schedule": []
@@ -1589,7 +1590,7 @@ Code Examples for "Mobile Satellites"
             ],
             "links": [
                 {
-                    "source-node": "example:192.168.0.3",
+                    "source-node": "example:2001:db8::3",
                     "source-link-id": "gs-link",
                     "available": {
                         "schedule": [
@@ -1606,7 +1607,7 @@ Code Examples for "Mobile Satellites"
                     }
                 },
                 {
-                    "source-node": "example:192.168.0.2",
+                    "source-node": "example:2001:db8::2",
                     "source-link-id": "gs-link",
                     "available": {
                         "schedule": [
@@ -1623,7 +1624,7 @@ Code Examples for "Mobile Satellites"
                     }
                 },
                 {
-                    "source-node": "example:192.168.0.1",
+                    "source-node": "example:2001:db8::1",
                     "source-link-id": "gs-link",
                     "available": {
                         "schedule": [
@@ -1645,7 +1646,7 @@ Code Examples for "Mobile Satellites"
 
      Figure 12: JSON example of topology schedule for Mobile Satellites
 
-Code examples for "Predictable Moving Vessels"
+A.5 Code examples for "Predictable Moving Vessels"
 
    As described in Section 4.4 of [RFC9657], the "Predictable Moving
    Vessels" involves the movement of vessels with predictable
