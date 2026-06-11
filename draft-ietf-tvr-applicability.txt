@@ -5,9 +5,9 @@
 Time-Variant Routing                                            L. Zhang
 Internet-Draft                                                   J. Dong
 Intended status: Informational                                    Huawei
-Expires: 19 November 2026                                   M. Boucadair
+Expires: 13 December 2026                                   M. Boucadair
                                                                   Orange
-                                                             18 May 2026
+                                                            11 June 2026
 
 
                  Applicability of TVR YANG Data Models
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 November 2026.
+   This Internet-Draft will expire on 13 December 2026.
 
 Copyright Notice
 
@@ -226,7 +226,7 @@ Table of Contents
 
    *  When the schedules are generated in a centralized manner and
       executed in a distributed manner, the YANG module needs to be used
-      to deliver the scheduled topology changes to the managed device.
+      to deliver the scheduled topology changes to the managed devices.
       This scenario is called "Distributed Scenario".
 
    To summarize the key differences between these scenarios are:
@@ -719,7 +719,7 @@ Table of Contents
    interfaces availability/power up and down, and other attributes
    directly or by commands.
 
-   when executing a node schedule, the schedule executor should
+   When executing a node schedule, the schedule executor should
    undertake an action at specified time points as indicated in the
    schedule.
 
@@ -960,11 +960,11 @@ Table of Contents
 
    [I-D.ietf-tvr-schedule-yang]
               Qu, Y., Lindem, A., Kinzie, E., Fedyk, D., and M.
-              Blanchet, "YANG Data Model for Scheduled Attributes", Work
-              in Progress, Internet-Draft, draft-ietf-tvr-schedule-yang-
-              08, 9 February 2026,
+              Blanchet, "A YANG Data Model for Scheduled Attributes",
+              Work in Progress, Internet-Draft, draft-ietf-tvr-schedule-
+              yang-12, 10 June 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-tvr-
-              schedule-yang-08>.
+              schedule-yang-12>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
