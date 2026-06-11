@@ -29,6 +29,11 @@ author:
    fullname: Mohamed Boucadair
    organization: Orange
    email: mohamed.boucadair@orange.com
+-
+   fullname: Jing Wang
+   organization: China Mobile
+   email: wangjingjc@chinamobile.com
+
 
 contributor:
 -
@@ -573,7 +578,7 @@ Partial updates to a schedule are NOT permitted; clients MUST send the complete 
 
 ## Early Warning Mechanism
 
-Early warning mechanism may be used to identify the fault schedule, and prevent the execution of fault schedule in some time-variant scenarios.
+Early warning mechanism may be used to identify the fault schedule, and prevent the execution of fault schedule in some time-variant scenarios with insignificant schedule changes.
 
 When a schedule received by a managed device or managing device shows significant short-term discrepancies in its key
 values (e.g. the frequency of a schedule changes greatly), the device should send feedback to the schedule originator
@@ -702,7 +707,7 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-TBD
+The authors would like to thank Ed Birrane, Adrian Farrel, Luis M. Contreras for their valuable comments and suggestions.
 
 # Appendix A: Code Examples
 {:numbered="false"}
