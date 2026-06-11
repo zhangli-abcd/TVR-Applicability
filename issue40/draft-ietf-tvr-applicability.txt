@@ -5,9 +5,11 @@
 Time-Variant Routing                                            L. Zhang
 Internet-Draft                                                   J. Dong
 Intended status: Informational                                    Huawei
-Expires: 20 November 2026                                   M. Boucadair
+Expires: 13 December 2026                                   M. Boucadair
                                                                   Orange
-                                                             19 May 2026
+                                                                 J. Wang
+                                                            China Mobile
+                                                            11 June 2026
 
 
                  Applicability of TVR YANG Data Models
@@ -50,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 November 2026.
+   This Internet-Draft will expire on 13 December 2026.
 
 Copyright Notice
 
@@ -818,7 +820,7 @@ Table of Contents
 
    Early warning mechanism may be used to identify the fault schedule,
    and prevent the execution of fault schedule in some time-variant
-   scenarios.
+   scenarios with insignificant schedule changes.
 
    When a schedule received by a managed device or managing device shows
    significant short-term discrepancies in its key values (e.g. the
@@ -991,11 +993,11 @@ Table of Contents
 
    [I-D.ietf-tvr-schedule-yang]
               Qu, Y., Lindem, A., Kinzie, E., Fedyk, D., and M.
-              Blanchet, "YANG Data Model for Scheduled Attributes", Work
-              in Progress, Internet-Draft, draft-ietf-tvr-schedule-yang-
-              08, 9 February 2026,
+              Blanchet, "A YANG Data Model for Scheduled Attributes",
+              Work in Progress, Internet-Draft, draft-ietf-tvr-schedule-
+              yang-12, 10 June 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-tvr-
-              schedule-yang-08>.
+              schedule-yang-12>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1074,7 +1076,8 @@ Table of Contents
 
 Acknowledgments
 
-   TBD
+   The authors would like to thank Ed Birrane, Adrian Farrel, Luis M.
+   Contreras for their valuable comments and suggestions.
 
 Appendix A: Code Examples
 
@@ -1762,3 +1765,8 @@ Authors' Addresses
    Mohamed Boucadair
    Orange
    Email: mohamed.boucadair@orange.com
+
+
+   Jing Wang
+   China Mobile
+   Email: wangjingjc@chinamobile.com
