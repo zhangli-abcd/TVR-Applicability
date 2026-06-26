@@ -8,6 +8,7 @@
 <meta content="Li Zhang" name="author">
 <meta content="Jie Dong" name="author">
 <meta content="Mohamed Boucadair" name="author">
+<meta content="Jing Wang" name="author">
 <meta content="
        Time-Variant Routing (TVR) is a routing system that is designed to accommodate predicted topology changes caused by internal or
 external factors. Typical use cases include resource preservation networks, operating efficiency networks, and dynamic
@@ -16,24 +17,25 @@ This document provides examples of how to implement the TVR scheduling capabilit
 which part of the TVR data model is used and why. It also outlines operational and security considerations when deploying
 TVR-based technologies. 
     " name="description">
-<meta content="xml2rfc 3.33.0" name="generator">
+<meta content="xml2rfc 3.34.0" name="generator">
 <meta content="schedule" name="keyword">
 <meta content="YANG module" name="keyword">
 <meta content="applicability" name="keyword">
 <meta content="draft-ietf-tvr-applicability-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.33.0
-    Python 3.12.13
-    ConfigArgParse 1.7
+  xml2rfc 3.34.0
+    Python 3.14.5
+    ConfigArgParse 1.7.5
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 6.0.2
-    platformdirs 4.9.6
+    lxml 6.1.1
+    natsort 8.4.0
+    platformdirs 4.10.0
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.7.0
+    wcwidth 0.8.1
 -->
 <link href="draft-ietf-tvr-applicability.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1056,7 +1058,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Zhang, et al.</td>
-<td class="center">Expires 13 December 2026</td>
+<td class="center">Expires 28 December 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1069,12 +1071,12 @@ svg {
 <dd class="internet-draft">draft-ietf-tvr-applicability-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-06-11" class="published">11 June 2026</time>
+<time datetime="2026-06-26" class="published">26 June 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-12-13">13 December 2026</time></dd>
+<dd class="expires"><time datetime="2026-12-28">28 December 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1088,6 +1090,10 @@ svg {
 <div class="author">
       <div class="author-name">M. Boucadair</div>
 <div class="org">Orange</div>
+</div>
+<div class="author">
+      <div class="author-name">J. Wang</div>
+<div class="org">China Mobile</div>
 </div>
 </dd>
 </dl>
@@ -1132,7 +1138,7 @@ TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 13 December 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 28 December 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1250,6 +1256,9 @@ TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5">
+                <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="auto internal xref">6.5</a>.  <a href="#name-early-warning-mechanism" class="internal xref">Early Warning Mechanism</a></p>
+</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
@@ -1330,8 +1339,7 @@ TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">The Time-Variant Routing (TVR) addresses a need in network environments where
-predictable variations in topology such as the restoration, activation, or loss of network elements are
+<p id="section-1-1">The Time-Variant Routing (TVR) Working Group addresses the need for network environments that experience predictable variations in topology such as the restoration, activation, or loss of network elements are
 part of normal operations. This approach is essential in dynamic networks with mobile nodes, where links may
 be frequently disrupted and re-established due to mobility or regular planned events. It is also essential in networks with highly predictable traffic
 patterns, where links may be powered down to optimize energy use.<a href="#section-1-1" class="pilcrow">¶</a></p>
@@ -1420,8 +1428,8 @@ network devices through TVR node YANG module.<a href="#section-3.1-3.2.1" class=
         </h3>
 <p id="section-3.2-1">As specified in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-12#section-5.3" class="relref">Section 5.3</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>, the "ietf-tvr-topology" YANG module describes a network topology
 with a time-variant availability schedule. This YANG module is also not applicable for all TVR use cases.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
-<p id="section-3.2-2">According to the description of <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-08#section-3.1" class="relref">Section 3.1</a> of [<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span>, the scheduling generation locality
-and execution locality may be centralized or distributed:<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">According to the description of <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-10#section-3.1" class="relref">Section 3.1</a> of [<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span>, the scheduling generation locality
+and execution locality may be either centralized or distributed:<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2-3.1">
             <p id="section-3.2-3.1.1">When the schedules are generated and executed in distributed manner, which means that each node generates and executes its specific
@@ -1429,11 +1437,11 @@ schedules. In this scenario, the topology YANG module is not necessary, the devi
 This scenario is outside of the scope of this document.<a href="#section-3.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.2-3.2">
-            <p id="section-3.2-3.2.1">When the schedules are generated and executed in centralized manner and within the same device, the topology YANG module is also not applicable.
+            <p id="section-3.2-3.2.1">When schedules are generated and executed in a centralized manner within the same device, the topology YANG module is not applicable.
 Therefore, this scenario is also outside of the scope of this document.<a href="#section-3.2-3.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.2-3.3">
-            <p id="section-3.2-3.3.1">When the schedules are generated and executed in centralized manner but on different devices. For example, the schedule is
+            <p id="section-3.2-3.3.1">When the schedules are generated and executed in a centralized manner but on different devices. For example, the schedule is
 generated by the managing device, and executed by the network controller. In this scenario the scheduled topology changes
 need to be sent to the execution device through the topology YANG module. This scenario is called "Centralized Scenario".<a href="#section-3.2-3.3.1" class="pilcrow">¶</a></p>
 </li>
@@ -1634,7 +1642,7 @@ cases requiring lightweight, rapid configuration. RESTCONF utilizes a RESTful in
 approach to network configuration and management. Therefore, RESTCONF may be advantageous in scenarios where quick adjustments
 to schedules are needed or where integration with web-based or cloud-native systems is a priority.<a href="#section-3.4-3" class="pilcrow">¶</a></p>
 <p id="section-3.4-4">CORECONF provides a lightweight, stateless method for managing small network devices where saving bytes to transport a
-message is very important. CORECONF uses CoAP<span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> methods to access structured data defined in YANG which is a complementary to RESTCONF.
+message is very important. CORECONF uses CoAP<span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> methods to access structured data defined in YANG, which is a complementary to RESTCONF.
 Unlike RESTCONF, many CORECONF design decisions are motivated by minimizing the message size. Therefore, CORECONF is advantageous
 in networks with constrained devices and very limited transmission bandwidth, especially in IoT devices that already deployed CoAP.<a href="#section-3.4-4" class="pilcrow">¶</a></p>
 <p id="section-3.4-5">Depending on the type of node in the TVR network, NETCONF would be the preferred protocol for large-scale, critical scheduling
@@ -1675,14 +1683,14 @@ instability in routing tables, and traffic outages.<a href="#section-4-1" class=
 <p id="section-4-4">Different time-variant scenarios may require different granularities of time synchronization. For example, the
 period of traffic and topology changes in tidal networks is usually a day or week. Therefore, a second-level time
 synchronization is enough. However, for the dynamic reachability scenarios, a fine-granularity time synchronization may
-be necessary, as the nodes may moving very fast in some cases (the moving speed of a low earth orbit satellite is more than 7900 m/s)<a href="#section-4-4" class="pilcrow">¶</a></p>
+be necessary, as the nodes may move very fast in some cases (the moving speed of a low earth orbit satellite is more than 7900 m/s)<a href="#section-4-4" class="pilcrow">¶</a></p>
 <p id="section-4-5">Operators <span class="bcp14">SHOULD</span> derive a maximum acceptable time-error bound based on the schedule granularity, execution jitter tolerance, and
 activation window requirements.  For instance, if a schedule has a 1-second activation window and the system can tolerate up to 100ms of
 execution jitter, the time synchronization error <span class="bcp14">MUST</span> be kept well below 900ms.  The chosen time synchronization protocol and
 configuration <span class="bcp14">MUST</span> be capable of meeting this derived bound under all expected network conditions.<a href="#section-4-5" class="pilcrow">¶</a></p>
 <p id="section-4-6">Existing clock synchronization protocols can be classified into hardware-based protocols and software-based protocols.<a href="#section-4-6" class="pilcrow">¶</a></p>
 <p id="section-4-7">Hardware-based protocols often rely on dedicated hardware to ensure clock synchronization, such as Satellite Based Timing Service (SBTS)
-and Precision Time Protocol (PTP). The SBTS includes but not limited to Global Position System (GPS),
+and Precision Time Protocol (PTP). The SBTS includes but is not limited to Global Position System (GPS),
 BeiDou Navigation Satellite System(BDS), Global Navigation Satellite System(GLONASS), and Galileo satellite navigation system.
 Software-based protocols, on the other hand, synchronize clocks through software packages running on systems, such as Network
 Time Protocol (NTP) <span>[<a href="#RFC5905" class="cite xref">RFC5905</a>]</span> and Simple Network Time Protocol (SNTP) <span>[<a href="#RFC4330" class="cite xref">RFC4330</a>]</span>.<a href="#section-4-7" class="pilcrow">¶</a></p>
@@ -1693,7 +1701,7 @@ Time Protocol (NTP) <span>[<a href="#RFC5905" class="cite xref">RFC5905</a>]</sp
 <a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-hardware-based-time-synchro" class="section-name selfRef">Hardware-based Time Synchronization Mechanisms</a>
         </h3>
 <p id="section-4.1-1">Hardware-based protocols typically have higher precision and stability, but also have higher cost due to the dedicated hardware. SBTS and PTP are the typical hardware-based time synchronization mechanisms.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
-<p id="section-4.1-2">SBTS provides a precise time synchronization service based on the signals transmitted by the satellites. SBTS can realize the micro-second level time synchronization among the devices installed with SBTS reviver hardware.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
+<p id="section-4.1-2">SBTS provides a precise time synchronization service based on the signals transmitted by the satellites. SBTS can realize the micro-second level time synchronization among the devices installed with SBTS receiver hardware.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
 <p id="section-4.1-3">PTP is a network protocol that complies with the IEEE 1588 standard and is used to implement high-precision time synchronization between network nodes. PTP implements time synchronization by transmitting synchronization messages between master and slave devices. Based on the hardware timestamp, the precision of time synchronization is much higher than that of NTP, and can reach the sub-microsecond level or even tens of nanoseconds.  When deploying PTP in TVR networks, the managing devices should be the master and the network devices and controller should be the slaves which get time from the master.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
 <p id="section-4.1-4">Both SBTS and PTP can realize micro-second level time synchronization. Depending on the features of TVR network, the SBTS would be the preferred mechanisms for
 large-scale, high dynamic and open-air networks, especially networks with unreliable links as it does not require network links to exchange time information.
@@ -1810,7 +1818,7 @@ different formats:<a href="#section-5.1-2" class="pilcrow">¶</a></p>
             <p id="section-5.1-3.4.1">Link schedule entry;<a href="#section-5.1-3.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.1-4">The detailed format and fields of different types of schedule entries could reference to the definitions of the corresponding
+<p id="section-5.1-4">The detailed format and fields of different types of schedule entries could refer to the definitions of the corresponding
 YANG modules.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1819,12 +1827,18 @@ YANG modules.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
         <h3 id="name-schedule-operations">
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-schedule-operations" class="section-name selfRef">Schedule Operations</a>
         </h3>
-<p id="section-5.2-1">This section provides general requirements for using the TVR schedules.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2-2">The schedule database should support the add, update, and delete operations.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
-<p id="section-5.2-3">When adding or updating a schedule entry, the execution node needs to check whether resource conflicts exist between the
-current schedule and existing schedules. If a conflict exists, the operation should be failed.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
-<p id="section-5.2-4">Schedules are updated and deleted based on schedule IDs. Therefore, schedule IDs must be unique in a time-variant domain.
-This can be handled, e.g., by a dedicated allocation agent within the time-variant domain.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
+<p id="section-5.2-1">As the core support for the operation of TVR schedules, the schedule database should be equipped with comprehensive operational
+capabilities. It should support the addition, update, and deletion of schedule operations, ensuring that schedule data
+can be adjusted promptly in accordance with actual requirements so as to meet the demands of dynamic scheduling scenarios.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">When conducting operations to add or update schedule entries, the relevant execution devices should strictly verify whether
+conflicts exist between the current schedule entry and existing schedule entries stored in the database. If a conflict
+is detected, the addition or update operation should be terminated immediately with a failure notification, and the
+operation should not be re-executed until the conflict is properly resolved.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">Furthermore, both the update and deletion of schedules rely on the schedule IDs as the unique identifier; therefore,
+the schedule IDs should remain unique within a time-variant domain. This is a critical prerequisite for ensuring the
+accuracy of scheduling operations. For example, ID management can be implemented through a dedicated allocation agent
+within the time-variant domain. This agent is responsible for the allocation of schedule IDs, thereby preventing ID
+duplication at the source.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1855,8 +1869,8 @@ events consistently and implement time-based policies correctly.<a href="#sectio
 <p id="section-6-3">Therefore, network time accuracy and time-stamped data models are critical to ensure that coordinated network events
 and scheduled path decisions across the network are based on a consistent time reference. Without accurate time sync,
 nodes could apply different schedules, causing routing inconsistencies, path flapping, or packet loss.<a href="#section-6-3" class="pilcrow">¶</a></p>
-<p id="section-6-4">Since the all the schedules are generated by the managing devices, it is necessary to make sure that the managing
-device and managed devices within a schedule domain (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-08#section-2.1.1" class="relref">Section 2.1.1</a> of [<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span>) are synchronized
+<p id="section-6-4">Since all schedules are generated by the managing devices, it is necessary to make sure that the managing
+device and managed devices within a schedule domain (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-10#section-2.1.1" class="relref">Section 2.1.1</a> of [<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span>) are synchronized
 with the same time source. It ensures they have the same notion of when that is.<a href="#section-6-4" class="pilcrow">¶</a></p>
 <div id="schedule-dissemination">
 <section id="section-6.1">
@@ -1965,6 +1979,20 @@ Partial updates to a schedule are NOT permitted; clients <span class="bcp14">MUS
 </div>
 </section>
 </div>
+<div id="early-warning-mechanism">
+<section id="section-6.5">
+        <h3 id="name-early-warning-mechanism">
+<a href="#section-6.5" class="section-number selfRef">6.5. </a><a href="#name-early-warning-mechanism" class="section-name selfRef">Early Warning Mechanism</a>
+        </h3>
+<p id="section-6.5-1">Early warning mechanism may be used to identify the fault schedule, and prevent the execution of fault schedule in some time-variant scenarios with insignificant schedule changes.<a href="#section-6.5-1" class="pilcrow">¶</a></p>
+<p id="section-6.5-2">When a schedule received by a managed device or managing device shows significant short-term discrepancies in its key
+values (e.g. the frequency of a schedule changes greatly), the device should send feedback to the schedule originator
+to confirm whether this schedule arises from a system failure or operator error. Upon receiving the feedback, the
+schedule originator should inspect logs to confirm whether a fault has occurred or notify users to get the confirmation.
+Only when the schedule is confirmed, then the receiving device can execute this schedule. The device received schedules
+and the schedule originator may be independent devices or independent components within one device.<a href="#section-6.5-2" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="security-considerations">
@@ -1987,7 +2015,7 @@ process. For example, an attacker could intentionally delay or corrupt time sign
 to routing errors and widespread denial-of-service (DoS) attacks.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
 <p id="section-7.1-2">This kind of attack could be mitigated by the redundant time synchronization mechanisms, for example, multiple NTP sources
 or multiple time synchronization protocols could be deployed in a TVR network. The network devices could guarantee the
-correctness of the time by checking whether the time signals from different sources or protocols.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
+correctness of the time by cross-checking time signals obtained from different sources or protocols.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
 <p id="section-7.1-3">In addition, peer authentication is also an important way to protect the time signals being tampered by
 attackers. Some security extensions for time synchronization protocols (such as NTS (Network Time Security)) are
 recommended to be applied.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
@@ -2125,7 +2153,7 @@ anomaly detection mechanisms to identify suspicious patterns
 <dl class="references">
 <dt id="I-D.ietf-tvr-requirements">[I-D.ietf-tvr-requirements]</dt>
         <dd>
-<span class="refAuthor">King, D.</span>, <span class="refAuthor">Contreras, L. M.</span>, <span class="refAuthor">Sipos, B.</span>, and <span class="refAuthor">L. Zhang</span>, <span class="refTitle">"Time-Variant Routing (TVR) Requirements"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tvr-requirements-08</span>, <time datetime="2026-03-02" class="refDate">2 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-08">https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-08</a>&gt;</span>. </dd>
+<span class="refAuthor">King, D.</span>, <span class="refAuthor">Contreras, L. M.</span>, <span class="refAuthor">Sipos, B.</span>, and <span class="refAuthor">L. Zhang</span>, <span class="refTitle">"Time-Variant Routing (TVR) Requirements"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tvr-requirements-10</span>, <time datetime="2026-06-24" class="refDate">24 June 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-10">https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-10</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-tvr-schedule-yang">[I-D.ietf-tvr-schedule-yang]</dt>
         <dd>
@@ -2206,7 +2234,7 @@ anomaly detection mechanisms to identify suspicious patterns
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-A-1">TBD<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">The authors would like to thank Ed Birrane, Adrian Farrel, Luis M. Contreras for their valuable comments and suggestions.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="appendix-a-code-examples">
@@ -2967,6 +2995,14 @@ JSON example of this scenario can refer to the JSON example of the "Mobile Satel
 <div class="email">
 <span>Email:</span>
 <a href="mailto:mohamed.boucadair@orange.com" class="email">mohamed.boucadair@orange.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Jing Wang</span></div>
+<div dir="auto" class="left"><span class="org">China Mobile</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:wangjingjc@chinamobile.com" class="email">wangjingjc@chinamobile.com</a>
 </div>
 </address>
 </section>
