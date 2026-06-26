@@ -587,8 +587,6 @@ schedule originator should inspect logs to confirm whether a fault has occurred 
 Only when the schedule is confirmed, then the receiving device can execute this schedule. The device received schedules
 and the schedule originator may be independent devices or independent components within one device.
 
-Author's note: how the implement the early warning mechanism will be provided in future.
-
 # Security Considerations {#security-considerations}
 
 The integration of time-variant mechanisms in network operations presents distinct security challenges that require thorough
