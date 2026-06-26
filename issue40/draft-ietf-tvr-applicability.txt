@@ -5,11 +5,11 @@
 Time-Variant Routing                                            L. Zhang
 Internet-Draft                                                   J. Dong
 Intended status: Informational                                    Huawei
-Expires: 13 December 2026                                   M. Boucadair
+Expires: 28 December 2026                                   M. Boucadair
                                                                   Orange
                                                                  J. Wang
                                                             China Mobile
-                                                            11 June 2026
+                                                            26 June 2026
 
 
                  Applicability of TVR YANG Data Models
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 December 2026.
+   This Internet-Draft will expire on 28 December 2026.
 
 Copyright Notice
 
@@ -834,9 +834,6 @@ Table of Contents
    schedule originator may be independent devices or independent
    components within one device.
 
-   Author's note: how the implement the early warning mechanism will be
-   provided in future.
-
 7.  Security Considerations
 
    The integration of time-variant mechanisms in network operations
@@ -987,9 +984,9 @@ Table of Contents
    [I-D.ietf-tvr-requirements]
               King, D., Contreras, L. M., Sipos, B., and L. Zhang,
               "Time-Variant Routing (TVR) Requirements", Work in
-              Progress, Internet-Draft, draft-ietf-tvr-requirements-08,
-              2 March 2026, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-tvr-requirements-08>.
+              Progress, Internet-Draft, draft-ietf-tvr-requirements-10,
+              24 June 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-tvr-requirements-10>.
 
    [I-D.ietf-tvr-schedule-yang]
               Qu, Y., Lindem, A., Kinzie, E., Fedyk, D., and M.
