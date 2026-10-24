@@ -51,7 +51,7 @@ contributor:
   email: liupengyjy@chinamobile.com
 -
   fullname: Tony Li
-  organization: Juniper Networks
+  organization: Hewlett Packard Enterprise
   email: tony.li@tony.li
 
 normative:
