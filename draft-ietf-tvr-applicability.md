@@ -15,6 +15,7 @@ keyword:
  - schedule
  - YANG module
  - applicability
+ - time-variant routing
 
 author:
 -
@@ -22,17 +23,17 @@ author:
   organization: Huawei
   email: zhangli344@huawei.com
 -
-   fullname: Jie Dong
-   organization: Huawei
-   email: jie.dong@huawei.com
+  fullname: Jie Dong
+  organization: Huawei
+  email: jie.dong@huawei.com
 -
-   fullname: Mohamed Boucadair
-   organization: Orange
-   email: mohamed.boucadair@orange.com
+  fullname: Mohamed Boucadair
+  organization: Orange
+  email: mohamed.boucadair@orange.com
 -
-   fullname: Jing Wang
-   organization: China Mobile
-   email: wangjingjc@chinamobile.com
+  fullname: Jing Wang
+  organization: China Mobile
+  email: wangjingjc@chinamobile.com
 
 
 contributor:
@@ -62,10 +63,9 @@ informative:
 
 Time-Variant Routing (TVR) is a routing system that is designed to accommodate predicted topology changes caused by internal or
 external factors. Typical use cases include resource preservation networks, operating efficiency networks, and dynamic
-reachability networks.
-This document provides examples of how to implement the TVR scheduling capabilities for key use cases. It describes
-which part of the TVR data model is used and why. It also outlines operational and security considerations when deploying
-TVR-based technologies.
+reachability networks. TVR data model is defined to manage network resources and topologies with scheduled attribute.
+
+This document describes when and which part of the TVR data model is applicable and why. It also outlines the necessary IETF ancillary technologies, operational and security considerations when deploying TVR-based technologies. Several examples of how to implement the TVR scheduling capabilities for key use cases are alos provided in this document.
 
 --- middle
 
@@ -76,10 +76,8 @@ part of normal operations. This approach is essential in dynamic networks with m
 be frequently disrupted and re-established due to mobility or regular planned events. It is also essential in networks with highly predictable traffic
 patterns, where links may be powered down to optimize energy use.
 
-This document provides examples of implementing TVR scheduling capabilities in a set of use cases. It
-demonstrates the applicability of the TVR data model, methods for disseminating the TVR schedules, and the
-necessary IETF ancillary technologies for network environments, such as time synchronization and policy,
-that support TVR capabilities.
+This document describes when and which part of the TVR data model is applicable and why. It also outlines the necessary IETF ancillary technologies, operational and security considerations when deploying TVR-based technologies.
+Finally, it provides examples of implementing TVR scheduling capabilities in a set of use cases. 
 
 The examples assume YANG instance data encoding per {{!RFC7951}} for JSON and the TVR schedule YANG modules.
 
@@ -89,54 +87,51 @@ The examples assume YANG instance data encoding per {{!RFC7951}} for JSON and th
 
 This document uses the following terms:
 
-Managing Device:
+Managing Entity:
 : A centralized entity responsible for generating
-and maintaining TVR schedules.  The managing device distributes
-schedules to network controllers and/or managed devices using the
-TVR YANG modules.  In some deployments, the managing device may
+and maintaining TVR schedules.  The managing entity distributes
+schedules to network controllers and/or managed entities using the
+TVR YANG modules.  In some deployments, the managing entity may
 also serve as the network controller.
 
 Network Controller:
-: An entity that receives topology schedules
-from the managing device and performs route computation based on
-time-variant network conditions.  The controller then distributes
-routing results to managed devices.
+: An entity that receives topology schedules from the managing entity and performs TVR route computation based on time-variant network conditions.
+The controller then distributes computed routing results to managed entities.
 
-Managed Device:
+Managed Entity:
 : A network device (e.g., router or switch) that
 receives schedules and/or routing instructions, and executes them
-according to the specified time windows.  Managed devices may
-receive schedules directly from the managing device or routing
+according to the specified time windows.  Managed entities may
+receive schedules directly from the managing entity or routing
 results from the network controller.
 
 # Applicability of the TVR YANG Model
 
-The TVR data model {{!I-D.ietf-tvr-schedule-yang}} defines the TVR node and topology YANG modules. This
-section discusses the applicability of these two modules separately.
+The TVR YANG data model {{!I-D.ietf-tvr-schedule-yang}} defines three related modules: "ietf-tvr-schedule", "ietf-tvr-node", and "ietf-tvr-topology".
+"ietf-tvr-schedule" is the basic module and can be used in the other two modules.
+
+This section discusses the applicability of "ietf-tvr-node" and "ietf-tvr-topology" separately.
 
 ## Applicability of TVR Node YANG Module {#applicability-node-yang}
 
-As specified in {{Section 5.2 of !I-D.ietf-tvr-schedule-yang}}, the "ietf-tvr-node" YANG module is a device model which is designed to manage a
-single node with scheduled attributes. It is not necessary in all TVR use cases.
+As specified in {{Section 3.2 of !I-D.ietf-tvr-schedule-yang}}, the "ietf-tvr-node" YANG module is a device model and designed to manage a single node with scheduled attributes. It is not necessary in all TVR use cases.
 
-The applicability of TVR node YANG module depends on whether changes in the attributes of network devices are caused by
-the environment or centrally controlled:
+The applicability of the TVR node YANG module depends on whether scheduled attribute changes are centrally instructed or autonomously determined by the node:
 
-- When the changes are caused by the environment changes (such as movement, sunlight changes, and weather changes) or
-by decisions made by the devices themselves, the network device does not need to get the managed information through the YANG module. For example,
-when the distance between two nodes' is too far to establish a connection, then the link is down. Another case is that when the weather is
+- When attribute changes are driven by local environmental conditions or autonomous local decisions (node self-determined), the node does not need to receive these planned changes via the TVR node YANG module. For example,
+when the distance between two nodes is too far to establish a connection, then the link is down. Another case is that when the weather is
 not good and leading to the link degradation, then the nodes decide to disconnect the link.
 
-- When the changes are caused by the centralized control (such as a controller, or an orchestrator), the devices themselves
-do not know when to adjust the attributes. In this case, the scheduled attributes changes should be delivered to the
-network devices through TVR node YANG module.
+- When attribute changes are centrally planned and instructed by the managing entity,
+the node does not autonomously know the timing of attribute adjustments.
+In this case, the scheduled attribute changes are delivered to the network device via the TVR node YANG module.
 
 ## Applicability of TVR Topology YANG Module {#applicability-topology-yang}
 
 As specified in {{Section 5.3 of !I-D.ietf-tvr-schedule-yang}}, the "ietf-tvr-topology" YANG module describes a network topology
 with a time-variant availability schedule. This YANG module is also not applicable for all TVR use cases.
 
-According to the description of {{Section 3.1 of !I-D.ietf-tvr-requirements}}, the scheduling generation locality
+According to the description of {{Section 2.1 of !I-D.ietf-tvr-requirements}}, the scheduling generation locality
 and execution locality may be either centralized or distributed:
 
 - When the schedules are generated and executed in distributed manner, which means that each node generates and executes its specific
@@ -144,35 +139,35 @@ schedules. In this scenario, the topology YANG module is not necessary, the devi
 This scenario is outside of the scope of this document.
 
 - When schedules are generated and executed in a centralized manner within the same device, the topology YANG module is not applicable.
-Therefore, this scenario is also outside of the scope of this document.
+This scenario is also outside of the scope of this document.
 
 - When the schedules are generated and executed in a centralized manner but on different devices. For example, the schedule is
-generated by the managing device, and executed by the network controller. In this scenario the scheduled topology changes
+generated by the managing entity, and executed by the network controller. In this scenario, the scheduled topology changes
 need to be sent to the execution device through the topology YANG module. This scenario is called "Centralized Scenario".
 
 - When the schedules are generated in a centralized manner and executed in a distributed manner, the YANG module
-needs to be used to deliver the scheduled topology changes to the managed devices. This scenario is called "Distributed Scenario".
+needs to be used to deliver the scheduled topology changes to the managed entities. This scenario is called "Distributed Scenario".
 
 To summarize the key differences between these scenarios are:
 
 - Centralized Scenario: Schedules are generated by the managing
-device, stored in the network controller, and executed by network
+entity, stored in the network controller, and executed by network
 devices.  Route computation runs in the controller, and routing
 results are pushed to the network devices.
 
 - Distributed Scenario: Schedules are generated by the managing
-device, stored in and executed by the network devices.  Route
+entity, stored in and executed by the network devices.  Route
 computation runs in the network devices themselves.
 
 ### Interactions in Centralized Scenario {#centralized-scenario}
 
-In the centralized scenario, the network managing device generates and maintains schedules, the routing application
+In the centralized scenario, the network managing entity generates and maintains schedules, the routing application
 is deployed in the network controller, and the network devices execute the schedules and routing results.
 The following figure shows the components of the centralized scenario.
 
 ~~~
  +-----------------------------------------------------------------+
- |                        Managing Device                          |
+ |                        Managing Entity                          |
  +-----------------------------------------------------------------+
             |                                           |
 Topology YANG Module                        Node YANG Module(optional)
@@ -183,52 +178,51 @@ Topology YANG Module                        Node YANG Module(optional)
 ~~~
 {: #ref-to-fig1  title="Components of Centralized Scenario"}
 
-A centralized scenario involves the interaction between the managing device and network controller, the managing
-device and network devices, and the controller and network devices.
+A centralized scenario involves the interaction between the managing entity and network controller, the managing
+entity and network devices, and the controller and network devices.
 
-The managing device may need to deliver node-specific schedules to network devices by TVR Schedule Node YANG
+The managing entity may need to deliver node-specific schedules to network devices by "ietf-tvr-node"
 module {{Section 5.2 of ?I-D.ietf-tvr-schedule-yang}}. This is optional and only necessary when the node attribute changes
-are instructed by the controller. Meanwhile, the network devices need to report their own status data to the managing device.
+are instructed by the controller. Meanwhile, the network devices need to report their own status data to the managing entity.
 
-The managing device needs to deliver the schedules of network topology to the network controller by the TVR Network
-Topology YANG module {{Section 5.3 of ?I-D.ietf-tvr-schedule-yang}}, so that the routing application in the controller
+The managing entity needs to deliver the schedules of network topology to the network controller by "ietf-tvr-topology" module {{Section 5.3 of ?I-D.ietf-tvr-schedule-yang}}, so that the routing application in the controller
 can consider the impact of topology changes on routes when calculating routes.
 
-The network controller should deliver the route calculation results to the network devices. The format of the routing
+The network controller should deliver the computed routing results to the network devices. The format of the routing
 results depend on the protocols deployed (BGP, PCEP, etc.). Routing results MAY be delivered ahead and activated using an explicit time reference (e.g., absolute UTC), or via pre-staging plus an activation trigger.
 
 ### Interactions in Distributed Scenario {#distributed-scenario}
 
-In the distributed scenario, the managing device generates and maintains schedules, the routing application
+In the distributed scenario, the managing entity generates and maintains schedules, the routing application
 is deployed in the network devices which also executes schedules and route calculation.
 
 ~~~
  +-------------------------------------------------+
- |                  Managing Device                |
+ |                  Managing Entity                |
  +-------------------------------------------------+
                           |
                Topology YANG Module and
                Node YANG Module(optional)
                           |
  +-----------------------\|/-----------------------+
- |         Managed Devices (Network Devices)        |
+ |         Managed Entities (Network Devices)      |
  +-------------------------------------------------+
 ~~~
 {: #ref-to-fig2  title="Components of Distributed Scenario"}
 
-The distributed model only involves the interaction between managing devices and network devices(managed devices).
+The distributed model only involves the interaction between managing entities and network devices(managed entities).
 
-The managing device need to deliver network topology schedules to all the network devices by TVR Network Topology YANG
-module for route calculation. The managing device may also need to deliver node-specific schedules to network devices by
-TVR Schedule Node YANG module, this is optional and only necessary when the node attributes changes are instructed by
-the controller. The network devices need to report their own status data to the managing device.
+The managing entity delivers network topology schedules to all the network devices by "ietf-tvr-topology"
+module for route calculation. The managing entity may also deliver node-specific schedules to network devices by
+"ietf-tvr-node" module, this is optional and only necessary when the node attributes changes are instructed by
+the controller. The network devices report their own status data to the managing entity.
 
 ## Encoding of the YANG Model
 
 The TVR data model {{?I-D.ietf-tvr-schedule-yang}} can manage network resources and topologies with scheduled
 attributes. There are modules defined in the TVR data model, these are:
 
-- The "ietf-tvr-schedule" module contains the schedule YANG definitions. This module uses groupings from {{?I-D.ietf-netmod-schedule-yang}} data model;
+- The "ietf-tvr-schedule" module contains the schedule YANG definitions. This module uses groupings from {{?RFC9922}} data model;
 - The "ietf-tvr-topology" module defines a network topology with a time-variant availability schedule;
 - The "ietf-tvr-node" module is to be used to manage the scheduled attributes of a single node.
 
@@ -243,11 +237,11 @@ for schedule provisioning and MAY read from the operational datastore
 to retrieve execution status and applied schedules.  Clients can use
 NMDA (Network Management Datastore Architecture, {{!RFC8342}})
 operations to distinguish between intended configuration and actual
-operational state.  For example, the managing device writes schedules
+operational state.  For example, the managing entity writes schedules
 to the intended or running datastore, and network devices report
 execution status via the operational datastore.
 
-A TVR scenario example is provided below, where a wireless link is shut down for 12 hours, from 19:00 to 7am the next day.
+An example for the encoding of "ietf-tvr-node" is provided below, where a wireless link is shut down for 12 hours, from 19:00 to 7am the next day.
 The schedule is identified using a unique identifier that is conveyed in 'schedule-id', and the recurring schedule can be applied for multiple days using Coordinated
 Universal Time (UTC).
 More detailed examples of the JSON example is provided in this documents Appendix.
@@ -266,7 +260,6 @@ More detailed examples of the JSON example is provided in this documents Appendi
                 {
                     "name":"Wlan0",
                     "default-available":false,
-                    "default-bandwidth":
                     "attribute-schedule":{
                         "schedule":[
                             {
@@ -291,7 +284,7 @@ More detailed examples of the JSON example is provided in this documents Appendi
 }
 ~~~
 
-The methods for disseminating and propagating the generated schedules are discussed in the following subsections.
+The methods for disseminating and propagating the generated schedules are discussed in the following subsection.
 
 ## Management Protocols for TVR
 
@@ -329,18 +322,17 @@ The security aspects of these management protocols, including their strengths an
 # Time Synchronization
 
 Time Synchronization is fundamental for ensuring that TVR mechanisms, which depend on highly accurate timing, function as intended across
-an entire network. Misalignment in time could lead to serious routing issues, including inefficiency in path forwarding,
-instability in routing tables, and traffic outages.
-
-Time Synchronization mechanisms will be used to ensure:
+an entire network. Time Synchronization mechanisms will be used to ensure:
 
  - Coordination of Planned Network Events;
 
- - Verification of TVR Data Model Time Stamps
+ - Verification of TVR Data Model Time Stamps;
 
  - Accurate Scheduling of Paths;
 
- - Fault Tolerance.
+Therefore, network time accuracy and time-stamped data models are critical to ensure that coordinated network events and scheduled path decisions across the network are based on a consistent time reference. Without accurate time sync, nodes could apply different schedules, causing routing inconsistencies, path flapping, or packet loss.
+
+Since all schedules are generated by the managing devices, it is necessary to make sure that the managing device and managed devices within a schedule domain ({{Section 2.1.1 of !I-D.ietf-tvr-requirements}}) are synchronized with the same time source. It ensures they have the same notion of when that is.
 
 Different time-variant scenarios may require different granularities of time synchronization. For example, the
 period of traffic and topology changes in tidal networks is usually a day or week. Therefore, a second-level time
@@ -368,7 +360,7 @@ Hardware-based protocols typically have higher precision and stability, but also
 
 SBTS provides a precise time synchronization service based on the signals transmitted by the satellites. SBTS can realize the micro-second level time synchronization among the devices installed with SBTS receiver hardware.
 
-PTP is a network protocol that complies with the IEEE 1588 standard and is used to implement high-precision time synchronization between network nodes. PTP implements time synchronization by transmitting synchronization messages between master and slave devices. Based on the hardware timestamp, the precision of time synchronization is much higher than that of NTP, and can reach the sub-microsecond level or even tens of nanoseconds.  When deploying PTP in TVR networks, the managing devices should be the master and the network devices and controller should be the slaves which get time from the master.
+PTP is a network protocol that complies with the IEEE 1588 standard and is used to implement high-precision time synchronization between network nodes. PTP implements time synchronization by transmitting synchronization messages between master and slave devices. Based on the hardware timestamp, the precision of time synchronization is much higher than that of NTP, and can reach the sub-microsecond level or even tens of nanoseconds.  When deploying PTP in TVR networks, the managing entities should be the master and the network devices and controller should be the slaves which get time from the master.
 
 Both SBTS and PTP can realize micro-second level time synchronization. Depending on the features of TVR network, the SBTS would be the preferred mechanisms for
 large-scale, high dynamic and open-air networks, especially networks with unreliable links as it does not require network links to exchange time information.
@@ -386,8 +378,8 @@ server synchronized to an authoritative clock runs at stratum 1. Such NTP server
 to provide clock synchronization for other devices on the network. Stratum 2 servers obtain time from stratum 1 servers,
 stratum 3 servers obtain time from stratum 2 servers, and so on.
 
-In TVR use cases, the managing device functions as a level-1 NTP server and synchronized to an authoritative clock
-source. The network controller and network devices behave as clients to obtain accurate time from the managing device.
+In TVR use cases, the managing entity functions as a level-1 NTP server and synchronized to an authoritative clock
+source. The network controller and network devices behave as clients to obtain accurate time from the managing entity.
 {{ref-to-fig3}} shows an NTP deployment scenario for obtaining clock from a GPS clock source.
 
 ~~~
@@ -396,7 +388,7 @@ source. The network controller and network devices behave as clients to obtain a
                            +--------------------+
                                      |
                +--------------------\|/------------------+
-Stratum 1      |             Managing Device             |
+Stratum 1      |             Managing Entity             |
                +-----------------------------------------+
                      |                             |
                      |                             |
@@ -418,8 +410,8 @@ seconds. SNTP is also preferred in large-scale networks with reliable links, lon
 
 # Schedule Database
 
-The schedule database is used to store and maintain schedules, the database may be deployed on a managing device
-and managed devices based on requirements.
+The schedule database is used to store and maintain schedules, the database may be deployed on a managing entity
+and managed entities based on requirements.
 
 The source of the schedule database may be created from multiple sources, for example, configuration from an administrator
 or YANG model from the management interface. The schedule entries of different databases may be different, but the
@@ -432,7 +424,7 @@ consistent:
  - Schedule entries are generated at different devices, but there is a synchronization mechanism to synchronize the
 schedule databases among devices.
 
-Option 1 is simplest and easy to implement. In a time-variant domain, the managing device may receive scheduling
+Option 1 is simplest and easy to implement. In a time-variant domain, the managing entity may receive scheduling
 requests and generate all schedule entries. Then the schedule entries are delivered to the necessary network devices
 in the domain through the TVR YANG model.
 
@@ -444,7 +436,7 @@ Detailed schedule distribution mechanisms beyond YANG-based configuration are ou
 ## Data Structure
 
 {{!I-D.ietf-tvr-schedule-yang}} defines a TVR Node and TVR Topology YANG modules. The Node YANG module
-includes node power schedules and interface schedules. The Topology YANG module includes node schedules and link schedules.
+includes node power schedules and interface schedules. The Topology YANG module includes node schedules and link (termination point) schedules.
 
 Based on the preceding four schedule types, the schedule database should contain four types of schedule entries in
 different formats:
@@ -455,7 +447,7 @@ different formats:
 
  - Node schedule entry;
 
- - Link schedule entry;
+ - Termination-point schedule entry;
 
 The detailed format and fields of different types of schedule entries could refer to the definitions of the corresponding
 YANG modules.
@@ -483,33 +475,15 @@ Several operational considerations exist when using TVR techniques and data mode
 some high-level observations and more detailed sub-sections for specific consideration related to schedule dissemination,
 execution, and recovery in case of failure to apply a schedule or partial change.
 
- - Coordinated Network Events: TVR often coordinates routing changes anticipating events like predictable low-traffic
-periods or link downtimes (e.g., scheduled maintenance or traffic demand).
-
- - Accurate Scheduling of Paths: TVR schedules capable routers and network nodes will dynamically adjust forwarding paths
-based on planned changes in link availability or network conditions.
-
- - Time-Stamped Data Models: TVR will require the use time-stamped data models (e.g., schedules for link changes or
-availability windows) to make interface management decisions. This ensures that all TVR nodes interpret the timing of
-events consistently and implement time-based policies correctly.
-
-Therefore, network time accuracy and time-stamped data models are critical to ensure that coordinated network events
-and scheduled path decisions across the network are based on a consistent time reference. Without accurate time sync,
-nodes could apply different schedules, causing routing inconsistencies, path flapping, or packet loss.
-
-Since all schedules are generated by the managing devices, it is necessary to make sure that the managing
-device and managed devices within a schedule domain ({{Section 2.1.1 of !I-D.ietf-tvr-requirements}}) are synchronized
-with the same time source. It ensures they have the same notion of when that is.
-
 ## Schedule Dissemination
 
 When distributing schedules, the following problems should be considered:
 
-- The managed devices that receives a schedule should have the ability to execute the schedule. If the device does not support schedule
+- The managed entities that receives a schedule should have the ability to execute the schedule. If the device does not support schedule
 execution, it SHOULD reject the update with an appropriate error, or ignore it if the management interface does not support error reporting.
 
 - The distributing of a schedule SHOULD be delivered at least x (operator-defined) time before the earliest start time of the schedule, this ensures that the
-managed device has enough time to execute this schedule.
+managed entity has enough time to execute this schedule.
 
 ## Schedule Execution
 
@@ -527,65 +501,88 @@ When executing a node schedule, the schedule executor should undertake an action
 
 Topology schedule execution means a node take some measures before or upon the scheduled topology changes.
 
-The schedule executor should understand the consequences of the schedule execution. The addition and deletion of the topology
-need to be considered separately.
+The schedule executor should understand the consequences of the schedule execution. The execution actions for different kind of topology changes should be considered separately.
 
-A link coming up or a node joining a topology should not have any functional change until the change is proven to be fully
-operational. The routing paths may be pre-computed but should not be installed before all the topology changes are
-confirmed to be operational. Pre-computation MAY be used, operators should weigh compute cost versus reduced activation latency. The network may choose to
-not do any pre-installation or pre-computation in reaction to topological additions at a small cost of some operational
-efficiency.
+- A link coming up or a node joining a topology should not have any functional change until the change is proven to be fully operational. The routing paths may be pre-computed but should not be installed before all the topology changes are confirmed to be operational. The network may choose to not do any pre-installation or pre-computation in reaction to topological additions at a small cost of some operational efficiency. 
 
-Topological deletions are an entirely different matter. If a link or node is to be removed from the topology, then the
-network should act before the anticipated change to route traffic around the expected topological change. Specifically,
-at some point before the planned topology change, the routing paths should be pre-computed and installed before the
-topology change takes place. The required time to perform such planned action will vary depending on the exact network
+- If a link or node is to be removed from the topology, then the
+network should act before the anticipated change to route traffic around the expected topological change. The required time to perform such planned action will vary depending on the exact network
 and configuration. When using an IGP or other distributed routing protocols, the affected links may be set to a high
 metric to direct traffic to alternate paths. This type of change does require some time to propagate through the
 network, so the metric change should be initiated far enough in advance that the network converges before the actual
 topological change.
 
-In addition to the addition and deletion of topology, a schedule may indicate the attributes change of some links, such as bandwidth and delay.
-If an attribute changes better (such as latency decrease and bandwidth increase), then the executor should take actions later
+- If an attribute changes better (such as latency decrease and bandwidth increase), then the executor should take actions later
 or until the topology change is proven to be fully operational.
-If an attribute changes worse (such as latency increase and bandwidth decrease), then the node should react to it before the change take place.
+
+- If an attribute changes worse (such as latency increase and bandwidth decrease), then the node should react to it before the change take place.
 
 ## Schedule Recovery
 
 Schedule recovery means when a node lost its specific schedule data, it should be able to recover these schedule data.
-Typical scenarios include data loss due to device restart, disconnection from managing devices and failure to receive new
-schedules for a long time. In these scenarios, once the connection between the managed device and the managing device is
-established again, the managing device needs to re-distribute all schedules that start time is later than the current moment
-to the managed device after time synchronization is finished.
+Typical scenarios include data loss due to device restart, disconnection from managing entities and failure to receive new
+schedules for a long time. In these scenarios, once the connection between the managed entity and the managing entity is
+established again, the managing entity needs to re-distribute all schedules that start time is later than the current moment
+to the managed entity after time synchronization is finished.
 
-## Error Handling
+## Consistency Verification
 
-### Consistency Error
-
-Consistency error means that some time parameters conflict with other time parameters in the same schedule or in other schedules.
+Consistency within a schedule or among different schedules is the precondition for schedule execution. It is very necessary to do verification for inconsistencies. A inconsistency means that some time parameters conflict with other time parameters in the same schedule or in other schedules.
 
 - If the time parameters of a schedule conflict with each other, for example, the period-start later than period-end,
 the duration is longer than the product of frequency and interval, or the duration is longer than utc-until, then the schedule
-should be discarded and an error should be returned to the schedule originator (e.g., the managing device or management client).
+should be discarded and an error should be returned to the schedule originator (e.g., the managing entity or management client).
 
-- If there is a conflict between schedules with different schedule IDs, for example, schedule1 indicates that interface B is closed at time A, but
-schedule2 indicates that interface B is open at time A, then only the conflicting update should be rejected (retaining the last-known-good schedule).
-An error should be returned to the schedule originator, and the conflict MUST be
-logged for audit purposes.
-If two schedules have the same schedule ID, then it is considered as an update of the former schedule. Updates with the same schedule ID SHALL completely replace the previous schedule (full replacement, not merge).
-Implementations SHOULD support versioning or etag-based mechanisms to detect concurrent updates.
-Partial updates to a schedule are NOT permitted; clients MUST send the complete schedule definition.
+- If there is a conflict between schedules with different schedule IDs, for example, schedule1 indicates that interface B is closed at time A, but schedule2 indicates that interface B is open at time A, then only the conflicting update should be rejected (retaining the last-known-good schedule). An error should be returned to the schedule originator, and the conflict MUST be logged for audit purposes. 
+
+- If there is a conflict between schedules with the same schedule ID, then it is considered as an update of the former schedule. Updates with the same schedule ID SHALL completely replace the previous schedule (full replacement, not merge). Implementations SHOULD support versioning or etag-based mechanisms to detect concurrent updates. Partial updates to a schedule are NOT permitted; clients MUST send the complete schedule definition.
 
 ## Early Warning Mechanism
 
 Early warning mechanism may be used to identify the fault schedule, and prevent the execution of fault schedule in some time-variant scenarios with insignificant schedule changes.
 
-When a schedule received by a managed device or managing device shows significant short-term discrepancies in its key
-values (e.g. the frequency of a schedule changes greatly), the device should send feedback to the schedule originator
+When a schedule received by a managed entity or managing entity shows significant short-term discrepancies in its key
+values (e.g. the frequency of a schedule changes greatly), the device should send feedback to the schedule generator
 to confirm whether this schedule arises from a system failure or operator error. Upon receiving the feedback, the
-schedule originator should inspect logs to confirm whether a fault has occurred or notify users to get the confirmation.
+schedule generator should inspect logs to confirm whether a fault has occurred or notify users to get the confirmation.
 Only when the schedule is confirmed, then the receiving device can execute this schedule. The device received schedules
-and the schedule originator may be independent devices or independent components within one device.
+and the schedule generator may be independent devices or independent components within one device.
+
+## Stability Mechanisms
+
+### Fallback Mechanism
+
+A fallback policy defines the operational state that is applied when schedule verification or execution fails.
+It allows continued operation in cases where unexpected or inconsistent information is detected
+
+Fallback triggers include, but are not limited to:
+
+- Loss of schedule database after reboot or management plane disconnection;
+
+- Time synchronization failure;
+
+- Validation failure of the currently active schedule entry;
+
+- Managed entity reports that it cannot execute the scheduled attribute (e.g., a scheduled interface cannot be brought up).
+
+The fallback state may be selected from three sources:
+
+- The default attribute value defined in the TVR YANG schedule;
+
+- A statically configured safe state that is independent of TVR schedules;
+
+- The last known operational state before the failing schedule was applied.
+
+Fallback overrides the schedule input for routing computation. It does not delete or modify stored schedule entries.
+
+### Rollback
+
+Rollback is a transactional undo capability for schedule provisioning operations. It restores the schedule database to a previously validated baseline snapshot after a faulty schedule create/update/delete transaction. 
+Rollback is primarily orchestrated by the managing entity, which maintains versioned, integrity-protected snapshots of the schedule database.
+Each snapshot is captured in the prepare phase before applying a batch of schedule changes. 
+A snapshot includes the set of affected schedule-ids, resource references, transaction identifier, timestamp, and integrity digest for validation. Snapshots are retained according to the domain audit policy.
+
+All rollback actions should be logged for audit. The log records the transaction ID, snapshot reference, trigger reason, list of affected schedule-ids, and per-resource rollback outcome. Rollback status is also reflected in the operational datastore for monitoring.
 
 # Security Considerations {#security-considerations}
 
@@ -616,7 +613,7 @@ In a time-variant network, if time information is not adequately protected, atta
 infer routing decisions, network load, or usage patterns. The schedule ability could enable attackers to launch highly
 targeted attacks, such as selectively overloading certain links or intercepting sensitive communications.
 
-This kind of attack could be mitigated by the encryption of schedules and the authentication of managing devices. For
+This kind of attack could be mitigated by the encryption of schedules and the authentication of managing entities. For
 the networks using NETCONF to deliver schedules, NETCONF over TLS{{!RFC7589}} is recommended to achieve the bidirectional
 authentication and encryption of YANG model data. RESTCONF supports TLS originally, so it can be deployed without
 additional configurations or modifications.
@@ -663,38 +660,14 @@ This kind of attack could be mitigated by the solutions mentioned in {{dos-attac
 
 ## Schedule Tampering and Malicious Schedule Injection
 
-Unauthorized modification or injection of malicious TVR schedules
-poses significant operational and security risks.  An attacker who
-successfully tampers with schedules could cause traffic blackholing
-(by scheduling link or node shutdowns at critical times), trigger
-costly network-wide reroutes, degrade service-level agreement (SLA)
-performance, or enable targeted interception of sensitive traffic
-flows.  Such attacks undermine the predictability and reliability
-that TVR aims to provide.
 
-Mitigating schedule tampering requires a defense-in-depth approach:
+In a time-variant network, attackers may perform unauthorized modification or inject malicious TVR schedules.
+Such attacks could cause traffic blackholing by scheduling link or node shutdowns at critical times, trigger network-wide reroutes, degrade SLA performance, or enable targeted interception of sensitive traffic flows.
 
-*  Authentication and Authorization: All schedule updates MUST be
-authenticated to verify the identity of the originator.  Role
-based access control (RBAC) or attribute-based access control
-(ABAC) SHOULD be enforced to ensure that only authorized entities
-can modify schedules.
-
-*  Integrity Protection: Schedules MUST be protected against
-tampering in transit and at rest using cryptographic integrity
-mechanisms (e.g., digital signatures, HMAC).  NETCONF over TLS
-{{?RFC7589}}, RESTCONF over TLS, and similar secure transport
-protocols provide such protection.
-
-*  Audit Logging: All schedule creation, modification, and deletion
-operations SHOULD be logged with timestamps, originator identity,
-and a description of the change.  These logs are essential for
-forensic analysis and detecting anomalous behavior.
-
-*  Rate Limiting and Anomaly Detection: Implementations SHOULD
-enforce rate limits on schedule update operations and deploy
-anomaly detection mechanisms to identify suspicious patterns
-(e.g., rapid schedule churn, schedules from unexpected sources).
+This kind of attack could be mitigated by the combination of several approachs. 
+All schedule updates MUST be authenticated to verify the originator identity. Schedules MUST be protected against tampering in transit and at rest via cryptographic integrity mechanisms such as digital signatures or HMAC.
+All schedule creation, modification, and deletion operations SHOULD be logged with timestamps, originator identity, and change descriptions for forensic analysis and anomaly detection.
+Implementations SHOULD also enforce rate limits on schedule updates and deploy anomaly detection to identify suspicious patterns such as frequent schedule churn or schedules from unexpected sources.
 
 # IANA Considerations
 
@@ -719,7 +692,7 @@ As described in {{Section 2.3 of ?RFC9657}}, in an energy-harvesting wireless se
 environmental sources for power, such as solar panels. On-board power levels may fluctuate based on various factors.
 This example assumes that a node will only power its radio when available power is over some threshold.
 In this scenario, the TVR Node YANG Module is not applicable, since the node attributes changes are caused by the environment,
-not by the instructions from managing device. The TVR Topology YANG Module may be necessary to convey the schedule of topology
+not by the instructions from managing entity. The TVR Topology YANG Module may be necessary to convey the schedule of topology
 changes to all the nodes.
 
 Considering a topology with three nodes, the connectivity of this three-node networks changes over time and repeats daily.
@@ -1155,7 +1128,7 @@ t3                    |  N1  |----------|  N2  |----------|  N3  |
 
 In this scenario, the TVR topology YANG module is applicable to deliver the predicted topology changes to each node.
 However, the TVR node YANG module is not applicable, this depends on whether the link changes are controlled by satellites
-themselves or by the managing device. Here, we provide the JSON examples for TVR topology YANG module and node
+themselves or by the managing entity. Here, we provide the JSON examples for TVR topology YANG module and node
  YANG module as a reference.
 
 Taking the spacecraft N1 as an example, assuming the time t1 is 10:00:00 1 July 2025 and the node-ids of N1, N2, N3, and
