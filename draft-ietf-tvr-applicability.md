@@ -77,7 +77,7 @@ be frequently disrupted and re-established due to mobility or regular planned ev
 patterns, where links may be powered down to optimize energy use.
 
 This document describes when and which part of the TVR data model is applicable and why. It also outlines the necessary IETF ancillary technologies, operational and security considerations when deploying TVR-based technologies.
-Finally, it provides examples of implementing TVR scheduling capabilities in a set of use cases. 
+Finally, it provides examples of implementing TVR scheduling capabilities in a set of use cases.
 
 The examples assume YANG instance data encoding per {{!RFC7951}} for JSON and the TVR schedule YANG modules.
 
@@ -503,7 +503,7 @@ Topology schedule execution means a node take some measures before or upon the s
 
 The schedule executor should understand the consequences of the schedule execution. The execution actions for different kind of topology changes should be considered separately.
 
-- A link coming up or a node joining a topology should not have any functional change until the change is proven to be fully operational. The routing paths may be pre-computed but should not be installed before all the topology changes are confirmed to be operational. The network may choose to not do any pre-installation or pre-computation in reaction to topological additions at a small cost of some operational efficiency. 
+- A link coming up or a node joining a topology should not have any functional change until the change is proven to be fully operational. The routing paths may be pre-computed but should not be installed before all the topology changes are confirmed to be operational. The network may choose to not do any pre-installation or pre-computation in reaction to topological additions at a small cost of some operational efficiency.
 
 - If a link or node is to be removed from the topology, then the
 network should act before the anticipated change to route traffic around the expected topological change. The required time to perform such planned action will vary depending on the exact network
@@ -533,7 +533,7 @@ Consistency within a schedule or among different schedules is the precondition f
 the duration is longer than the product of frequency and interval, or the duration is longer than utc-until, then the schedule
 should be discarded and an error should be returned to the schedule originator (e.g., the managing entity or management client).
 
-- If there is a conflict between schedules with different schedule IDs, for example, schedule1 indicates that interface B is closed at time A, but schedule2 indicates that interface B is open at time A, then only the conflicting update should be rejected (retaining the last-known-good schedule). An error should be returned to the schedule originator, and the conflict MUST be logged for audit purposes. 
+- If there is a conflict between schedules with different schedule IDs, for example, schedule1 indicates that interface B is closed at time A, but schedule2 indicates that interface B is open at time A, then only the conflicting update should be rejected (retaining the last-known-good schedule). An error should be returned to the schedule originator, and the conflict MUST be logged for audit purposes.
 
 - If there is a conflict between schedules with the same schedule ID, then it is considered as an update of the former schedule. Updates with the same schedule ID SHALL completely replace the previous schedule (full replacement, not merge). Implementations SHOULD support versioning or etag-based mechanisms to detect concurrent updates. Partial updates to a schedule are NOT permitted; clients MUST send the complete schedule definition.
 
@@ -577,9 +577,9 @@ Fallback overrides the schedule input for routing computation. It does not delet
 
 ### Rollback
 
-Rollback is a transactional undo capability for schedule provisioning operations. It restores the schedule database to a previously validated baseline snapshot after a faulty schedule create/update/delete transaction. 
+Rollback is a transactional undo capability for schedule provisioning operations. It restores the schedule database to a previously validated baseline snapshot after a faulty schedule create/update/delete transaction.
 Rollback is primarily orchestrated by the managing entity, which maintains versioned, integrity-protected snapshots of the schedule database.
-Each snapshot is captured in the prepare phase before applying a batch of schedule changes. 
+Each snapshot is captured in the prepare phase before applying a batch of schedule changes.
 A snapshot includes the set of affected schedule-ids, resource references, transaction identifier, timestamp, and integrity digest for validation. Snapshots are retained according to the domain audit policy.
 
 All rollback actions should be logged for audit. The log records the transaction ID, snapshot reference, trigger reason, list of affected schedule-ids, and per-resource rollback outcome. Rollback status is also reflected in the operational datastore for monitoring.
@@ -664,7 +664,7 @@ This kind of attack could be mitigated by the solutions mentioned in {{dos-attac
 In a time-variant network, attackers may perform unauthorized modification or inject malicious TVR schedules.
 Such attacks could cause traffic blackholing by scheduling link or node shutdowns at critical times, trigger network-wide reroutes, degrade SLA performance, or enable targeted interception of sensitive traffic flows.
 
-This kind of attack could be mitigated by the combination of several approachs. 
+This kind of attack could be mitigated by the combination of several approachs.
 All schedule updates MUST be authenticated to verify the originator identity. Schedules MUST be protected against tampering in transit and at rest via cryptographic integrity mechanisms such as digital signatures or HMAC.
 All schedule creation, modification, and deletion operations SHOULD be logged with timestamps, originator identity, and change descriptions for forensic analysis and anomaly detection.
 Implementations SHOULD also enforce rate limits on schedule updates and deploy anomaly detection to identify suspicious patterns such as frequent schedule churn or schedules from unexpected sources.
