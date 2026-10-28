@@ -5,11 +5,11 @@
 Time-Variant Routing                                            L. Zhang
 Internet-Draft                                                   J. Dong
 Intended status: Informational                                    Huawei
-Expires: 29 April 2027                                      M. Boucadair
+Expires: 1 May 2027                                         M. Boucadair
                                                                   Orange
                                                                  J. Wang
                                                             China Mobile
-                                                         26 October 2026
+                                                         28 October 2026
 
 
                  Applicability of TVR YANG Data Models
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 April 2027.
+   This Internet-Draft will expire on 1 May 2027.
 
 Copyright Notice
 
@@ -1048,10 +1048,10 @@ Table of Contents
               (NMDA)", RFC 8342, DOI 10.17487/RFC8342, March 2018,
               <https://www.rfc-editor.org/rfc/rfc8342>.
 
-   [RFC9657]  Birrane, III, E., Kuhn, N., Qu, Y., Taylor, R., and L.
-              Zhang, "Time-Variant Routing (TVR) Use Cases", RFC 9657,
-              DOI 10.17487/RFC9657, October 2024,
-              <https://www.rfc-editor.org/rfc/rfc9657>.
+   [RFC9922]  Ma, Q., Ed., Wu, Q., Boucadair, M., Ed., and D. King, "A
+              Common YANG Data Model for Scheduling", RFC 9922,
+              DOI 10.17487/RFC9922, March 2026,
+              <https://www.rfc-editor.org/rfc/rfc9922>.
 
 9.2.  Informative References
 
@@ -1092,10 +1092,10 @@ Table of Contents
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
               <https://www.rfc-editor.org/rfc/rfc8040>.
 
-   [RFC9922]  Ma, Q., Ed., Wu, Q., Boucadair, M., Ed., and D. King, "A
-              Common YANG Data Model for Scheduling", RFC 9922,
-              DOI 10.17487/RFC9922, March 2026,
-              <https://www.rfc-editor.org/rfc/rfc9922>.
+   [RFC9657]  Birrane, III, E., Kuhn, N., Qu, Y., Taylor, R., and L.
+              Zhang, "Time-Variant Routing (TVR) Use Cases", RFC 9657,
+              DOI 10.17487/RFC9657, October 2024,
+              <https://www.rfc-editor.org/rfc/rfc9657>.
 
 Acknowledgments
 
