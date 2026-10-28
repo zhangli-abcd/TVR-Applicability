@@ -182,10 +182,10 @@ A centralized scenario involves the interaction between the managing entity and 
 entity and network devices, and the controller and network devices.
 
 The managing entity may need to deliver node-specific schedules to network devices by "ietf-tvr-node"
-module {{Section 5.2 of ?I-D.ietf-tvr-schedule-yang}}. This is optional and only necessary when the node attribute changes
+module {{Section 5.2 of !I-D.ietf-tvr-schedule-yang}}. This is optional and only necessary when the node attribute changes
 are instructed by the controller. Meanwhile, the network devices need to report their own status data to the managing entity.
 
-The managing entity needs to deliver the schedules of network topology to the network controller by "ietf-tvr-topology" module {{Section 5.3 of ?I-D.ietf-tvr-schedule-yang}}, so that the routing application in the controller
+The managing entity needs to deliver the schedules of network topology to the network controller by "ietf-tvr-topology" module {{Section 5.3 of !I-D.ietf-tvr-schedule-yang}}, so that the routing application in the controller
 can consider the impact of topology changes on routes when calculating routes.
 
 The network controller should deliver the computed routing results to the network devices. The format of the routing
@@ -219,10 +219,10 @@ the controller. The network devices report their own status data to the managing
 
 ## Encoding of the YANG Model
 
-The TVR data model {{?I-D.ietf-tvr-schedule-yang}} can manage network resources and topologies with scheduled
+The TVR data model {{!I-D.ietf-tvr-schedule-yang}} can manage network resources and topologies with scheduled
 attributes. There are modules defined in the TVR data model, these are:
 
-- The "ietf-tvr-schedule" module contains the schedule YANG definitions. This module uses groupings from {{?RFC9922}} data model;
+- The "ietf-tvr-schedule" module contains the schedule YANG definitions. This module uses groupings from {{!RFC9922}} data model;
 - The "ietf-tvr-topology" module defines a network topology with a time-variant availability schedule;
 - The "ietf-tvr-node" module is to be used to manage the scheduled attributes of a single node.
 
@@ -683,7 +683,7 @@ The authors would like to thank Ed Birrane, Adrian Farrel, Luis M. Contreras for
 # Appendix A: Code Examples
 {:numbered="false"}
 
-All examples in this appendix are intended as {{?RFC7951}} JSON instance data, following the YANG instance data encoding rules for JSON.  The duration field values are expressed in seconds unless otherwise noted.
+All examples in this appendix are intended as {{!RFC7951}} JSON instance data, following the YANG instance data encoding rules for JSON.  The duration field values are expressed in seconds unless otherwise noted.
 
 ## A.1 Code Examples for "Energy-harvesting Wireless Sensor Network"
 {:numbered="false"}
@@ -1263,12 +1263,12 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
 
 ## A.4 Code Examples for "Mobile Satellites"
 {:numbered="false"}
-As described in {{Section 4.3 of !RFC9657}}, the "Mobile Satellites" generally refers to the Low Earth Orbit(LEO) network,
+As described in {{Section 4.3 of ?RFC9657}}, the "Mobile Satellites" generally refers to the Low Earth Orbit(LEO) network,
 which includes hundreds to thousands of spacecrafts that can communicate both with their orbital neighbors as well as
 down to any ground station that they happen to be passing over. The connection between the spacecrafts and the ground
 station depend on the flight trajectories of the spacecrafts, so the link changes between them is predictable.
 
-{{Section 4.3 of !RFC9657}} introduces a scenario with 3 spacecrafts and 1 ground station. The changes of topology are
+{{Section 4.3 of ?RFC9657}} introduces a scenario with 3 spacecrafts and 1 ground station. The changes of topology are
 shown in {{ex-inf7}}. The ground station connects to spacecraft N3 at time t1, connects to N2 at time t2, and connects
 to N1 at time t3. The duration of the connection depends on the satellite altitude and the elevation angle.
 According to {{Section 2.1 of ?I-D.lj-rtg-sat-routing-consideration}}, for the spacecrafts at the 500km
@@ -1550,7 +1550,7 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
 ## A.5 Code examples for "Predictable Moving Vessels"
 {:numbered="false"}
 
-As described in {{Section 4.4 of !RFC9657}}, the "Predictable Moving Vessels" involves the movement of vessels with
+As described in {{Section 4.4 of ?RFC9657}}, the "Predictable Moving Vessels" involves the movement of vessels with
 predictable trajectories, such as ferries or planes. These endpoints often rely on a combination of satellite and
 terrestrial systems for Internet connectivity. Consider a scenario where a vessel uses satellites to access the Internet,
 including a ship and three satellites. As the satellite and the vessel move, the vessel establishes connections with the
