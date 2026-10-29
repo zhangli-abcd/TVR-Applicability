@@ -63,9 +63,9 @@ informative:
 
 Time-Variant Routing (TVR) is a routing system that is designed to accommodate predicted topology changes caused by internal or
 external factors. Typical use cases include resource preservation networks, operating efficiency networks, and dynamic
-reachability networks. TVR data model is defined to manage network resources and topologies with scheduled attribute.
+reachability networks. The TVR data model is defined to manage network resources and topologies with scheduled attributes.
 
-This document describes when and which part of the TVR data model is applicable and why. It also outlines the necessary IETF ancillary technologies, operational and security considerations when deploying TVR-based technologies. Several examples of how to implement the TVR scheduling capabilities for key use cases are alos provided in this document.
+This document describes when and which part of the TVR data model is applicable and why. It also outlines the necessary IETF ancillary technologies, operational and security considerations when deploying TVR-based technologies. Several examples of how to implement the TVR scheduling capabilities for key use cases are also provided in this document.
 
 --- middle
 
@@ -108,7 +108,7 @@ results from the network controller.
 # Applicability of the TVR YANG Model
 
 The TVR YANG data model {{!I-D.ietf-tvr-schedule-yang}} defines three related modules: "ietf-tvr-schedule", "ietf-tvr-node", and "ietf-tvr-topology".
-"ietf-tvr-schedule" is the basic module and can be used in the other two modules.
+"ietf-tvr-schedule" is the base module and is imported by the other two modules.
 
 This section discusses the applicability of "ietf-tvr-node" and "ietf-tvr-topology" separately.
 
@@ -170,7 +170,7 @@ The following figure shows the components of the centralized scenario.
  |                        Managing Entity                          |
  +-----------------------------------------------------------------+
             |                                           |
-Topology YANG Module                        Node YANG Module(optional)
+Topology YANG Module                        Node YANG Module (optional)
             |                                           |
  +---------\|/----------+                     +--------\|/--------+
  |  Network Controller  |---Routing Results-->|  Network Devices  |
@@ -202,7 +202,7 @@ is deployed in the network devices which also executes schedules and route calcu
  +-------------------------------------------------+
                           |
                Topology YANG Module and
-               Node YANG Module(optional)
+               Node YANG Module (optional)
                           |
  +-----------------------\|/-----------------------+
  |         Managed Entities (Network Devices)      |
@@ -210,7 +210,7 @@ is deployed in the network devices which also executes schedules and route calcu
 ~~~
 {: #ref-to-fig2  title="Components of Distributed Scenario"}
 
-The distributed model only involves the interaction between managing entities and network devices(managed entities).
+The distributed model only involves the interaction between managing entities and network devices (managed entities).
 
 The managing entity delivers network topology schedules to all the network devices by "ietf-tvr-topology"
 module for route calculation. The managing entity may also deliver node-specific schedules to network devices by
@@ -244,7 +244,7 @@ execution status via the operational datastore.
 An example for the encoding of "ietf-tvr-node" is provided below, where a wireless link is shut down for 12 hours, from 19:00 to 7am the next day.
 The schedule is identified using a unique identifier that is conveyed in 'schedule-id', and the recurring schedule can be applied for multiple days using Coordinated
 Universal Time (UTC).
-More detailed examples of the JSON example is provided in this documents Appendix.
+Further JSON examples are provided in Appendix A.
 
 ~~~
 
@@ -289,7 +289,7 @@ The methods for disseminating and propagating the generated schedules are discus
 ## Management Protocols for TVR
 
 The TVR data model is designed to be accessed via YANG-based management protocols such as NETCONF {{?RFC6241}}, RESTCONF
-{{?RFC8040}} and CORECONF{{?I-D.ietf-core-comi-19}}. This section discusses the applicability of these protocols for
+{{?RFC8040}} and CORECONF {{?I-D.ietf-core-comi-19}}. This section discusses the applicability of these protocols for
 configuring time-variant network resources using the TVR YANG data models.
 
 NETCONF provides a robust mechanism for managing complex network configurations, particularly when transactional integrity
@@ -305,7 +305,7 @@ approach to network configuration and management. Therefore, RESTCONF may be adv
 to schedules are needed or where integration with web-based or cloud-native systems is a priority.
 
 CORECONF provides a lightweight, stateless method for managing small network devices where saving bytes to transport a
-message is very important. CORECONF uses CoAP{{?RFC7252}} methods to access structured data defined in YANG, which is a complementary to RESTCONF.
+message is very important. CORECONF uses CoAP {{?RFC7252}} methods to access structured data defined in YANG, which is a complementary to RESTCONF.
 Unlike RESTCONF, many CORECONF design decisions are motivated by minimizing the message size. Therefore, CORECONF is advantageous
 in networks with constrained devices and very limited transmission bandwidth, especially in IoT devices that already deployed CoAP.
 
@@ -332,12 +332,12 @@ an entire network. Time Synchronization mechanisms will be used to ensure:
 
 Therefore, network time accuracy and time-stamped data models are critical to ensure that coordinated network events and scheduled path decisions across the network are based on a consistent time reference. Without accurate time sync, nodes could apply different schedules, causing routing inconsistencies, path flapping, or packet loss.
 
-Since all schedules are generated by the managing devices, it is necessary to make sure that the managing device and managed devices within a schedule domain ({{Section 2.1.1 of !I-D.ietf-tvr-requirements}}) are synchronized with the same time source. It ensures they have the same notion of when that is.
+Since all schedules are generated by the managing entity, it is necessary to make sure that the managing entity and managed entities within a schedule domain ({{Section 2.1.1 of !I-D.ietf-tvr-requirements}}) are synchronized with the same time source. It ensures they have the same notion of when that is.
 
 Different time-variant scenarios may require different granularities of time synchronization. For example, the
 period of traffic and topology changes in tidal networks is usually a day or week. Therefore, a second-level time
 synchronization is enough. However, for the dynamic reachability scenarios, a fine-granularity time synchronization may
-be necessary, as the nodes may move very fast in some cases (the moving speed of a low earth orbit satellite is more than 7900 m/s)
+be necessary, as the nodes may move very fast in some cases (the moving speed of a low earth orbit satellite is more than 7900 m/s).
 
 Operators SHOULD derive a maximum acceptable time-error bound based on the schedule granularity, execution jitter tolerance, and
 activation window requirements.  For instance, if a schedule has a 1-second activation window and the system can tolerate up to 100ms of
@@ -347,8 +347,8 @@ configuration MUST be capable of meeting this derived bound under all expected n
 Existing clock synchronization protocols can be classified into hardware-based protocols and software-based protocols.
 
 Hardware-based protocols often rely on dedicated hardware to ensure clock synchronization, such as Satellite Based Timing Service (SBTS)
-and Precision Time Protocol (PTP). The SBTS includes but is not limited to Global Position System (GPS),
-BeiDou Navigation Satellite System(BDS), Global Navigation Satellite System(GLONASS), and Galileo satellite navigation system.
+and Precision Time Protocol (PTP). The SBTS includes but is not limited to Global Positioning System (GPS),
+BeiDou Navigation Satellite System (BDS), GLONASS, and Galileo.
 Software-based protocols, on the other hand, synchronize clocks through software packages running on systems, such as Network
 Time Protocol (NTP) {{?RFC5905}} and Simple Network Time Protocol (SNTP) {{?RFC4330}}.
 
@@ -482,8 +482,8 @@ When distributing schedules, the following problems should be considered:
 - The managed entities that receives a schedule should have the ability to execute the schedule. If the device does not support schedule
 execution, it SHOULD reject the update with an appropriate error, or ignore it if the management interface does not support error reporting.
 
-- The distributing of a schedule SHOULD be delivered at least x (operator-defined) time before the earliest start time of the schedule, this ensures that the
-managed entity has enough time to execute this schedule.
+- A schedule SHOULD be delivered at least an operator-defined lead time before its earliest start time, so that the
+managed entity has enough time to execute it.
 
 ## Schedule Execution
 
@@ -527,7 +527,7 @@ to the managed entity after time synchronization is finished.
 
 ## Consistency Verification
 
-Consistency within a schedule or among different schedules is the precondition for schedule execution. It is very necessary to do verification for inconsistencies. A inconsistency means that some time parameters conflict with other time parameters in the same schedule or in other schedules.
+Consistency within a schedule or among different schedules is the precondition for schedule execution. Verification for inconsistencies is therefore necessary. An inconsistency means that some time parameters conflict with other time parameters in the same schedule or in other schedules.
 
 - If the time parameters of a schedule conflict with each other, for example, the period-start later than period-end,
 the duration is longer than the product of frequency and interval, or the duration is longer than utc-until, then the schedule
@@ -539,21 +539,21 @@ should be discarded and an error should be returned to the schedule originator (
 
 ## Early Warning Mechanism
 
-Early warning mechanism may be used to identify the fault schedule, and prevent the execution of fault schedule in some time-variant scenarios with insignificant schedule changes.
+Early warning mechanism may be used to identify the fault schedule, and prevent the execution of fault schedule in time-variant scenarios where schedule changes are normally small.
 
 When a schedule received by a managed entity or managing entity shows significant short-term discrepancies in its key
-values (e.g. the frequency of a schedule changes greatly), the device should send feedback to the schedule generator
+values (e.g. the frequency of a schedule changes greatly), the device should send feedback to the schedule originator
 to confirm whether this schedule arises from a system failure or operator error. Upon receiving the feedback, the
-schedule generator should inspect logs to confirm whether a fault has occurred or notify users to get the confirmation.
+schedule originator should inspect logs to confirm whether a fault has occurred or notify users to get the confirmation.
 Only when the schedule is confirmed, then the receiving device can execute this schedule. The device received schedules
-and the schedule generator may be independent devices or independent components within one device.
+and the schedule originator may be independent devices or independent components within one device.
 
 ## Stability Mechanisms
 
 ### Fallback Mechanism
 
 A fallback policy defines the operational state that is applied when schedule verification or execution fails.
-It allows continued operation in cases where unexpected or inconsistent information is detected
+It allows continued operation in cases where unexpected or inconsistent information is detected.
 
 Fallback triggers include, but are not limited to:
 
@@ -587,7 +587,7 @@ All rollback actions should be logged for audit. The log records the transaction
 # Security Considerations {#security-considerations}
 
 The integration of time-variant mechanisms in network operations presents distinct security challenges that require thorough
-analysis to safeguard the network’s integrity, availability, and confidentiality. Networks that rely on time-sensitive data
+analysis to safeguard the network's integrity, availability, and confidentiality. Networks that rely on time-sensitive data
 for routing and forwarding decisions are particularly susceptible to attacks that exploit timing dependencies.
 
 The "Security Considerations" section of {{!I-D.ietf-tvr-requirements}} outlines various threat vectors and categories specific
@@ -614,11 +614,11 @@ infer routing decisions, network load, or usage patterns. The schedule ability c
 targeted attacks, such as selectively overloading certain links or intercepting sensitive communications.
 
 This kind of attack could be mitigated by the encryption of schedules and the authentication of managing entities. For
-the networks using NETCONF to deliver schedules, NETCONF over TLS{{!RFC7589}} is recommended to achieve the bidirectional
+the networks using NETCONF to deliver schedules, NETCONF over TLS {{!RFC7589}} is recommended to achieve the bidirectional
 authentication and encryption of YANG model data. RESTCONF supports TLS originally, so it can be deployed without
 additional configurations or modifications.
 
-In addition, in time variant networks with centralized scenario{{centralized-scenario}}, the encryption of routing path
+In addition, in time variant networks with centralized scenario ({{centralized-scenario}}), the encryption of routing path
 information is also necessary to avoid the fake routing information. Considering the most typical protocols used to
 deliver the routing path information between controller and network devices are BGP and PCEP, and both are based on TCP.
 Therefore, the TLS is RECOMMENDED to provide confidentiality and integrity protection.
@@ -664,7 +664,7 @@ This kind of attack could be mitigated by the solutions mentioned in {{dos-attac
 In a time-variant network, attackers may perform unauthorized modification or inject malicious TVR schedules.
 Such attacks could cause traffic blackholing by scheduling link or node shutdowns at critical times, trigger network-wide reroutes, degrade SLA performance, or enable targeted interception of sensitive traffic flows.
 
-This kind of attack could be mitigated by the combination of several approachs.
+This kind of attack could be mitigated by the combination of several approaches.
 All schedule updates MUST be authenticated to verify the originator identity. Schedules MUST be protected against tampering in transit and at rest via cryptographic integrity mechanisms such as digital signatures or HMAC.
 All schedule creation, modification, and deletion operations SHOULD be logged with timestamps, originator identity, and change descriptions for forensic analysis and anomaly detection.
 Implementations SHOULD also enforce rate limits on schedule updates and deploy anomaly detection to identify suspicious patterns such as frequent schedule churn or schedules from unexpected sources.
@@ -1263,7 +1263,7 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
 
 ## A.4 Code Examples for "Mobile Satellites"
 {:numbered="false"}
-As described in {{Section 4.3 of ?RFC9657}}, the "Mobile Satellites" generally refers to the Low Earth Orbit(LEO) network,
+As described in {{Section 4.3 of ?RFC9657}}, the "Mobile Satellites" generally refers to the Low Earth Orbit (LEO) network,
 which includes hundreds to thousands of spacecrafts that can communicate both with their orbital neighbors as well as
 down to any ground station that they happen to be passing over. The connection between the spacecrafts and the ground
 station depend on the flight trajectories of the spacecrafts, so the link changes between them is predictable.
@@ -1309,12 +1309,12 @@ t3                    |  N1  |----------|  N2  |----------|  N3  |
 {: #ex-inf7 title="An example topology for Mobile Satellites" artwork-align="center"}
 
 In this scenario, the TVR topology YANG module is applicable to deliver the predicted topology changes to each node.
-However, the TVR node YANG module is not applicable, this depends on whether the link changes are controlled by satellites
+Whether the TVR node YANG module is applicable depends on whether the link changes are controlled by the satellites
 themselves or by the managing entity. Here, we provide the JSON examples for TVR topology YANG module and node
  YANG module as a reference.
 
 Taking the spacecraft N1 as an example, assuming the time t1 is 10:00:00 1 July 2025 and the node-ids of N1, N2, N3, and
-ground station is 2001:db8::1, 2001:db8::2, 2001:db8::3, and 2001:db8::4.,
+ground station is 2001:db8::1, 2001:db8::2, 2001:db8::3, and 2001:db8::4,
 then the corresponding node YANG module JSON example for it is shown in {{ex-inf8}}.
 
 ~~~
@@ -1554,7 +1554,7 @@ As described in {{Section 4.4 of ?RFC9657}}, the "Predictable Moving Vessels" in
 predictable trajectories, such as ferries or planes. These endpoints often rely on a combination of satellite and
 terrestrial systems for Internet connectivity. Consider a scenario where a vessel uses satellites to access the Internet,
 including a ship and three satellites. As the satellite and the vessel move, the vessel establishes connections with the
-satellites N1, N2, and N3 at t1, t2, and t3 respectively. It is assumed that each connection lasts for 1 minutes.
+satellites N1, N2, and N3 at t1, t2, and t3 respectively. It is assumed that each connection lasts for 1 minute.
 The changes of topology are shown in {{ex-inf10}}.
 
 ~~~
