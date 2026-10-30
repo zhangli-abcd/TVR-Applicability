@@ -12,15 +12,14 @@
 <meta content="
        Time-Variant Routing (TVR) is a routing system that is designed to accommodate predicted topology changes caused by internal or
 external factors. Typical use cases include resource preservation networks, operating efficiency networks, and dynamic
-reachability networks.
-This document provides examples of how to implement the TVR scheduling capabilities for key use cases. It describes
-which part of the TVR data model is used and why. It also outlines operational and security considerations when deploying
-TVR-based technologies. 
+reachability networks. The TVR data model is defined to manage network resources and topologies with scheduled attributes. 
+       This document describes when and which part of the TVR data model is applicable and why. It also outlines the necessary IETF ancillary technologies, operational and security considerations when deploying TVR-based technologies. Several examples of how to implement the TVR scheduling capabilities for key use cases are also provided in this document. 
     " name="description">
 <meta content="xml2rfc 3.34.1" name="generator">
 <meta content="schedule" name="keyword">
 <meta content="YANG module" name="keyword">
 <meta content="applicability" name="keyword">
+<meta content="time-variant routing" name="keyword">
 <meta content="draft-ietf-tvr-applicability-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.34.1
@@ -1055,7 +1054,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Zhang, et al.</td>
-<td class="center">Expires 27 April 2027</td>
+<td class="center">Expires 3 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1067,12 @@ svg {
 <dd class="internet-draft">draft-ietf-tvr-applicability-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-10-24" class="published">24 October 2026</time>
+<time datetime="2026-10-30" class="published">30 October 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-04-27">27 April 2027</time></dd>
+<dd class="expires"><time datetime="2027-05-03">3 May 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1100,10 +1099,8 @@ svg {
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">Time-Variant Routing (TVR) is a routing system that is designed to accommodate predicted topology changes caused by internal or
 external factors. Typical use cases include resource preservation networks, operating efficiency networks, and dynamic
-reachability networks.
-This document provides examples of how to implement the TVR scheduling capabilities for key use cases. It describes
-which part of the TVR data model is used and why. It also outlines operational and security considerations when deploying
-TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+reachability networks. The TVR data model is defined to manage network resources and topologies with scheduled attributes.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">This document describes when and which part of the TVR data model is applicable and why. It also outlines the necessary IETF ancillary technologies, operational and security considerations when deploying TVR-based technologies. Several examples of how to implement the TVR scheduling capabilities for key use cases are also provided in this document.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -1135,7 +1132,7 @@ TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 27 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 3 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1246,15 +1243,21 @@ TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
                 <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="auto internal xref">6.3</a>.  <a href="#name-schedule-recovery" class="internal xref">Schedule Recovery</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.4">
-                <p id="section-toc.1-1.6.2.4.1"><a href="#section-6.4" class="auto internal xref">6.4</a>.  <a href="#name-error-handling" class="internal xref">Error Handling</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.4.2.1">
-                    <p id="section-toc.1-1.6.2.4.2.1.1"><a href="#section-6.4.1" class="auto internal xref">6.4.1</a>.  <a href="#name-consistency-error" class="internal xref">Consistency Error</a></p>
-</li>
-                </ul>
+                <p id="section-toc.1-1.6.2.4.1"><a href="#section-6.4" class="auto internal xref">6.4</a>.  <a href="#name-consistency-verification" class="internal xref">Consistency Verification</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5">
                 <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="auto internal xref">6.5</a>.  <a href="#name-early-warning-mechanism" class="internal xref">Early Warning Mechanism</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.6">
+                <p id="section-toc.1-1.6.2.6.1"><a href="#section-6.6" class="auto internal xref">6.6</a>.  <a href="#name-stability-mechanisms" class="internal xref">Stability Mechanisms</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.6.2.1">
+                    <p id="section-toc.1-1.6.2.6.2.1.1"><a href="#section-6.6.1" class="auto internal xref">6.6.1</a>.  <a href="#name-fallback-mechanism" class="internal xref">Fallback Mechanism</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.6.2.2">
+                    <p id="section-toc.1-1.6.2.6.2.2.1"><a href="#section-6.6.2" class="auto internal xref">6.6.2</a>.  <a href="#name-rollback" class="internal xref">Rollback</a></p>
+</li>
+                </ul>
 </li>
             </ul>
 </li>
@@ -1340,10 +1343,8 @@ TVR-based technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 part of normal operations. This approach is essential in dynamic networks with mobile nodes, where links may
 be frequently disrupted and re-established due to mobility or regular planned events. It is also essential in networks with highly predictable traffic
 patterns, where links may be powered down to optimize energy use.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">This document provides examples of implementing TVR scheduling capabilities in a set of use cases. It
-demonstrates the applicability of the TVR data model, methods for disseminating the TVR schedules, and the
-necessary IETF ancillary technologies for network environments, such as time synchronization and policy,
-that support TVR capabilities.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-2">This document describes when and which part of the TVR data model is applicable and why. It also outlines the necessary IETF ancillary technologies, operational and security considerations when deploying TVR-based technologies.
+Finally, it provides examples of implementing TVR scheduling capabilities in a set of use cases.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">The examples assume YANG instance data encoding per <span>[<a href="#RFC7951" class="cite xref">RFC7951</a>]</span> for JSON and the TVR schedule YANG modules.<a href="#section-1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1358,29 +1359,27 @@ described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</s
 appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <p id="section-2-2">This document uses the following terms:<a href="#section-2-2" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-2-3">
-        <dt id="section-2-3.1">Managing Device:</dt>
+        <dt id="section-2-3.1">Managing Entity:</dt>
         <dd style="margin-left: 1.5em" id="section-2-3.2">
           <p id="section-2-3.2.1">A centralized entity responsible for generating
-and maintaining TVR schedules.  The managing device distributes
-schedules to network controllers and/or managed devices using the
-TVR YANG modules.  In some deployments, the managing device may
+and maintaining TVR schedules.  The managing entity distributes
+schedules to network controllers and/or managed entities using the
+TVR YANG modules.  In some deployments, the managing entity may
 also serve as the network controller.<a href="#section-2-3.2.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 <dt id="section-2-3.3">Network Controller:</dt>
         <dd style="margin-left: 1.5em" id="section-2-3.4">
-          <p id="section-2-3.4.1">An entity that receives topology schedules
-from the managing device and performs route computation based on
-time-variant network conditions.  The controller then distributes
-routing results to managed devices.<a href="#section-2-3.4.1" class="pilcrow">¶</a></p>
+          <p id="section-2-3.4.1">An entity that receives topology schedules from the managing entity and performs TVR route computation based on time-variant network conditions.
+The controller then distributes computed routing results to managed entities.<a href="#section-2-3.4.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-3.5">Managed Device:</dt>
+<dt id="section-2-3.5">Managed Entity:</dt>
         <dd style="margin-left: 1.5em" id="section-2-3.6">
           <p id="section-2-3.6.1">A network device (e.g., router or switch) that
 receives schedules and/or routing instructions, and executes them
-according to the specified time windows.  Managed devices may
-receive schedules directly from the managing device or routing
+according to the specified time windows.  Managed entities may
+receive schedules directly from the managing entity or routing
 results from the network controller.<a href="#section-2-3.6.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
@@ -1392,28 +1391,26 @@ results from the network controller.<a href="#section-2-3.6.1" class="pilcrow">�
       <h2 id="name-applicability-of-the-tvr-ya">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-applicability-of-the-tvr-ya" class="section-name selfRef">Applicability of the TVR YANG Model</a>
       </h2>
-<p id="section-3-1">The TVR data model <span>[<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span> defines the TVR node and topology YANG modules. This
-section discusses the applicability of these two modules separately.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">The TVR YANG data model <span>[<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span> defines three related modules: "ietf-tvr-schedule", "ietf-tvr-node", and "ietf-tvr-topology".
+"ietf-tvr-schedule" is the base module and is imported by the other two modules.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">This section discusses the applicability of "ietf-tvr-node" and "ietf-tvr-topology" separately.<a href="#section-3-2" class="pilcrow">¶</a></p>
 <div id="applicability-node-yang">
 <section id="section-3.1">
         <h3 id="name-applicability-of-tvr-node-y">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-applicability-of-tvr-node-y" class="section-name selfRef">Applicability of TVR Node YANG Module</a>
         </h3>
-<p id="section-3.1-1">As specified in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-12#section-5.2" class="relref">Section 5.2</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>, the "ietf-tvr-node" YANG module is a device model which is designed to manage a
-single node with scheduled attributes. It is not necessary in all TVR use cases.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.1-2">The applicability of TVR node YANG module depends on whether changes in the attributes of network devices are caused by
-the environment or centrally controlled:<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.1-1">As specified in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-12#section-3.2" class="relref">Section 3.2</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>, the "ietf-tvr-node" YANG module is a device model and designed to manage a single node with scheduled attributes. It is not necessary in all TVR use cases.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2">The applicability of the TVR node YANG module depends on whether scheduled attribute changes are centrally instructed or autonomously determined by the node:<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.1-3.1">
-            <p id="section-3.1-3.1.1">When the changes are caused by the environment changes (such as movement, sunlight changes, and weather changes) or
-by decisions made by the devices themselves, the network device does not need to get the managed information through the YANG module. For example,
-when the distance between two nodes' is too far to establish a connection, then the link is down. Another case is that when the weather is
+            <p id="section-3.1-3.1.1">When attribute changes are driven by local environmental conditions or autonomous local decisions (node self-determined), the node does not need to receive these planned changes via the TVR node YANG module. For example,
+when the distance between two nodes is too far to establish a connection, then the link is down. Another case is that when the weather is
 not good and leading to the link degradation, then the nodes decide to disconnect the link.<a href="#section-3.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.1-3.2">
-            <p id="section-3.1-3.2.1">When the changes are caused by the centralized control (such as a controller, or an orchestrator), the devices themselves
-do not know when to adjust the attributes. In this case, the scheduled attributes changes should be delivered to the
-network devices through TVR node YANG module.<a href="#section-3.1-3.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-3.2.1">When attribute changes are centrally planned and instructed by the managing entity,
+the node does not autonomously know the timing of attribute adjustments.
+In this case, the scheduled attribute changes are delivered to the network device via the TVR node YANG module.<a href="#section-3.1-3.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1425,7 +1422,7 @@ network devices through TVR node YANG module.<a href="#section-3.1-3.2.1" class=
         </h3>
 <p id="section-3.2-1">As specified in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-12#section-5.3" class="relref">Section 5.3</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>, the "ietf-tvr-topology" YANG module describes a network topology
 with a time-variant availability schedule. This YANG module is also not applicable for all TVR use cases.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
-<p id="section-3.2-2">According to the description of <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-11#section-3.1" class="relref">Section 3.1</a> of [<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span>, the scheduling generation locality
+<p id="section-3.2-2">According to the description of <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-11#section-2.1" class="relref">Section 2.1</a> of [<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span>, the scheduling generation locality
 and execution locality may be either centralized or distributed:<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2-3.1">
@@ -1435,29 +1432,29 @@ This scenario is outside of the scope of this document.<a href="#section-3.2-3.1
 </li>
           <li class="normal" id="section-3.2-3.2">
             <p id="section-3.2-3.2.1">When schedules are generated and executed in a centralized manner within the same device, the topology YANG module is not applicable.
-Therefore, this scenario is also outside of the scope of this document.<a href="#section-3.2-3.2.1" class="pilcrow">¶</a></p>
+This scenario is also outside of the scope of this document.<a href="#section-3.2-3.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.2-3.3">
             <p id="section-3.2-3.3.1">When the schedules are generated and executed in a centralized manner but on different devices. For example, the schedule is
-generated by the managing device, and executed by the network controller. In this scenario the scheduled topology changes
+generated by the managing entity, and executed by the network controller. In this scenario, the scheduled topology changes
 need to be sent to the execution device through the topology YANG module. This scenario is called "Centralized Scenario".<a href="#section-3.2-3.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.2-3.4">
             <p id="section-3.2-3.4.1">When the schedules are generated in a centralized manner and executed in a distributed manner, the YANG module
-needs to be used to deliver the scheduled topology changes to the managed devices. This scenario is called "Distributed Scenario".<a href="#section-3.2-3.4.1" class="pilcrow">¶</a></p>
+needs to be used to deliver the scheduled topology changes to the managed entities. This scenario is called "Distributed Scenario".<a href="#section-3.2-3.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-3.2-4">To summarize the key differences between these scenarios are:<a href="#section-3.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2-5.1">
             <p id="section-3.2-5.1.1">Centralized Scenario: Schedules are generated by the managing
-device, stored in the network controller, and executed by network
+entity, stored in the network controller, and executed by network
 devices.  Route computation runs in the controller, and routing
 results are pushed to the network devices.<a href="#section-3.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.2-5.2">
             <p id="section-3.2-5.2.1">Distributed Scenario: Schedules are generated by the managing
-device, stored in and executed by the network devices.  Route
+entity, stored in and executed by the network devices.  Route
 computation runs in the network devices themselves.<a href="#section-3.2-5.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
@@ -1466,7 +1463,7 @@ computation runs in the network devices themselves.<a href="#section-3.2-5.2.1" 
           <h4 id="name-interactions-in-centralized">
 <a href="#section-3.2.1" class="section-number selfRef">3.2.1. </a><a href="#name-interactions-in-centralized" class="section-name selfRef">Interactions in Centralized Scenario</a>
           </h4>
-<p id="section-3.2.1-1">In the centralized scenario, the network managing device generates and maintains schedules, the routing application
+<p id="section-3.2.1-1">In the centralized scenario, the network managing entity generates and maintains schedules, the routing application
 is deployed in the network controller, and the network devices execute the schedules and routing results.
 The following figure shows the components of the centralized scenario.<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
 <span id="name-components-of-centralized-s"></span><div id="ref-to-fig1">
@@ -1474,10 +1471,10 @@ The following figure shows the components of the centralized scenario.<a href="#
             <div class="alignLeft art-text artwork" id="section-3.2.1-2.1">
 <pre>
  +-----------------------------------------------------------------+
- |                        Managing Device                          |
+ |                        Managing Entity                          |
  +-----------------------------------------------------------------+
             |                                           |
-Topology YANG Module                        Node YANG Module(optional)
+Topology YANG Module                        Node YANG Module (optional)
             |                                           |
  +---------\|/----------+                     +--------\|/--------+
  |  Network Controller  |---Routing Results--&gt;|  Network Devices  |
@@ -1488,15 +1485,14 @@ Topology YANG Module                        Node YANG Module(optional)
 <a href="#name-components-of-centralized-s" class="selfRef">Components of Centralized Scenario</a>
             </figcaption></figure>
 </div>
-<p id="section-3.2.1-3">A centralized scenario involves the interaction between the managing device and network controller, the managing
-device and network devices, and the controller and network devices.<a href="#section-3.2.1-3" class="pilcrow">¶</a></p>
-<p id="section-3.2.1-4">The managing device may need to deliver node-specific schedules to network devices by TVR Schedule Node YANG
+<p id="section-3.2.1-3">A centralized scenario involves the interaction between the managing entity and network controller, the managing
+entity and network devices, and the controller and network devices.<a href="#section-3.2.1-3" class="pilcrow">¶</a></p>
+<p id="section-3.2.1-4">The managing entity may need to deliver node-specific schedules to network devices by "ietf-tvr-node"
 module <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-12#section-5.2" class="relref">Section 5.2</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>. This is optional and only necessary when the node attribute changes
-are instructed by the controller. Meanwhile, the network devices need to report their own status data to the managing device.<a href="#section-3.2.1-4" class="pilcrow">¶</a></p>
-<p id="section-3.2.1-5">The managing device needs to deliver the schedules of network topology to the network controller by the TVR Network
-Topology YANG module <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-12#section-5.3" class="relref">Section 5.3</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>, so that the routing application in the controller
+are instructed by the controller. Meanwhile, the network devices need to report their own status data to the managing entity.<a href="#section-3.2.1-4" class="pilcrow">¶</a></p>
+<p id="section-3.2.1-5">The managing entity needs to deliver the schedules of network topology to the network controller by "ietf-tvr-topology" module <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-schedule-yang-12#section-5.3" class="relref">Section 5.3</a> of [<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span>, so that the routing application in the controller
 can consider the impact of topology changes on routes when calculating routes.<a href="#section-3.2.1-5" class="pilcrow">¶</a></p>
-<p id="section-3.2.1-6">The network controller should deliver the route calculation results to the network devices. The format of the routing
+<p id="section-3.2.1-6">The network controller should deliver the computed routing results to the network devices. The format of the routing
 results depend on the protocols deployed (BGP, PCEP, etc.). Routing results <span class="bcp14">MAY</span> be delivered ahead and activated using an explicit time reference (e.g., absolute UTC), or via pre-staging plus an activation trigger.<a href="#section-3.2.1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1505,21 +1501,21 @@ results depend on the protocols deployed (BGP, PCEP, etc.). Routing results <spa
           <h4 id="name-interactions-in-distributed">
 <a href="#section-3.2.2" class="section-number selfRef">3.2.2. </a><a href="#name-interactions-in-distributed" class="section-name selfRef">Interactions in Distributed Scenario</a>
           </h4>
-<p id="section-3.2.2-1">In the distributed scenario, the managing device generates and maintains schedules, the routing application
+<p id="section-3.2.2-1">In the distributed scenario, the managing entity generates and maintains schedules, the routing application
 is deployed in the network devices which also executes schedules and route calculation.<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
 <span id="name-components-of-distributed-s"></span><div id="ref-to-fig2">
 <figure id="figure-2">
             <div class="alignLeft art-text artwork" id="section-3.2.2-2.1">
 <pre>
  +-------------------------------------------------+
- |                  Managing Device                |
+ |                  Managing Entity                |
  +-------------------------------------------------+
                           |
                Topology YANG Module and
-               Node YANG Module(optional)
+               Node YANG Module (optional)
                           |
  +-----------------------\|/-----------------------+
- |         Managed Devices (Network Devices)        |
+ |         Managed Entities (Network Devices)      |
  +-------------------------------------------------+
 </pre>
 </div>
@@ -1527,11 +1523,11 @@ is deployed in the network devices which also executes schedules and route calcu
 <a href="#name-components-of-distributed-s" class="selfRef">Components of Distributed Scenario</a>
             </figcaption></figure>
 </div>
-<p id="section-3.2.2-3">The distributed model only involves the interaction between managing devices and network devices(managed devices).<a href="#section-3.2.2-3" class="pilcrow">¶</a></p>
-<p id="section-3.2.2-4">The managing device need to deliver network topology schedules to all the network devices by TVR Network Topology YANG
-module for route calculation. The managing device may also need to deliver node-specific schedules to network devices by
-TVR Schedule Node YANG module, this is optional and only necessary when the node attributes changes are instructed by
-the controller. The network devices need to report their own status data to the managing device.<a href="#section-3.2.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-3">The distributed model only involves the interaction between managing entities and network devices (managed entities).<a href="#section-3.2.2-3" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-4">The managing entity delivers network topology schedules to all the network devices by "ietf-tvr-topology"
+module for route calculation. The managing entity may also deliver node-specific schedules to network devices by
+"ietf-tvr-node" module, this is optional and only necessary when the node attributes changes are instructed by
+the controller. The network devices report their own status data to the managing entity.<a href="#section-3.2.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1545,7 +1541,7 @@ the controller. The network devices need to report their own status data to the 
 attributes. There are modules defined in the TVR data model, these are:<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.3-2.1">
-            <p id="section-3.3-2.1.1">The "ietf-tvr-schedule" module contains the schedule YANG definitions. This module uses groupings from <span>[<a href="#I-D.ietf-netmod-schedule-yang" class="cite xref">I-D.ietf-netmod-schedule-yang</a>]</span> data model;<a href="#section-3.3-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.3-2.1.1">The "ietf-tvr-schedule" module contains the schedule YANG definitions. This module uses groupings from <span>[<a href="#RFC9922" class="cite xref">RFC9922</a>]</span> data model;<a href="#section-3.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.3-2.2">
             <p id="section-3.3-2.2.1">The "ietf-tvr-topology" module defines a network topology with a time-variant availability schedule;<a href="#section-3.3-2.2.1" class="pilcrow">¶</a></p>
@@ -1571,53 +1567,52 @@ for schedule provisioning and <span class="bcp14">MAY</span> read from the opera
 to retrieve execution status and applied schedules.  Clients can use
 NMDA (Network Management Datastore Architecture, <span>[<a href="#RFC8342" class="cite xref">RFC8342</a>]</span>)
 operations to distinguish between intended configuration and actual
-operational state.  For example, the managing device writes schedules
+operational state.  For example, the managing entity writes schedules
 to the intended or running datastore, and network devices report
 execution status via the operational datastore.<a href="#section-3.3-5" class="pilcrow">¶</a></p>
-<p id="section-3.3-6">A TVR scenario example is provided below, where a wireless link is shut down for 12 hours, from 19:00 to 7am the next day.
+<p id="section-3.3-6">An example for the encoding of "ietf-tvr-node" is provided below, where a wireless link is shut down for 12 hours, from 19:00 to 7am the next day.
 The schedule is identified using a unique identifier that is conveyed in 'schedule-id', and the recurring schedule can be applied for multiple days using Coordinated
 Universal Time (UTC).
-More detailed examples of the JSON example is provided in this documents Appendix.<a href="#section-3.3-6" class="pilcrow">¶</a></p>
+Further JSON examples are provided in Appendix A.<a href="#section-3.3-6" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3.3-7">
 <pre>
 {
-   "ietf-tvr-node:node-schedule": {
-         "node-id":"example:1234567890",
-         "node-power-schedule":{
-            "power-default":true,
-            "schedule": []
-         },
-         "interface-schedule":{
-             "interface": [
-                {
-                    "name":"Wlan0",
-                    "default-available":false,
-                    "default-bandwidth":
-                    "attribute-schedule":{
-                        "schedule":[
-                            {
-                                "schedule-id":111111,
-                                "recurrence-first":{
-                                    "start-time-utc":"2025-12-01T19:00:00Z",
-                                    "duration":43200
-                                },
-                                "utc-until":"2026-12-01T00:00:00Z",
-                                "frequency":"ietf-schedule:daily",
-                                "interval":1,
-                                "scheduled-attributes":{
-                                    "available":true
-                                }
-                            }
-                        ]
-                    }
+  "ietf-tvr-node:node-schedule": {
+    "node-id": "example:1234567890",
+    "node-power-schedule": {
+      "power-default": true,
+      "schedule": []
+    },
+    "interface-schedule": {
+      "interface": [
+        {
+          "name": "Wlan0",
+          "default-available": false,
+          "attribute-schedule": {
+            "schedule": [
+              {
+                "schedule-id": 111111,
+                "recurrence-first": {
+                  "start-time-utc": "2025-12-01T19:00:00Z",
+                  "duration": 43200
+                },
+                "utc-until": "2026-12-01T00:00:00Z",
+                "frequency": "ietf-schedule:daily",
+                "interval": 1,
+                "scheduled-attributes": {
+                  "available": true
                 }
+              }
             ]
+          }
         }
-   }
+      ]
+    }
+  }
 }
 </pre><a href="#section-3.3-7" class="pilcrow">¶</a>
 </div>
-<p id="section-3.3-8">The methods for disseminating and propagating the generated schedules are discussed in the following subsections.<a href="#section-3.3-8" class="pilcrow">¶</a></p>
+<p id="section-3.3-8">The methods for disseminating and propagating the generated schedules are discussed in the following subsection.<a href="#section-3.3-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="management-protocols-for-tvr">
@@ -1626,7 +1621,7 @@ More detailed examples of the JSON example is provided in this documents Appendi
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-management-protocols-for-tv" class="section-name selfRef">Management Protocols for TVR</a>
         </h3>
 <p id="section-3.4-1">The TVR data model is designed to be accessed via YANG-based management protocols such as NETCONF <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span>, RESTCONF
-<span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span> and CORECONF<span>[<a href="#I-D.ietf-core-comi-19" class="cite xref">I-D.ietf-core-comi-19</a>]</span>. This section discusses the applicability of these protocols for
+<span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span> and CORECONF <span>[<a href="#I-D.ietf-core-comi-19" class="cite xref">I-D.ietf-core-comi-19</a>]</span>. This section discusses the applicability of these protocols for
 configuring time-variant network resources using the TVR YANG data models.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 <p id="section-3.4-2">NETCONF provides a robust mechanism for managing complex network configurations, particularly when transactional integrity
 and operational consistency are required. Its ability to execute atomic transactions ensures that schedules involving
@@ -1639,7 +1634,7 @@ cases requiring lightweight, rapid configuration. RESTCONF utilizes a RESTful in
 approach to network configuration and management. Therefore, RESTCONF may be advantageous in scenarios where quick adjustments
 to schedules are needed or where integration with web-based or cloud-native systems is a priority.<a href="#section-3.4-3" class="pilcrow">¶</a></p>
 <p id="section-3.4-4">CORECONF provides a lightweight, stateless method for managing small network devices where saving bytes to transport a
-message is very important. CORECONF uses CoAP<span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> methods to access structured data defined in YANG, which is a complementary to RESTCONF.
+message is very important. CORECONF uses CoAP <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> methods to access structured data defined in YANG, which is a complementary to RESTCONF.
 Unlike RESTCONF, many CORECONF design decisions are motivated by minimizing the message size. Therefore, CORECONF is advantageous
 in networks with constrained devices and very limited transmission bandwidth, especially in IoT devices that already deployed CoAP.<a href="#section-3.4-4" class="pilcrow">¶</a></p>
 <p id="section-3.4-5">Depending on the type of node in the TVR network, NETCONF would be the preferred protocol for large-scale, critical scheduling
@@ -1660,38 +1655,35 @@ the scheduling tasks involved.<a href="#section-3.4-5" class="pilcrow">¶</a></p
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-time-synchronization" class="section-name selfRef">Time Synchronization</a>
       </h2>
 <p id="section-4-1">Time Synchronization is fundamental for ensuring that TVR mechanisms, which depend on highly accurate timing, function as intended across
-an entire network. Misalignment in time could lead to serious routing issues, including inefficiency in path forwarding,
-instability in routing tables, and traffic outages.<a href="#section-4-1" class="pilcrow">¶</a></p>
-<p id="section-4-2">Time Synchronization mechanisms will be used to ensure:<a href="#section-4-2" class="pilcrow">¶</a></p>
+an entire network. Time Synchronization mechanisms will be used to ensure:<a href="#section-4-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4-3.1">
-          <p id="section-4-3.1.1">Coordination of Planned Network Events;<a href="#section-4-3.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-4-2.1">
+          <p id="section-4-2.1.1">Coordination of Planned Network Events;<a href="#section-4-2.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-4-3.2">
-          <p id="section-4-3.2.1">Verification of TVR Data Model Time Stamps<a href="#section-4-3.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-4-2.2">
+          <p id="section-4-2.2.1">Verification of TVR Data Model Time Stamps;<a href="#section-4-2.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-4-3.3">
-          <p id="section-4-3.3.1">Accurate Scheduling of Paths;<a href="#section-4-3.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-4-3.4">
-          <p id="section-4-3.4.1">Fault Tolerance.<a href="#section-4-3.4.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-4-2.3">
+          <p id="section-4-2.3.1">Accurate Scheduling of Paths;<a href="#section-4-2.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-4-4">Different time-variant scenarios may require different granularities of time synchronization. For example, the
+<p id="section-4-3">Therefore, network time accuracy and time-stamped data models are critical to ensure that coordinated network events and scheduled path decisions across the network are based on a consistent time reference. Without accurate time sync, nodes could apply different schedules, causing routing inconsistencies, path flapping, or packet loss.<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-4-4">Since all schedules are generated by the managing entity, it is necessary to make sure that the managing entity and managed entities within a schedule domain (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-11#section-2.1.1" class="relref">Section 2.1.1</a> of [<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span>) are synchronized with the same time source. It ensures they have the same notion of when that is.<a href="#section-4-4" class="pilcrow">¶</a></p>
+<p id="section-4-5">Different time-variant scenarios may require different granularities of time synchronization. For example, the
 period of traffic and topology changes in tidal networks is usually a day or week. Therefore, a second-level time
 synchronization is enough. However, for the dynamic reachability scenarios, a fine-granularity time synchronization may
-be necessary, as the nodes may move very fast in some cases (the moving speed of a low earth orbit satellite is more than 7900 m/s)<a href="#section-4-4" class="pilcrow">¶</a></p>
-<p id="section-4-5">Operators <span class="bcp14">SHOULD</span> derive a maximum acceptable time-error bound based on the schedule granularity, execution jitter tolerance, and
+be necessary, as the nodes may move very fast in some cases (the moving speed of a low earth orbit satellite is more than 7900 m/s).<a href="#section-4-5" class="pilcrow">¶</a></p>
+<p id="section-4-6">Operators <span class="bcp14">SHOULD</span> derive a maximum acceptable time-error bound based on the schedule granularity, execution jitter tolerance, and
 activation window requirements.  For instance, if a schedule has a 1-second activation window and the system can tolerate up to 100ms of
 execution jitter, the time synchronization error <span class="bcp14">MUST</span> be kept well below 900ms.  The chosen time synchronization protocol and
-configuration <span class="bcp14">MUST</span> be capable of meeting this derived bound under all expected network conditions.<a href="#section-4-5" class="pilcrow">¶</a></p>
-<p id="section-4-6">Existing clock synchronization protocols can be classified into hardware-based protocols and software-based protocols.<a href="#section-4-6" class="pilcrow">¶</a></p>
-<p id="section-4-7">Hardware-based protocols often rely on dedicated hardware to ensure clock synchronization, such as Satellite Based Timing Service (SBTS)
-and Precision Time Protocol (PTP). The SBTS includes but is not limited to Global Position System (GPS),
-BeiDou Navigation Satellite System(BDS), Global Navigation Satellite System(GLONASS), and Galileo satellite navigation system.
+configuration <span class="bcp14">MUST</span> be capable of meeting this derived bound under all expected network conditions.<a href="#section-4-6" class="pilcrow">¶</a></p>
+<p id="section-4-7">Existing clock synchronization protocols can be classified into hardware-based protocols and software-based protocols.<a href="#section-4-7" class="pilcrow">¶</a></p>
+<p id="section-4-8">Hardware-based protocols often rely on dedicated hardware to ensure clock synchronization, such as Satellite Based Timing Service (SBTS)
+and Precision Time Protocol (PTP). The SBTS includes but is not limited to Global Positioning System (GPS),
+BeiDou Navigation Satellite System (BDS), GLONASS, and Galileo.
 Software-based protocols, on the other hand, synchronize clocks through software packages running on systems, such as Network
-Time Protocol (NTP) <span>[<a href="#RFC5905" class="cite xref">RFC5905</a>]</span> and Simple Network Time Protocol (SNTP) <span>[<a href="#RFC4330" class="cite xref">RFC4330</a>]</span>.<a href="#section-4-7" class="pilcrow">¶</a></p>
-<p id="section-4-8">The security aspects of time synchronization mechanisms are discussed further in <a href="#security-considerations" class="auto internal xref">Section 7</a> of this document.<a href="#section-4-8" class="pilcrow">¶</a></p>
+Time Protocol (NTP) <span>[<a href="#RFC5905" class="cite xref">RFC5905</a>]</span> and Simple Network Time Protocol (SNTP) <span>[<a href="#RFC4330" class="cite xref">RFC4330</a>]</span>.<a href="#section-4-8" class="pilcrow">¶</a></p>
+<p id="section-4-9">The security aspects of time synchronization mechanisms are discussed further in <a href="#security-considerations" class="auto internal xref">Section 7</a> of this document.<a href="#section-4-9" class="pilcrow">¶</a></p>
 <div id="hardware-based-time-synchronization-mechanisms">
 <section id="section-4.1">
         <h3 id="name-hardware-based-time-synchro">
@@ -1699,7 +1691,7 @@ Time Protocol (NTP) <span>[<a href="#RFC5905" class="cite xref">RFC5905</a>]</sp
         </h3>
 <p id="section-4.1-1">Hardware-based protocols typically have higher precision and stability, but also have higher cost due to the dedicated hardware. SBTS and PTP are the typical hardware-based time synchronization mechanisms.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.1-2">SBTS provides a precise time synchronization service based on the signals transmitted by the satellites. SBTS can realize the micro-second level time synchronization among the devices installed with SBTS receiver hardware.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
-<p id="section-4.1-3">PTP is a network protocol that complies with the IEEE 1588 standard and is used to implement high-precision time synchronization between network nodes. PTP implements time synchronization by transmitting synchronization messages between master and slave devices. Based on the hardware timestamp, the precision of time synchronization is much higher than that of NTP, and can reach the sub-microsecond level or even tens of nanoseconds.  When deploying PTP in TVR networks, the managing devices should be the master and the network devices and controller should be the slaves which get time from the master.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.1-3">PTP is a network protocol that complies with the IEEE 1588 standard and is used to implement high-precision time synchronization between network nodes. PTP implements time synchronization by transmitting synchronization messages between master and slave devices. Based on the hardware timestamp, the precision of time synchronization is much higher than that of NTP, and can reach the sub-microsecond level or even tens of nanoseconds.  When deploying PTP in TVR networks, the managing entities should be the master and the network devices and controller should be the slaves which get time from the master.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
 <p id="section-4.1-4">Both SBTS and PTP can realize micro-second level time synchronization. Depending on the features of TVR network, the SBTS would be the preferred mechanisms for
 large-scale, high dynamic and open-air networks, especially networks with unreliable links as it does not require network links to exchange time information.
 For the small-scale networks with stable links but have high-precision time synchronization requirements, the PTP is much preferred.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
@@ -1721,8 +1713,8 @@ example, the NTP can realize the synchronization at tens of milliseconds level).
 server synchronized to an authoritative clock runs at stratum 1. Such NTP server functions as the primary time server
 to provide clock synchronization for other devices on the network. Stratum 2 servers obtain time from stratum 1 servers,
 stratum 3 servers obtain time from stratum 2 servers, and so on.<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-4.2.1-2">In TVR use cases, the managing device functions as a level-1 NTP server and synchronized to an authoritative clock
-source. The network controller and network devices behave as clients to obtain accurate time from the managing device.
+<p id="section-4.2.1-2">In TVR use cases, the managing entity functions as a level-1 NTP server and synchronized to an authoritative clock
+source. The network controller and network devices behave as clients to obtain accurate time from the managing entity.
 <a href="#ref-to-fig3" class="auto internal xref">Figure 3</a> shows an NTP deployment scenario for obtaining clock from a GPS clock source.<a href="#section-4.2.1-2" class="pilcrow">¶</a></p>
 <span id="name-deployment-case-of-ntp-in-t"></span><div id="ref-to-fig3">
 <figure id="figure-3">
@@ -1733,7 +1725,7 @@ source. The network controller and network devices behave as clients to obtain a
                            +--------------------+
                                      |
                +--------------------\|/------------------+
-Stratum 1      |             Managing Device             |
+Stratum 1      |             Managing Entity             |
                +-----------------------------------------+
                      |                             |
                      |                             |
@@ -1770,8 +1762,8 @@ seconds. SNTP is also preferred in large-scale networks with reliable links, lon
       <h2 id="name-schedule-database">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-schedule-database" class="section-name selfRef">Schedule Database</a>
       </h2>
-<p id="section-5-1">The schedule database is used to store and maintain schedules, the database may be deployed on a managing device
-and managed devices based on requirements.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-1">The schedule database is used to store and maintain schedules, the database may be deployed on a managing entity
+and managed entities based on requirements.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <p id="section-5-2">The source of the schedule database may be created from multiple sources, for example, configuration from an administrator
 or YANG model from the management interface. The schedule entries of different databases may be different, but the
 content of the same schedule entry in the schedule databases of different devices in the same domain must be
@@ -1786,7 +1778,7 @@ consistent:<a href="#section-5-2" class="pilcrow">¶</a></p>
 schedule databases among devices.<a href="#section-5-3.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-5-4">Option 1 is simplest and easy to implement. In a time-variant domain, the managing device may receive scheduling
+<p id="section-5-4">Option 1 is simplest and easy to implement. In a time-variant domain, the managing entity may receive scheduling
 requests and generate all schedule entries. Then the schedule entries are delivered to the necessary network devices
 in the domain through the TVR YANG model.<a href="#section-5-4" class="pilcrow">¶</a></p>
 <p id="section-5-5">Option 2 relies on advertisement mechanisms (such as routing techniques) to advertise the scheduling data generated
@@ -1798,7 +1790,7 @@ by itself to other devices. This could be achieved using extensions to existing 
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-data-structure" class="section-name selfRef">Data Structure</a>
         </h3>
 <p id="section-5.1-1"><span>[<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span> defines a TVR Node and TVR Topology YANG modules. The Node YANG module
-includes node power schedules and interface schedules. The Topology YANG module includes node schedules and link schedules.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+includes node power schedules and interface schedules. The Topology YANG module includes node schedules and link (termination point) schedules.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.1-2">Based on the preceding four schedule types, the schedule database should contain four types of schedule entries in
 different formats:<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -1812,7 +1804,7 @@ different formats:<a href="#section-5.1-2" class="pilcrow">¶</a></p>
             <p id="section-5.1-3.3.1">Node schedule entry;<a href="#section-5.1-3.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.1-3.4">
-            <p id="section-5.1-3.4.1">Link schedule entry;<a href="#section-5.1-3.4.1" class="pilcrow">¶</a></p>
+            <p id="section-5.1-3.4.1">Termination-point schedule entry;<a href="#section-5.1-3.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-5.1-4">The detailed format and fields of different types of schedule entries could refer to the definitions of the corresponding
@@ -1848,27 +1840,6 @@ duplication at the source.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 <p id="section-6-1">Several operational considerations exist when using TVR techniques and data models in a network. This section provides
 some high-level observations and more detailed sub-sections for specific consideration related to schedule dissemination,
 execution, and recovery in case of failure to apply a schedule or partial change.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-6-2.1">
-          <p id="section-6-2.1.1">Coordinated Network Events: TVR often coordinates routing changes anticipating events like predictable low-traffic
-periods or link downtimes (e.g., scheduled maintenance or traffic demand).<a href="#section-6-2.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-6-2.2">
-          <p id="section-6-2.2.1">Accurate Scheduling of Paths: TVR schedules capable routers and network nodes will dynamically adjust forwarding paths
-based on planned changes in link availability or network conditions.<a href="#section-6-2.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-6-2.3">
-          <p id="section-6-2.3.1">Time-Stamped Data Models: TVR will require the use time-stamped data models (e.g., schedules for link changes or
-availability windows) to make interface management decisions. This ensures that all TVR nodes interpret the timing of
-events consistently and implement time-based policies correctly.<a href="#section-6-2.3.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
-<p id="section-6-3">Therefore, network time accuracy and time-stamped data models are critical to ensure that coordinated network events
-and scheduled path decisions across the network are based on a consistent time reference. Without accurate time sync,
-nodes could apply different schedules, causing routing inconsistencies, path flapping, or packet loss.<a href="#section-6-3" class="pilcrow">¶</a></p>
-<p id="section-6-4">Since all schedules are generated by the managing devices, it is necessary to make sure that the managing
-device and managed devices within a schedule domain (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-11#section-2.1.1" class="relref">Section 2.1.1</a> of [<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span>) are synchronized
-with the same time source. It ensures they have the same notion of when that is.<a href="#section-6-4" class="pilcrow">¶</a></p>
 <div id="schedule-dissemination">
 <section id="section-6.1">
         <h3 id="name-schedule-dissemination">
@@ -1877,12 +1848,12 @@ with the same time source. It ensures they have the same notion of when that is.
 <p id="section-6.1-1">When distributing schedules, the following problems should be considered:<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.1-2.1">
-            <p id="section-6.1-2.1.1">The managed devices that receives a schedule should have the ability to execute the schedule. If the device does not support schedule
+            <p id="section-6.1-2.1.1">The managed entities that receives a schedule should have the ability to execute the schedule. If the device does not support schedule
 execution, it <span class="bcp14">SHOULD</span> reject the update with an appropriate error, or ignore it if the management interface does not support error reporting.<a href="#section-6.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-6.1-2.2">
-            <p id="section-6.1-2.2.1">The distributing of a schedule <span class="bcp14">SHOULD</span> be delivered at least x (operator-defined) time before the earliest start time of the schedule, this ensures that the
-managed device has enough time to execute this schedule.<a href="#section-6.1-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-6.1-2.2.1">A schedule <span class="bcp14">SHOULD</span> be delivered at least an operator-defined lead time before its earliest start time, so that the
+managed entity has enough time to execute it.<a href="#section-6.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1910,25 +1881,27 @@ and down, and other attributes directly or by commands.<a href="#section-6.2.1-1
 <a href="#section-6.2.2" class="section-number selfRef">6.2.2. </a><a href="#name-execution-of-topology-modul" class="section-name selfRef">Execution of Topology Module Schedule</a>
           </h4>
 <p id="section-6.2.2-1">Topology schedule execution means a node take some measures before or upon the scheduled topology changes.<a href="#section-6.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.2.2-2">The schedule executor should understand the consequences of the schedule execution. The addition and deletion of the topology
-need to be considered separately.<a href="#section-6.2.2-2" class="pilcrow">¶</a></p>
-<p id="section-6.2.2-3">A link coming up or a node joining a topology should not have any functional change until the change is proven to be fully
-operational. The routing paths may be pre-computed but should not be installed before all the topology changes are
-confirmed to be operational. Pre-computation <span class="bcp14">MAY</span> be used, operators should weigh compute cost versus reduced activation latency. The network may choose to
-not do any pre-installation or pre-computation in reaction to topological additions at a small cost of some operational
-efficiency.<a href="#section-6.2.2-3" class="pilcrow">¶</a></p>
-<p id="section-6.2.2-4">Topological deletions are an entirely different matter. If a link or node is to be removed from the topology, then the
-network should act before the anticipated change to route traffic around the expected topological change. Specifically,
-at some point before the planned topology change, the routing paths should be pre-computed and installed before the
-topology change takes place. The required time to perform such planned action will vary depending on the exact network
+<p id="section-6.2.2-2">The schedule executor should understand the consequences of the schedule execution. The execution actions for different kind of topology changes should be considered separately.<a href="#section-6.2.2-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.2.2-3.1">
+              <p id="section-6.2.2-3.1.1">A link coming up or a node joining a topology should not have any functional change until the change is proven to be fully operational. The routing paths may be pre-computed but should not be installed before all the topology changes are confirmed to be operational. The network may choose to not do any pre-installation or pre-computation in reaction to topological additions at a small cost of some operational efficiency.<a href="#section-6.2.2-3.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-6.2.2-3.2">
+              <p id="section-6.2.2-3.2.1">If a link or node is to be removed from the topology, then the
+network should act before the anticipated change to route traffic around the expected topological change. The required time to perform such planned action will vary depending on the exact network
 and configuration. When using an IGP or other distributed routing protocols, the affected links may be set to a high
 metric to direct traffic to alternate paths. This type of change does require some time to propagate through the
 network, so the metric change should be initiated far enough in advance that the network converges before the actual
-topological change.<a href="#section-6.2.2-4" class="pilcrow">¶</a></p>
-<p id="section-6.2.2-5">In addition to the addition and deletion of topology, a schedule may indicate the attributes change of some links, such as bandwidth and delay.
-If an attribute changes better (such as latency decrease and bandwidth increase), then the executor should take actions later
-or until the topology change is proven to be fully operational.
-If an attribute changes worse (such as latency increase and bandwidth decrease), then the node should react to it before the change take place.<a href="#section-6.2.2-5" class="pilcrow">¶</a></p>
+topological change.<a href="#section-6.2.2-3.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-6.2.2-3.3">
+              <p id="section-6.2.2-3.3.1">If an attribute changes better (such as latency decrease and bandwidth increase), then the executor should take actions later
+or until the topology change is proven to be fully operational.<a href="#section-6.2.2-3.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-6.2.2-3.4">
+              <p id="section-6.2.2-3.4.1">If an attribute changes worse (such as latency increase and bandwidth decrease), then the node should react to it before the change take place.<a href="#section-6.2.2-3.4.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
 </section>
 </div>
 </section>
@@ -1939,41 +1912,31 @@ If an attribute changes worse (such as latency increase and bandwidth decrease),
 <a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-schedule-recovery" class="section-name selfRef">Schedule Recovery</a>
         </h3>
 <p id="section-6.3-1">Schedule recovery means when a node lost its specific schedule data, it should be able to recover these schedule data.
-Typical scenarios include data loss due to device restart, disconnection from managing devices and failure to receive new
-schedules for a long time. In these scenarios, once the connection between the managed device and the managing device is
-established again, the managing device needs to re-distribute all schedules that start time is later than the current moment
-to the managed device after time synchronization is finished.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+Typical scenarios include data loss due to device restart, disconnection from managing entities and failure to receive new
+schedules for a long time. In these scenarios, once the connection between the managed entity and the managing entity is
+established again, the managing entity needs to re-distribute all schedules that start time is later than the current moment
+to the managed entity after time synchronization is finished.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="error-handling">
+<div id="consistency-verification">
 <section id="section-6.4">
-        <h3 id="name-error-handling">
-<a href="#section-6.4" class="section-number selfRef">6.4. </a><a href="#name-error-handling" class="section-name selfRef">Error Handling</a>
+        <h3 id="name-consistency-verification">
+<a href="#section-6.4" class="section-number selfRef">6.4. </a><a href="#name-consistency-verification" class="section-name selfRef">Consistency Verification</a>
         </h3>
-<div id="consistency-error">
-<section id="section-6.4.1">
-          <h4 id="name-consistency-error">
-<a href="#section-6.4.1" class="section-number selfRef">6.4.1. </a><a href="#name-consistency-error" class="section-name selfRef">Consistency Error</a>
-          </h4>
-<p id="section-6.4.1-1">Consistency error means that some time parameters conflict with other time parameters in the same schedule or in other schedules.<a href="#section-6.4.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.4-1">Consistency within a schedule or among different schedules is the precondition for schedule execution. Verification for inconsistencies is therefore necessary. An inconsistency means that some time parameters conflict with other time parameters in the same schedule or in other schedules.<a href="#section-6.4-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6.4.1-2.1">
-              <p id="section-6.4.1-2.1.1">If the time parameters of a schedule conflict with each other, for example, the period-start later than period-end,
+<li class="normal" id="section-6.4-2.1">
+            <p id="section-6.4-2.1.1">If the time parameters of a schedule conflict with each other, for example, the period-start later than period-end,
 the duration is longer than the product of frequency and interval, or the duration is longer than utc-until, then the schedule
-should be discarded and an error should be returned to the schedule originator (e.g., the managing device or management client).<a href="#section-6.4.1-2.1.1" class="pilcrow">¶</a></p>
+should be discarded and an error should be returned to the schedule originator (e.g., the managing entity or management client).<a href="#section-6.4-2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-6.4.1-2.2">
-              <p id="section-6.4.1-2.2.1">If there is a conflict between schedules with different schedule IDs, for example, schedule1 indicates that interface B is closed at time A, but
-schedule2 indicates that interface B is open at time A, then only the conflicting update should be rejected (retaining the last-known-good schedule).
-An error should be returned to the schedule originator, and the conflict <span class="bcp14">MUST</span> be
-logged for audit purposes.
-If two schedules have the same schedule ID, then it is considered as an update of the former schedule. Updates with the same schedule ID <span class="bcp14">SHALL</span> completely replace the previous schedule (full replacement, not merge).
-Implementations <span class="bcp14">SHOULD</span> support versioning or etag-based mechanisms to detect concurrent updates.
-Partial updates to a schedule are NOT permitted; clients <span class="bcp14">MUST</span> send the complete schedule definition.<a href="#section-6.4.1-2.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-6.4-2.2">
+            <p id="section-6.4-2.2.1">If there is a conflict between schedules with different schedule IDs, for example, schedule1 indicates that interface B is closed at time A, but schedule2 indicates that interface B is open at time A, then only the conflicting update should be rejected (retaining the last-known-good schedule). An error should be returned to the schedule originator, and the conflict <span class="bcp14">MUST</span> be logged for audit purposes.<a href="#section-6.4-2.2.1" class="pilcrow">¶</a></p>
 </li>
-          </ul>
-</section>
-</div>
+          <li class="normal" id="section-6.4-2.3">
+            <p id="section-6.4-2.3.1">If there is a conflict between schedules with the same schedule ID, then it is considered as an update of the former schedule. Updates with the same schedule ID <span class="bcp14">SHALL</span> completely replace the previous schedule (full replacement, not merge). Implementations <span class="bcp14">SHOULD</span> support versioning or etag-based mechanisms to detect concurrent updates. Partial updates to a schedule are NOT permitted; clients <span class="bcp14">MUST</span> send the complete schedule definition.<a href="#section-6.4-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
 </section>
 </div>
 <div id="early-warning-mechanism">
@@ -1981,13 +1944,69 @@ Partial updates to a schedule are NOT permitted; clients <span class="bcp14">MUS
         <h3 id="name-early-warning-mechanism">
 <a href="#section-6.5" class="section-number selfRef">6.5. </a><a href="#name-early-warning-mechanism" class="section-name selfRef">Early Warning Mechanism</a>
         </h3>
-<p id="section-6.5-1">Early warning mechanism may be used to identify the fault schedule, and prevent the execution of fault schedule in some time-variant scenarios with insignificant schedule changes.<a href="#section-6.5-1" class="pilcrow">¶</a></p>
-<p id="section-6.5-2">When a schedule received by a managed device or managing device shows significant short-term discrepancies in its key
+<p id="section-6.5-1">Early warning mechanism may be used to identify the fault schedule, and prevent the execution of fault schedule in time-variant scenarios where schedule changes are normally small.<a href="#section-6.5-1" class="pilcrow">¶</a></p>
+<p id="section-6.5-2">When a schedule received by a managed entity or managing entity shows significant short-term discrepancies in its key
 values (e.g. the frequency of a schedule changes greatly), the device should send feedback to the schedule originator
 to confirm whether this schedule arises from a system failure or operator error. Upon receiving the feedback, the
 schedule originator should inspect logs to confirm whether a fault has occurred or notify users to get the confirmation.
 Only when the schedule is confirmed, then the receiving device can execute this schedule. The device received schedules
 and the schedule originator may be independent devices or independent components within one device.<a href="#section-6.5-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="stability-mechanisms">
+<section id="section-6.6">
+        <h3 id="name-stability-mechanisms">
+<a href="#section-6.6" class="section-number selfRef">6.6. </a><a href="#name-stability-mechanisms" class="section-name selfRef">Stability Mechanisms</a>
+        </h3>
+<div id="fallback-mechanism">
+<section id="section-6.6.1">
+          <h4 id="name-fallback-mechanism">
+<a href="#section-6.6.1" class="section-number selfRef">6.6.1. </a><a href="#name-fallback-mechanism" class="section-name selfRef">Fallback Mechanism</a>
+          </h4>
+<p id="section-6.6.1-1">A fallback policy defines the operational state that is applied when schedule verification or execution fails.
+It allows continued operation in cases where unexpected or inconsistent information is detected.<a href="#section-6.6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.6.1-2">Fallback triggers include, but are not limited to:<a href="#section-6.6.1-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.6.1-3.1">
+              <p id="section-6.6.1-3.1.1">Loss of schedule database after reboot or management plane disconnection;<a href="#section-6.6.1-3.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-6.6.1-3.2">
+              <p id="section-6.6.1-3.2.1">Time synchronization failure;<a href="#section-6.6.1-3.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-6.6.1-3.3">
+              <p id="section-6.6.1-3.3.1">Validation failure of the currently active schedule entry;<a href="#section-6.6.1-3.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-6.6.1-3.4">
+              <p id="section-6.6.1-3.4.1">Managed entity reports that it cannot execute the scheduled attribute (e.g., a scheduled interface cannot be brought up).<a href="#section-6.6.1-3.4.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-6.6.1-4">The fallback state may be selected from three sources:<a href="#section-6.6.1-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.6.1-5.1">
+              <p id="section-6.6.1-5.1.1">The default attribute value defined in the TVR YANG schedule;<a href="#section-6.6.1-5.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-6.6.1-5.2">
+              <p id="section-6.6.1-5.2.1">A statically configured safe state that is independent of TVR schedules;<a href="#section-6.6.1-5.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-6.6.1-5.3">
+              <p id="section-6.6.1-5.3.1">The last known operational state before the failing schedule was applied.<a href="#section-6.6.1-5.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-6.6.1-6">Fallback overrides the schedule input for routing computation. It does not delete or modify stored schedule entries.<a href="#section-6.6.1-6" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="rollback">
+<section id="section-6.6.2">
+          <h4 id="name-rollback">
+<a href="#section-6.6.2" class="section-number selfRef">6.6.2. </a><a href="#name-rollback" class="section-name selfRef">Rollback</a>
+          </h4>
+<p id="section-6.6.2-1">Rollback is a transactional undo capability for schedule provisioning operations. It restores the schedule database to a previously validated baseline snapshot after a faulty schedule create/update/delete transaction.
+Rollback is primarily orchestrated by the managing entity, which maintains versioned, integrity-protected snapshots of the schedule database.
+Each snapshot is captured in the prepare phase before applying a batch of schedule changes.
+A snapshot includes the set of affected schedule-ids, resource references, transaction identifier, timestamp, and integrity digest for validation. Snapshots are retained according to the domain audit policy.<a href="#section-6.6.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.6.2-2">All rollback actions should be logged for audit. The log records the transaction ID, snapshot reference, trigger reason, list of affected schedule-ids, and per-resource rollback outcome. Rollback status is also reflected in the operational datastore for monitoring.<a href="#section-6.6.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 </section>
@@ -1998,7 +2017,7 @@ and the schedule originator may be independent devices or independent components
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <p id="section-7-1">The integration of time-variant mechanisms in network operations presents distinct security challenges that require thorough
-analysis to safeguard the network’s integrity, availability, and confidentiality. Networks that rely on time-sensitive data
+analysis to safeguard the network's integrity, availability, and confidentiality. Networks that rely on time-sensitive data
 for routing and forwarding decisions are particularly susceptible to attacks that exploit timing dependencies.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <p id="section-7-2">The "Security Considerations" section of <span>[<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span> outlines various threat vectors and categories specific
 to time-variant environments.<a href="#section-7-2" class="pilcrow">¶</a></p>
@@ -2026,11 +2045,11 @@ recommended to be applied.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
 <p id="section-7.2-1">In a time-variant network, if time information is not adequately protected, attackers could conduct traffic analysis to
 infer routing decisions, network load, or usage patterns. The schedule ability could enable attackers to launch highly
 targeted attacks, such as selectively overloading certain links or intercepting sensitive communications.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
-<p id="section-7.2-2">This kind of attack could be mitigated by the encryption of schedules and the authentication of managing devices. For
-the networks using NETCONF to deliver schedules, NETCONF over TLS<span>[<a href="#RFC7589" class="cite xref">RFC7589</a>]</span> is recommended to achieve the bidirectional
+<p id="section-7.2-2">This kind of attack could be mitigated by the encryption of schedules and the authentication of managing entities. For
+the networks using NETCONF to deliver schedules, NETCONF over TLS <span>[<a href="#RFC7589" class="cite xref">RFC7589</a>]</span> is recommended to achieve the bidirectional
 authentication and encryption of YANG model data. RESTCONF supports TLS originally, so it can be deployed without
 additional configurations or modifications.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
-<p id="section-7.2-3">In addition, in time variant networks with centralized scenario<a href="#centralized-scenario" class="auto internal xref">Section 3.2.1</a>, the encryption of routing path
+<p id="section-7.2-3">In addition, in time variant networks with centralized scenario (<a href="#centralized-scenario" class="auto internal xref">Section 3.2.1</a>), the encryption of routing path
 information is also necessary to avoid the fake routing information. Considering the most typical protocols used to
 deliver the routing path information between controller and network devices are BGP and PCEP, and both are based on TCP.
 Therefore, the TLS is <span class="bcp14">RECOMMENDED</span> to provide confidentiality and integrity protection.<a href="#section-7.2-3" class="pilcrow">¶</a></p>
@@ -2088,43 +2107,12 @@ erroneous time information to the entire network, disrupting its operation.<a hr
         <h3 id="name-schedule-tampering-and-mali">
 <a href="#section-7.7" class="section-number selfRef">7.7. </a><a href="#name-schedule-tampering-and-mali" class="section-name selfRef">Schedule Tampering and Malicious Schedule Injection</a>
         </h3>
-<p id="section-7.7-1">Unauthorized modification or injection of malicious TVR schedules
-poses significant operational and security risks.  An attacker who
-successfully tampers with schedules could cause traffic blackholing
-(by scheduling link or node shutdowns at critical times), trigger
-costly network-wide reroutes, degrade service-level agreement (SLA)
-performance, or enable targeted interception of sensitive traffic
-flows.  Such attacks undermine the predictability and reliability
-that TVR aims to provide.<a href="#section-7.7-1" class="pilcrow">¶</a></p>
-<p id="section-7.7-2">Mitigating schedule tampering requires a defense-in-depth approach:<a href="#section-7.7-2" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-7.7-3.1">
-            <p id="section-7.7-3.1.1">Authentication and Authorization: All schedule updates <span class="bcp14">MUST</span> be
-authenticated to verify the identity of the originator.  Role
-based access control (RBAC) or attribute-based access control
-(ABAC) <span class="bcp14">SHOULD</span> be enforced to ensure that only authorized entities
-can modify schedules.<a href="#section-7.7-3.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-7.7-3.2">
-            <p id="section-7.7-3.2.1">Integrity Protection: Schedules <span class="bcp14">MUST</span> be protected against
-tampering in transit and at rest using cryptographic integrity
-mechanisms (e.g., digital signatures, HMAC).  NETCONF over TLS
-<span>[<a href="#RFC7589" class="cite xref">RFC7589</a>]</span>, RESTCONF over TLS, and similar secure transport
-protocols provide such protection.<a href="#section-7.7-3.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-7.7-3.3">
-            <p id="section-7.7-3.3.1">Audit Logging: All schedule creation, modification, and deletion
-operations <span class="bcp14">SHOULD</span> be logged with timestamps, originator identity,
-and a description of the change.  These logs are essential for
-forensic analysis and detecting anomalous behavior.<a href="#section-7.7-3.3.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-7.7-3.4">
-            <p id="section-7.7-3.4.1">Rate Limiting and Anomaly Detection: Implementations <span class="bcp14">SHOULD</span>
-enforce rate limits on schedule update operations and deploy
-anomaly detection mechanisms to identify suspicious patterns
-(e.g., rapid schedule churn, schedules from unexpected sources).<a href="#section-7.7-3.4.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
+<p id="section-7.7-1">In a time-variant network, attackers may perform unauthorized modification or inject malicious TVR schedules.
+Such attacks could cause traffic blackholing by scheduling link or node shutdowns at critical times, trigger network-wide reroutes, degrade SLA performance, or enable targeted interception of sensitive traffic flows.<a href="#section-7.7-1" class="pilcrow">¶</a></p>
+<p id="section-7.7-2">This kind of attack could be mitigated by the combination of several approaches.
+All schedule updates <span class="bcp14">MUST</span> be authenticated to verify the originator identity. Schedules <span class="bcp14">MUST</span> be protected against tampering in transit and at rest via cryptographic integrity mechanisms such as digital signatures or HMAC.
+All schedule creation, modification, and deletion operations <span class="bcp14">SHOULD</span> be logged with timestamps, originator identity, and change descriptions for forensic analysis and anomaly detection.
+Implementations <span class="bcp14">SHOULD</span> also enforce rate limits on schedule updates and deploy anomaly detection to identify suspicious patterns such as frequent schedule churn or schedules from unexpected sources.<a href="#section-7.7-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2176,9 +2164,9 @@ anomaly detection mechanisms to identify suspicious patterns
         <dd>
 <span class="refAuthor">Bjorklund, M.</span>, <span class="refAuthor">Schoenwaelder, J.</span>, <span class="refAuthor">Shafer, P.</span>, <span class="refAuthor">Watsen, K.</span>, and <span class="refAuthor">R. Wilton</span>, <span class="refTitle">"Network Management Datastore Architecture (NMDA)"</span>, <span class="seriesInfo">RFC 8342</span>, <span class="seriesInfo">DOI 10.17487/RFC8342</span>, <time datetime="2018-03" class="refDate">March 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8342">https://www.rfc-editor.org/rfc/rfc8342</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC9657">[RFC9657]</dt>
+<dt id="RFC9922">[RFC9922]</dt>
       <dd>
-<span class="refAuthor">Birrane, III, E.</span>, <span class="refAuthor">Kuhn, N.</span>, <span class="refAuthor">Qu, Y.</span>, <span class="refAuthor">Taylor, R.</span>, and <span class="refAuthor">L. Zhang</span>, <span class="refTitle">"Time-Variant Routing (TVR) Use Cases"</span>, <span class="seriesInfo">RFC 9657</span>, <span class="seriesInfo">DOI 10.17487/RFC9657</span>, <time datetime="2024-10" class="refDate">October 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9657">https://www.rfc-editor.org/rfc/rfc9657</a>&gt;</span>. </dd>
+<span class="refAuthor">Ma, Q., Ed.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M., Ed.</span>, and <span class="refAuthor">D. King</span>, <span class="refTitle">"A Common YANG Data Model for Scheduling"</span>, <span class="seriesInfo">RFC 9922</span>, <span class="seriesInfo">DOI 10.17487/RFC9922</span>, <time datetime="2026-03" class="refDate">March 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9922">https://www.rfc-editor.org/rfc/rfc9922</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -2192,10 +2180,6 @@ anomaly detection mechanisms to identify suspicious patterns
 <dt id="I-D.ietf-core-comi-19">[I-D.ietf-core-comi-19]</dt>
         <dd>
 <span class="refAuthor">Veillette, M.</span>, <span class="refAuthor">Van der Stok, P.</span>, <span class="refAuthor">Pelov, A.</span>, <span class="refAuthor">Bierman, A.</span>, and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"CoAP Management Interface (CORECONF)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-comi-19</span>, <time datetime="2024-11-03" class="refDate">3 November 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-comi-19">https://datatracker.ietf.org/doc/html/draft-ietf-core-comi-19</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.ietf-netmod-schedule-yang">[I-D.ietf-netmod-schedule-yang]</dt>
-        <dd>
-<span class="refAuthor">Ma, Q.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">D. King</span>, <span class="refTitle">"A Common YANG Data Model for Scheduling"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-schedule-yang-10</span>, <time datetime="2025-08-07" class="refDate">7 August 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-schedule-yang-10">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-schedule-yang-10</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.lj-rtg-sat-routing-consideration">[I-D.lj-rtg-sat-routing-consideration]</dt>
         <dd>
@@ -2218,8 +2202,12 @@ anomaly detection mechanisms to identify suspicious patterns
 <span class="refAuthor">Shelby, Z.</span>, <span class="refAuthor">Hartke, K.</span>, and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"The Constrained Application Protocol (CoAP)"</span>, <span class="seriesInfo">RFC 7252</span>, <span class="seriesInfo">DOI 10.17487/RFC7252</span>, <time datetime="2014-06" class="refDate">June 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7252">https://www.rfc-editor.org/rfc/rfc7252</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8040">[RFC8040]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Bjorklund, M.</span>, and <span class="refAuthor">K. Watsen</span>, <span class="refTitle">"RESTCONF Protocol"</span>, <span class="seriesInfo">RFC 8040</span>, <span class="seriesInfo">DOI 10.17487/RFC8040</span>, <time datetime="2017-01" class="refDate">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8040">https://www.rfc-editor.org/rfc/rfc8040</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9657">[RFC9657]</dt>
+      <dd>
+<span class="refAuthor">Birrane, III, E.</span>, <span class="refAuthor">Kuhn, N.</span>, <span class="refAuthor">Qu, Y.</span>, <span class="refAuthor">Taylor, R.</span>, and <span class="refAuthor">L. Zhang</span>, <span class="refTitle">"Time-Variant Routing (TVR) Use Cases"</span>, <span class="seriesInfo">RFC 9657</span>, <span class="seriesInfo">DOI 10.17487/RFC9657</span>, <time datetime="2024-10" class="refDate">October 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9657">https://www.rfc-editor.org/rfc/rfc9657</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -2249,7 +2237,7 @@ anomaly detection mechanisms to identify suspicious patterns
 environmental sources for power, such as solar panels. On-board power levels may fluctuate based on various factors.
 This example assumes that a node will only power its radio when available power is over some threshold.
 In this scenario, the TVR Node YANG Module is not applicable, since the node attributes changes are caused by the environment,
-not by the instructions from managing device. The TVR Topology YANG Module may be necessary to convey the schedule of topology
+not by the instructions from managing entity. The TVR Topology YANG Module may be necessary to convey the schedule of topology
 changes to all the nodes.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
 <p id="appendix-B.1-2">Considering a topology with three nodes, the connectivity of this three-node networks changes over time and repeats daily.
 The detailed change information is shown in <a href="#ex-inf1" class="auto internal xref">Figure 4</a>. The link between node1 and node2 is powered on at 8:00 and powered off at 11:00.
@@ -2281,117 +2269,157 @@ The link between node2 and node3 is powered on at 11:00 and powered off at 16:00
           <div class="alignCenter art-text artwork" id="appendix-B.1-5.1">
 <pre>
 {
-    "ietf-tvr-topology:topology-schedule": {
+  "ietf-network:networks": {
+    "network": [
+      {
+        "network-id": "network:1",
+        "network-types": {
+          "ietf-tvr-topology:tvr-topology": {}
+        },
         "node": [
-            {
-                "node-id": "example:192.0.2.1",
-                "available": {
-                    "default-node-available": true,
-                    "schedule": []
-                }
+          {
+            "node-id": "example:192.0.2.1",
+            "ietf-tvr-topology:available": {
+              "default-node-available": true,
+              "schedule": []
             },
-            {
-                "node-id": "example:192.0.2.2",
-                "available": {
-                    "default-node-available": true,
-                    "schedule": []
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "tp-1",
+                "ietf-tvr-topology:available": {
+                  "default-link-available": false,
+                  "schedule": [
+                    {
+                      "schedule-id": 1,
+                      "recurrence-first": {
+                        "start-time-utc": "2026-01-01T08:00:00Z",
+                        "duration": 10800
+                      },
+                      "utc-until": "2027-01-01T00:00:00Z",
+                      "frequency": "ietf-schedule:daily",
+                      "link-attributes": {
+                        "link-available": true,
+                        "destination-nodes": ["example:192.0.2.2"],
+                        "strict-destination-checking": true
+                      }
+                    }
+                  ]
                 }
+              }
+            ]
+          },
+          {
+            "node-id": "example:192.0.2.2",
+            "ietf-tvr-topology:available": {
+              "default-node-available": true,
+              "schedule": []
             },
-            {
-                "node-id": "example:192.0.2.3",
-                "available": {
-                    "default-node-available": true,
-                    "schedule": []
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "tp-1",
+                "ietf-tvr-topology:available": {
+                  "default-link-available": false,
+                  "schedule": [
+                    {
+                      "schedule-id": 2,
+                      "recurrence-first": {
+                        "start-time-utc": "2026-01-01T08:00:00Z",
+                        "duration": 10800
+                      },
+                      "utc-until": "2027-01-01T00:00:00Z",
+                      "frequency": "ietf-schedule:daily",
+                      "link-attributes": {
+                        "link-available": true,
+                        "destination-nodes": ["example:192.0.2.1"],
+                        "strict-destination-checking": true
+                      }
+                    }
+                  ]
                 }
-            }
+              },
+              {
+                "tp-id": "tp-2",
+                "ietf-tvr-topology:available": {
+                  "default-link-available": false,
+                  "schedule": [
+                    {
+                      "schedule-id": 3,
+                      "recurrence-first": {
+                        "start-time-utc": "2026-01-01T11:00:00Z",
+                        "duration": 18000
+                      },
+                      "utc-until": "2027-01-01T00:00:00Z",
+                      "frequency": "ietf-schedule:daily",
+                      "link-attributes": {
+                        "link-available": true,
+                        "destination-nodes": ["example:192.0.2.3"],
+                        "strict-destination-checking": true
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "node-id": "example:192.0.2.3",
+            "ietf-tvr-topology:available": {
+              "default-node-available": true,
+              "schedule": []
+            },
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "tp-1",
+                "ietf-tvr-topology:available": {
+                  "default-link-available": false,
+                  "schedule": [
+                    {
+                      "schedule-id": 4,
+                      "recurrence-first": {
+                        "start-time-utc": "2026-01-01T11:00:00Z",
+                        "duration": 18000
+                      },
+                      "utc-until": "2027-01-01T00:00:00Z",
+                      "frequency": "ietf-schedule:daily",
+                      "link-attributes": {
+                        "link-available": true,
+                        "destination-nodes": ["example:192.0.2.2"],
+                        "strict-destination-checking": true
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
         ],
-        "link": [
-            {
-                "source-node": "example:192.0.2.1",
-                "source-link-id": "link1",
-                "available": {
-                    "schedule": [
-                        {
-                            "schedule-id": 1,
-                            "recurrence-first": {
-                                "start-time-utc": "2026-01-01T08:00:00Z",
-                                "duration": 10800
-                            },
-                            "utc-until": "2027-01-01T00:00:00Z",
-                            "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
-                                "link-available": true
-                            }
-                        }
-                    ],
-                    "default-link-available": false
-                }
+        "ietf-network-topology:link": [
+          {
+            "link-id": "link-1-2",
+            "source": {
+              "source-node": "example:192.0.2.1",
+              "source-tp": "tp-1"
             },
-            {
-                "source-node": "example:192.0.2.2",
-                "source-link-id": "link1",
-                "available": {
-                    "schedule": [
-                        {
-                            "schedule-id": 2,
-                            "recurrence-first": {
-                                "start-time-utc": "2026-01-01T08:00:00Z",
-                                "duration": 10800
-                            },
-                            "utc-until": "2027-01-01T00:00:00Z",
-                            "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
-                                "link-available": true
-                            }
-                        }
-                    ],
-                    "default-link-available": false
-                }
-            },
-            {
-                "source-node": "example:192.0.2.2",
-                "source-link-id": "link2",
-                "available": {
-                    "schedule": [
-                        {
-                            "schedule-id": 3,
-                            "recurrence-first": {
-                                "start-time-utc": "2026-01-01T11:00:00Z",
-                                "duration": 18000
-                            },
-                            "utc-until": "2027-01-01T00:00:00Z",
-                            "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
-                                "link-available": true
-                            }
-                        }
-                    ],
-                    "default-link-available": false
-                }
-            },
-            {
-                "source-node": "example:192.0.2.3",
-                "source-link-id": "link1",
-                "available": {
-                    "schedule": [
-                        {
-                            "schedule-id": 4,
-                            "recurrence-first": {
-                                "start-time-utc": "2026-01-01T11:00:00Z",
-                                "duration": 18000
-                            },
-                            "utc-until": "2027-01-01T00:00:00Z",
-                            "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
-                                "link-available": true
-                            }
-                        }
-                    ],
-                    "default-link-available": false
-                }
+            "destination": {
+              "dest-node": "example:192.0.2.2",
+              "dest-tp": "tp-1"
             }
+          },
+          {
+            "link-id": "link-2-3",
+            "source": {
+              "source-node": "example:192.0.2.2",
+              "source-tp": "tp-2"
+            },
+            "destination": {
+              "dest-node": "example:192.0.2.3",
+              "dest-tp": "tp-1"
+            }
+          }
         ]
-    }
+      }
+    ]
+  }
 }
 </pre>
 </div>
@@ -2418,37 +2446,39 @@ example, the corresponding node YANG module JSON example for node1 is shown in <
 <figure id="figure-6">
           <div class="alignCenter art-text artwork" id="appendix-B.2-3.1">
 <pre>
- {
-     "ietf-tvr-node:node-schedule": {
-         "node-id": "example:192.0.2.1",
-         "node-power-schedule": {
-             "power-default": true,
-             "schedule": []
-         },
-         "interface-schedule": {
-             "interface": [
-                 {
-                     "name": "interface1",
-                     "default-available": false,
-                     "schedule": [
-                         {
-                             "schedule-id": 100,
-                             "recurrence-first": {
-                                 "start-time-utc": "2026-01-01T08:00:00Z",
-                                 "duration": 10800
-                             },
-                             "utc-until": "2027-01-01T00:00:00Z",
-                             "frequency": "ietf-schedule:daily",
-                             "scheduled-attributes": {
-                                 "available": true
-                             }
-                         }
-                     ]
-                 }
-             ]
-         }
-     }
- }
+{
+  "ietf-tvr-node:node-schedule": {
+    "node-id": "example:192.0.2.1",
+    "node-power-schedule": {
+      "power-default": true,
+      "schedule": []
+    },
+    "interface-schedule": {
+      "interface": [
+        {
+          "name": "interface1",
+          "default-available": false,
+          "attribute-schedule": {
+            "schedule": [
+              {
+                "schedule-id": 100,
+                "recurrence-first": {
+                  "start-time-utc": "2026-01-01T08:00:00Z",
+                  "duration": 10800
+                },
+                "utc-until": "2027-01-01T00:00:00Z",
+                "frequency": "ietf-schedule:daily",
+                "scheduled-attributes": {
+                  "available": true
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
 </pre>
 </div>
 <figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
@@ -2502,37 +2532,39 @@ and 2001:db8::4. The corresponding node YANG module JSON example for it is shown
 <figure id="figure-8">
           <div class="alignCenter art-text artwork" id="appendix-B.3-4.1">
 <pre>
- {
-     "ietf-tvr-node:node-schedule": {
-         "node-id": "example:2001:db8::1",
-         "node-power-schedule": {
-             "power-default": true,
-             "schedule": []
-         },
-         "interface-schedule": {
-             "interface": [
-                 {
-                     "name": "interface2",
-                     "default-available": false,
-                     "schedule": [
-                         {
-                             "schedule-id": 100,
-                             "recurrence-first": {
-                                 "start-time-utc": "2026-01-01T08:00:00Z",
-                                 "duration": 54000
-                             },
-                             "utc-until": "2027-01-01T00:00:00Z",
-                             "frequency": "ietf-schedule:daily",
-                             "scheduled-attributes": {
-                                 "available": true
-                             }
-                         }
-                     ]
-                 }
-             ]
-         }
-     }
- }
+{
+  "ietf-tvr-node:node-schedule": {
+    "node-id": "example:2001:db8::1",
+    "node-power-schedule": {
+      "power-default": true,
+      "schedule": []
+    },
+    "interface-schedule": {
+      "interface": [
+        {
+          "name": "interface2",
+          "default-available": false,
+          "attribute-schedule": {
+            "schedule": [
+              {
+                "schedule-id": 100,
+                "recurrence-first": {
+                  "start-time-utc": "2026-01-01T08:00:00Z",
+                  "duration": 54000
+                },
+                "utc-until": "2027-01-01T00:00:00Z",
+                "frequency": "ietf-schedule:daily",
+                "scheduled-attributes": {
+                  "available": true
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
 </pre>
 </div>
 <figcaption><a href="#figure-8" class="selfRef">Figure 8</a>:
@@ -2545,124 +2577,266 @@ and 2001:db8::4. The corresponding node YANG module JSON example for it is shown
           <div class="alignCenter art-text artwork" id="appendix-B.3-6.1">
 <pre>
 {
-    "ietf-tvr-topology:topology-schedule": {
+  "ietf-network:networks": {
+    "network": [
+      {
+        "network-id": "network:ipv6-4node",
+        "network-types": {
+          "ietf-tvr-topology:tvr-topology": {}
+        },
         "node": [
-            {
-                "node-id": "example:2001:db8::1",
-                "available": {
-                    "default-node-available": true,
-                    "schedule": []
-                }
+          {
+            "node-id": "example:2001:db8::1",
+            "ietf-tvr-topology:available": {
+              "default-node-available": true,
+              "schedule": []
             },
-            {
-                "node-id": "example:2001:db8::2",
-                "available": {
-                    "default-node-available": true,
-                    "schedule": []
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "tp-l1",
+                "ietf-tvr-topology:available": {
+                  "default-link-available": true,
+                  "schedule": []
                 }
+              },
+              {
+                "tp-id": "tp-l2",
+                "ietf-tvr-topology:available": {
+                  "default-link-available": true,
+                  "schedule": []
+                }
+              },
+              {
+                "tp-id": "tp-l6",
+                "ietf-tvr-topology:available": {
+                  "default-link-available": false,
+                  "schedule": [
+                    {
+                      "schedule-id": 100,
+                      "recurrence-first": {
+                        "start-time-utc": "2026-01-01T08:00:00Z",
+                        "duration": 54000
+                      },
+                      "utc-until": "2027-01-01T00:00:00Z",
+                      "frequency": "ietf-schedule:daily",
+                      "link-attributes": {
+                        "link-available": true,
+                        "destination-nodes": ["example:2001:db8::4"],
+                        "strict-destination-checking": true
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "node-id": "example:2001:db8::2",
+            "ietf-tvr-topology:available": {
+              "default-node-available": true,
+              "schedule": []
             },
-            {
-                "node-id": "example:2001:db8::3",
-                "available": {
-                    "default-node-available": true,
-                    "schedule": []
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "tp-l1",
+                "ietf-tvr-topology:available": {
+                  "default-link-available": true,
+                  "schedule": []
                 }
+              },
+              {
+                "tp-id": "tp-l3",
+                "ietf-tvr-topology:available": {
+                  "default-link-available": true,
+                  "schedule": []
+                }
+              },
+              {
+                "tp-id": "tp-l5",
+                "ietf-tvr-topology:available": {
+                  "default-link-available": false,
+                  "schedule": [
+                    {
+                      "schedule-id": 200,
+                      "recurrence-first": {
+                        "start-time-utc": "2026-01-01T08:00:00Z",
+                        "duration": 54000
+                      },
+                      "utc-until": "2027-01-01T00:00:00Z",
+                      "frequency": "ietf-schedule:daily",
+                      "link-attributes": {
+                        "link-available": true,
+                        "destination-nodes": ["example:2001:db8::3"],
+                        "strict-destination-checking": true
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "node-id": "example:2001:db8::3",
+            "ietf-tvr-topology:available": {
+              "default-node-available": true,
+              "schedule": []
             },
-            {
-                "node-id": "example:2001:db8::4",
-                "available": {
-                    "default-node-available": true,
-                    "schedule": []
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "tp-l2",
+                "ietf-tvr-topology:available": {
+                  "default-link-available": true,
+                  "schedule": []
                 }
-            }
+              },
+              {
+                "tp-id": "tp-l4",
+                "ietf-tvr-topology:available": {
+                  "default-link-available": true,
+                  "schedule": []
+                }
+              },
+              {
+                "tp-id": "tp-l5",
+                "ietf-tvr-topology:available": {
+                  "default-link-available": false,
+                  "schedule": [
+                    {
+                      "schedule-id": 300,
+                      "recurrence-first": {
+                        "start-time-utc": "2026-01-01T08:00:00Z",
+                        "duration": 54000
+                      },
+                      "utc-until": "2027-01-01T00:00:00Z",
+                      "frequency": "ietf-schedule:daily",
+                      "link-attributes": {
+                        "link-available": true,
+                        "destination-nodes": ["example:2001:db8::2"],
+                        "strict-destination-checking": true
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "node-id": "example:2001:db8::4",
+            "ietf-tvr-topology:available": {
+              "default-node-available": true,
+              "schedule": []
+            },
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "tp-l3",
+                "ietf-tvr-topology:available": {
+                  "default-link-available": true,
+                  "schedule": []
+                }
+              },
+              {
+                "tp-id": "tp-l4",
+                "ietf-tvr-topology:available": {
+                  "default-link-available": true,
+                  "schedule": []
+                }
+              },
+              {
+                "tp-id": "tp-l6",
+                "ietf-tvr-topology:available": {
+                  "default-link-available": false,
+                  "schedule": [
+                    {
+                      "schedule-id": 405,
+                      "recurrence-first": {
+                        "start-time-utc": "2026-01-01T08:00:00Z",
+                        "duration": 54000
+                      },
+                      "utc-until": "2027-01-01T00:00:00Z",
+                      "frequency": "ietf-schedule:daily",
+                      "link-attributes": {
+                        "link-available": true,
+                        "destination-nodes": ["example:2001:db8::1"],
+                        "strict-destination-checking": true
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
         ],
-        "link": [
-            {
-                "source-node": "example:2001:db8::1",
-                "source-link-id": "link2",
-                "available": {
-                    "schedule": [
-                        {
-                            "schedule-id": 100,
-                            "recurrence-first": {
-                                "start-time-utc": "2026-01-01T08:00:00Z",
-                                "duration": 54000
-                            },
-                            "utc-until": "2027-01-01T00:00:00Z",
-                            "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
-                                "link-available": true
-                            }
-                        }
-                    ],
-                    "default-link-available": false
-                }
+        "ietf-network-topology:link": [
+          {
+            "link-id": "L1",
+            "source": {
+              "source-node": "example:2001:db8::1",
+              "source-tp": "tp-l1"
             },
-            {
-                "source-node": "example:2001:db8::2",
-                "source-link-id": "link2",
-                "available": {
-                    "schedule": [
-                        {
-                            "schedule-id": 200,
-                            "recurrence-first": {
-                                "start-time-utc": "2026-01-01T08:00:00Z",
-                                "duration": 54000
-                            },
-                            "utc-until": "2027-01-01T00:00:00Z",
-                            "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
-                                "link-available": true
-                            }
-                        }
-                    ],
-                    "default-link-available": false
-                }
-            },
-            {
-                "source-node": "example:2001:db8::3",
-                "source-link-id": "link2",
-                "available": {
-                    "schedule": [
-                        {
-                            "schedule-id": 300,
-                            "recurrence-first": {
-                                "start-time-utc": "2026-01-01T08:00:00Z",
-                                "duration": 54000
-                            },
-                            "utc-until": "2027-01-01T00:00:00Z",
-                            "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
-                                "link-available": true
-                            }
-                        }
-                    ],
-                    "default-link-available": false
-                }
-            },
-            {
-                "source-node": "example:2001:db8::4",
-                "source-link-id": "link2",
-                "available": {
-                    "schedule": [
-                        {
-                            "schedule-id": 400,
-                            "recurrence-first": {
-                                "start-time-utc": "2026-01-01T08:00:00Z",
-                                "duration": 54000
-                            },
-                            "utc-until": "2027-01-01T00:00:00Z",
-                            "frequency": "ietf-schedule:daily",
-                            "link-attributes": {
-                                "link-available": true
-                            }
-                        }
-                    ],
-                    "default-link-available": false
-                }
+            "destination": {
+              "dest-node": "example:2001:db8::2",
+              "dest-tp": "tp-l1"
             }
+          },
+          {
+            "link-id": "L2",
+            "source": {
+              "source-node": "example:2001:db8::1",
+              "source-tp": "tp-l2"
+            },
+            "destination": {
+              "dest-node": "example:2001:db8::3",
+              "dest-tp": "tp-l2"
+            }
+          },
+          {
+            "link-id": "L3",
+            "source": {
+              "source-node": "example:2001:db8::2",
+              "source-tp": "tp-l3"
+            },
+            "destination": {
+              "dest-node": "example:2001:db8::4",
+              "dest-tp": "tp-l3"
+            }
+          },
+          {
+            "link-id": "L4",
+            "source": {
+              "source-node": "example:2001:db8::3",
+              "source-tp": "tp-l4"
+            },
+            "destination": {
+              "dest-node": "example:2001:db8::4",
+              "dest-tp": "tp-l4"
+            }
+          },
+          {
+            "link-id": "L5",
+            "source": {
+              "source-node": "example:2001:db8::2",
+              "source-tp": "tp-l5"
+            },
+            "destination": {
+              "dest-node": "example:2001:db8::3",
+              "dest-tp": "tp-l5"
+            }
+          },
+          {
+            "link-id": "L6",
+            "source": {
+              "source-node": "example:2001:db8::1",
+              "source-tp": "tp-l6"
+            },
+            "destination": {
+              "dest-node": "example:2001:db8::4",
+              "dest-tp": "tp-l6"
+            }
+          }
         ]
-    }
+      }
+    ]
+  }
 }
 </pre>
 </div>
@@ -2677,7 +2851,7 @@ and 2001:db8::4. The corresponding node YANG module JSON example for it is shown
         <h3 id="name-a4-code-examples-for-mobile">
 <a href="#name-a4-code-examples-for-mobile" class="section-name selfRef">A.4 Code Examples for "Mobile Satellites"</a>
         </h3>
-<p id="appendix-B.4-1">As described in <span><a href="https://rfc-editor.org/rfc/rfc9657#section-4.3" class="relref">Section 4.3</a> of [<a href="#RFC9657" class="cite xref">RFC9657</a>]</span>, the "Mobile Satellites" generally refers to the Low Earth Orbit(LEO) network,
+<p id="appendix-B.4-1">As described in <span><a href="https://rfc-editor.org/rfc/rfc9657#section-4.3" class="relref">Section 4.3</a> of [<a href="#RFC9657" class="cite xref">RFC9657</a>]</span>, the "Mobile Satellites" generally refers to the Low Earth Orbit (LEO) network,
 which includes hundreds to thousands of spacecrafts that can communicate both with their orbital neighbors as well as
 down to any ground station that they happen to be passing over. The connection between the spacecrafts and the ground
 station depend on the flight trajectories of the spacecrafts, so the link changes between them is predictable.<a href="#appendix-B.4-1" class="pilcrow">¶</a></p>
@@ -2727,42 +2901,44 @@ t3                    |  N1  |----------|  N2  |----------|  N3  |
           </figcaption></figure>
 </div>
 <p id="appendix-B.4-4">In this scenario, the TVR topology YANG module is applicable to deliver the predicted topology changes to each node.
-However, the TVR node YANG module is not applicable, this depends on whether the link changes are controlled by satellites
-themselves or by the managing device. Here, we provide the JSON examples for TVR topology YANG module and node
+Whether the TVR node YANG module is applicable depends on whether the link changes are controlled by the satellites
+themselves or by the managing entity. Here, we provide the JSON examples for TVR topology YANG module and node
  YANG module as a reference.<a href="#appendix-B.4-4" class="pilcrow">¶</a></p>
 <p id="appendix-B.4-5">Taking the spacecraft N1 as an example, assuming the time t1 is 10:00:00 1 July 2025 and the node-ids of N1, N2, N3, and
-ground station is 2001:db8::1, 2001:db8::2, 2001:db8::3, and 2001:db8::4.,
+ground station is 2001:db8::1, 2001:db8::2, 2001:db8::3, and 2001:db8::4,
 then the corresponding node YANG module JSON example for it is shown in <a href="#ex-inf8" class="auto internal xref">Figure 11</a>.<a href="#appendix-B.4-5" class="pilcrow">¶</a></p>
 <span id="name-tvr-node-yang-module-json-exa"></span><div id="ex-inf8">
 <figure id="figure-11">
           <div class="alignCenter art-text artwork" id="appendix-B.4-6.1">
 <pre>
 {
-    "ietf-tvr-node:node-schedule": {
-        "node-id": "example:2001:db8::1",
-        "node-power-schedule": {
-            "power-default": true,
-            "schedule": []
-        },
-        "interface-schedule": {
-            "interfaces": [
-                {
-                    "name": "satellite2ground-interface",
-                    "default-available": false,
-                    "schedule": [
-                        {
-                            "schedule-id": 100,
-                            "period-start": "2025-07-01T10:00:00Z",
-                            "duration": 420,
-                            "scheduled-attributes": {
-                                "available": true
-                            }
-                        }
-                    ]
+  "ietf-tvr-node:node-schedule": {
+    "node-id": "example:2001:db8::1",
+    "node-power-schedule": {
+      "power-default": true,
+      "schedule": []
+    },
+    "interface-schedule": {
+      "interface": [
+        {
+          "name": "satellite2ground-interface",
+          "default-available": false,
+          "attribute-schedule": {
+            "schedule": [
+              {
+                "schedule-id": 100,
+                "period-start": "2025-07-01T10:20:00Z",
+                "duration": "PT00:07:00",
+                "scheduled-attributes": {
+                  "available": true
                 }
+              }
             ]
+          }
         }
+      ]
     }
+  }
 }
 </pre>
 </div>
@@ -2777,91 +2953,193 @@ then the corresponding topology YANG module JSON example is shown in <a href="#e
           <div class="alignCenter art-text artwork" id="appendix-B.4-8.1">
 <pre>
 {
-    "ietf-tvr-topology:topology-schedule": {
+  "ietf-network:networks": {
+    "network": [
+      {
+        "network-id": "network:ipv6-satellite",
+        "network-types": {
+          "ietf-tvr-topology:tvr-topology": {}
+        },
         "node": [
-            {
-                "node-id": "example:2001:db8::1",
-                "available": {
-                    "default-node-available": true,
-                    "schedule": []
-                }
+          {
+            "node-id": "satellite:2001:db8::1",
+            "ietf-tvr-topology:available": {
+              "default-node-available": true,
+              "schedule": []
             },
-            {
-                "node-id": "example:2001:db8::2",
-                "available": {
-                    "default-node-available": true,
-                    "schedule": []
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "tp-gs",
+                "ietf-tvr-topology:available": {
+                  "default-link-available": false,
+                  "schedule": [
+                    {
+                      "schedule-id": 100,
+                      "recurrence-first": {
+                        "start-time-utc": "2025-07-01T10:20:00Z",
+                        "duration": 420
+                      },
+                      "link-attributes": {
+                        "link-available": true,
+                        "destination-nodes": ["gs:2001:db8::4"],
+                        "strict-destination-checking": true
+                      }
+                    }
+                  ]
                 }
+              }
+            ]
+          },
+          {
+            "node-id": "satellite:2001:db8::2",
+            "ietf-tvr-topology:available": {
+              "default-node-available": true,
+              "schedule": []
             },
-            {
-                "node-id": "example:2001:db8::3",
-                "available": {
-                    "default-node-available": true,
-                    "schedule": []
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "tp-gs",
+                "ietf-tvr-topology:available": {
+                  "default-link-available": false,
+                  "schedule": [
+                    {
+                      "schedule-id": 200,
+                      "recurrence-first": {
+                        "start-time-utc": "2025-07-01T10:10:00Z",
+                        "duration": 420
+                      },
+                      "link-attributes": {
+                        "link-available": true,
+                        "destination-nodes": ["gs:2001:db8::4"],
+                        "strict-destination-checking": true
+                      }
+                    }
+                  ]
                 }
+              }
+            ]
+          },
+          {
+            "node-id": "satellite:2001:db8::3",
+            "ietf-tvr-topology:available": {
+              "default-node-available": true,
+              "schedule": []
             },
-            {
-                "node-id": "example:2001:db8::4",
-                "available": {
-                    "default-node-available": true,
-                    "schedule": []
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "tp-gs",
+                "ietf-tvr-topology:available": {
+                  "default-link-available": false,
+                  "schedule": [
+                    {
+                      "schedule-id": 300,
+                      "recurrence-first": {
+                        "start-time-utc": "2025-07-01T10:00:00Z",
+                        "duration": 420
+                      },
+                      "link-attributes": {
+                        "link-available": true,
+                        "destination-nodes": ["gs:2001:db8::4"],
+                        "strict-destination-checking": true
+                      }
+                    }
+                  ]
                 }
-            }
+              }
+            ]
+          },
+          {
+            "node-id": "gs:2001:db8::4",
+            "ietf-tvr-topology:available": {
+              "default-node-available": true,
+              "schedule": []
+            },
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "tp-1",
+                "ietf-tvr-topology:available": {
+                  "default-link-available": false,
+                  "schedule": [
+                    {
+                      "schedule-id": 400,
+                      "recurrence-first": {
+                        "start-time-utc": "2025-07-01T10:00:00Z",
+                        "duration": 420
+                      },
+                      "link-attributes": {
+                        "link-available": true,
+                        "destination-nodes": ["satellite:2001:db8::3"],
+                        "strict-destination-checking": true
+                      }
+                    },
+                    {
+                      "schedule-id": 401,
+                      "recurrence-first": {
+                        "start-time-utc": "2025-07-01T10:10:00Z",
+                        "duration": 420
+                      },
+                      "link-attributes": {
+                        "link-available": true,
+                        "destination-nodes": ["satellite:2001:db8::2"],
+                        "strict-destination-checking": true
+                      }
+                    },
+                    {
+                      "schedule-id": 402,
+                      "recurrence-first": {
+                        "start-time-utc": "2025-07-01T10:20:00Z",
+                        "duration": 420
+                      },
+                      "link-attributes": {
+                        "link-available": true,
+                        "destination-nodes": ["satellite:2001:db8::1"],
+                        "strict-destination-checking": true
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
         ],
-        "links": [
-            {
-                "source-node": "example:2001:db8::3",
-                "source-link-id": "gs-link",
-                "available": {
-                    "schedule": [
-                        {
-                            "schedule-id": 100,
-                            "period-start": "2025-07-01T10:00:00Z",
-                            "duration": 420,
-                            "link-attributes": {
-                                "available": true
-                            }
-                        }
-                    ],
-                    "default-link-available": false
-                }
+        "ietf-network-topology:link": [
+          {
+            "link-id": "gs-s1",
+            "source": {
+              "source-node": "satellite:2001:db8::1",
+              "source-tp": "tp-gs"
             },
-            {
-                "source-node": "example:2001:db8::2",
-                "source-link-id": "gs-link",
-                "available": {
-                    "schedule": [
-                        {
-                            "schedule-id": 200,
-                            "period-start": "2025-07-01T10:10:00Z",
-                            "duration": 420,
-                            "link-attributes": {
-                                "available": true
-                            }
-                        }
-                    ],
-                    "default-link-available": false
-                }
-            },
-            {
-                "source-node": "example:2001:db8::1",
-                "source-link-id": "gs-link",
-                "available": {
-                    "schedule": [
-                        {
-                            "schedule-id": 300,
-                            "period-start": "2025-07-01T10:20:00Z",
-                            "duration": 420,
-                            "link-attributes": {
-                                "available": true
-                            }
-                        }
-                    ],
-                    "default-link-available": false
-                }
+            "destination": {
+              "dest-node": "gs:2001:db8::4",
+              "dest-tp": "tp-1"
             }
+          },
+          {
+            "link-id": "gs-s2",
+            "source": {
+              "source-node": "satellite:2001:db8::2",
+              "source-tp": "tp-gs"
+            },
+            "destination": {
+              "dest-node": "gs:2001:db8::4",
+              "dest-tp": "tp-1"
+            }
+          },
+          {
+            "link-id": "gs-s3",
+            "source": {
+              "source-node": "satellite:2001:db8::3",
+              "source-tp": "tp-gs"
+            },
+            "destination": {
+              "dest-node": "gs:2001:db8::4",
+              "dest-tp": "tp-1"
+            }
+          }
         ]
-    }
+      }
+    ]
+  }
 }
 </pre>
 </div>
@@ -2880,7 +3158,7 @@ then the corresponding topology YANG module JSON example is shown in <a href="#e
 predictable trajectories, such as ferries or planes. These endpoints often rely on a combination of satellite and
 terrestrial systems for Internet connectivity. Consider a scenario where a vessel uses satellites to access the Internet,
 including a ship and three satellites. As the satellite and the vessel move, the vessel establishes connections with the
-satellites N1, N2, and N3 at t1, t2, and t3 respectively. It is assumed that each connection lasts for 1 minutes.
+satellites N1, N2, and N3 at t1, t2, and t3 respectively. It is assumed that each connection lasts for 1 minute.
 The changes of topology are shown in <a href="#ex-inf10" class="auto internal xref">Figure 13</a>.<a href="#appendix-B.5-1" class="pilcrow">¶</a></p>
 <span id="name-an-example-topology-for-pre"></span><div id="ex-inf10">
 <figure id="figure-13">
