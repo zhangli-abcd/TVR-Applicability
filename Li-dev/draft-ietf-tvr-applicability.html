@@ -12,8 +12,8 @@
 <meta content="
        Time-Variant Routing (TVR) is a routing system that is designed to accommodate predicted topology changes caused by internal or
 external factors. Typical use cases include resource preservation networks, operating efficiency networks, and dynamic
-reachability networks. TVR data model is defined to manage network resources and topologies with scheduled attribute. 
-       This document describes when and which part of the TVR data model is applicable and why. It also outlines the necessary IETF ancillary technologies, operational and security considerations when deploying TVR-based technologies. Several examples of how to implement the TVR scheduling capabilities for key use cases are alos provided in this document. 
+reachability networks. The TVR data model is defined to manage network resources and topologies with scheduled attributes. 
+       This document describes when and which part of the TVR data model is applicable and why. It also outlines the necessary IETF ancillary technologies, operational and security considerations when deploying TVR-based technologies. Several examples of how to implement the TVR scheduling capabilities for key use cases are also provided in this document. 
     " name="description">
 <meta content="xml2rfc 3.34.1" name="generator">
 <meta content="schedule" name="keyword">
@@ -1054,7 +1054,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Zhang, et al.</td>
-<td class="center">Expires 1 May 2027</td>
+<td class="center">Expires 3 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1067,12 +1067,12 @@ svg {
 <dd class="internet-draft">draft-ietf-tvr-applicability-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-10-28" class="published">28 October 2026</time>
+<time datetime="2026-10-30" class="published">30 October 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-05-01">1 May 2027</time></dd>
+<dd class="expires"><time datetime="2027-05-03">3 May 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1099,8 +1099,8 @@ svg {
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">Time-Variant Routing (TVR) is a routing system that is designed to accommodate predicted topology changes caused by internal or
 external factors. Typical use cases include resource preservation networks, operating efficiency networks, and dynamic
-reachability networks. TVR data model is defined to manage network resources and topologies with scheduled attribute.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-<p id="section-abstract-2">This document describes when and which part of the TVR data model is applicable and why. It also outlines the necessary IETF ancillary technologies, operational and security considerations when deploying TVR-based technologies. Several examples of how to implement the TVR scheduling capabilities for key use cases are alos provided in this document.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+reachability networks. The TVR data model is defined to manage network resources and topologies with scheduled attributes.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">This document describes when and which part of the TVR data model is applicable and why. It also outlines the necessary IETF ancillary technologies, operational and security considerations when deploying TVR-based technologies. Several examples of how to implement the TVR scheduling capabilities for key use cases are also provided in this document.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -1132,7 +1132,7 @@ reachability networks. TVR data model is defined to manage network resources and
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 1 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 3 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1392,7 +1392,7 @@ results from the network controller.<a href="#section-2-3.6.1" class="pilcrow">�
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-applicability-of-the-tvr-ya" class="section-name selfRef">Applicability of the TVR YANG Model</a>
       </h2>
 <p id="section-3-1">The TVR YANG data model <span>[<a href="#I-D.ietf-tvr-schedule-yang" class="cite xref">I-D.ietf-tvr-schedule-yang</a>]</span> defines three related modules: "ietf-tvr-schedule", "ietf-tvr-node", and "ietf-tvr-topology".
-"ietf-tvr-schedule" is the basic module and can be used in the other two modules.<a href="#section-3-1" class="pilcrow">¶</a></p>
+"ietf-tvr-schedule" is the base module and is imported by the other two modules.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">This section discusses the applicability of "ietf-tvr-node" and "ietf-tvr-topology" separately.<a href="#section-3-2" class="pilcrow">¶</a></p>
 <div id="applicability-node-yang">
 <section id="section-3.1">
@@ -1474,7 +1474,7 @@ The following figure shows the components of the centralized scenario.<a href="#
  |                        Managing Entity                          |
  +-----------------------------------------------------------------+
             |                                           |
-Topology YANG Module                        Node YANG Module(optional)
+Topology YANG Module                        Node YANG Module (optional)
             |                                           |
  +---------\|/----------+                     +--------\|/--------+
  |  Network Controller  |---Routing Results--&gt;|  Network Devices  |
@@ -1512,7 +1512,7 @@ is deployed in the network devices which also executes schedules and route calcu
  +-------------------------------------------------+
                           |
                Topology YANG Module and
-               Node YANG Module(optional)
+               Node YANG Module (optional)
                           |
  +-----------------------\|/-----------------------+
  |         Managed Entities (Network Devices)      |
@@ -1523,7 +1523,7 @@ is deployed in the network devices which also executes schedules and route calcu
 <a href="#name-components-of-distributed-s" class="selfRef">Components of Distributed Scenario</a>
             </figcaption></figure>
 </div>
-<p id="section-3.2.2-3">The distributed model only involves the interaction between managing entities and network devices(managed entities).<a href="#section-3.2.2-3" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-3">The distributed model only involves the interaction between managing entities and network devices (managed entities).<a href="#section-3.2.2-3" class="pilcrow">¶</a></p>
 <p id="section-3.2.2-4">The managing entity delivers network topology schedules to all the network devices by "ietf-tvr-topology"
 module for route calculation. The managing entity may also deliver node-specific schedules to network devices by
 "ietf-tvr-node" module, this is optional and only necessary when the node attributes changes are instructed by
@@ -1573,7 +1573,7 @@ execution status via the operational datastore.<a href="#section-3.3-5" class="p
 <p id="section-3.3-6">An example for the encoding of "ietf-tvr-node" is provided below, where a wireless link is shut down for 12 hours, from 19:00 to 7am the next day.
 The schedule is identified using a unique identifier that is conveyed in 'schedule-id', and the recurring schedule can be applied for multiple days using Coordinated
 Universal Time (UTC).
-More detailed examples of the JSON example is provided in this documents Appendix.<a href="#section-3.3-6" class="pilcrow">¶</a></p>
+Further JSON examples are provided in Appendix A.<a href="#section-3.3-6" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3.3-7">
 <pre>
 {
@@ -1621,7 +1621,7 @@ More detailed examples of the JSON example is provided in this documents Appendi
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-management-protocols-for-tv" class="section-name selfRef">Management Protocols for TVR</a>
         </h3>
 <p id="section-3.4-1">The TVR data model is designed to be accessed via YANG-based management protocols such as NETCONF <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span>, RESTCONF
-<span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span> and CORECONF<span>[<a href="#I-D.ietf-core-comi-19" class="cite xref">I-D.ietf-core-comi-19</a>]</span>. This section discusses the applicability of these protocols for
+<span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span> and CORECONF <span>[<a href="#I-D.ietf-core-comi-19" class="cite xref">I-D.ietf-core-comi-19</a>]</span>. This section discusses the applicability of these protocols for
 configuring time-variant network resources using the TVR YANG data models.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 <p id="section-3.4-2">NETCONF provides a robust mechanism for managing complex network configurations, particularly when transactional integrity
 and operational consistency are required. Its ability to execute atomic transactions ensures that schedules involving
@@ -1634,7 +1634,7 @@ cases requiring lightweight, rapid configuration. RESTCONF utilizes a RESTful in
 approach to network configuration and management. Therefore, RESTCONF may be advantageous in scenarios where quick adjustments
 to schedules are needed or where integration with web-based or cloud-native systems is a priority.<a href="#section-3.4-3" class="pilcrow">¶</a></p>
 <p id="section-3.4-4">CORECONF provides a lightweight, stateless method for managing small network devices where saving bytes to transport a
-message is very important. CORECONF uses CoAP<span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> methods to access structured data defined in YANG, which is a complementary to RESTCONF.
+message is very important. CORECONF uses CoAP <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> methods to access structured data defined in YANG, which is a complementary to RESTCONF.
 Unlike RESTCONF, many CORECONF design decisions are motivated by minimizing the message size. Therefore, CORECONF is advantageous
 in networks with constrained devices and very limited transmission bandwidth, especially in IoT devices that already deployed CoAP.<a href="#section-3.4-4" class="pilcrow">¶</a></p>
 <p id="section-3.4-5">Depending on the type of node in the TVR network, NETCONF would be the preferred protocol for large-scale, critical scheduling
@@ -1668,19 +1668,19 @@ an entire network. Time Synchronization mechanisms will be used to ensure:<a hre
 </li>
       </ul>
 <p id="section-4-3">Therefore, network time accuracy and time-stamped data models are critical to ensure that coordinated network events and scheduled path decisions across the network are based on a consistent time reference. Without accurate time sync, nodes could apply different schedules, causing routing inconsistencies, path flapping, or packet loss.<a href="#section-4-3" class="pilcrow">¶</a></p>
-<p id="section-4-4">Since all schedules are generated by the managing devices, it is necessary to make sure that the managing device and managed devices within a schedule domain (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-11#section-2.1.1" class="relref">Section 2.1.1</a> of [<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span>) are synchronized with the same time source. It ensures they have the same notion of when that is.<a href="#section-4-4" class="pilcrow">¶</a></p>
+<p id="section-4-4">Since all schedules are generated by the managing entity, it is necessary to make sure that the managing entity and managed entities within a schedule domain (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tvr-requirements-11#section-2.1.1" class="relref">Section 2.1.1</a> of [<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span>) are synchronized with the same time source. It ensures they have the same notion of when that is.<a href="#section-4-4" class="pilcrow">¶</a></p>
 <p id="section-4-5">Different time-variant scenarios may require different granularities of time synchronization. For example, the
 period of traffic and topology changes in tidal networks is usually a day or week. Therefore, a second-level time
 synchronization is enough. However, for the dynamic reachability scenarios, a fine-granularity time synchronization may
-be necessary, as the nodes may move very fast in some cases (the moving speed of a low earth orbit satellite is more than 7900 m/s)<a href="#section-4-5" class="pilcrow">¶</a></p>
+be necessary, as the nodes may move very fast in some cases (the moving speed of a low earth orbit satellite is more than 7900 m/s).<a href="#section-4-5" class="pilcrow">¶</a></p>
 <p id="section-4-6">Operators <span class="bcp14">SHOULD</span> derive a maximum acceptable time-error bound based on the schedule granularity, execution jitter tolerance, and
 activation window requirements.  For instance, if a schedule has a 1-second activation window and the system can tolerate up to 100ms of
 execution jitter, the time synchronization error <span class="bcp14">MUST</span> be kept well below 900ms.  The chosen time synchronization protocol and
 configuration <span class="bcp14">MUST</span> be capable of meeting this derived bound under all expected network conditions.<a href="#section-4-6" class="pilcrow">¶</a></p>
 <p id="section-4-7">Existing clock synchronization protocols can be classified into hardware-based protocols and software-based protocols.<a href="#section-4-7" class="pilcrow">¶</a></p>
 <p id="section-4-8">Hardware-based protocols often rely on dedicated hardware to ensure clock synchronization, such as Satellite Based Timing Service (SBTS)
-and Precision Time Protocol (PTP). The SBTS includes but is not limited to Global Position System (GPS),
-BeiDou Navigation Satellite System(BDS), Global Navigation Satellite System(GLONASS), and Galileo satellite navigation system.
+and Precision Time Protocol (PTP). The SBTS includes but is not limited to Global Positioning System (GPS),
+BeiDou Navigation Satellite System (BDS), GLONASS, and Galileo.
 Software-based protocols, on the other hand, synchronize clocks through software packages running on systems, such as Network
 Time Protocol (NTP) <span>[<a href="#RFC5905" class="cite xref">RFC5905</a>]</span> and Simple Network Time Protocol (SNTP) <span>[<a href="#RFC4330" class="cite xref">RFC4330</a>]</span>.<a href="#section-4-8" class="pilcrow">¶</a></p>
 <p id="section-4-9">The security aspects of time synchronization mechanisms are discussed further in <a href="#security-considerations" class="auto internal xref">Section 7</a> of this document.<a href="#section-4-9" class="pilcrow">¶</a></p>
@@ -1852,8 +1852,8 @@ execution, and recovery in case of failure to apply a schedule or partial change
 execution, it <span class="bcp14">SHOULD</span> reject the update with an appropriate error, or ignore it if the management interface does not support error reporting.<a href="#section-6.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-6.1-2.2">
-            <p id="section-6.1-2.2.1">The distributing of a schedule <span class="bcp14">SHOULD</span> be delivered at least x (operator-defined) time before the earliest start time of the schedule, this ensures that the
-managed entity has enough time to execute this schedule.<a href="#section-6.1-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-6.1-2.2.1">A schedule <span class="bcp14">SHOULD</span> be delivered at least an operator-defined lead time before its earliest start time, so that the
+managed entity has enough time to execute it.<a href="#section-6.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1923,7 +1923,7 @@ to the managed entity after time synchronization is finished.<a href="#section-6
         <h3 id="name-consistency-verification">
 <a href="#section-6.4" class="section-number selfRef">6.4. </a><a href="#name-consistency-verification" class="section-name selfRef">Consistency Verification</a>
         </h3>
-<p id="section-6.4-1">Consistency within a schedule or among different schedules is the precondition for schedule execution. It is very necessary to do verification for inconsistencies. A inconsistency means that some time parameters conflict with other time parameters in the same schedule or in other schedules.<a href="#section-6.4-1" class="pilcrow">¶</a></p>
+<p id="section-6.4-1">Consistency within a schedule or among different schedules is the precondition for schedule execution. Verification for inconsistencies is therefore necessary. An inconsistency means that some time parameters conflict with other time parameters in the same schedule or in other schedules.<a href="#section-6.4-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.4-2.1">
             <p id="section-6.4-2.1.1">If the time parameters of a schedule conflict with each other, for example, the period-start later than period-end,
@@ -1944,13 +1944,13 @@ should be discarded and an error should be returned to the schedule originator (
         <h3 id="name-early-warning-mechanism">
 <a href="#section-6.5" class="section-number selfRef">6.5. </a><a href="#name-early-warning-mechanism" class="section-name selfRef">Early Warning Mechanism</a>
         </h3>
-<p id="section-6.5-1">Early warning mechanism may be used to identify the fault schedule, and prevent the execution of fault schedule in some time-variant scenarios with insignificant schedule changes.<a href="#section-6.5-1" class="pilcrow">¶</a></p>
+<p id="section-6.5-1">Early warning mechanism may be used to identify the fault schedule, and prevent the execution of fault schedule in time-variant scenarios where schedule changes are normally small.<a href="#section-6.5-1" class="pilcrow">¶</a></p>
 <p id="section-6.5-2">When a schedule received by a managed entity or managing entity shows significant short-term discrepancies in its key
-values (e.g. the frequency of a schedule changes greatly), the device should send feedback to the schedule generator
+values (e.g. the frequency of a schedule changes greatly), the device should send feedback to the schedule originator
 to confirm whether this schedule arises from a system failure or operator error. Upon receiving the feedback, the
-schedule generator should inspect logs to confirm whether a fault has occurred or notify users to get the confirmation.
+schedule originator should inspect logs to confirm whether a fault has occurred or notify users to get the confirmation.
 Only when the schedule is confirmed, then the receiving device can execute this schedule. The device received schedules
-and the schedule generator may be independent devices or independent components within one device.<a href="#section-6.5-2" class="pilcrow">¶</a></p>
+and the schedule originator may be independent devices or independent components within one device.<a href="#section-6.5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="stability-mechanisms">
@@ -1964,7 +1964,7 @@ and the schedule generator may be independent devices or independent components 
 <a href="#section-6.6.1" class="section-number selfRef">6.6.1. </a><a href="#name-fallback-mechanism" class="section-name selfRef">Fallback Mechanism</a>
           </h4>
 <p id="section-6.6.1-1">A fallback policy defines the operational state that is applied when schedule verification or execution fails.
-It allows continued operation in cases where unexpected or inconsistent information is detected<a href="#section-6.6.1-1" class="pilcrow">¶</a></p>
+It allows continued operation in cases where unexpected or inconsistent information is detected.<a href="#section-6.6.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.6.1-2">Fallback triggers include, but are not limited to:<a href="#section-6.6.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.6.1-3.1">
@@ -2017,7 +2017,7 @@ A snapshot includes the set of affected schedule-ids, resource references, trans
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <p id="section-7-1">The integration of time-variant mechanisms in network operations presents distinct security challenges that require thorough
-analysis to safeguard the network’s integrity, availability, and confidentiality. Networks that rely on time-sensitive data
+analysis to safeguard the network's integrity, availability, and confidentiality. Networks that rely on time-sensitive data
 for routing and forwarding decisions are particularly susceptible to attacks that exploit timing dependencies.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <p id="section-7-2">The "Security Considerations" section of <span>[<a href="#I-D.ietf-tvr-requirements" class="cite xref">I-D.ietf-tvr-requirements</a>]</span> outlines various threat vectors and categories specific
 to time-variant environments.<a href="#section-7-2" class="pilcrow">¶</a></p>
@@ -2046,10 +2046,10 @@ recommended to be applied.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
 infer routing decisions, network load, or usage patterns. The schedule ability could enable attackers to launch highly
 targeted attacks, such as selectively overloading certain links or intercepting sensitive communications.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
 <p id="section-7.2-2">This kind of attack could be mitigated by the encryption of schedules and the authentication of managing entities. For
-the networks using NETCONF to deliver schedules, NETCONF over TLS<span>[<a href="#RFC7589" class="cite xref">RFC7589</a>]</span> is recommended to achieve the bidirectional
+the networks using NETCONF to deliver schedules, NETCONF over TLS <span>[<a href="#RFC7589" class="cite xref">RFC7589</a>]</span> is recommended to achieve the bidirectional
 authentication and encryption of YANG model data. RESTCONF supports TLS originally, so it can be deployed without
 additional configurations or modifications.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
-<p id="section-7.2-3">In addition, in time variant networks with centralized scenario<a href="#centralized-scenario" class="auto internal xref">Section 3.2.1</a>, the encryption of routing path
+<p id="section-7.2-3">In addition, in time variant networks with centralized scenario (<a href="#centralized-scenario" class="auto internal xref">Section 3.2.1</a>), the encryption of routing path
 information is also necessary to avoid the fake routing information. Considering the most typical protocols used to
 deliver the routing path information between controller and network devices are BGP and PCEP, and both are based on TCP.
 Therefore, the TLS is <span class="bcp14">RECOMMENDED</span> to provide confidentiality and integrity protection.<a href="#section-7.2-3" class="pilcrow">¶</a></p>
@@ -2109,7 +2109,7 @@ erroneous time information to the entire network, disrupting its operation.<a hr
         </h3>
 <p id="section-7.7-1">In a time-variant network, attackers may perform unauthorized modification or inject malicious TVR schedules.
 Such attacks could cause traffic blackholing by scheduling link or node shutdowns at critical times, trigger network-wide reroutes, degrade SLA performance, or enable targeted interception of sensitive traffic flows.<a href="#section-7.7-1" class="pilcrow">¶</a></p>
-<p id="section-7.7-2">This kind of attack could be mitigated by the combination of several approachs.
+<p id="section-7.7-2">This kind of attack could be mitigated by the combination of several approaches.
 All schedule updates <span class="bcp14">MUST</span> be authenticated to verify the originator identity. Schedules <span class="bcp14">MUST</span> be protected against tampering in transit and at rest via cryptographic integrity mechanisms such as digital signatures or HMAC.
 All schedule creation, modification, and deletion operations <span class="bcp14">SHOULD</span> be logged with timestamps, originator identity, and change descriptions for forensic analysis and anomaly detection.
 Implementations <span class="bcp14">SHOULD</span> also enforce rate limits on schedule updates and deploy anomaly detection to identify suspicious patterns such as frequent schedule churn or schedules from unexpected sources.<a href="#section-7.7-2" class="pilcrow">¶</a></p>
@@ -2847,7 +2847,7 @@ and 2001:db8::4. The corresponding node YANG module JSON example for it is shown
         <h3 id="name-a4-code-examples-for-mobile">
 <a href="#name-a4-code-examples-for-mobile" class="section-name selfRef">A.4 Code Examples for "Mobile Satellites"</a>
         </h3>
-<p id="appendix-B.4-1">As described in <span><a href="https://rfc-editor.org/rfc/rfc9657#section-4.3" class="relref">Section 4.3</a> of [<a href="#RFC9657" class="cite xref">RFC9657</a>]</span>, the "Mobile Satellites" generally refers to the Low Earth Orbit(LEO) network,
+<p id="appendix-B.4-1">As described in <span><a href="https://rfc-editor.org/rfc/rfc9657#section-4.3" class="relref">Section 4.3</a> of [<a href="#RFC9657" class="cite xref">RFC9657</a>]</span>, the "Mobile Satellites" generally refers to the Low Earth Orbit (LEO) network,
 which includes hundreds to thousands of spacecrafts that can communicate both with their orbital neighbors as well as
 down to any ground station that they happen to be passing over. The connection between the spacecrafts and the ground
 station depend on the flight trajectories of the spacecrafts, so the link changes between them is predictable.<a href="#appendix-B.4-1" class="pilcrow">¶</a></p>
@@ -2897,11 +2897,11 @@ t3                    |  N1  |----------|  N2  |----------|  N3  |
           </figcaption></figure>
 </div>
 <p id="appendix-B.4-4">In this scenario, the TVR topology YANG module is applicable to deliver the predicted topology changes to each node.
-However, the TVR node YANG module is not applicable, this depends on whether the link changes are controlled by satellites
+Whether the TVR node YANG module is applicable depends on whether the link changes are controlled by the satellites
 themselves or by the managing entity. Here, we provide the JSON examples for TVR topology YANG module and node
  YANG module as a reference.<a href="#appendix-B.4-4" class="pilcrow">¶</a></p>
 <p id="appendix-B.4-5">Taking the spacecraft N1 as an example, assuming the time t1 is 10:00:00 1 July 2025 and the node-ids of N1, N2, N3, and
-ground station is 2001:db8::1, 2001:db8::2, 2001:db8::3, and 2001:db8::4.,
+ground station is 2001:db8::1, 2001:db8::2, 2001:db8::3, and 2001:db8::4,
 then the corresponding node YANG module JSON example for it is shown in <a href="#ex-inf8" class="auto internal xref">Figure 11</a>.<a href="#appendix-B.4-5" class="pilcrow">¶</a></p>
 <span id="name-tvr-node-yang-module-json-exa"></span><div id="ex-inf8">
 <figure id="figure-11">
@@ -3154,7 +3154,7 @@ then the corresponding topology YANG module JSON example is shown in <a href="#e
 predictable trajectories, such as ferries or planes. These endpoints often rely on a combination of satellite and
 terrestrial systems for Internet connectivity. Consider a scenario where a vessel uses satellites to access the Internet,
 including a ship and three satellites. As the satellite and the vessel move, the vessel establishes connections with the
-satellites N1, N2, and N3 at t1, t2, and t3 respectively. It is assumed that each connection lasts for 1 minutes.
+satellites N1, N2, and N3 at t1, t2, and t3 respectively. It is assumed that each connection lasts for 1 minute.
 The changes of topology are shown in <a href="#ex-inf10" class="auto internal xref">Figure 13</a>.<a href="#appendix-B.5-1" class="pilcrow">¶</a></p>
 <span id="name-an-example-topology-for-pre"></span><div id="ex-inf10">
 <figure id="figure-13">
