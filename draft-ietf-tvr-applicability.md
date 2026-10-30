@@ -234,10 +234,7 @@ To create a schedule, the following TVR data model objects and subsequent branch
 
 When using these YANG modules with NETCONF or RESTCONF, implementations SHOULD target the intended configuration datastore
 for schedule provisioning and MAY read from the operational datastore
-to retrieve execution status and applied schedules.  Clients can use
-NMDA (Network Management Datastore Architecture, {{!RFC8342}})
-operations to distinguish between intended configuration and actual
-operational state.  For example, the managing entity writes schedules
+to retrieve execution status and applied schedules.  For example, the managing entity writes schedules
 to the intended or running datastore, and network devices report
 execution status via the operational datastore.
 
