@@ -723,8 +723,8 @@ The corresponding JSON example is shown in {{ex-inf2}}.
     "network": [
       {
         "network-id": "network:1",
-        "network‑types": {
-          "ietf‑tvr‑topology:tvr‑topology": null
+        "network-types": {
+          "ietf-tvr-topology:tvr-topology": {}
         },
         "node": [
           {
@@ -733,7 +733,7 @@ The corresponding JSON example is shown in {{ex-inf2}}.
               "default-node-available": true,
               "schedule": []
             },
-            "termination-point": [
+            "ietf-network-topology:termination-point": [
               {
                 "tp-id": "tp-1",
                 "ietf-tvr-topology:available": {
@@ -748,7 +748,8 @@ The corresponding JSON example is shown in {{ex-inf2}}.
                       "utc-until": "2027-01-01T00:00:00Z",
                       "frequency": "ietf-schedule:daily",
                       "link-attributes": {
-                        "destination-nodes": "example:192.0.2.2",
+                        "link-available": true,
+                        "destination-nodes": ["example:192.0.2.2"],
                         "strict-destination-checking": true
                       }
                     }
@@ -763,7 +764,7 @@ The corresponding JSON example is shown in {{ex-inf2}}.
               "default-node-available": true,
               "schedule": []
             },
-            "termination-point": [
+            "ietf-network-topology:termination-point": [
               {
                 "tp-id": "tp-1",
                 "ietf-tvr-topology:available": {
@@ -778,7 +779,8 @@ The corresponding JSON example is shown in {{ex-inf2}}.
                       "utc-until": "2027-01-01T00:00:00Z",
                       "frequency": "ietf-schedule:daily",
                       "link-attributes": {
-                        "destination-nodes": "example:192.0.2.1",
+                        "link-available": true,
+                        "destination-nodes": ["example:192.0.2.1"],
                         "strict-destination-checking": true
                       }
                     }
@@ -799,7 +801,8 @@ The corresponding JSON example is shown in {{ex-inf2}}.
                       "utc-until": "2027-01-01T00:00:00Z",
                       "frequency": "ietf-schedule:daily",
                       "link-attributes": {
-                        "destination-nodes": "example:192.0.2.3",
+                        "link-available": true,
+                        "destination-nodes": ["example:192.0.2.3"],
                         "strict-destination-checking": true
                       }
                     }
@@ -814,9 +817,9 @@ The corresponding JSON example is shown in {{ex-inf2}}.
               "default-node-available": true,
               "schedule": []
             },
-            "termination-point": [
+            "ietf-network-topology:termination-point": [
               {
-                "tp-id": "link1",
+                "tp-id": "tp-1",
                 "ietf-tvr-topology:available": {
                   "default-link-available": false,
                   "schedule": [
@@ -829,7 +832,8 @@ The corresponding JSON example is shown in {{ex-inf2}}.
                       "utc-until": "2027-01-01T00:00:00Z",
                       "frequency": "ietf-schedule:daily",
                       "link-attributes": {
-                        "destination-nodes": "example:192.0.2.2",
+                        "link-available": true,
+                        "destination-nodes": ["example:192.0.2.2"],
                         "strict-destination-checking": true
                       }
                     }
@@ -1002,7 +1006,7 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
       {
         "network-id": "network:ipv6-4node",
         "network-types": {
-          "ietf-tvr-topology:tvr-topology": null
+          "ietf-tvr-topology:tvr-topology": {}
         },
         "node": [
           {
@@ -1011,20 +1015,20 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
               "default-node-available": true,
               "schedule": []
             },
-            "termination-point": [
+            "ietf-network-topology:termination-point": [
               {
                 "tp-id": "tp-l1",
                 "ietf-tvr-topology:available": {
-                  "default-link-available": true
-                },
-                "schedule": []
+                  "default-link-available": true,
+                  "schedule": []
+                }
               },
               {
                 "tp-id": "tp-l2",
                 "ietf-tvr-topology:available": {
-                  "default-link-available": true
-                },
-                "schedule": []
+                  "default-link-available": true,
+                  "schedule": []
+                }
               },
               {
                 "tp-id": "tp-l6",
@@ -1041,7 +1045,7 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
                       "frequency": "ietf-schedule:daily",
                       "link-attributes": {
                         "link-available": true,
-                        "destination-nodes": "example:2001:db8::4",
+                        "destination-nodes": ["example:2001:db8::4"],
                         "strict-destination-checking": true
                       }
                     }
@@ -1056,20 +1060,20 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
               "default-node-available": true,
               "schedule": []
             },
-            "termination-point": [
+            "ietf-network-topology:termination-point": [
               {
                 "tp-id": "tp-l1",
                 "ietf-tvr-topology:available": {
-                  "default-link-available": true
-                },
-                "schedule": []
+                  "default-link-available": true,
+                  "schedule": []
+                }
               },
               {
                 "tp-id": "tp-l3",
                 "ietf-tvr-topology:available": {
-                  "default-link-available": true
-                },
-                "schedule": []
+                  "default-link-available": true,
+                  "schedule": []
+                }
               },
               {
                 "tp-id": "tp-l5",
@@ -1086,7 +1090,7 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
                       "frequency": "ietf-schedule:daily",
                       "link-attributes": {
                         "link-available": true,
-                        "destination-nodes": "example:2001:db8::3",
+                        "destination-nodes": ["example:2001:db8::3"],
                         "strict-destination-checking": true
                       }
                     }
@@ -1101,24 +1105,24 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
               "default-node-available": true,
               "schedule": []
             },
-            "termination-point": [
+            "ietf-network-topology:termination-point": [
               {
                 "tp-id": "tp-l2",
                 "ietf-tvr-topology:available": {
-                  "default-link-available": true
-                },
-                "schedule": []
+                  "default-link-available": true,
+                  "schedule": []
+                }
               },
               {
                 "tp-id": "tp-l4",
-                "available": {
-                  "default-link-available": true
-                },
-                "schedule": []
+                "ietf-tvr-topology:available": {
+                  "default-link-available": true,
+                  "schedule": []
+                }
               },
               {
                 "tp-id": "tp-l5",
-                "available": {
+                "ietf-tvr-topology:available": {
                   "default-link-available": false,
                   "schedule": [
                     {
@@ -1131,7 +1135,7 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
                       "frequency": "ietf-schedule:daily",
                       "link-attributes": {
                         "link-available": true,
-                        "destination-nodes": "example:2001:db8::2",
+                        "destination-nodes": ["example:2001:db8::2"],
                         "strict-destination-checking": true
                       }
                     }
@@ -1146,20 +1150,20 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
               "default-node-available": true,
               "schedule": []
             },
-            "termination-point": [
+            "ietf-network-topology:termination-point": [
               {
                 "tp-id": "tp-l3",
                 "ietf-tvr-topology:available": {
-                  "default-link-available": true
-                },
-                "schedule": []
+                  "default-link-available": true,
+                  "schedule": []
+                }
               },
               {
                 "tp-id": "tp-l4",
                 "ietf-tvr-topology:available": {
-                  "default-link-available": true
-                },
-                "schedule": []
+                  "default-link-available": true,
+                  "schedule": []
+                }
               },
               {
                 "tp-id": "tp-l6",
@@ -1176,7 +1180,7 @@ The corresponding topology YANG module JSON example is shown in {{ex-inf6}}
                       "frequency": "ietf-schedule:daily",
                       "link-attributes": {
                         "link-available": true,
-                        "destination-nodes": "example:2001:db8::1",
+                        "destination-nodes": ["example:2001:db8::1"],
                         "strict-destination-checking": true
                       }
                     }
@@ -1334,8 +1338,8 @@ then the corresponding node YANG module JSON example for it is shown in {{ex-inf
             "schedule": [
               {
                 "schedule-id": 100,
-                "period-start": "2025-07-01T10:00:00Z",
-                "duration": 420,
+                "period-start": "2025-07-01T10:20:00Z",
+                "duration": "PT00:07:00",
                 "scheduled-attributes": {
                   "available": true
                 }
@@ -1361,7 +1365,7 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
       {
         "network-id": "network:ipv6-satellite",
         "network-types": {
-          "ietf-tvr-topology:tvr-topology": null
+          "ietf-tvr-topology:tvr-topology": {}
         },
         "node": [
           {
@@ -1370,7 +1374,7 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
               "default-node-available": true,
               "schedule": []
             },
-            "termination-point": [
+            "ietf-network-topology:termination-point": [
               {
                 "tp-id": "tp-gs",
                 "ietf-tvr-topology:available": {
@@ -1384,7 +1388,7 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
                       },
                       "link-attributes": {
                         "link-available": true,
-                        "destination-nodes": "gs:2001:db8::4",
+                        "destination-nodes": ["gs:2001:db8::4"],
                         "strict-destination-checking": true
                       }
                     }
@@ -1399,7 +1403,7 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
               "default-node-available": true,
               "schedule": []
             },
-            "termination-point": [
+            "ietf-network-topology:termination-point": [
               {
                 "tp-id": "tp-gs",
                 "ietf-tvr-topology:available": {
@@ -1413,7 +1417,7 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
                       },
                       "link-attributes": {
                         "link-available": true,
-                        "destination-nodes": "gs:2001:db8::4",
+                        "destination-nodes": ["gs:2001:db8::4"],
                         "strict-destination-checking": true
                       }
                     }
@@ -1428,7 +1432,7 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
               "default-node-available": true,
               "schedule": []
             },
-            "termination-point": [
+            "ietf-network-topology:termination-point": [
               {
                 "tp-id": "tp-gs",
                 "ietf-tvr-topology:available": {
@@ -1442,7 +1446,7 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
                       },
                       "link-attributes": {
                         "link-available": true,
-                        "destination-nodes": "gs:2001:db8::4",
+                        "destination-nodes": ["gs:2001:db8::4"],
                         "strict-destination-checking": true
                       }
                     }
@@ -1457,7 +1461,7 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
               "default-node-available": true,
               "schedule": []
             },
-            "termination-point": [
+            "ietf-network-topology:termination-point": [
               {
                 "tp-id": "tp-1",
                 "ietf-tvr-topology:available": {
@@ -1471,7 +1475,7 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
                       },
                       "link-attributes": {
                         "link-available": true,
-                        "destination-nodes": "satellite:2001:db8::3",
+                        "destination-nodes": ["satellite:2001:db8::3"],
                         "strict-destination-checking": true
                       }
                     },
@@ -1483,7 +1487,7 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
                       },
                       "link-attributes": {
                         "link-available": true,
-                        "destination-nodes": "satellite:2001:db8::2",
+                        "destination-nodes": ["satellite:2001:db8::2"],
                         "strict-destination-checking": true
                       }
                     },
@@ -1495,7 +1499,7 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
                       },
                       "link-attributes": {
                         "link-available": true,
-                        "destination-nodes": "satellite:2001:db8::1",
+                        "destination-nodes": ["satellite:2001:db8::1"],
                         "strict-destination-checking": true
                       }
                     }
@@ -1513,7 +1517,7 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
               "source-tp": "tp-gs"
             },
             "destination": {
-              "dest-node": "satellite:2001:db8::4",
+              "dest-node": "gs:2001:db8::4",
               "dest-tp": "tp-1"
             }
           },
@@ -1524,7 +1528,7 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
               "source-tp": "tp-gs"
             },
             "destination": {
-              "dest-node": "satellite:2001:db8::4",
+              "dest-node": "gs:2001:db8::4",
               "dest-tp": "tp-1"
             }
           },
@@ -1535,7 +1539,7 @@ then the corresponding topology YANG module JSON example is shown in {{ex-inf9}}
               "source-tp": "tp-gs"
             },
             "destination": {
-              "dest-node": "satellite:2001:db8::4",
+              "dest-node": "gs:2001:db8::4",
               "dest-tp": "tp-1"
             }
           }
