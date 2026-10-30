@@ -1143,155 +1143,159 @@ A.1 Code Examples for "Energy-harvesting Wireless Sensor Network"
 
    The corresponding JSON example is shown in Figure 5.
 
-     {
-       "ietf-network:networks": {
-         "network": [
-           {
-             "network-id": "network:1",
-             "network-types": {
-               "ietf-tvr-topology:tvr-topology": null
-             },
-             "node": [
-               {
-                 "node-id": "example:192.0.2.1",
-                 "ietf-tvr-topology:available": {
-                   "default-node-available": true,
-                   "schedule": []
-                 },
-                 "termination-point": [
-                   {
-                     "tp-id": "tp-1",
-                     "ietf-tvr-topology:available": {
-                       "default-link-available": false,
-                       "schedule": [
-                         {
-                           "schedule-id": 1,
-                           "recurrence-first": {
-                             "start-time-utc": "2026-01-01T08:00:00Z",
-                             "duration": 10800
-                           },
-                           "utc-until": "2027-01-01T00:00:00Z",
-                           "frequency": "ietf-schedule:daily",
-                           "link-attributes": {
-                             "destination-nodes": "example:192.0.2.2",
-                             "strict-destination-checking": true
-                           }
-                         }
-                       ]
-                     }
-                   }
-                 ]
-               },
-               {
-                 "node-id": "example:192.0.2.2",
-                 "ietf-tvr-topology:available": {
-                   "default-node-available": true,
-                   "schedule": []
-                 },
-                 "termination-point": [
-                   {
-                     "tp-id": "tp-1",
-                     "ietf-tvr-topology:available": {
-                       "default-link-available": false,
-                       "schedule": [
-                         {
-                           "schedule-id": 2,
-                           "recurrence-first": {
-                             "start-time-utc": "2026-01-01T08:00:00Z",
-                             "duration": 10800
-                           },
-                           "utc-until": "2027-01-01T00:00:00Z",
-                           "frequency": "ietf-schedule:daily",
-                           "link-attributes": {
-                             "destination-nodes": "example:192.0.2.1",
-                             "strict-destination-checking": true
-                           }
-                         }
-                       ]
-                     }
-                   },
-                   {
-                     "tp-id": "tp-2",
-                     "ietf-tvr-topology:available": {
-                       "default-link-available": false,
-                       "schedule": [
-                         {
-                           "schedule-id": 3,
-                           "recurrence-first": {
-                             "start-time-utc": "2026-01-01T11:00:00Z",
-                             "duration": 18000
-                           },
-                           "utc-until": "2027-01-01T00:00:00Z",
-                           "frequency": "ietf-schedule:daily",
-                           "link-attributes": {
-                             "destination-nodes": "example:192.0.2.3",
-                             "strict-destination-checking": true
-                           }
-                         }
-                       ]
-                     }
-                   }
-                 ]
-               },
-               {
-                 "node-id": "example:192.0.2.3",
-                 "ietf-tvr-topology:available": {
-                   "default-node-available": true,
-                   "schedule": []
-                 },
-                 "termination-point": [
-                   {
-                     "tp-id": "link1",
-                     "ietf-tvr-topology:available": {
-                       "default-link-available": false,
-                       "schedule": [
-                         {
-                           "schedule-id": 4,
-                           "recurrence-first": {
-                             "start-time-utc": "2026-01-01T11:00:00Z",
-                             "duration": 18000
-                           },
-                           "utc-until": "2027-01-01T00:00:00Z",
-                           "frequency": "ietf-schedule:daily",
-                           "link-attributes": {
-                             "destination-nodes": "example:192.0.2.2",
-                             "strict-destination-checking": true
-                           }
-                         }
-                       ]
-                     }
-                   }
-                 ]
-               }
-             ],
-             "ietf-network-topology:link": [
-               {
-                 "link-id": "link-1-2",
-                 "source": {
-                   "source-node": "example:192.0.2.1",
-                   "source-tp": "tp-1"
-                 },
-                 "destination": {
-                   "dest-node": "example:192.0.2.2",
-                   "dest-tp": "tp-1"
-                 }
-               },
-               {
-                 "link-id": "link-2-3",
-                 "source": {
-                   "source-node": "example:192.0.2.2",
-                   "source-tp": "tp-2"
-                 },
-                 "destination": {
-                   "dest-node": "example:192.0.2.3",
-                   "dest-tp": "tp-1"
-                 }
-               }
-             ]
-           }
-         ]
-       }
-     }
+    {
+      "ietf-network:networks": {
+        "network": [
+          {
+            "network-id": "network:1",
+            "network-types": {
+              "ietf-tvr-topology:tvr-topology": {}
+            },
+            "node": [
+              {
+                "node-id": "example:192.0.2.1",
+                "ietf-tvr-topology:available": {
+                  "default-node-available": true,
+                  "schedule": []
+                },
+                "ietf-network-topology:termination-point": [
+                  {
+                    "tp-id": "tp-1",
+                    "ietf-tvr-topology:available": {
+                      "default-link-available": false,
+                      "schedule": [
+                        {
+                          "schedule-id": 1,
+                          "recurrence-first": {
+                            "start-time-utc": "2026-01-01T08:00:00Z",
+                            "duration": 10800
+                          },
+                          "utc-until": "2027-01-01T00:00:00Z",
+                          "frequency": "ietf-schedule:daily",
+                          "link-attributes": {
+                            "link-available": true,
+                            "destination-nodes": ["example:192.0.2.2"],
+                            "strict-destination-checking": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "node-id": "example:192.0.2.2",
+                "ietf-tvr-topology:available": {
+                  "default-node-available": true,
+                  "schedule": []
+                },
+                "ietf-network-topology:termination-point": [
+                  {
+                    "tp-id": "tp-1",
+                    "ietf-tvr-topology:available": {
+                      "default-link-available": false,
+                      "schedule": [
+                        {
+                          "schedule-id": 2,
+                          "recurrence-first": {
+                            "start-time-utc": "2026-01-01T08:00:00Z",
+                            "duration": 10800
+                          },
+                          "utc-until": "2027-01-01T00:00:00Z",
+                          "frequency": "ietf-schedule:daily",
+                          "link-attributes": {
+                            "link-available": true,
+                            "destination-nodes": ["example:192.0.2.1"],
+                            "strict-destination-checking": true
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "tp-id": "tp-2",
+                    "ietf-tvr-topology:available": {
+                      "default-link-available": false,
+                      "schedule": [
+                        {
+                          "schedule-id": 3,
+                          "recurrence-first": {
+                            "start-time-utc": "2026-01-01T11:00:00Z",
+                            "duration": 18000
+                          },
+                          "utc-until": "2027-01-01T00:00:00Z",
+                          "frequency": "ietf-schedule:daily",
+                          "link-attributes": {
+                            "link-available": true,
+                            "destination-nodes": ["example:192.0.2.3"],
+                            "strict-destination-checking": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "node-id": "example:192.0.2.3",
+                "ietf-tvr-topology:available": {
+                  "default-node-available": true,
+                  "schedule": []
+                },
+                "ietf-network-topology:termination-point": [
+                  {
+                    "tp-id": "tp-1",
+                    "ietf-tvr-topology:available": {
+                      "default-link-available": false,
+                      "schedule": [
+                        {
+                          "schedule-id": 4,
+                          "recurrence-first": {
+                            "start-time-utc": "2026-01-01T11:00:00Z",
+                            "duration": 18000
+                          },
+                          "utc-until": "2027-01-01T00:00:00Z",
+                          "frequency": "ietf-schedule:daily",
+                          "link-attributes": {
+                            "link-available": true,
+                            "destination-nodes": ["example:192.0.2.2"],
+                            "strict-destination-checking": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ],
+            "ietf-network-topology:link": [
+              {
+                "link-id": "link-1-2",
+                "source": {
+                  "source-node": "example:192.0.2.1",
+                  "source-tp": "tp-1"
+                },
+                "destination": {
+                  "dest-node": "example:192.0.2.2",
+                  "dest-tp": "tp-1"
+                }
+              },
+              {
+                "link-id": "link-2-3",
+                "source": {
+                  "source-node": "example:192.0.2.2",
+                  "source-tp": "tp-2"
+                },
+                "destination": {
+                  "dest-node": "example:192.0.2.3",
+                  "dest-tp": "tp-1"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
 
      Figure 5: JSON example of topology schedule for Energy-harvesting
                           Wireless Sensor Network
@@ -1427,268 +1431,268 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
    The corresponding topology YANG module JSON example is shown in
    Figure 9
 
-    {
-      "ietf-network:networks": {
-        "network": [
-          {
-            "network-id": "network:ipv6-4node",
-            "network-types": {
-              "ietf-tvr-topology:tvr-topology": null
-            },
-            "node": [
-              {
-                "node-id": "example:2001:db8::1",
-                "ietf-tvr-topology:available": {
-                  "default-node-available": true,
-                  "schedule": []
-                },
-                "termination-point": [
-                  {
-                    "tp-id": "tp-l1",
-                    "ietf-tvr-topology:available": {
-                      "default-link-available": true
-                    },
-                    "schedule": []
-                  },
-                  {
-                    "tp-id": "tp-l2",
-                    "ietf-tvr-topology:available": {
-                      "default-link-available": true
-                    },
-                    "schedule": []
-                  },
-                  {
-                    "tp-id": "tp-l6",
-                    "ietf-tvr-topology:available": {
-                      "default-link-available": false,
-                      "schedule": [
-                        {
-                          "schedule-id": 100,
-                          "recurrence-first": {
-                            "start-time-utc": "2026-01-01T08:00:00Z",
-                            "duration": 54000
-                          },
-                          "utc-until": "2027-01-01T00:00:00Z",
-                          "frequency": "ietf-schedule:daily",
-                          "link-attributes": {
-                            "link-available": true,
-                            "destination-nodes": "example:2001:db8::4",
-                            "strict-destination-checking": true
-                          }
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                "node-id": "example:2001:db8::2",
-                "ietf-tvr-topology:available": {
-                  "default-node-available": true,
-                  "schedule": []
-                },
-                "termination-point": [
-                  {
-                    "tp-id": "tp-l1",
-                    "ietf-tvr-topology:available": {
-                      "default-link-available": true
-                    },
-                    "schedule": []
-                  },
-                  {
-                    "tp-id": "tp-l3",
-                    "ietf-tvr-topology:available": {
-                      "default-link-available": true
-                    },
-                    "schedule": []
-                  },
-                  {
-                    "tp-id": "tp-l5",
-                    "ietf-tvr-topology:available": {
-                      "default-link-available": false,
-                      "schedule": [
-                        {
-                          "schedule-id": 200,
-                          "recurrence-first": {
-                            "start-time-utc": "2026-01-01T08:00:00Z",
-                            "duration": 54000
-                          },
-                          "utc-until": "2027-01-01T00:00:00Z",
-                          "frequency": "ietf-schedule:daily",
-                          "link-attributes": {
-                            "link-available": true,
-                            "destination-nodes": "example:2001:db8::3",
-                            "strict-destination-checking": true
-                          }
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                "node-id": "example:2001:db8::3",
-                "ietf-tvr-topology:available": {
-                  "default-node-available": true,
-                  "schedule": []
-                },
-                "termination-point": [
-                  {
-                    "tp-id": "tp-l2",
-                    "ietf-tvr-topology:available": {
-                      "default-link-available": true
-                    },
-                    "schedule": []
-                  },
-                  {
-                    "tp-id": "tp-l4",
-                    "available": {
-                      "default-link-available": true
-                    },
-                    "schedule": []
-                  },
-                  {
-                    "tp-id": "tp-l5",
-                    "available": {
-                      "default-link-available": false,
-                      "schedule": [
-                        {
-                          "schedule-id": 300,
-                          "recurrence-first": {
-                            "start-time-utc": "2026-01-01T08:00:00Z",
-                            "duration": 54000
-                          },
-                          "utc-until": "2027-01-01T00:00:00Z",
-                          "frequency": "ietf-schedule:daily",
-                          "link-attributes": {
-                            "link-available": true,
-                            "destination-nodes": "example:2001:db8::2",
-                            "strict-destination-checking": true
-                          }
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                "node-id": "example:2001:db8::4",
-                "ietf-tvr-topology:available": {
-                  "default-node-available": true,
-                  "schedule": []
-                },
-                "termination-point": [
-                  {
-                    "tp-id": "tp-l3",
-                    "ietf-tvr-topology:available": {
-                      "default-link-available": true
-                    },
-                    "schedule": []
-                  },
-                  {
-                    "tp-id": "tp-l4",
-                    "ietf-tvr-topology:available": {
-                      "default-link-available": true
-                    },
-                    "schedule": []
-                  },
-                  {
-                    "tp-id": "tp-l6",
-                    "ietf-tvr-topology:available": {
-                      "default-link-available": false,
-                      "schedule": [
-                        {
-                          "schedule-id": 405,
-                          "recurrence-first": {
-                            "start-time-utc": "2026-01-01T08:00:00Z",
-                            "duration": 54000
-                          },
-                          "utc-until": "2027-01-01T00:00:00Z",
-                          "frequency": "ietf-schedule:daily",
-                          "link-attributes": {
-                            "link-available": true,
-                            "destination-nodes": "example:2001:db8::1",
-                            "strict-destination-checking": true
-                          }
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            ],
-            "ietf-network-topology:link": [
-              {
-                "link-id": "L1",
-                "source": {
-                  "source-node": "example:2001:db8::1",
-                  "source-tp": "tp-l1"
-                },
-                "destination": {
-                  "dest-node": "example:2001:db8::2",
-                  "dest-tp": "tp-l1"
-                }
-              },
-              {
-                "link-id": "L2",
-                "source": {
-                  "source-node": "example:2001:db8::1",
-                  "source-tp": "tp-l2"
-                },
-                "destination": {
-                  "dest-node": "example:2001:db8::3",
-                  "dest-tp": "tp-l2"
-                }
-              },
-              {
-                "link-id": "L3",
-                "source": {
-                  "source-node": "example:2001:db8::2",
-                  "source-tp": "tp-l3"
-                },
-                "destination": {
-                  "dest-node": "example:2001:db8::4",
-                  "dest-tp": "tp-l3"
-                }
-              },
-              {
-                "link-id": "L4",
-                "source": {
-                  "source-node": "example:2001:db8::3",
-                  "source-tp": "tp-l4"
-                },
-                "destination": {
-                  "dest-node": "example:2001:db8::4",
-                  "dest-tp": "tp-l4"
-                }
-              },
-              {
-                "link-id": "L5",
-                "source": {
-                  "source-node": "example:2001:db8::2",
-                  "source-tp": "tp-l5"
-                },
-                "destination": {
-                  "dest-node": "example:2001:db8::3",
-                  "dest-tp": "tp-l5"
-                }
-              },
-              {
-                "link-id": "L6",
-                "source": {
-                  "source-node": "example:2001:db8::1",
-                  "source-tp": "tp-l6"
-                },
-                "destination": {
-                  "dest-node": "example:2001:db8::4",
-                  "dest-tp": "tp-l6"
-                }
-              }
-            ]
-          }
-        ]
-      }
-    }
+   {
+     "ietf-network:networks": {
+       "network": [
+         {
+           "network-id": "network:ipv6-4node",
+           "network-types": {
+             "ietf-tvr-topology:tvr-topology": {}
+           },
+           "node": [
+             {
+               "node-id": "example:2001:db8::1",
+               "ietf-tvr-topology:available": {
+                 "default-node-available": true,
+                 "schedule": []
+               },
+               "ietf-network-topology:termination-point": [
+                 {
+                   "tp-id": "tp-l1",
+                   "ietf-tvr-topology:available": {
+                     "default-link-available": true,
+                     "schedule": []
+                   }
+                 },
+                 {
+                   "tp-id": "tp-l2",
+                   "ietf-tvr-topology:available": {
+                     "default-link-available": true,
+                     "schedule": []
+                   }
+                 },
+                 {
+                   "tp-id": "tp-l6",
+                   "ietf-tvr-topology:available": {
+                     "default-link-available": false,
+                     "schedule": [
+                       {
+                         "schedule-id": 100,
+                         "recurrence-first": {
+                           "start-time-utc": "2026-01-01T08:00:00Z",
+                           "duration": 54000
+                         },
+                         "utc-until": "2027-01-01T00:00:00Z",
+                         "frequency": "ietf-schedule:daily",
+                         "link-attributes": {
+                           "link-available": true,
+                           "destination-nodes": ["example:2001:db8::4"],
+                           "strict-destination-checking": true
+                         }
+                       }
+                     ]
+                   }
+                 }
+               ]
+             },
+             {
+               "node-id": "example:2001:db8::2",
+               "ietf-tvr-topology:available": {
+                 "default-node-available": true,
+                 "schedule": []
+               },
+               "ietf-network-topology:termination-point": [
+                 {
+                   "tp-id": "tp-l1",
+                   "ietf-tvr-topology:available": {
+                     "default-link-available": true,
+                     "schedule": []
+                   }
+                 },
+                 {
+                   "tp-id": "tp-l3",
+                   "ietf-tvr-topology:available": {
+                     "default-link-available": true,
+                     "schedule": []
+                   }
+                 },
+                 {
+                   "tp-id": "tp-l5",
+                   "ietf-tvr-topology:available": {
+                     "default-link-available": false,
+                     "schedule": [
+                       {
+                         "schedule-id": 200,
+                         "recurrence-first": {
+                           "start-time-utc": "2026-01-01T08:00:00Z",
+                           "duration": 54000
+                         },
+                         "utc-until": "2027-01-01T00:00:00Z",
+                         "frequency": "ietf-schedule:daily",
+                         "link-attributes": {
+                           "link-available": true,
+                           "destination-nodes": ["example:2001:db8::3"],
+                           "strict-destination-checking": true
+                         }
+                       }
+                     ]
+                   }
+                 }
+               ]
+             },
+             {
+               "node-id": "example:2001:db8::3",
+               "ietf-tvr-topology:available": {
+                 "default-node-available": true,
+                 "schedule": []
+               },
+               "ietf-network-topology:termination-point": [
+                 {
+                   "tp-id": "tp-l2",
+                   "ietf-tvr-topology:available": {
+                     "default-link-available": true,
+                     "schedule": []
+                   }
+                 },
+                 {
+                   "tp-id": "tp-l4",
+                   "ietf-tvr-topology:available": {
+                     "default-link-available": true,
+                     "schedule": []
+                   }
+                 },
+                 {
+                   "tp-id": "tp-l5",
+                   "ietf-tvr-topology:available": {
+                     "default-link-available": false,
+                     "schedule": [
+                       {
+                         "schedule-id": 300,
+                         "recurrence-first": {
+                           "start-time-utc": "2026-01-01T08:00:00Z",
+                           "duration": 54000
+                         },
+                         "utc-until": "2027-01-01T00:00:00Z",
+                         "frequency": "ietf-schedule:daily",
+                         "link-attributes": {
+                           "link-available": true,
+                           "destination-nodes": ["example:2001:db8::2"],
+                           "strict-destination-checking": true
+                         }
+                       }
+                     ]
+                   }
+                 }
+               ]
+             },
+             {
+               "node-id": "example:2001:db8::4",
+               "ietf-tvr-topology:available": {
+                 "default-node-available": true,
+                 "schedule": []
+               },
+               "ietf-network-topology:termination-point": [
+                 {
+                   "tp-id": "tp-l3",
+                   "ietf-tvr-topology:available": {
+                     "default-link-available": true,
+                     "schedule": []
+                   }
+                 },
+                 {
+                   "tp-id": "tp-l4",
+                   "ietf-tvr-topology:available": {
+                     "default-link-available": true,
+                     "schedule": []
+                   }
+                 },
+                 {
+                   "tp-id": "tp-l6",
+                   "ietf-tvr-topology:available": {
+                     "default-link-available": false,
+                     "schedule": [
+                       {
+                         "schedule-id": 405,
+                         "recurrence-first": {
+                           "start-time-utc": "2026-01-01T08:00:00Z",
+                           "duration": 54000
+                         },
+                         "utc-until": "2027-01-01T00:00:00Z",
+                         "frequency": "ietf-schedule:daily",
+                         "link-attributes": {
+                           "link-available": true,
+                           "destination-nodes": ["example:2001:db8::1"],
+                           "strict-destination-checking": true
+                         }
+                       }
+                     ]
+                   }
+                 }
+               ]
+             }
+           ],
+           "ietf-network-topology:link": [
+             {
+               "link-id": "L1",
+               "source": {
+                 "source-node": "example:2001:db8::1",
+                 "source-tp": "tp-l1"
+               },
+               "destination": {
+                 "dest-node": "example:2001:db8::2",
+                 "dest-tp": "tp-l1"
+               }
+             },
+             {
+               "link-id": "L2",
+               "source": {
+                 "source-node": "example:2001:db8::1",
+                 "source-tp": "tp-l2"
+               },
+               "destination": {
+                 "dest-node": "example:2001:db8::3",
+                 "dest-tp": "tp-l2"
+               }
+             },
+             {
+               "link-id": "L3",
+               "source": {
+                 "source-node": "example:2001:db8::2",
+                 "source-tp": "tp-l3"
+               },
+               "destination": {
+                 "dest-node": "example:2001:db8::4",
+                 "dest-tp": "tp-l3"
+               }
+             },
+             {
+               "link-id": "L4",
+               "source": {
+                 "source-node": "example:2001:db8::3",
+                 "source-tp": "tp-l4"
+               },
+               "destination": {
+                 "dest-node": "example:2001:db8::4",
+                 "dest-tp": "tp-l4"
+               }
+             },
+             {
+               "link-id": "L5",
+               "source": {
+                 "source-node": "example:2001:db8::2",
+                 "source-tp": "tp-l5"
+               },
+               "destination": {
+                 "dest-node": "example:2001:db8::3",
+                 "dest-tp": "tp-l5"
+               }
+             },
+             {
+               "link-id": "L6",
+               "source": {
+                 "source-node": "example:2001:db8::1",
+                 "source-tp": "tp-l6"
+               },
+               "destination": {
+                 "dest-node": "example:2001:db8::4",
+                 "dest-tp": "tp-l6"
+               }
+             }
+           ]
+         }
+       ]
+     }
+   }
 
        Figure 9: JSON example of topology schedule for Tidal Network
 
@@ -1773,8 +1777,8 @@ A.4 Code Examples for "Mobile Satellites"
                       "schedule": [
                         {
                           "schedule-id": 100,
-                          "period-start": "2025-07-01T10:00:00Z",
-                          "duration": 420,
+                          "period-start": "2025-07-01T10:20:00Z",
+                          "duration": "PT00:07:00",
                           "scheduled-attributes": {
                             "available": true
                           }
@@ -1794,197 +1798,197 @@ A.4 Code Examples for "Mobile Satellites"
    corresponding topology YANG module JSON example is shown in
    Figure 12.
 
-   {
-     "ietf-network:networks": {
-       "network": [
-         {
-           "network-id": "network:ipv6-satellite",
-           "network-types": {
-             "ietf-tvr-topology:tvr-topology": null
+ {
+   "ietf-network:networks": {
+     "network": [
+       {
+         "network-id": "network:ipv6-satellite",
+         "network-types": {
+           "ietf-tvr-topology:tvr-topology": {}
+         },
+         "node": [
+           {
+             "node-id": "satellite:2001:db8::1",
+             "ietf-tvr-topology:available": {
+               "default-node-available": true,
+               "schedule": []
+             },
+             "ietf-network-topology:termination-point": [
+               {
+                 "tp-id": "tp-gs",
+                 "ietf-tvr-topology:available": {
+                   "default-link-available": false,
+                   "schedule": [
+                     {
+                       "schedule-id": 100,
+                       "recurrence-first": {
+                         "start-time-utc": "2025-07-01T10:20:00Z",
+                         "duration": 420
+                       },
+                       "link-attributes": {
+                         "link-available": true,
+                         "destination-nodes": ["gs:2001:db8::4"],
+                         "strict-destination-checking": true
+                       }
+                     }
+                   ]
+                 }
+               }
+             ]
            },
-           "node": [
-             {
-               "node-id": "satellite:2001:db8::1",
-               "ietf-tvr-topology:available": {
-                 "default-node-available": true,
-                 "schedule": []
-               },
-               "termination-point": [
-                 {
-                   "tp-id": "tp-gs",
-                   "ietf-tvr-topology:available": {
-                     "default-link-available": false,
-                     "schedule": [
-                       {
-                         "schedule-id": 100,
-                         "recurrence-first": {
-                           "start-time-utc": "2025-07-01T10:20:00Z",
-                           "duration": 420
-                         },
-                         "link-attributes": {
-                           "link-available": true,
-                           "destination-nodes": "gs:2001:db8::4",
-                           "strict-destination-checking": true
-                         }
-                       }
-                     ]
-                   }
-                 }
-               ]
+           {
+             "node-id": "satellite:2001:db8::2",
+             "ietf-tvr-topology:available": {
+               "default-node-available": true,
+               "schedule": []
              },
-             {
-               "node-id": "satellite:2001:db8::2",
-               "ietf-tvr-topology:available": {
-                 "default-node-available": true,
-                 "schedule": []
-               },
-               "termination-point": [
-                 {
-                   "tp-id": "tp-gs",
-                   "ietf-tvr-topology:available": {
-                     "default-link-available": false,
-                     "schedule": [
-                       {
-                         "schedule-id": 200,
-                         "recurrence-first": {
-                           "start-time-utc": "2025-07-01T10:10:00Z",
-                           "duration": 420
-                         },
-                         "link-attributes": {
-                           "link-available": true,
-                           "destination-nodes": "gs:2001:db8::4",
-                           "strict-destination-checking": true
-                         }
-                       }
-                     ]
-                   }
-                 }
-               ]
-             },
-             {
-               "node-id": "satellite:2001:db8::3",
-               "ietf-tvr-topology:available": {
-                 "default-node-available": true,
-                 "schedule": []
-               },
-               "termination-point": [
-                 {
-                   "tp-id": "tp-gs",
-                   "ietf-tvr-topology:available": {
-                     "default-link-available": false,
-                     "schedule": [
-                       {
-                         "schedule-id": 300,
-                         "recurrence-first": {
-                           "start-time-utc": "2025-07-01T10:00:00Z",
-                           "duration": 420
-                         },
-                         "link-attributes": {
-                           "link-available": true,
-                           "destination-nodes": "gs:2001:db8::4",
-                           "strict-destination-checking": true
-                         }
-                       }
-                     ]
-                   }
-                 }
-               ]
-             },
-             {
-               "node-id": "gs:2001:db8::4",
-               "ietf-tvr-topology:available": {
-                 "default-node-available": true,
-                 "schedule": []
-               },
-               "termination-point": [
-                 {
-                   "tp-id": "tp-1",
-                   "ietf-tvr-topology:available": {
-                     "default-link-available": false,
-                     "schedule": [
-                       {
-                         "schedule-id": 400,
-                         "recurrence-first": {
-                           "start-time-utc": "2025-07-01T10:00:00Z",
-                           "duration": 420
-                         },
-                         "link-attributes": {
-                           "link-available": true,
-                           "destination-nodes": "satellite:2001:db8::3",
-                           "strict-destination-checking": true
-                         }
+             "ietf-network-topology:termination-point": [
+               {
+                 "tp-id": "tp-gs",
+                 "ietf-tvr-topology:available": {
+                   "default-link-available": false,
+                   "schedule": [
+                     {
+                       "schedule-id": 200,
+                       "recurrence-first": {
+                         "start-time-utc": "2025-07-01T10:10:00Z",
+                         "duration": 420
                        },
-                       {
-                         "schedule-id": 401,
-                         "recurrence-first": {
-                           "start-time-utc": "2025-07-01T10:10:00Z",
-                           "duration": 420
-                         },
-                         "link-attributes": {
-                           "link-available": true,
-                           "destination-nodes": "satellite:2001:db8::2",
-                           "strict-destination-checking": true
-                         }
-                       },
-                       {
-                         "schedule-id": 402,
-                         "recurrence-first": {
-                           "start-time-utc": "2025-07-01T10:20:00Z",
-                           "duration": 420
-                         },
-                         "link-attributes": {
-                           "link-available": true,
-                           "destination-nodes": "satellite:2001:db8::1",
-                           "strict-destination-checking": true
-                         }
+                       "link-attributes": {
+                         "link-available": true,
+                         "destination-nodes": ["gs:2001:db8::4"],
+                         "strict-destination-checking": true
                        }
-                     ]
-                   }
+                     }
+                   ]
                  }
-               ]
-             }
-           ],
-           "ietf-network-topology:link": [
-             {
-               "link-id": "gs-s1",
-               "source": {
-                 "source-node": "satellite:2001:db8::1",
-                 "source-tp": "tp-gs"
-               },
-               "destination": {
-                 "dest-node": "satellite:2001:db8::4",
-                 "dest-tp": "tp-1"
                }
+             ]
+           },
+           {
+             "node-id": "satellite:2001:db8::3",
+             "ietf-tvr-topology:available": {
+               "default-node-available": true,
+               "schedule": []
              },
-             {
-               "link-id": "gs-s2",
-               "source": {
-                 "source-node": "satellite:2001:db8::2",
-                 "source-tp": "tp-gs"
-               },
-               "destination": {
-                 "dest-node": "satellite:2001:db8::4",
-                 "dest-tp": "tp-1"
+             "ietf-network-topology:termination-point": [
+               {
+                 "tp-id": "tp-gs",
+                 "ietf-tvr-topology:available": {
+                   "default-link-available": false,
+                   "schedule": [
+                     {
+                       "schedule-id": 300,
+                       "recurrence-first": {
+                         "start-time-utc": "2025-07-01T10:00:00Z",
+                         "duration": 420
+                       },
+                       "link-attributes": {
+                         "link-available": true,
+                         "destination-nodes": ["gs:2001:db8::4"],
+                         "strict-destination-checking": true
+                       }
+                     }
+                   ]
+                 }
                }
+             ]
+           },
+           {
+             "node-id": "gs:2001:db8::4",
+             "ietf-tvr-topology:available": {
+               "default-node-available": true,
+               "schedule": []
              },
-             {
-               "link-id": "gs-s3",
-               "source": {
-                 "source-node": "satellite:2001:db8::3",
-                 "source-tp": "tp-gs"
-               },
-               "destination": {
-                 "dest-node": "satellite:2001:db8::4",
-                 "dest-tp": "tp-1"
+             "ietf-network-topology:termination-point": [
+               {
+                 "tp-id": "tp-1",
+                 "ietf-tvr-topology:available": {
+                   "default-link-available": false,
+                   "schedule": [
+                     {
+                       "schedule-id": 400,
+                       "recurrence-first": {
+                         "start-time-utc": "2025-07-01T10:00:00Z",
+                         "duration": 420
+                       },
+                       "link-attributes": {
+                         "link-available": true,
+                         "destination-nodes": ["satellite:2001:db8::3"],
+                         "strict-destination-checking": true
+                       }
+                     },
+                     {
+                       "schedule-id": 401,
+                       "recurrence-first": {
+                         "start-time-utc": "2025-07-01T10:10:00Z",
+                         "duration": 420
+                       },
+                       "link-attributes": {
+                         "link-available": true,
+                         "destination-nodes": ["satellite:2001:db8::2"],
+                         "strict-destination-checking": true
+                       }
+                     },
+                     {
+                       "schedule-id": 402,
+                       "recurrence-first": {
+                         "start-time-utc": "2025-07-01T10:20:00Z",
+                         "duration": 420
+                       },
+                       "link-attributes": {
+                         "link-available": true,
+                         "destination-nodes": ["satellite:2001:db8::1"],
+                         "strict-destination-checking": true
+                       }
+                     }
+                   ]
+                 }
                }
+             ]
+           }
+         ],
+         "ietf-network-topology:link": [
+           {
+             "link-id": "gs-s1",
+             "source": {
+               "source-node": "satellite:2001:db8::1",
+               "source-tp": "tp-gs"
+             },
+             "destination": {
+               "dest-node": "gs:2001:db8::4",
+               "dest-tp": "tp-1"
              }
-           ]
-         }
-       ]
-     }
+           },
+           {
+             "link-id": "gs-s2",
+             "source": {
+               "source-node": "satellite:2001:db8::2",
+               "source-tp": "tp-gs"
+             },
+             "destination": {
+               "dest-node": "gs:2001:db8::4",
+               "dest-tp": "tp-1"
+             }
+           },
+           {
+             "link-id": "gs-s3",
+             "source": {
+               "source-node": "satellite:2001:db8::3",
+               "source-tp": "tp-gs"
+             },
+             "destination": {
+               "dest-node": "gs:2001:db8::4",
+               "dest-tp": "tp-1"
+             }
+           }
+         ]
+       }
+     ]
    }
+ }
 
-     Figure 12: JSON example of topology schedule for Mobile Satellites
+   Figure 12: JSON example of topology schedule for Mobile Satellites
 
 A.5 Code examples for "Predictable Moving Vessels"
 
