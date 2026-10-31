@@ -1,11 +1,11 @@
 # Applicability of TVR YANG Data Models for Scheduling of Network Resources
 
-This is the working area for the individual Internet-Draft, "Applicability of TVR YANG Data Models for Scheduling of Network Resources".
+This is the working area for the TVR WG Internet-Draft, "Applicability of TVR YANG Data Models for Scheduling of Network Resources".
 
-* [Editor's Copy](https://zhangli-abcd.github.io/TVR-Applicability-2/#go.draft-zdm-tvr-applicability.html)
-* [Datatracker Page](https://datatracker.ietf.org/doc/draft-zdm-tvr-applicability)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-zdm-tvr-applicability)
-* [Compare Editor's Copy to Individual Draft](https://zhangli-abcd.github.io/TVR-Applicability-2/#go.draft-zdm-tvr-applicability.diff)
+* [Editor's Copy](https://zhangli-abcd.github.io/TVR-Applicability/#go.draft-ietf-tvr-applicability.html)
+* [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-tvr-applicability)
+* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-ietf-tvr-applicability)
+* [Compare Editor's Copy to Individual Draft](https://zhangli-abcd.github.io/TVR-Applicability/#go.draft-ietf-tvr-applicability.diff)
 
 
 ## Contributing
