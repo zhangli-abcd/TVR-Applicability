@@ -5,11 +5,11 @@
 Time-Variant Routing                                            L. Zhang
 Internet-Draft                                                   J. Dong
 Intended status: Informational                                    Huawei
-Expires: 3 May 2027                                         M. Boucadair
+Expires: 4 May 2027                                         M. Boucadair
                                                                   Orange
                                                                  J. Wang
                                                             China Mobile
-                                                         30 October 2026
+                                                         31 October 2026
 
 
                  Applicability of TVR YANG Data Models
@@ -24,9 +24,9 @@ Abstract
    The TVR data model is defined to manage network resources and
    topologies with scheduled attributes.
 
-   This document describes when and which part of the TVR data model is
+   This document describes when and which parts of the TVR data model is
    applicable and why.  It also outlines the necessary IETF ancillary
-   technologies, operational and security considerations when deploying
+   technologies, operational, and security considerations when deploying
    TVR-based technologies.  Several examples of how to implement the TVR
    scheduling capabilities for key use cases are also provided in this
    document.
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 May 2027.
+   This Internet-Draft will expire on 4 May 2027.
 
 Copyright Notice
 
@@ -82,7 +82,7 @@ Table of Contents
      3.2.  Applicability of TVR Topology YANG Module
        3.2.1.  Interactions in Centralized Scenario
        3.2.2.  Interactions in Distributed Scenario
-     3.3.  Encoding of the YANG Model
+     3.3.  Encoding of the YANG Data Model
      3.4.  Management Protocols for TVR
    4.  Time Synchronization
      4.1.  Hardware-based Time Synchronization Mechanisms
@@ -116,12 +116,12 @@ Table of Contents
      9.1.  Normative References
      9.2.  Informative References
    Acknowledgments
-   Appendix A: Code Examples
-     A.1 Code Examples for "Energy-harvesting Wireless Sensor Network"
-     A.2 Code Examples for "Cellular Network"
-     A.3 Code Examples for "Tidal Network"
-     A.4 Code Examples for "Mobile Satellites"
-     A.5 Code examples for "Predictable Moving Vessels"
+   Code Examples
+     Energy-harvesting Wireless Sensor Network
+     Cellular Network
+     Tidal Network
+     Mobile Satellites
+     Predictable Moving Vessels
    Contributors
    Authors' Addresses
 
@@ -259,8 +259,8 @@ Table of Contents
    In the centralized scenario, the network managing entity generates
    and maintains schedules, the routing application is deployed in the
    network controller, and the network devices execute the schedules and
-   routing results.  The following figure shows the components of the
-   centralized scenario.
+   routing results.  Figure 1 shows the components of the centralized
+   scenario.
 
   +-----------------------------------------------------------------+
   |                        Managing Entity                          |
@@ -287,7 +287,7 @@ Table of Contents
 
    The managing entity needs to deliver the schedules of network
    topology to the network controller by "ietf-tvr-topology" module
-   Section 5.3 of [I-D.ietf-tvr-schedule-yang], so that the routing
+   (Section 5.3 of [I-D.ietf-tvr-schedule-yang]), so that the routing
    application in the controller can consider the impact of topology
    changes on routes when calculating routes.
 
@@ -299,8 +299,8 @@ Table of Contents
 
 3.2.2.  Interactions in Distributed Scenario
 
-   In the distributed scenario, the managing entity generates and
-   maintains schedules, the routing application is deployed in the
+   In the distributed scenario (Figure 2), the managing entity generates
+   and maintains schedules, the routing application is deployed in the
    network devices which also executes schedules and route calculation.
 
     +-------------------------------------------------+
@@ -327,24 +327,23 @@ Table of Contents
    controller.  The network devices report their own status data to the
    managing entity.
 
-3.3.  Encoding of the YANG Model
+3.3.  Encoding of the YANG Data Model
 
-   The TVR data model [I-D.ietf-tvr-schedule-yang] can manage network
-   resources and topologies with scheduled attributes.  There are
-   modules defined in the TVR data model, these are:
+   The TVR data model [I-D.ietf-tvr-schedule-yang] can be used to manage
+   network resources and topologies with scheduled attributes.  The
+   following YANG modules are defined in the TVR data model:
 
    *  The "ietf-tvr-schedule" module contains the schedule YANG
-      definitions.  This module uses groupings from [RFC9922] data
-      model;
+      definitions.  This module uses groupings from [RFC9922].
 
    *  The "ietf-tvr-topology" module defines a network topology with a
-      time-variant availability schedule;
+      time-variant availability schedule.
 
    *  The "ietf-tvr-node" module is to be used to manage the scheduled
       attributes of a single node.
 
-   To create a schedule, the following TVR data model objects and
-   subsequent branches are used:
+   To create a schedule, the following TVR data nodes and subsequent
+   branches are used:
 
    *  'node-schedule'
 
@@ -355,12 +354,10 @@ Table of Contents
    When using these YANG modules with NETCONF or RESTCONF,
    implementations SHOULD target the intended configuration datastore
    for schedule provisioning and MAY read from the operational datastore
-   to retrieve execution status and applied schedules.  Clients can use
-   NMDA (Network Management Datastore Architecture, [RFC8342])
-   operations to distinguish between intended configuration and actual
-   operational state.  For example, the managing entity writes schedules
-   to the intended or running datastore, and network devices report
-   execution status via the operational datastore.
+   to retrieve execution status and applied schedules.  For example, the
+   managing entity writes schedules to the intended or running
+   datastore, and network devices report execution status via the
+   operational datastore.
 
    An example for the encoding of "ietf-tvr-node" is provided below,
    where a wireless link is shut down for 12 hours, from 19:00 to 7am
@@ -410,7 +407,7 @@ Table of Contents
 3.4.  Management Protocols for TVR
 
    The TVR data model is designed to be accessed via YANG-based
-   management protocols such as NETCONF [RFC6241], RESTCONF [RFC8040]
+   management protocols such as NETCONF [RFC6241], RESTCONF [RFC8040],
    and CORECONF [I-D.ietf-core-comi-19].  This section discusses the
    applicability of these protocols for configuring time-variant network
    resources using the TVR YANG data models.
@@ -498,8 +495,8 @@ Table of Contents
    Operators SHOULD derive a maximum acceptable time-error bound based
    on the schedule granularity, execution jitter tolerance, and
    activation window requirements.  For instance, if a schedule has a
-   1-second activation window and the system can tolerate up to 100ms of
-   execution jitter, the time synchronization error MUST be kept well
+   1-second activation window and the system can tolerate up to 100 ms
+   of execution jitter, the time synchronization error MUST be kept well
    below 900ms.  The chosen time synchronization protocol and
    configuration MUST be capable of meeting this derived bound under all
    expected network conditions.
@@ -517,7 +514,7 @@ Table of Contents
    [RFC5905] and Simple Network Time Protocol (SNTP) [RFC4330].
 
    The security aspects of time synchronization mechanisms are discussed
-   further in Section 7 of this document.
+   further in Section 7.
 
 4.1.  Hardware-based Time Synchronization Mechanisms
 
@@ -1040,11 +1037,6 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-   [RFC8342]  Bjorklund, M., Schoenwaelder, J., Shafer, P., Watsen, K.,
-              and R. Wilton, "Network Management Datastore Architecture
-              (NMDA)", RFC 8342, DOI 10.17487/RFC8342, March 2018,
-              <https://www.rfc-editor.org/rfc/rfc8342>.
-
    [RFC9922]  Ma, Q., Ed., Wu, Q., Boucadair, M., Ed., and D. King, "A
               Common YANG Data Model for Scheduling", RFC 9922,
               DOI 10.17487/RFC9922, March 2026,
@@ -1096,17 +1088,17 @@ Table of Contents
 
 Acknowledgments
 
-   The authors would like to thank Ed Birrane, Adrian Farrel, Luis M.
-   Contreras for their valuable comments and suggestions.
+   The authors would like to thank Ed Birrane, Adrian Farrel, and Luis
+   M.  Contreras for their valuable comments and suggestions.
 
-Appendix A: Code Examples
+Code Examples
 
    All examples in this appendix are intended as [RFC7951] JSON instance
    data, following the YANG instance data encoding rules for JSON.  The
    duration field values are expressed in seconds unless otherwise
    noted.
 
-A.1 Code Examples for "Energy-harvesting Wireless Sensor Network"
+Energy-harvesting Wireless Sensor Network
 
    As described in Section 2.3 of [RFC9657], in an energy-harvesting
    wireless sensor network, nodes rely exclusively on environmental
@@ -1160,7 +1152,7 @@ A.1 Code Examples for "Energy-harvesting Wireless Sensor Network"
                 },
                 "ietf-network-topology:termination-point": [
                   {
-                    "tp-id": "tp-1",
+                    "tp-id": "example:tp-1",
                     "ietf-tvr-topology:available": {
                       "default-link-available": false,
                       "schedule": [
@@ -1191,7 +1183,7 @@ A.1 Code Examples for "Energy-harvesting Wireless Sensor Network"
                 },
                 "ietf-network-topology:termination-point": [
                   {
-                    "tp-id": "tp-1",
+                    "tp-id": "example:tp-1",
                     "ietf-tvr-topology:available": {
                       "default-link-available": false,
                       "schedule": [
@@ -1213,7 +1205,7 @@ A.1 Code Examples for "Energy-harvesting Wireless Sensor Network"
                     }
                   },
                   {
-                    "tp-id": "tp-2",
+                    "tp-id": "example:tp-2",
                     "ietf-tvr-topology:available": {
                       "default-link-available": false,
                       "schedule": [
@@ -1244,7 +1236,7 @@ A.1 Code Examples for "Energy-harvesting Wireless Sensor Network"
                 },
                 "ietf-network-topology:termination-point": [
                   {
-                    "tp-id": "tp-1",
+                    "tp-id": "example:tp-1",
                     "ietf-tvr-topology:available": {
                       "default-link-available": false,
                       "schedule": [
@@ -1300,15 +1292,16 @@ A.1 Code Examples for "Energy-harvesting Wireless Sensor Network"
      Figure 5: JSON example of topology schedule for Energy-harvesting
                           Wireless Sensor Network
 
-A.2 Code Examples for "Cellular Network"
+Cellular Network
 
    As described in Section 3.3 of [RFC9657], the "Cellular Network" is a
    network where the nodes operating over cellular connections that
    charge both peak and off-peak data rates.  In this case, individual
    nodes may be allocated a fixed set of "peak" minutes such that
    exceeding that amount of time results in expensive overage charges.
-   As a result, links are just available at specific "peak" minutes.  In
-   this scenario, both the TVR node YANG module and TVR topology YANG
+   As a result, links are just available at specific "peak" minutes.
+
+   In this scenario, both the TVR node YANG module and TVR topology YANG
    module are applicable to manage the state of node interfaces and
    deliver the predicted topology changes to each node.
 
@@ -1356,7 +1349,7 @@ A.2 Code Examples for "Cellular Network"
    The corresponding topology yang module JSON example is the same as
    Figure 5
 
-A.3 Code Examples for "Tidal Network"
+Tidal Network
 
    As described in Section 3.4 of [RFC9657], the "Tidal Network" is a
    network where traffic volume undergoes significant fluctuations at
@@ -1448,21 +1441,21 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
                },
                "ietf-network-topology:termination-point": [
                  {
-                   "tp-id": "tp-l1",
+                   "tp-id": "example:tp-l1",
                    "ietf-tvr-topology:available": {
                      "default-link-available": true,
                      "schedule": []
                    }
                  },
                  {
-                   "tp-id": "tp-l2",
+                   "tp-id": "example:tp-l2",
                    "ietf-tvr-topology:available": {
                      "default-link-available": true,
                      "schedule": []
                    }
                  },
                  {
-                   "tp-id": "tp-l6",
+                   "tp-id": "example:tp-l6",
                    "ietf-tvr-topology:available": {
                      "default-link-available": false,
                      "schedule": [
@@ -1493,21 +1486,21 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
                },
                "ietf-network-topology:termination-point": [
                  {
-                   "tp-id": "tp-l1",
+                   "tp-id": "example:tp-l1",
                    "ietf-tvr-topology:available": {
                      "default-link-available": true,
                      "schedule": []
                    }
                  },
                  {
-                   "tp-id": "tp-l3",
+                   "tp-id": "example:tp-l3",
                    "ietf-tvr-topology:available": {
                      "default-link-available": true,
                      "schedule": []
                    }
                  },
                  {
-                   "tp-id": "tp-l5",
+                   "tp-id": "example:tp-l5",
                    "ietf-tvr-topology:available": {
                      "default-link-available": false,
                      "schedule": [
@@ -1538,21 +1531,21 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
                },
                "ietf-network-topology:termination-point": [
                  {
-                   "tp-id": "tp-l2",
+                   "tp-id": "example:tp-l2",
                    "ietf-tvr-topology:available": {
                      "default-link-available": true,
                      "schedule": []
                    }
                  },
                  {
-                   "tp-id": "tp-l4",
+                   "tp-id": "example:tp-l4",
                    "ietf-tvr-topology:available": {
                      "default-link-available": true,
                      "schedule": []
                    }
                  },
                  {
-                   "tp-id": "tp-l5",
+                   "tp-id": "example:tp-l5",
                    "ietf-tvr-topology:available": {
                      "default-link-available": false,
                      "schedule": [
@@ -1583,21 +1576,21 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
                },
                "ietf-network-topology:termination-point": [
                  {
-                   "tp-id": "tp-l3",
+                   "tp-id": "example:tp-l3",
                    "ietf-tvr-topology:available": {
                      "default-link-available": true,
                      "schedule": []
                    }
                  },
                  {
-                   "tp-id": "tp-l4",
+                   "tp-id": "example:tp-l4",
                    "ietf-tvr-topology:available": {
                      "default-link-available": true,
                      "schedule": []
                    }
                  },
                  {
-                   "tp-id": "tp-l6",
+                   "tp-id": "example:tp-l6",
                    "ietf-tvr-topology:available": {
                      "default-link-available": false,
                      "schedule": [
@@ -1696,7 +1689,7 @@ Topology1 (8:00-23:00 everyday)     Topology 2(23:00-23:59 and 00:00-08:00 every
 
        Figure 9: JSON example of topology schedule for Tidal Network
 
-A.4 Code Examples for "Mobile Satellites"
+Mobile Satellites
 
    As described in Section 4.3 of [RFC9657], the "Mobile Satellites"
    generally refers to the Low Earth Orbit (LEO) network, which includes
@@ -1815,7 +1808,7 @@ A.4 Code Examples for "Mobile Satellites"
              },
              "ietf-network-topology:termination-point": [
                {
-                 "tp-id": "tp-gs",
+                 "tp-id": "example:tp-gs",
                  "ietf-tvr-topology:available": {
                    "default-link-available": false,
                    "schedule": [
@@ -1844,7 +1837,7 @@ A.4 Code Examples for "Mobile Satellites"
              },
              "ietf-network-topology:termination-point": [
                {
-                 "tp-id": "tp-gs",
+                 "tp-id": "example:tp-gs",
                  "ietf-tvr-topology:available": {
                    "default-link-available": false,
                    "schedule": [
@@ -1873,7 +1866,7 @@ A.4 Code Examples for "Mobile Satellites"
              },
              "ietf-network-topology:termination-point": [
                {
-                 "tp-id": "tp-gs",
+                 "tp-id": "example:tp-gs",
                  "ietf-tvr-topology:available": {
                    "default-link-available": false,
                    "schedule": [
@@ -1902,7 +1895,7 @@ A.4 Code Examples for "Mobile Satellites"
              },
              "ietf-network-topology:termination-point": [
                {
-                 "tp-id": "tp-1",
+                 "tp-id": "example:tp-1",
                  "ietf-tvr-topology:available": {
                    "default-link-available": false,
                    "schedule": [
@@ -1990,7 +1983,7 @@ A.4 Code Examples for "Mobile Satellites"
 
    Figure 12: JSON example of topology schedule for Mobile Satellites
 
-A.5 Code examples for "Predictable Moving Vessels"
+Predictable Moving Vessels
 
    As described in Section 4.4 of [RFC9657], the "Predictable Moving
    Vessels" involves the movement of vessels with predictable
